@@ -640,7 +640,7 @@ class Amadex_Tabbed_Search
             }
         </style>
 
-        <div id="<?php echo esc_attr($uid); ?>">
+        <div id="<?php echo esc_attr($uid); ?>" class="ats-container">
 
             <!-- Box -->
             <div class="ats-box">
