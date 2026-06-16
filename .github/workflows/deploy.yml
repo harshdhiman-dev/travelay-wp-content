@@ -2,14 +2,17 @@ name: Deploy to Hostinger
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Deploy via SFTP
         uses: pressidium/lftp-mirror-action@v1
@@ -17,9 +20,17 @@ jobs:
           host: ${{ secrets.FTP_HOST }}
           user: ${{ secrets.FTP_USER }}
           pass: ${{ secrets.FTP_PASS }}
-          remoteDir: ${{ secrets.FTP_REMOTE_PATH }}
-          localDir: './'
-          options: '--verbose --no-perms --parallel=10'
-          settings: 'sftp:auto-confirm yes; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 3;'
-          port: 65002
+
           protocol: sftp
+          port: 65002
+
+          localDir: ./
+          remoteDir: ${{ secrets.FTP_REMOTE_PATH }}
+
+          options: --verbose --no-perms --parallel=10
+
+          settings: |
+            sftp:auto-confirm yes
+            ssl:verify-certificate no
+            net:timeout 60
+            net:max-retries 3
