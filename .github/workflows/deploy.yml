@@ -7,16 +7,19 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
       - name: Deploy via SFTP
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: pressidium/lftp-mirror-action@v1
         with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASS }}
-          port: ${{ secrets.SSH_PORT }}
-          local_path: './*'
-          remote_path: ${{ secrets.FTP_REMOTE_PATH }}
-          sftp_only: true
+          host: ${{ secrets.FTP_HOST }}
+          user: ${{ secrets.FTP_USER }}
+          pass: ${{ secrets.FTP_PASS }}
+          remoteDir: ${{ secrets.FTP_REMOTE_PATH }}
+          localDir: './'
+          options: '--verbose --no-perms --parallel=10'
+          settings: 'sftp:auto-confirm yes; set ssl:verify-certificate false; set net:timeout 60; set net:max-retries 3;'
+          port: 65002
+          protocol: sftp
