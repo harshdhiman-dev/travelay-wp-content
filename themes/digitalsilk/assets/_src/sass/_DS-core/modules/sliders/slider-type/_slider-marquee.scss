@@ -1,0 +1,179 @@
+/* CSS-only Marquee Style */
+
+.m-marquee {
+
+  &.container-fluid{
+	padding-inline: 0;
+  }
+
+  &__container {
+	//		--dst--marquee-offset: calc(-100% - var(--dst--marquee-gap, 20px));
+	position: relative;
+	display: flex;
+	padding-block: 3rem;
+	overflow: hidden;
+	user-select: none;
+	gap: var(--dst--marquee-gap, 20px);
+
+	/* Container Fit Content */
+	&.is-fit-content {
+	  max-width: fit-content;
+	  margin: auto;
+	}
+
+	&.is-absolute {
+
+	  /* A fit-content sizing fix: Absolute position the duplicate container.
+	  This will set the size of the parent wrapper to a single child container.
+	  Shout out to Olavi's article that had this solution 👏
+	  @link: https://olavihaapala.fi/2021/02/23/modern-marquee.html  */
+	  .m-marquee__wrapper:last-child {
+		position: absolute;
+		top: 0;
+		left: 0;
+	  }
+
+	  /* Enable position absolute animation on the duplicate content (last-child) */
+	  &[data-slider-autoplay='true'] {
+
+		.m-marquee__wrapper:last-child {
+		  animation-name: marquee-scroll-abs;
+		}
+	  }
+	}
+
+	/* Vertical Orientation */
+	&.is-vertical {
+	  flex-direction: column;
+	  padding-block: 0;
+	}
+
+	/* Autoplay Animation */
+	&[data-slider-pause='true']:hover {
+
+	  .m-marquee__wrapper {
+		animation-play-state: paused;
+	  }
+	}
+  }
+
+  &__wrapper {
+	display: flex;
+	justify-content: space-around;
+	flex-shrink: 0;
+	gap: var(--dst--marquee-gap, 20px);
+	min-width: 100%;
+	will-change: transform;
+
+	> * {
+	  flex: 0 0 auto;
+	  text-align: center;
+	}
+
+	/* Animation Play */
+
+	/* Play only when in viewport */
+	.in-view &,
+	.wp-admin & {
+	  animation: marquee-scroll var(--dst--marquee-interval, 20s) linear infinite;
+	}
+
+	/* Reverse Animation */
+	.wp-admin [data-slider-reversed='true'] &,
+	.in-view[data-slider-reversed='true'] &,
+	.is-vertical[data-slider-reversed='true'] & {
+	  animation-direction: reverse;
+	}
+
+	.is-vertical & {
+	  flex-direction: column;
+	  animation: marquee-scroll-vertical var(--dst--marquee-interval, 20s) linear infinite;
+	}
+
+  }
+
+  &__slide {
+	min-width: 20.4rem;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all .375s ease-in-out;
+	border-radius: 2rem;
+
+
+	/* Greyscale Images */
+	.is-greyscale & {
+	  filter: grayscale(1);
+	  cursor: pointer;
+	  opacity: 0.2;
+
+	  &.--hovered {
+		filter: grayscale(0);
+		opacity: 1;
+		background-color: var(--dst--secondary-color1);
+		box-shadow: 0 2rem 2rem -9px rgba(0, 0, 0, 0.1);
+	  }
+
+	  &.--hovered-next, &.--hovered-prev {
+		opacity: .6;
+	  }
+
+	  &.--hovered--next, &.--hovered--prev {
+		opacity: .4;
+	  }
+	}
+  }
+
+  .c-picture {
+
+	img {
+	  max-height: var(--dst--marquee-max-height, 80px);
+	  max-width: var(--dst--marquee-max-width, 100%);
+	  object-fit: contain;
+	  width: auto;
+	}
+  }
+}
+
+/* Pause animation when reduced-motion is set */
+@media (prefers-reduced-motion: reduce) {
+
+  .m-marquee__wrapper {
+	animation-play-state: paused !important;
+  }
+}
+
+@keyframes marquee-scroll {
+
+  from {
+	transform: translateX(0);
+  }
+
+  to {
+	transform: translateX(calc(-100% - var(--dst--marquee-gap, 20px)));
+  }
+}
+
+@keyframes marquee-scroll-vertical {
+
+  from {
+	transform: translateY(0);
+  }
+
+  to {
+	transform: translateY(calc(-100% - var(--dst--marquee-gap, 20px)));
+  }
+}
+
+@keyframes marquee-scroll-abs {
+
+  from {
+	transform: translateX(calc(100% + var(--dst--marquee-gap, 20px)));
+  }
+
+  to {
+	transform: translateX(0);
+  }
+
+}

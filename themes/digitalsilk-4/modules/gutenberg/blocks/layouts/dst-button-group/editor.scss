@@ -1,0 +1,33 @@
+.dst-button-group {
+
+	width: 100%;
+
+	/**
+	* Change block appender appearance.
+	* We need to nest it in multiple selectors in order to override the default styles.
+	*/
+	> .block-list-appender {
+		width: 100%;
+		bottom: 0;
+		display: none;
+		position: absolute;
+
+		> .dst-button-group-appender {
+
+			> button.components-button {
+
+				&::after {
+					content: attr(aria-label);
+					white-space: nowrap;
+				}
+			}
+		}
+	}
+
+	&.is-selected {
+
+		> .block-list-appender {
+			display: block;
+		}
+	}
+}

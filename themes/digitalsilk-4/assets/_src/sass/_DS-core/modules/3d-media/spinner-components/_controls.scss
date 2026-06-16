@@ -1,0 +1,64 @@
+.m-image-spinner {
+
+	.image-spinner {
+
+		&__controls {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translateY(-50%);
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 10px;
+		}
+
+		&__fraction {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+		}
+
+		.spinner-ctrl {
+
+			&-pause {
+				display: none;
+			}
+
+			&-zoomout {
+				display: none;
+			}
+		}
+	}
+
+	&.is-playing {
+
+		.spinner-ctrl {
+
+			&-play {
+				display: none;
+			}
+
+			&-pause {
+				display: block;
+			}
+		}
+	}
+
+	&.is-zoom {
+
+		.spinner-ctrl {
+
+			&-zoomin {
+				display: none;
+			}
+
+			&-zoomout {
+				display: block;
+			}
+		}
+	}
+}

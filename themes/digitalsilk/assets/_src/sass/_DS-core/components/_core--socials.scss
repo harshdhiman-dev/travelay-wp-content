@@ -1,0 +1,42 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+.social-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, var(--social-icon-size, 38px));
+	grid-auto-flow: column;
+	gap: var(--social-icon-gap, 10px);
+	padding: 0;
+	list-style: none;
+
+	@include media("<=desktop") {
+		justify-content: center;
+		margin-bottom: 30px;
+	}
+
+	&__item {
+		align-items: center;
+	}
+
+	&__icon {
+		max-width: var(--social-icon-inner, 60%);
+		max-height: var(--social-icon-inner, 60%);
+		color: var(--social-icon-color, var(--dst--btn-primary-color));
+		transition: all var(--dst--transition);
+		margin: auto;
+	}
+
+	&__link {
+		border-radius: var(--social-icon-radius, 50%);
+		background-color: var(--social-icon-bg, var(--dst--btn-primary-bg));
+		width: var(--social-icon-size, 40px);
+		height: var(--social-icon-size, 40px);
+		display: flex;
+		transition: all var(--dst--transition) ease-in-out;
+
+		&:hover {
+			--social-icon-bg: var(--social-icon-bg-hover, var(--dst--secondary-color2));
+			--social-icon-color: var(--social-icon-color-hover, var(--dst--secondary-color1));
+			transform: scale(1.05);
+		}
+	}
+}

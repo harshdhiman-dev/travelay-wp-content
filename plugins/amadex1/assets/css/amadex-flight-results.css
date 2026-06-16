@@ -1,0 +1,978 @@
+/**
+ * Amadex Flight Results Page
+ * Styles for the flight-results page (shortcode: amadex_flight_results).
+ * Layout: results container, filters sidebar, sort bar, flight cards, boarding pass header, price/actions.
+ * Keep all flight-results page design changes in this file.
+ */
+
+/* ========== Results Page Container ========== */
+.amadex-results-page {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.amadex-results-content-wrapper {
+    width: 100%;
+    background-color: #EEF9F2;
+    padding: 8px 0;
+}
+
+/* .amadex-results-content {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px;
+} */
+
+/* ========== Filters Sidebar ========== */
+.amadex-filters-sidebar {
+    padding: 15px;
+    position: sticky;
+    top: 24px;
+    height: fit-content;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 15px #00000029;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.amadex-filters-sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    .amadex-time-icon svg {
+    width: 40px;
+    height: 30px;
+    fill: currentColor;
+   }
+    .amadex-filters-sidebar {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .amadex-aircraft-tooltip.amadex-aircraft-tooltip-click.amadex-aircraft-tooltip-visible {
+    display: none;
+}
+        .amadex-flight-card-main .amadex-flight-card-price {
+        padding-top: 10px !important; gap: 5px!important;
+        border-left: none;
+        border-top: none;
+        min-width: auto;
+        padding: 10px !important;
+        display: flex !important;
+        margin-top: 35px;
+        
+    }
+    .amadex-flight-seats{
+        margin-top: -16px;
+    }
+   
+   .amadex-flight-class-wrapper {
+        margin-top: -40px !important;
+    }
+    .amadex-mobile-filter-modal .amadex-filters-sidebar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        height: auto !important;
+        overflow: visible !important;
+        position: static !important;
+        left: auto !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        flex-direction: column !important;
+    }
+    .amadex-header-subtitle {
+        left: 50px!important;
+        bottom: 8px;
+        font-size: 9px;
+        text-align: left!importantimportant;
+    }
+    span.amadex-ticket-svg {
+        width: 24px;
+        height: 24px;
+    }
+    .amadex-leg-meta {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+    .amadex-boarding-pass-text {
+        font-size: 14px;
+        margin-top: -12px;
+    }
+   .amadex-flight-card-price {
+            display: grid !important;
+            grid-template-columns: 1fr auto;
+            gap: 5px;
+            align-items: start;
+            flex-direction: unset;
+            flex-wrap: unset;
+            justify-content: unset;
+    }
+      .amadex-flight-price-wrapper {
+        margin-top: 22px;
+    }
+.amadex-viewers-badge-top-left {
+    bottom: 10rem !important;
+    right: 0 !important;
+    height: fit-content;
+}
+    .amadex-flight-card-price .amadex-book-now-btn {
+        min-width: 100% !important;
+        min-height: 40px !important;
+        font-size: 14px !important;
+    }
+    .amadex-search-bar-container .amadex-modern-form {
+        margin-top: 18px;
+    }
+}
+
+/*@media only screen and (min-width: 768px) {*/
+@media (min-width: 768px) and (max-width: 1024px) {
+    .amadex-results-page {
+        overflow: hidden;
+    }
+    
+    /* .amadex-trip-selector {
+    background: #F3F3F3 !important;
+    border-radius: 50px !important;
+    width: 80% !important;
+    padding: 10px !important;
+    margin: 0 auto;
+} */
+    button#amadex-modify-search-btn {
+    margin-top: 5px !important;
+   }
+   /* .amadex-multi-city-flights button.amadex-swap-button {
+    top: 5.6rem !important;
+    } */
+
+    .amadex-results-content-wrapper, .amadex-search-bar-wrapper {
+        padding: 0;
+    }
+    .amadex-mobile-sort-bar {
+        display: block!important;
+    }
+    
+    .amadex-filters-sidebar {
+    display: none !important;
+}
+    
+    .amadex-sort-tabs {
+    gap: 2px!important;
+    flex-wrap: nowrap;
+    padding: 6px 10px;
+    }
+    
+    .amadex-time-card{
+        width: 100%;
+    }
+    .amadex-filter-options {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+    
+    .amadex-flight-card-main {
+        padding: 10px 15px;
+    }
+    
+    /*.amadex-flight-card-price {*/
+    /*    padding: 0;*/
+    /*}*/
+    
+    .amadex-results-header-mobile {
+    display: none;
+    }
+    
+    .amadex-filters-sidebar {
+        /*display: flex !important;*/
+         display: none;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: sticky !important;
+        height: fit-content !important;
+        max-height: calc(100vh - 80px) !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        width: auto !important;
+        padding: 15px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+     .amadex-results-sort-bar {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: static !important;
+        height: auto !important;
+        overflow: visible !important;
+        width: 100% !important;
+        padding: 12px 0 !important;
+        margin: 0 auto 15px !important;
+     }
+    .amadex-route-header {
+    display: none;
+    }
+    
+   .amadex-results-content-wrapper {
+        width: 100%;
+    }
+    
+    .amadex-results-content {
+        max-width: 1500px;
+        grid-template-columns: 320px 1fr;
+        gap: 28px;
+        padding: 0 20px;
+    }
+    
+    .amadex-results-main {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .amadex-results-sort-bar {
+        width: 100%;
+    }
+    
+      .amadex-results-content-wrapper {
+        width: 100%;
+    }
+    
+    .amadex-results-content {
+        max-width: 1500px;
+        /*grid-template-columns: 320px 1fr;*/
+          grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 0 20px;
+    }
+    
+    .amadex-results-main {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .amadex-results-sort-bar {
+        width: 100%;
+    }
+    
+    .amadex-results-page .amadex-search-summary-modern button.amadex-swap-button {
+    margin-left: 32.2rem !important;
+    top: 5.5rem !important;
+    }
+    
+    .amadex-modern-field.amadex-date-field {
+        width: 100% !important;
+    }
+    .amadex-flight-card-price{
+        flex-direction: row!important;
+        padding: 10px 0 0 0!important;
+        gap: 10px!important;
+    }
+    .amadex-flight-card-price .amadex-flight-price {
+      font-size: 18px!important;
+     }
+    .amadex-mobile-sort-bar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    max-width: 100%;
+    }
+    /* .amadex-modern-form {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 20px 16px;
+    border: none !important;
+    margin: 0;
+   } */
+   /* .amadex-trip-selector {
+    background: #F3F3F3 !important;
+    border-radius: 20px !important;
+    width: 80% !important;
+    padding: 10px !important;
+    margin: 0 auto;
+  } */
+   .amadex-modern-field.amadex-date-field{
+       align-items: flex-start!important;
+   }
+   .amadex-flight-segment{
+       padding: 0;
+   }
+    a.amadex-price-box-call.amadex-call-btn {
+        height: 48px!important;
+    }
+    .amadex-whatsapp-compact-btn{
+        margin-top: 15px;
+    }
+    .amadex-booking-page .amadex-mobile-sort-bar {
+    display: none !important;
+     }
+     .amadex-booking-header {
+         margin-bottom: 15px;
+     }
+      .amadex-mobile-sort-btn.active {
+        background: #EEF9F2;
+        color: #0E7D3F;
+        border-color: #0E7D3F;
+    }
+
+    /* .amadex-mobile-sort-btn {
+        padding: 8px 16px;
+        border: 1px solid #E6E6E6;
+        border-radius: 20px;
+        background: #ffffff;
+        color: #0E7D3F;
+        font-size: 14px;
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        user-select: none;
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      } */
+     svg#amadex-mobile-filter-icon {
+    width: 35px !important;
+    height: 35px;
+    }
+   .amadex-viewers-badge-top-left {
+    bottom: 10rem !important;
+    right: 0 !important;
+    height: fit-content;
+}
+    .amadex-suggestions-dropdown.active, .amadex-autocomplete-list.active, #origin-suggestions.active, #destination-suggestions.active {
+        z-index: 99999 !important;
+    }
+}
+
+
+
+/* =------------------------end tablet media query -------------------------------*/
+
+
+
+.amadex-filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.amadex-filters-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+    margin-bottom: 0 !important;
+}
+
+.amadex-results-count {
+    display: block;
+    font-size: 13px;
+    color: #6B7280;
+    margin-top: 4px;
+    display: none;
+}
+
+.amadex-clear-filters {
+    background: #F0FDF4;
+    border: 1px solid #C4E5D3;
+    color: #0E7D3F;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.amadex-clear-filters:hover {
+    background: #0E7D3F;
+    color: #fff;
+    border-color: #0E7D3F;
+}
+
+/* ========== Main Results Area ========== */
+.amadex-results-main {
+    width: 100%;
+    max-width: 100%;
+    background: #eef9f2;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== Results Sort Bar ========== */
+.amadex-results-sort-bar {
+    margin: 0;
+    width: 100%;
+    border-radius: 999px;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+@media (max-width: 767px) {
+    .amadex-viewers-badge.amadex-viewers-badge-top-left {
+    left: unset;
+    top: 4rem;
+}
+    .amadex-results-sort-bar {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+
+.amadex-sort-tabs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 0px #00000029;
+    border-radius: 18px;
+    padding: 6px 15px;
+}
+
+.sort-tab {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 999px;
+    font-weight: 500;
+    color: #111827;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none;
+    font-size: 15px;
+}
+
+
+
+.amadex-results-available {
+    font-weight: 500;
+    color: #000000;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+/* ========== Flight Card ========== */
+.amadex-flight-card {
+    background: #FFFFFF;
+    border: 1.5px solid #0E7D3F;
+    border-radius: 20px;
+    padding: 0;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M50,20 Q100,10 150,20 T250,20" stroke="%23E5E7EB" stroke-width="0.5" fill="none" opacity="0.3"/><path d="M30,80 Q80,70 130,80 T230,80" stroke="%23E5E7EB" stroke-width="0.5" fill="none" opacity="0.3"/><path d="M40,140 Q90,130 140,140 T240,140" stroke="%23E5E7EB" stroke-width="0.5" fill="none" opacity="0.3"/><path d="M60,180 Q110,170 160,180 T260,180" stroke="%23E5E7EB" stroke-width="0.5" fill="none" opacity="0.3"/><circle cx="80" cy="60" r="8" fill="%23E5E7EB" opacity="0.2"/><circle cx="120" cy="100" r="6" fill="%23E5E7EB" opacity="0.2"/><circle cx="140" cy="150" r="7" fill="%23E5E7EB" opacity="0.2"/></svg>');
+    background-size: 400px 400px;
+    background-position: center;
+    background-repeat: repeat;
+}
+
+.amadex-flight-card:hover {
+    box-shadow: none;
+}
+
+/* .amadex-flight-card-info {
+    padding-right: 10px !important;
+    flex: 1 1 75%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-self: stretch;
+} */
+
+.amadex-flight-card-main {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 20px;
+    position: relative;
+    z-index: 2;
+    min-height: 0;
+}
+
+/* Boarding Pass Header (on each flight card) */
+.amadex-boarding-pass-header {
+    background: transparent linear-gradient(90deg, #0D7C3E 0%, #0E7D3F 46%, #073E1F 100%) 0% 0% no-repeat padding-box;
+    color: #FFFFFF;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 20px 20px 0 0;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+span.amadex-ticket-svg {
+    background: #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.amadex-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+
+.amadex-header-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+    padding-left: 20px;
+}
+
+.amadex-header-right::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.amadex-results-header-dates {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.9em;
+    opacity: 0.95;
+}
+
+.amadex-results-header-dates span + span {
+    margin-left: 4px;
+}
+
+.amadex-boarding-pass-header .amadex-header-plane-icon {
+    width: 18px;
+    height: 11px;
+    fill: currentColor;
+    flex-shrink: 0;
+    display: block;
+}
+
+.amadex-boarding-pass-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.amadex-header-subtitle {
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    opacity: 0.95;
+    text-transform: none;
+}
+
+.amadex-verified-flight-text {
+    white-space: nowrap;
+}
+
+.amadex-boarding-pass-content {
+    position: relative;
+    display: flex;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    background: transparent linear-gradient(90deg, #0D7C3E 0%, #0E7D3F 46%, #073E1F 100%) 0% 0% no-repeat padding-box;
+}
+.amadex-perforated-line {
+    display: none;
+}
+
+.amadex-flight-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amadex-flight-card-header:empty {
+    display: none;
+}
+
+.amadex-flight-card {
+    border: none;
+}
+
+/* Flight card price block & actions */
+.amadex-flight-card-price {
+    flex: 0 0 25%;
+    min-width: 200px;
+    max-width: 250px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-self: stretch;
+    justify-content: flex-start;
+}
+
+.amadex-flight-price-wrapper {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 4px;
+    line-height: 1.2;
+}
+
+.amadex-flight-price-wrapper .amadex-flight-price-note {
+    font-size: 12px;
+    color: #707070;
+    font-weight: 400;
+    display: inline-block;
+}
+
+.amadex-flight-card-price .amadex-flight-price{
+    font-size: 24px;
+    font-weight: 700;
+    color: #0B3D1F;
+    display: inline-block;
+}
+
+span.amadex-verified-flight-text {
+    background: #073E1F 0% 0% no-repeat padding-box;
+    border: 1px dashed #FFFFFF;
+    border-radius: 54px;
+    padding: 4px 10px;
+}
+
+.amadex-flight-price-wrapper .amadex-flight-price-note {
+    font-size: 8px;
+    color: #707070;
+    font-weight: 400;
+}
+
+.amadex-flight-price-notes {
+    font-size: 12px;
+    color: #9CA3AF;
+    margin-bottom: 8px;
+    display: none!important;
+}
+
+.amadex-viewers-badge-top-left {
+    border-radius: 10px;
+    bottom: 4rem;
+    right: 26.5rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.amadex-book-now-btn {
+    width: 100%;
+    border: 2px solid #0E7D3F;
+    color: #0E7D3F;
+    font-weight: 700;
+    border-radius: 16px;
+    padding: 12px 18px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.amadex-flight-card-price {
+    border-left: 1px solid rgb(230, 230, 230);
+}
+
+.amadex-price-box-select {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #0E7D3F;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+button.amadex-price-box-select.amadex-select-flight-btn {
+    display: none;
+}
+
+.amadex-price-box-call {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #0E7D3F;
+    color: #ffffff;
+    border-radius: 999px;
+    padding: 12px 18px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.amadex-price-box-call .amadex-phone-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.amadex-price-box-call .amadex-phone-icon svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.amadex-flight-card.is-oneway-card .amadex-flight-legs {
+    grid-template-columns: 1fr;
+}
+
+.amadex-flight-card.flight-selected {
+    border: 2px solid #0e7d3f;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    background: #F0FDF4;
+}
+
+.amadex-flights-list.amadex-filters-applying .amadex-flight-cards-container {
+    opacity: 0.7;
+    transition: opacity 0.12s ease;
+}
+
+/* ========== Responsive: Results layout ========== */
+
+@media only screen and (min-width: 1024px) {
+    .amadex-results-content {
+        max-width: 1500px;
+        grid-template-columns: 320px 1fr;
+        gap: 28px;
+        padding: 0 20px;
+    }
+}
+
+@media only screen and (min-width: 1280px) {
+    .amadex-results-content {
+        max-width: 1500px;
+    }
+}
+
+@media (max-width: 767px) {
+    .amadex-results-content-wrapper {
+        padding: 16px 0;
+        width: 100%;
+    }
+    /* .amadex-results-content {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+        max-width: 100%;
+    } */
+    .amadex-results-main {
+        width: 100%;
+        max-width: 100%;
+    }
+    .amadex-filters-sidebar {
+        position: static;
+        margin-bottom: 20px;
+    }
+}
+
+/* ========== Responsive: Flight card & price (mobile two-column: info left, buttons right) ========== */
+@media (max-width: 1024px) {
+    .amadex-flight-card-main {
+        flex-direction: column;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .amadex-boarding-pass-content {
+        padding: 0;
+    }
+    .amadex-perforated-line {
+        display: none;
+    }
+    .amadex-flight-card-price {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 100%;
+        border-left: none;
+        border-top: 1px solid #E4E4E7;
+        padding-top: 16px;
+        padding-left: 0;
+        align-self: stretch;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px 20px;
+        align-items: start;
+    }
+    .amadex-flight-card-price .amadex-flight-card-header,
+    .amadex-flight-card-price .amadex-flight-class-wrapper,
+    .amadex-flight-card-price .amadex-flight-policy-badges,
+    .amadex-flight-card-price .amadex-flight-price-wrapper {
+        grid-column: 1;
+    }
+    .amadex-flight-card-price > .amadex-flight-price-note {
+        grid-column: 1;
+    }
+    .amadex-flight-card-price .amadex-book-now-btn {
+        grid-column: 2;
+        grid-row: 1;
+        width: auto;
+        min-width: 130px;
+        justify-self: end;
+        min-height: 44px;
+    }
+    .amadex-flight-card-price .amadex-price-box-select {
+        grid-column: 2;
+        grid-row: 2;
+        width: auto;
+        min-width: 130px;
+        justify-self: end;
+        display: none;
+    }
+    .amadex-flight-card-price .amadex-price-box-call {
+        grid-column: 2;
+        grid-row: 2;
+        width: auto;
+        min-width: 130px;
+        justify-self: end;
+        min-height: 35px;
+        margin-top: 0;
+    }
+    .amadex-flight-card-info {
+        flex: 1 1 100%;
+        align-self: stretch;
+    }
+}
+
+@media (max-width: 640px) {
+    .amadex-boarding-pass-header {
+        padding: 10px 12px;
+        font-size: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        position: relative;
+    }
+    .amadex-header-left {
+        flex: 1 1 auto;
+        min-width: 0;
+        justify-content: flex-start;
+        align-items: center;
+        padding-right: 10px;
+    }
+    .amadex-header-right {
+        flex: 0 0 auto;
+        padding-left: 0;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .amadex-header-right::before {
+        display: none;
+    }
+    .amadex-boarding-pass-header .amadex-header-plane-icon {
+        width: 14px;
+        height: 14px;
+    }
+    .amadex-boarding-pass-text {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+    }
+    /* .amadex-header-subtitle {
+        font-size: 9px;
+        display: block;
+        position: absolute;
+        left: 16px;
+        right: 16px;
+        bottom: 8px;
+        width: auto;
+        margin: 0;
+        text-align: left;
+        padding-top: 6px;
+        white-space: normal;
+        box-sizing: border-box;
+    } */
+     .amadex-header-subtitle {
+    font-size: 8px;
+    display: flex;
+    width: fit-content;
+}
+    .amadex-verified-flight-text {
+        font-size: 7px;
+        white-space: nowrap;
+    }
+    .amadex-boarding-pass-content {
+        padding: 0;
+    }
+    .amadex-flight-card-main {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .amadex-flight-card-price {
+        padding-top: 12px;
+    }
+    .amadex-perforated-line {
+        display: none;
+    }
+}

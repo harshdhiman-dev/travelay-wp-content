@@ -1,0 +1,45 @@
+@use "../../../_DS-core/modules/sliders/slider-type/slider-logos";
+@use "../../../_DS-core/modules/sliders/slider-type/slider-marquee";
+
+.slider-logos {
+
+	.m-slider__slide {
+
+	}
+
+	.m-slide__media {
+
+		img {
+
+		}
+	}
+
+	.m-slider__pagination {
+		--swiper-pagination-bottom: -20px;
+	}
+}
+
+
+/* Vertical Marquee Layout */
+.m-marquee__slide {
+
+}
+
+.m-marquee,
+.wp-block-acf-marquee-slider {
+
+	&:has(.is-vertical) {
+		max-width: 250px;
+		display: inline-block;
+		vertical-align: top;
+
+		.m-marquee__container {
+			max-height: 600px;
+		}
+
+		.m-marquee__slide {
+			aspect-ratio: 4 / 3;
+		}
+	}
+}
+

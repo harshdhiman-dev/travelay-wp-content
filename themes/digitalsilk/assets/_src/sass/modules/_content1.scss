@@ -1,0 +1,40 @@
+// Content 1: Repeated Content Blocks (rcbl-)
+
+@use "../_DS-core/modules/core--content1";
+@use "content1/content1-v1";
+@use "content1/content1-v2";
+@use "content1/content1-v3";
+@use "content1/scrollsnap-slider";
+@use "content1/custom-v1";
+
+.m-rcbl {
+	--c-block__font-size: var(--dst--base-text-size);
+	--c-block__color: var(--dst--base-text-color);
+	--c-block__title-clamp: 2;
+	--c-block__text-clamp: 4;
+	--c-block__line-height: 1.4;
+	--c-block__radius: 10px;
+
+	--c-heading__margin-bottom: 3rem;
+}
+
+.l-rcbl__col {
+
+	.c-block {
+
+		&.has-hover {
+
+			@media (hover: hover) {
+
+				&:hover {
+
+					img {
+						transform: scale(1.1);
+					}
+				}
+			}
+		}
+
+	}
+}
+

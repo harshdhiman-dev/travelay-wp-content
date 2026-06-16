@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/simple-text",
+  "title": "Simple Text",
+  "category": "ds-components",
+  "icon": "edit",
+  "description": "Simple text component where you can add a plain typography elements, like lists, paragraphs, etc",
+  "example": {},
+  "attributes": {
+    "anchor": {
+      "type": "string",
+      "default": ""
+    },
+    "dsContainerSideGap": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true,
+    "innerBlocks": true,
+    "dsContainers": true,
+    "dsGapControl": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./markup.php"
+}

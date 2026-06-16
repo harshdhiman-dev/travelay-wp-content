@@ -1,0 +1,59 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+.m-banner__blog {
+	--dst--base-heading-color: var(--dst--base-heading-color);
+	--dst--base-text-color: var(--dst--subtitle-color);
+	--columns-ratio: 55%;
+	--overlayOpacityColor: var(--dst--secondary-color1);
+	--overlayOpacity: 0.6;
+	--c-media__fit: cover;
+	background-color: unset;
+
+	@include media(">desktop") {
+		--bannerHeightDesktop: 46rem;
+		--bannerHeightMobile: 200px;
+		--padding-bottom: 2%;
+		--padding-top: 2%;
+
+		.m-banner__inner {
+
+			[data-sticky="fixed"] & {
+				padding-top: var(--dst--top-offset);
+			}
+		}
+	}
+
+	.m-banner{
+
+		&__inner{
+
+			@include media('<=desktop'){
+				padding-inline: 0;
+			}
+		}
+	}
+
+	.l-banner{
+		display: flex;
+		justify-content: center;
+
+		&__inner{
+			text-align: center;
+		}
+	}
+
+	.c-banner{
+
+		&__description{
+			margin-inline: auto;
+			font-weight: 600;
+			line-height: 1.55;
+			text-wrap: pretty;
+
+			@include media(">tablet") {
+				max-width: 65%;
+			}
+		}
+	}
+
+}

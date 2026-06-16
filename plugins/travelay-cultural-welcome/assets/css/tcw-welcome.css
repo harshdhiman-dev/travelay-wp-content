@@ -1,0 +1,650 @@
+/* Travelay Cultural Welcome v3 — Experience Edition */
+
+.tcw-welcome-root {
+	position: fixed;
+	inset: 0;
+	z-index: var(--tcw-z, 2147483000);
+	pointer-events: none;
+	overflow: visible;
+	isolation: isolate;
+}
+
+.tcw-welcome-layer,
+.tcw-replay-button {
+	--tcw-primary: #0f766e;
+	--tcw-secondary: #ffffff;
+	--tcw-accent: #134e4a;
+	--tcw-shadow: rgba(15, 23, 42, 0.18);
+	font-family: inherit;
+}
+
+.tcw-welcome-layer {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+	padding: 24px;
+	pointer-events: none;
+	z-index: var(--tcw-z, 2147483000);
+}
+
+.tcw-welcome-layer.is-active {
+	pointer-events: auto;
+}
+
+/* Keep cookie banner clickable while welcome is visible on first visit. */
+.tcw-welcome-layer.tcw-awaiting-consent {
+	z-index: 99998;
+}
+
+.tcw-welcome-layer.tcw-awaiting-consent .tcw-welcome-backdrop {
+	pointer-events: none;
+	background: transparent;
+}
+
+.tcw-welcome-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.2);
+	opacity: 0;
+	transition: opacity 0.35s ease;
+	z-index: 0;
+}
+
+.tcw-welcome-layer.is-visible .tcw-welcome-backdrop {
+	opacity: 1;
+}
+
+.tcw-confetti-canvas {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: calc(var(--tcw-z, 2147483000) - 1);
+}
+
+.tcw-welcome-card {
+	position: relative;
+	z-index: 2;
+	width: min(480px, calc(100vw - 32px));
+	border-radius: 24px;
+	background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+	border: 1px solid rgba(148, 163, 184, 0.25);
+	box-shadow: 0 24px 60px var(--tcw-shadow);
+	overflow: hidden;
+	transform: translateY(28px) scale(0.94) rotateX(var(--tcw-tilt-x, 0deg)) rotateY(var(--tcw-tilt-y, 0deg));
+	opacity: 0;
+	transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease, box-shadow 0.3s ease;
+	transform-style: preserve-3d;
+	perspective: 900px;
+}
+
+.tcw-welcome-layer.is-visible .tcw-welcome-card {
+	transform: translateY(0) scale(1) rotateX(var(--tcw-tilt-x, 0deg)) rotateY(var(--tcw-tilt-y, 0deg));
+	opacity: 1;
+	box-shadow: 0 32px 80px rgba(15, 23, 42, 0.22);
+}
+
+.tcw-celebration-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	margin: 14px 20px 0;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--tcw-primary) 12%, white);
+	color: var(--tcw-accent);
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	opacity: 0;
+	transform: translateY(8px);
+	animation: tcw-badge-in 0.6s ease 0.2s forwards;
+}
+
+.tcw-celebration-spark {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--tcw-primary);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--tcw-primary) 25%, transparent);
+	animation: tcw-spark-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes tcw-badge-in {
+	to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tcw-spark-pulse {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.25); }
+}
+
+.tcw-welcome-card::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 4px;
+	background: linear-gradient(90deg, var(--tcw-primary), var(--tcw-accent), var(--tcw-secondary));
+}
+
+.tcw-tone-playful .tcw-welcome-card {
+	border-radius: 28px;
+	box-shadow: 0 28px 70px rgba(15, 23, 42, 0.22);
+}
+
+.tcw-tone-playful .tcw-welcome-card::before {
+	height: 6px;
+}
+
+.tcw-welcome-inner {
+	display: grid;
+	grid-template-columns: 168px 1fr;
+	gap: 18px;
+	padding: 12px 20px 16px;
+}
+
+.tcw-avatar-stage {
+	position: relative;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	min-height: 200px;
+	padding: 10px 6px 28px;
+	border-radius: 22px;
+	overflow: hidden;
+	cursor: pointer;
+	background:
+		radial-gradient(circle at 50% 8%, rgba(255, 255, 255, 0.95), transparent 55%),
+		linear-gradient(165deg, color-mix(in srgb, var(--tcw-primary) 14%, white), color-mix(in srgb, var(--tcw-accent) 10%, white));
+	transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tcw-avatar-stage:hover,
+.tcw-avatar-stage:focus-visible {
+	transform: scale(1.02);
+	box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--tcw-primary) 30%, transparent);
+	outline: none;
+}
+
+.tcw-avatar-stage.tcw-avatar-pulse {
+	animation: tcw-avatar-pop 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes tcw-avatar-pop {
+	0% { transform: scale(1); }
+	40% { transform: scale(1.05); }
+	100% { transform: scale(1); }
+}
+
+.tcw-ambient-particles {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.tcw-ambient-dot {
+	position: absolute;
+	left: var(--tcw-dot-x, 50%);
+	bottom: -8px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--tcw-dot-color, #fff);
+	opacity: 0;
+	animation: tcw-ambient-float var(--tcw-dot-duration, 4s) ease-in-out var(--tcw-dot-delay, 0s) infinite;
+}
+
+@keyframes tcw-ambient-float {
+	0% { transform: translateY(0) scale(0.6); opacity: 0; }
+	20% { opacity: 0.7; }
+	100% { transform: translateY(-180px) scale(1); opacity: 0; }
+}
+
+.tcw-tap-hint {
+	position: absolute;
+	bottom: 8px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 10px;
+	font-weight: 600;
+	color: var(--tcw-accent);
+	letter-spacing: 0.04em;
+	white-space: nowrap;
+	opacity: 0.75;
+	animation: tcw-hint-bounce 2s ease-in-out infinite;
+	appearance: none;
+	border: 0;
+	background: transparent;
+	padding: 4px 8px;
+	cursor: pointer;
+	font-family: inherit;
+	line-height: 1.2;
+	z-index: 3;
+}
+
+.tcw-tap-hint:hover,
+.tcw-tap-hint:focus-visible {
+	opacity: 1;
+	color: var(--tcw-primary);
+	outline: none;
+}
+
+
+@keyframes tcw-hint-bounce {
+	0%, 100% { transform: translateX(-50%) translateY(0); }
+	50% { transform: translateX(-50%) translateY(-2px); }
+}
+
+.tcw-reveal {
+	opacity: 0;
+	transform: translateY(10px);
+	animation: tcw-reveal-in 0.55s ease forwards;
+}
+
+.tcw-welcome-title.tcw-reveal { animation-delay: 0.15s; }
+
+@keyframes tcw-reveal-in {
+	to { opacity: 1; transform: translateY(0); }
+}
+
+.tcw-welcome-message::after {
+	content: "|";
+	margin-left: 2px;
+	color: var(--tcw-primary);
+	animation: tcw-cursor 0.8s step-end infinite;
+}
+
+.tcw-welcome-message.tcw-typed-complete::after {
+	display: none;
+}
+
+@keyframes tcw-cursor {
+	50% { opacity: 0; }
+}
+
+.tcw-tone-playful .tcw-avatar-stage {
+	border-radius: 26px;
+	background:
+		radial-gradient(circle at 70% 12%, color-mix(in srgb, var(--tcw-secondary) 75%, white), transparent 52%),
+		linear-gradient(145deg, color-mix(in srgb, var(--tcw-primary) 22%, white), color-mix(in srgb, var(--tcw-accent) 14%, white));
+}
+
+.tcw-avatar-art {
+	width: 148px;
+	height: auto;
+	display: block;
+	overflow: visible;
+	position: relative;
+	z-index: 1;
+}
+
+.tcw-welcome-copy {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 8px;
+	min-width: 0;
+}
+
+.tcw-welcome-eyebrow {
+	margin: 0;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--tcw-accent);
+}
+
+.tcw-tone-playful .tcw-welcome-eyebrow {
+	font-size: 12px;
+	color: var(--tcw-primary);
+}
+
+.tcw-welcome-title {
+	margin: 0;
+	font-size: 22px;
+	line-height: 1.2;
+	font-weight: 700;
+	color: #0f172a;
+}
+
+.tcw-tone-playful .tcw-welcome-title {
+	font-size: 24px;
+}
+
+.tcw-welcome-message {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.55;
+	color: #475569;
+}
+
+.tcw-tone-playful .tcw-welcome-message {
+	font-size: 15px;
+	color: #334155;
+}
+
+.tcw-welcome-actions {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	padding: 0 20px 18px;
+}
+
+.tcw-welcome-brand {
+	font-size: 12px;
+	font-weight: 600;
+	color: #64748b;
+	letter-spacing: 0.04em;
+}
+
+.tcw-welcome-dismiss {
+	appearance: none;
+	border: 0;
+	border-radius: 999px;
+	padding: 10px 16px;
+	background: #0f172a;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.tcw-welcome-dismiss:hover,
+.tcw-welcome-dismiss:focus-visible {
+	background: var(--tcw-accent);
+	transform: translateY(-1px);
+	outline: none;
+}
+
+.tcw-tone-playful .tcw-welcome-dismiss {
+	background: var(--tcw-primary);
+	padding: 11px 18px;
+}
+
+.tcw-replay-button {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: var(--tcw-z, 2147483000);
+	pointer-events: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 16px;
+	border: 0;
+	border-radius: 999px;
+	background: #0f172a;
+	color: #fff;
+	box-shadow: 0 12px 30px rgba(15, 23, 42, 0.24);
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tcw-replay-button:hover,
+.tcw-replay-button:focus-visible {
+	transform: translateY(-2px);
+	box-shadow: 0 16px 34px rgba(15, 23, 42, 0.28);
+	outline: none;
+}
+
+.tcw-replay-dot {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: var(--tcw-primary);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--tcw-primary) 24%, transparent);
+}
+
+/* Avatar v3 gesture animations */
+.tcw-gesture-bow .tcw-figure {
+	transform-origin: 100px 140px;
+	animation: tcw-bow-figure 2.8s ease-in-out infinite;
+}
+
+.tcw-gesture-wave .tcw-arm-wave {
+	transform-origin: 142px 158px;
+	animation: tcw-wave-arm 1.4s ease-in-out infinite;
+}
+
+.tcw-gesture-wave .tcw-wave-hand {
+	animation: tcw-wave-fingers 1.4s ease-in-out infinite;
+}
+
+@keyframes tcw-wave-fingers {
+	0%, 100% { transform: rotate(0deg); }
+	35% { transform: rotate(8deg); }
+	70% { transform: rotate(-4deg); }
+}
+
+.tcw-gesture-namaste .tcw-hands-namaste {
+	transform-origin: 80px 124px;
+	animation: tcw-namaste-hands 2.6s ease-in-out infinite;
+}
+
+.tcw-gesture-namaste .tcw-head-group {
+	transform-origin: 80px 58px;
+	animation: tcw-namaste-head 2.6s ease-in-out infinite;
+}
+
+.tcw-gesture-wave .tcw-arm-wave {
+	transform-origin: 106px 108px;
+	animation: tcw-wave-arm 1.5s ease-in-out infinite;
+}
+
+.tcw-gesture-hand_heart .tcw-hand-heart {
+	transform-origin: 80px 130px;
+	animation: tcw-heart-hand 2.4s ease-in-out infinite;
+}
+
+.tcw-gesture-open_welcome .tcw-arm-left {
+	transform-origin: 54px 108px;
+	animation: tcw-open-left 2.4s ease-in-out infinite;
+}
+
+.tcw-gesture-open_welcome .tcw-arm-right {
+	transform-origin: 106px 108px;
+	animation: tcw-open-right 2.4s ease-in-out infinite;
+}
+
+.tcw-gesture-nod .tcw-head-group {
+	transform-origin: 80px 58px;
+	animation: tcw-nod-head 1.8s ease-in-out infinite;
+}
+
+.tcw-animate-replay.tcw-figure,
+.tcw-animate-replay .tcw-hands-namaste,
+.tcw-animate-replay .tcw-head-group,
+.tcw-animate-replay .tcw-arm-wave,
+.tcw-animate-replay .tcw-hand-heart,
+.tcw-animate-replay .tcw-arm-left,
+.tcw-animate-replay .tcw-arm-right {
+	animation-duration: 1.2s;
+}
+
+@keyframes tcw-bow-figure {
+	0%, 100% { transform: rotate(0deg) translateY(0); }
+	45%, 55% { transform: rotate(16deg) translateY(12px); }
+}
+
+@keyframes tcw-namaste-hands {
+	0%, 100% { transform: translateY(0) scale(1); }
+	50% { transform: translateY(3px) scale(0.98); }
+}
+
+@keyframes tcw-namaste-head {
+	0%, 100% { transform: rotate(0deg); }
+	50% { transform: rotate(6deg) translateY(2px); }
+}
+
+@keyframes tcw-wave-arm {
+	0%, 100% { transform: rotate(0deg); }
+	35% { transform: rotate(14deg); }
+	70% { transform: rotate(-6deg); }
+}
+
+@keyframes tcw-heart-hand {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.06); }
+}
+
+@keyframes tcw-open-left {
+	0%, 100% { transform: rotate(0deg); }
+	50% { transform: rotate(-10deg); }
+}
+
+@keyframes tcw-open-right {
+	0%, 100% { transform: rotate(0deg); }
+	50% { transform: rotate(10deg); }
+}
+
+@keyframes tcw-nod-head {
+	0%, 100% { transform: rotate(0deg); }
+	40%, 60% { transform: rotate(10deg) translateY(3px); }
+}
+
+/* Reduced motion */
+.tcw-reduced-motion .tcw-figure,
+.tcw-reduced-motion .tcw-hands-namaste,
+.tcw-reduced-motion .tcw-head-group,
+.tcw-reduced-motion .tcw-arm-wave,
+.tcw-reduced-motion .tcw-hand-heart,
+.tcw-reduced-motion .tcw-arm-left,
+.tcw-reduced-motion .tcw-arm-right {
+	animation: none !important;
+}
+
+.tcw-reduced-motion .tcw-welcome-card,
+.tcw-reduced-motion .tcw-welcome-backdrop {
+	transition: none !important;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+	.tcw-welcome-layer {
+		align-items: flex-end;
+		justify-content: center;
+		padding: 16px;
+	}
+
+	.tcw-welcome-inner {
+		grid-template-columns: 1fr;
+		text-align: center;
+	}
+
+	.tcw-avatar-stage {
+		min-height: 180px;
+		margin: 0 auto;
+		width: min(220px, 100%);
+	}
+
+	.tcw-avatar-art {
+		width: 140px;
+	}
+
+	.tcw-welcome-actions {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.tcw-welcome-dismiss {
+		width: 100%;
+	}
+
+	.tcw-replay-button {
+		right: 16px;
+		bottom: 16px;
+		padding: 11px 14px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.tcw-welcome-card,
+	.tcw-welcome-backdrop,
+	.tcw-figure,
+	.tcw-hands-namaste,
+	.tcw-head-group,
+	.tcw-arm-wave,
+	.tcw-hand-heart,
+	.tcw-arm-left,
+	.tcw-arm-right {
+		animation: none !important;
+		transition: none !important;
+	}
+}
+
+/* Avatar engine v3 */
+.tcw-avatar-mount,
+.tcw-avatar-host {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	min-height: 190px;
+}
+
+.tcw-lottie-host,
+.tcw-rive-canvas {
+	width: 148px !important;
+	height: auto !important;
+	max-height: 200px;
+}
+
+.tcw-avatar-svg-host .tcw-avatar-art {
+	width: 148px;
+}
+
+/* Interactive state machine (tap: idle → gesture → smile → idle) */
+.tcw-state-idle .tcw-figure {
+	animation: tcw-breathe 3s ease-in-out infinite;
+}
+
+.tcw-state-wave .tcw-arm-wave {
+	animation: tcw-wave-arm 1s ease-in-out 2 !important;
+}
+
+.tcw-state-bow .tcw-figure {
+	animation: tcw-bow-figure 1.2s ease-in-out 1 !important;
+}
+
+.tcw-state-namaste .tcw-hands-namaste {
+	animation: tcw-namaste-hands 1.2s ease-in-out 2 !important;
+}
+
+.tcw-state-heart .tcw-hand-heart {
+	animation: tcw-heart-hand 1s ease-in-out 2 !important;
+}
+
+.tcw-state-welcome .tcw-arm-left,
+.tcw-state-welcome .tcw-arm-right {
+	animation: tcw-open-left 1s ease-in-out 1, tcw-open-right 1s ease-in-out 1 !important;
+}
+
+.tcw-state-nod .tcw-head-group {
+	animation: tcw-nod-head 0.8s ease-in-out 2 !important;
+}
+
+.tcw-state-smile .tcw-head-group {
+	animation: tcw-smile-bounce 0.6s ease 1 !important;
+}
+
+@keyframes tcw-breathe {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-3px); }
+}
+
+@keyframes tcw-smile-bounce {
+	0%, 100% { transform: scale(1); }
+	50% { transform: scale(1.04); }
+}

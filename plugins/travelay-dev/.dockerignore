@@ -1,0 +1,38 @@
+.drone.yml
+add-submodules.sh
+.dockerignore
+docker-compose.*y*ml
+Dockerfile*
+*.md
+
+# generally ignored
+.env
+.idea/
+.htaccess
+*.DSStore
+*Thumbs.db
+_.sass-cache
+~imageoptim
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# WP-specific data
+wp-config.php
+wp-content/uploads
+wp-content/cache
+wp-content/wflogs
+wp-content/backup-db/
+wp-content/backups/
+wp-content/blogs.dir
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
+
+# ignore node dependency directories
+node_modules/
+**/node_modules/
+bower_components/
+.sass-cache/

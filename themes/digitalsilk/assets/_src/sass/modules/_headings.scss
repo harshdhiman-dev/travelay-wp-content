@@ -1,0 +1,90 @@
+@use "../_DS-core/mixins/include-media" as *;
+@use "../_DS-core/modules/core--heading";
+
+/* Headings */
+
+:root {
+	--dst--h1-clamp-formula: 4vw + 1.5rem; // H1 size transformation
+	--dst--h-clamp-formula: 3vw + 1.5rem; // H2, H3 size transformation
+	--dst--h-accent-color: var(--dst--primary-color2);
+}
+
+.c-heading {
+
+	&__title {
+
+		span, i, strong, mark {
+			color: var(--dst--h-accent-color);
+		}
+
+		br {
+
+			@include media("<=desktop") {
+				display: none;
+			}
+		}
+	}
+}
+
+/* Heading Layout */
+
+.l-heading-v2,
+.l-heading:has(.heading-v2) {
+
+	@include media(">desktop") {
+
+		display: grid;
+		grid-template-columns: minmax(55%, 1fr) minmax(auto, 1fr);
+		gap: 4%;
+
+		.c-heading {
+			margin-bottom: 0;
+			grid-column: 1;
+			text-align: left;
+		}
+
+		.c-block__btn,
+		.c-heading__description,
+		.dst-button-group {
+			text-align: right;
+			align-self: self-end;
+		}
+
+		&:has(.c-heading__description):has(.c-block__btn) .c-heading,
+		.wp-block-ds-blocks-c-heading {
+			grid-row: 1/span 2;
+		}
+	}
+
+}
+
+.simple-content {
+
+	.m-block__container {
+		max-width: calc(var(--dst--content-width) + var(--dst--page-gutter, 20px) * 2);
+	}
+
+	.c-heading {
+
+		@include media(">desktop") {
+			max-width: var(--l-container-width, 100%);
+		}
+	}
+
+	.text-center {
+
+		.c-heading {
+
+			@include media(">desktop") {
+				margin-inline: auto;
+			}
+		}
+	}
+
+	.text-right {
+
+		display: flex;
+		justify-content: flex-end;
+		width: 100%;
+	}
+}

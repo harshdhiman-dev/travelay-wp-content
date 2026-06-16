@@ -1,0 +1,203 @@
+@use "../widgets/mixins";
+
+.editor-sidebar__panel {
+
+	@include mixins.accordion-tile;
+
+	.acf-fields {
+
+		.acf-field-accordion {
+			max-width: calc(100% - 10px);
+			margin-inline: auto;
+
+			&:first-child {
+				margin-top: 0.4em;
+			}
+
+			.acf-accordion-title {
+				border-radius: 0;
+			}
+
+			.acf-accordion-content {
+
+				.-sidebar {
+					margin-bottom: 10px;
+				}
+
+				.acf-fields {
+
+					.acf-field-select,
+					.acf-field-true-false,
+					.acf-field-color-picker,
+					.acf-field-number {
+
+						.acf-label,
+						label {
+							margin: 0;
+						}
+					}
+
+					.acf-field-number {
+						max-width: 100%;
+					}
+
+					.acf-label {
+
+					}
+
+					.description {
+						opacity: 1;
+						z-index: 11;
+						top: unset;
+						position: relative;
+					}
+				}
+			}
+		}
+
+		.acf-label {
+			margin-bottom: 0;
+		}
+
+		// Fixes
+		[data-name="class_gap_top"],
+		[data-name="class_gap_bottom"],
+		[data-name="class_margin_top"],
+		[data-name="class_margin_bottom"],
+		[data-name="top_layout_gap"],
+		[data-name="bottom_layout_gap"] {
+			display: flex;
+
+			.acf-button-group {
+				flex-wrap: nowrap;
+				padding-inline: 5px;
+			}
+		}
+
+		[data-name="icon-library"] {
+			width: 40% !important;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		[data-name="background"] {
+
+			> .acf-input {
+
+				> .acf-fields.-border {
+					overflow: visible;
+				}
+			}
+		}
+	}
+
+
+	// Group label bolding
+	[data-type="group"] {
+
+		> .acf-label label {
+			font-weight: 700;
+			letter-spacing: -.1px;
+			background-color: color-mix(in srgb, var(--dst-admin-panel-accordion-bgd) 96%, #000);
+			padding: 5px;
+		}
+	}
+
+	[data-type="button_group"],
+	[data-type="file"],
+	[data-type="link"],
+	[data-type="image"],
+	[data-name="height"],
+	[data-name="height_mobile"],
+	.acf-field-number {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 5px;
+
+		.acf-button-group {
+			width: 100%;
+		}
+
+		.acf-label,
+		label {
+			margin: 0;
+		}
+	}
+
+	[data-name="height"],
+	[data-name="height_mobile"] {
+
+		.acf-label {
+			min-width: 61%;
+		}
+	}
+
+	.wp-switch-editor {
+		height: auto;
+	}
+
+	.wp-picker-container {
+
+		input[type="text"].wp-color-picker {
+			width: 100px;
+		}
+	}
+
+	[data-name="media_component_settings"] {
+
+		.acf-button-group {
+			max-width: 160px;
+		}
+	}
+
+	[data-name="columns_ratio"],
+	[data-name="text_clamp"],
+	[data-name="overlay_opacity"] {
+
+		display: flex;
+		align-items: center;
+
+		.acf-range-wrap {
+			display: flex;
+			justify-content: space-between;
+
+			.acf-append {
+				position: absolute;
+				right: 25px;
+			}
+
+			input[type="range"] {
+				max-width: 90px;
+			}
+		}
+
+		.acf-label {
+			width: 65%;
+
+			label {
+				white-space: nowrap;
+			}
+		}
+	}
+
+	// Wrap on open
+	[data-type="color_picker"] {
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-wrap: wrap;
+	}
+
+	[data-name="bg_color_type"] {
+
+		.acf-button-group {
+			flex-direction: column;
+			min-width: 108px;
+		}
+	}
+
+}
+

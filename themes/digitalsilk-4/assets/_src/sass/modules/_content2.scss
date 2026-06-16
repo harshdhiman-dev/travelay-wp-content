@@ -1,0 +1,11 @@
+@use "../_DS-core/modules/core--content2";
+
+// Simple double blocks (content 2)
+
+.l-dcbl {
+	--list-icon-size: 100px;
+
+	.c-info {
+		position: absolute;
+	}
+}

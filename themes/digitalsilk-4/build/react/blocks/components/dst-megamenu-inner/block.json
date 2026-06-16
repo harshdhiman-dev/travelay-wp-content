@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "ds-blocks/c-megamenu-inner",
+  "title": "Megamenu Inner Wrapper",
+  "category": "widgets",
+  "description": "Wrapper for inner menus than allows adding gutenberg blocks inside",
+  "example": {},
+  "attributes": {},
+  "supports": {
+    "html": false
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./markup.php",
+  "parent": [
+    "core/navigation",
+    "core/navigation-submenu"
+  ]
+}

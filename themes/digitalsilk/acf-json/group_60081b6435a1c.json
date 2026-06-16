@@ -1,0 +1,426 @@
+{
+    "key": "group_60081b6435a1c",
+    "title": "Theme Settings",
+    "fields": [
+        {
+            "key": "field_60081d34132ed",
+            "label": "Theme Colors",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ds_asset_type": "",
+            "ds_default_value": 0,
+            "placement": "left",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_60140d3c3f19d",
+            "label": "",
+            "name": "theme_colors",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ds_asset_type": "",
+            "ds_default_value": 0,
+            "layout": "row",
+            "sub_fields": [
+                {
+                    "key": "field_60081d4f132ee",
+                    "label": "Main Color 1",
+                    "name": "dst--primary-color1",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--primary-color1",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#335470",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_60081d77132ef",
+                    "label": "Main Color 2",
+                    "name": "dst--primary-color2",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--primary-color2",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#99bfe8",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_60081d83132f1",
+                    "label": "Main Color 3",
+                    "name": "dst--primary-color3",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--primary-color3",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#e2ebf7",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_60081da0132f2",
+                    "label": "Secondary Color 1",
+                    "name": "dst--secondary-color1",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--secondary-color1",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#ffffff",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_60081dbf132f3",
+                    "label": "Secondary Color 2",
+                    "name": "dst--secondary-color2",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--secondary-color2",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#57e5b2",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_60d34640dd5bc",
+                    "label": "Secondary Color 3",
+                    "name": "dst--secondary-color3",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--secondary-color3",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#abb8c7",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                }
+            ]
+        },
+        {
+            "key": "field_679ba7d706734",
+            "label": "Alternative Colors",
+            "name": "alternative_colors",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ds_asset_type": "",
+            "ds_default_value": 0,
+            "layout": "block",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Add Row",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_679ba82206735",
+                    "label": "",
+                    "name": "alt_color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "dst--secondary-color",
+                    "ds_default_value": 0,
+                    "default_value": "",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1,
+                    "parent_repeater": "field_679ba7d706734"
+                }
+            ]
+        },
+        {
+            "key": "field_6086b96f0f58c",
+            "label": "Layout",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_6086b9820f58d",
+            "label": "Layout Settings",
+            "name": "layout_settings",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_672bf13c48ffe",
+                    "label": "Default Container Width",
+                    "name": "dst--default-container-width",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "1280px",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6734887e62d67",
+                    "label": "Wide Container Width",
+                    "name": "dst--wide-container-width",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "1440px",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6086b9950f58e",
+                    "label": "Vertical Gap on Modules (Desktop)",
+                    "name": "dst--desktop-vertical-gap",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "8vmin",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_6086b9c90f590",
+                    "label": "Vertical Gap on Modules (Mobile)",
+                    "name": "dst--mobile-vertical-gap",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "30px",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_67348a4c62d68",
+                    "label": "Horizontal gutter (Desktop)",
+                    "name": "dst--desktop-gutter",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "30px",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_67348abc62d69",
+                    "label": "Horizontal gutter (Mobile)",
+                    "name": "dst--mobile-gutter",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "15px",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1745780142
+}

@@ -1,0 +1,30 @@
+@use  "../_DS-core/modules/core--tabs";
+@use "tabs/l-tbnav-timeline";  // REMOVE IF NO TIMELINE SLIDER
+
+/* Tabs */
+
+.m-tabs {
+	--tbnav-size: 1.8rem;
+	--tbnav-weight: 600;
+	--tbnav-uppercase: uppercase;
+	--tbnav-bg: #f4f4f4;
+	--tbnav-bg-active: #eee;
+	--tbnav-color: var(--dst--primary-color1);
+	--tbnav-color-active: var(--dst--primary-color3);
+	--tbnav-gap: 2rem;
+	--tbnav-padding: 1rem;
+	--tbnav-align: left;
+	--tbnav-mobile-bg: var(--dst--primary-color1);
+	--tbnav-mobile-color: #fff;
+	--tbnav-media-width: 30px;
+}
+
+.l-tbnav {
+	margin: 0 auto 20px;
+	border-bottom: 1px solid #ccc;
+
+	&__item {
+
+	}
+}
+

@@ -1,0 +1,38 @@
+@use "a-mixins" as *;
+@use "a-core" as *;
+@use "a-lib" as *;
+@use "a-viewport" as *;
+
+:root {
+	--dst--transition: 0.3s; // default transition for hovers
+}
+
+/* Intersection Observer custom animations */
+
+// Custom animation example
+
+// Set the class in module Effect settings
+
+.has-inview-a {
+
+	[data-viewport-effect^="custom-animation"][data-viewport-effect^="custom-animation"] {
+
+		> * {
+
+			.gridder-list {
+
+				@include transitionOpacityFrom($from: 0, $delay: 0.3);
+			}
+		}
+
+		&.in-view {
+
+			.gridder-list {
+
+				@include transitionOpacityTo($to: 1, $delay: 0.3);
+				@include increment-delay($type: transition, $offset: 0.16s);
+			}
+		}
+	}
+
+}

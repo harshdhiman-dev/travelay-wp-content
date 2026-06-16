@@ -1,0 +1,75 @@
+[submodule "wp-content/plugins/advanced-custom-fields-pro"]
+	path = wp-content/plugins/advanced-custom-fields-pro
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/advanced-custom-fields-pro.git
+[submodule "wp-content/plugins/acf-field-group-composer"]
+	path = wp-content/plugins/acf-field-group-composer
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/acf-field-group-composer.git
+[submodule "wp-content/plugins/wordpress-seo"]
+	path = wp-content/plugins/wordpress-seo
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/wordpress-seo.git
+[submodule "wp-content/plugins/acf-content-analysis-for-yoast-seo"]
+	path = wp-content/plugins/acf-content-analysis-for-yoast-seo
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/acf-content-analysis-for-yoast-seo.git
+[submodule "wp-content/plugins/wp-mail-smtp"]
+	path = wp-content/plugins/wp-mail-smtp
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/wp-mail-smtp.git
+[submodule "wp-content/plugins/ds-disable-feed"]
+	path = wp-content/plugins/ds-disable-feed
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/ds-disable-feed.git
+[submodule "wp-content/plugins/wordfence"]
+	path = wp-content/plugins/wordfence
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/wordfence.git
+[submodule "wp-content/plugins/akismet"]
+	path = wp-content/plugins/akismet
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/akismet.git
+[submodule "wp-content/plugins/gravity-forms-akismet"]
+	path = wp-content/plugins/gravity-forms-akismet
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/gravity-forms-akismet.git
+[submodule "wp-content/plugins/redirection"]
+	path = wp-content/plugins/redirection
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/redirection.git
+[submodule "wp-content/plugins/varnish-http-purge"]
+	path = wp-content/plugins/varnish-http-purge
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/varnish-http-purge.git
+[submodule "wp-content/plugins/complianz-gdpr"]
+	path = wp-content/plugins/complianz-gdpr
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/complianz-gdpr.git
+[submodule "wp-content/plugins/gravityforms"]
+	path = wp-content/plugins/gravityforms
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/gravityforms.git
+[submodule "wp-content/plugins/ewww-image-optimizer"]
+	path = wp-content/plugins/ewww-image-optimizer
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/ewww-image-optimizer.git
+[submodule "wp-content/plugins/wp-migrate-db-pro"]
+	path = wp-content/plugins/wp-migrate-db-pro
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/wp-migrate-db-pro.git
+[submodule "wp-content/plugins/duplicate-post"]
+	path = wp-content/plugins/duplicate-post
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/duplicate-post.git
+[submodule "wp-content/plugins/breadcrumb-navxt"]
+	path = wp-content/plugins/breadcrumb-navxt
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/breadcrumb-navxt.git
+[submodule "wp-content/plugins/feedbucket"]
+	path = wp-content/plugins/feedbucket
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/feedbucket.git
+[submodule "wp-content/plugins/add-to-any"]
+	path = wp-content/plugins/add-to-any
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/add-to-any.git
+[submodule "wp-content/plugins/ds-gf-url-parameters-addon"]
+	path = wp-content/plugins/ds-gf-url-parameters-addon
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/ds-gf-url-parameters-addon.git
+[submodule "wp-content/plugins/ds-gf-tracking"]
+	path = wp-content/plugins/ds-gf-tracking
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/ds-gf-tracking.git
+[submodule "wp-content/plugins/adiaha-hotel"]
+	path = wp-content/plugins/adiaha-hotel
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/adiaha-hotel.git
+[submodule "wp-content/plugins/gravityformshubspot"]
+	path = wp-content/plugins/gravityformshubspot
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/gravityformshubspot.git
+[submodule "wp-content/plugins/tawkto-live-chat"]
+	path = wp-content/plugins/tawkto-live-chat
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/tawkto-live-chat.git
+[submodule "wp-content/plugins/flytravelay-popup-block"]
+	path = wp-content/plugins/flytravelay-popup-block
+	url = ssh://git@gitea.dsstaging1.com:2222/wp-plugins/flytravelay-popup-block.git

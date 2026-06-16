@@ -1,0 +1,69 @@
+@use "../mixins/include-media" as *;
+
+.wrapper {
+
+	label {
+		display: block;
+		width: 100%;
+		font-size: var(--dst--form-label-size, 1.6rem);
+		font-weight: var(--dst--form-label-weight, 400);
+		color: var(--dst--form-label-color);
+	}
+
+	textarea {
+		max-height: 120px;
+		padding-top: calc(var(--dst--input-padding-block, 4px) * 2);
+	}
+
+	input[type="text"],
+	input[type="email"],
+	input[type="phone"],
+	input[type="tel"],
+	input[type="number"],
+	input[type="date"],
+	input[type="file"],
+	input[type="password"],
+	textarea,
+	select {
+		box-sizing: border-box;
+		width: 100%;
+		max-width: 100%;
+		padding: var(--dst--input-padding-block, 4px) var(--dst--input-padding-inline, 10px);
+		background-color: var(--dst--input-bg-color, #fff);
+		color: var(--dst--input-color);
+		border: var(--dst--input-border-width, 1px) solid var(--dst--input-border-color, #666);
+		border-radius: var(--dst--input-border-radius, 5px);
+		font-size: clamp(16px, 1vw, var(--dst--input-font-size));
+		font-weight: var(--dst--input-font-weight, 400);
+		min-height: var(--dst--input-height, unset);
+
+		&:focus {
+			outline: none;
+			border-color: #555;
+		}
+	}
+
+	select {
+		appearance: none;
+		background-image: var(--dst--select-icon);
+		background-repeat: no-repeat;
+		background-position: right 22px center;
+	}
+
+	.gfield{
+
+		&--type-hidden{
+			display: none;
+		}
+	}
+}
+
+.c-map-iframe {
+
+	iframe {
+		width: 100%;
+		max-width: 100%;
+	}
+}
+
+

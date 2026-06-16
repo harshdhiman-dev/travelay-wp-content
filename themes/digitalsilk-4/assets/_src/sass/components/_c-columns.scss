@@ -1,0 +1,60 @@
+@use "../_DS-core/mixins/include-media" as *;
+
+.ds-row {
+
+	display: grid;
+	gap: 20px;
+	margin-inline: auto;
+	grid-template-columns: var(--grid-template-columns_mobile, repeat(auto-fit, minmax(100%, 1fr)));
+	position: relative;
+	z-index: 2;
+
+	@include media('>=tablet') {
+		grid-template-columns: var(--grid-template-columns_tablet, repeat(auto-fit, minmax(100px, 1fr)));
+		gap: var(--ds-row-gap, 0);
+	}
+
+	@include media('>desktop') {
+		grid-template-columns: var(--grid-template-columns, repeat(auto-fit, minmax(150px, 1fr)));
+	}
+
+	@media (max-width: 576px) {
+
+		&.reverse-mobile {
+			display: flex;
+			flex-direction: column-reverse;
+		}
+	}
+
+}
+
+.ds-columns {
+
+	position: relative;
+
+	&.has-borders-enabled {
+
+		&,
+		.ds-column {
+			//padding: 15px 2px 2px;
+			border: 1px solid #ccc;
+		}
+	}
+}
+
+.ds-column {
+	display: flex;
+	flex-direction: column;
+
+	.block-editor-inserter {
+		width: 100%;
+	}
+
+
+	&.is-position-sticky {
+
+		@include media("<desktop") {
+			position: static;
+		}
+	}
+}

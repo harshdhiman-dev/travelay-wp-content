@@ -1,0 +1,78 @@
+version: "2.4"
+
+services:
+  mysql:
+    image: mysql:8.0.39
+    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+    restart: unless-stopped
+    mem_limit: 512m
+    mem_reservation: 96m
+    environment:
+    # these values are taken from docker-compose shell environment,
+    # see https://docs.docker.com/compose/environment-variables/#pass-environment-variables-to-containers
+    - MYSQL_DATABASE=${COMPOSE_PROJECT_NAME}
+    - MYSQL_USER=${COMPOSE_PROJECT_NAME}
+    - MYSQL_PASSWORD
+    - MYSQL_ROOT_PASSWORD
+    volumes:
+    - "dbdata:/var/lib/mysql"
+    - "dbinit:/docker-entrypoint-initdb.d"
+    command: --innodb_use_native_aio=0 --disable-log-bin
+
+  wordpress:
+    image: registry.digitalocean.com/dslk/projects/${IMAGE_NAME}:${IMAGE_TAG}
+    hostname: ${SITE_NAME}
+    container_name: ${COMPOSE_PROJECT_NAME}_wp
+    restart: unless-stopped
+    labels:
+    # enable reverse proxy with Traefik
+    - "traefik.enable=true"
+    - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.rule=Host(`${SITE_NAME}`)"
+    - "traefik.http.routers.${COMPOSE_PROJECT_NAME}.service=${COMPOSE_PROJECT_NAME}_wp"
+    - "traefik.http.services.${COMPOSE_PROJECT_NAME}_wp.loadbalancer.server.port=80"
+    - "traefik.http.services.${COMPOSE_PROJECT_NAME}_wp.loadbalancer.server.scheme=http"
+    - "traefik.http.services.${COMPOSE_PROJECT_NAME}_wp.loadbalancer.passhostheader=true"
+    environment:
+    - WP_DB_HOST=${COMPOSE_PROJECT_NAME}_mysql
+    - WP_DB_NAME=${COMPOSE_PROJECT_NAME}
+    - WP_DB_USER=${COMPOSE_PROJECT_NAME}
+    - WP_DB_PASSWORD=${MYSQL_PASSWORD}
+    - WP_HOME=https://${SITE_NAME}
+    - WP_SITEURL=https://${SITE_NAME}
+    - WP_CONFIG_HTTPS=true
+    - NGINX_HTTPS=false
+    - NGINX_DOMAIN_NAME=${SITE_NAME}
+    - NGINX_BASIC_AUTH
+    - NGINX_CANONICAL_DOMAIN_NAME
+    - NGINX_HSTS_ENABLED
+    - NGINX_CLIENT_MAX_BODY_SIZE
+    - NGINX_CLOUDFLARE_PROXY
+    - PHP_POST_MAX_SIZE
+    - PHP_UPLOAD_MAX_FILESIZE
+    - WP_SENDGRID_STAGING_1_ENABLE=true
+    depends_on:
+    - mysql
+    networks:
+    - default
+    - frontend
+    volumes:
+    - "uploads:/var/www/wp-content/uploads"
+    extra_hosts:
+    - "${COMPOSE_PROJECT_NAME}.dsstaging1.com:5.161.242.183"
+
+networks:
+  default:
+    name: ${COMPOSE_PROJECT_NAME}
+  # these are pre-existing networks for communication
+  frontend:
+    external:
+      name: frontend
+
+
+volumes:
+  dbinit:
+    name: ${COMPOSE_PROJECT_NAME}_dbinit
+  dbdata:
+    name: ${COMPOSE_PROJECT_NAME}_dbdata
+  uploads:
+    name: ${COMPOSE_PROJECT_NAME}_uploads

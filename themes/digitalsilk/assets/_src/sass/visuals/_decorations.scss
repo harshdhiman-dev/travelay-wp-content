@@ -1,0 +1,32 @@
+@use "../_DS-core/mixins/include-media" as *;
+@use "../_DS-core/components/core--c-decoration" as *;
+
+.c-decoration {
+  overflow-x: clip;
+
+  &__item {
+
+	.circle-blur {
+	  --decor-size: 50rem;
+	  width: var(--decor-size);
+	  height: var(--decor-size);
+	  border-radius: 50%;
+	  opacity: .5;
+	  background: var(--dst--secondary-color2);
+	  filter: blur(calc(var(--decor-size) / 2));
+
+	  @include media("<=tablet") {
+		--decor-size: 20rem;
+	  }
+
+		&.-light{
+			--decor-size: 23.5rem;
+			opacity: .25;
+
+			@include media("<=tablet") {
+				--decor-size: 10rem;
+			}
+		}
+	}
+  }
+}

@@ -1,0 +1,327 @@
+@use "../../_DS-core/mixins/include-media" as *;
+@use "../../_DS-core/mixins/mini-mixins" as *;
+
+.site-header__burger {
+	--burger-desktop-padding: 20px 15px;
+	--burger-desktop-radius: 0;
+	--burger-desktop-bgd: var(--dst--primary-color2);
+	--burger-desktop-bgd-hover: var(--dst--primary-color1);
+	--burger-desktop-color: var(--dst--primary-color3);
+	--burger-desktop--line-width-1: 40px;
+	--burger-desktop--line-width-2: 32px;
+	--burger-desktop--line-width-3: 24px;
+	--burger-desktop--line-height: 3px;
+	--burger-desktop-gap: 4px;
+	--burger-desktop-open-offset: 6px;
+	--burger-menu-bgd: #eaeaea;
+	--burger-menu-padding: 150px 80px 50px 40px;
+	--burger-menu-align-content-v: flex-start;
+	--burger-menu-align-content-h: flex-start;
+	--burger-menu-item-padding: 10px 20px;
+	--burger-desktop-overlay-color: rgba(16, 16, 16, 0.15);
+	--burger-desktop-overlay-blur: 5px;
+	--burger-submenu-bgd: transparent;
+	--burger-submenu-padding: 0 0 0 10px;
+	--burger-desktop-sticky-padding: 17px 15px;
+	--toggle-submenu-btn-width: 40px;
+	--toggle-submenu-btn-height: 40px;
+
+	&::before {
+
+		@include has-full-overlay(100);
+	}
+}
+
+.nav-main__desktop-btn {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: var(--burger-desktop-bgd);
+	padding: var(--burger-desktop-padding);
+	border-radius: var(--burger-desktop-radius);
+	cursor: pointer;
+	border: none;
+	z-index: 102;
+	top: 0;
+	right: 0;
+	transition: 0.3s ease;
+
+	.d-burger-icon {
+		display: block;
+		position: relative;
+		width: var(--burger-desktop--line-width-1);
+		z-index: 2;
+		overflow: hidden;
+	}
+
+	.d-burger-line {
+		display: block;
+		position: relative;
+		width: var(--burger-desktop--line-width-1);
+		height: var(--burger-desktop--line-height);
+		transition: transform 0.55s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+		will-change: transform, opacity;
+		overflow: hidden;
+
+		&::before,
+		&::after {
+			content: "";
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: var(--burger-desktop-color);
+			will-change: transform;
+			left: 0;
+		}
+
+		&::before {
+			transform: translate3d(0, 0, 0);
+		}
+
+		&::after {
+			transform: translate3d(-100%, 0, 0);
+		}
+
+		&-1,
+		&-2 {
+			margin-bottom: var(--burger-desktop-gap);
+		}
+
+		&-1 {
+
+			&::before {
+				transition: transform 0.6s 90ms;
+			}
+
+			&::after {
+				transition: transform 0.6s;
+			}
+		}
+
+		&-2 {
+			width: var(--burger-desktop--line-width-2);
+
+			&::before {
+				transition: transform 0.6s 0.14s;
+			}
+
+			&::after {
+				transition: transform 0.6s;
+			}
+		}
+
+		&-3 {
+			width: var(--burger-desktop--line-width-3);
+
+			&::before {
+				transition: transform 0.6s 0.19s;
+			}
+
+			&::after {
+				transition: transform 0.6s 60ms;
+			}
+		}
+	}
+
+	&:hover {
+		background-color: var(--burger-desktop-bgd-hover);
+		transition: 0.3s ease;
+
+		.d-burger-line {
+
+			&::before {
+				transform: translate3d(100%, 0, 0);
+			}
+
+			&::after {
+				transform: translate3d(0, 0, 0);
+			}
+
+			&-1 {
+
+				&::before {
+					transition: transform 0.55s;
+				}
+
+				&::after {
+					transition: transform 0.55s 0.1s;
+				}
+			}
+
+			&-2 {
+
+				&::before {
+					transition: transform 0.5s 50ms;
+				}
+
+				&::after {
+					transition: transform 0.5s 0.15s;
+				}
+			}
+
+			&-3 {
+
+				&::before {
+					transition: transform 0.45s 0.1s;
+				}
+
+				&::after {
+					transition: transform 0.45s 0.2s;
+				}
+			}
+		}
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&.is-active {
+
+		.d-burger-line {
+
+			&::before {
+				transform: translate3d(0, 0, 0);
+			}
+
+			&::after {
+				transform: translate3d(-100%, 0, 0);
+			}
+
+			&-1 {
+				transform: translate3d(0, var(--burger-desktop-open-offset), 0) rotate3d(0, 0, 1, 45deg);
+				width: var(--burger-desktop--line-width-1);
+			}
+
+			&-2 {
+				opacity: 0;
+			}
+
+			&-3 {
+				transform: translate3d(0, calc(var(--burger-desktop-open-offset) * -1), 0) rotate3d(0, 0, 1, -45deg);
+				width: var(--burger-desktop--line-width-1);
+			}
+		}
+	}
+
+	.is-sticky & {
+		padding: var(--burger-desktop-sticky-padding);
+	}
+}
+
+.nav-main__wrap-burger {
+	position: fixed;
+	height: 100%;
+	top: 0;
+	right: 0;
+	visibility: hidden;
+	overflow: hidden;
+	transform: translateX(100%);
+	z-index: 100;
+	opacity: 0;
+	background-color: var(--burger-menu-bgd);
+	padding: var(--burger-menu-padding);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: var(--burger-menu-align-content-h);
+	pointer-events: none;
+	transition: all 0.3s;
+
+	@include media(">desktop") {
+		width: 500px;
+	}
+
+	.nav-main {
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+
+		> ul.desktop-burger {
+			display: flex;
+			flex-direction: column;
+			//align-items: var(--burger-menu-align-content);
+			justify-content: center;
+		}
+
+		.menu-item {
+			justify-content: var(--burger-menu-align-content-v);
+
+			> a,
+			> .plain-menu-item {
+				padding: var(--burger-menu-item-padding);
+			}
+
+			&-has-children {
+				flex-direction: column;
+				align-items: flex-start;
+
+				> a,
+				> .plain-menu-item {
+					padding-right: var(--toggle-submenu-btn-width);
+				}
+
+				&:hover {
+
+					.sub-menu {
+						opacity: 0;
+						pointer-events: none;
+					}
+				}
+
+				.sub-menu-toggle {
+					top: 5px;
+					transform: none;
+					height: var(--toggle-submenu-btn-height);
+					cursor: pointer;
+				}
+
+				.sub-menu {
+					position: relative;
+					max-height: 0;
+					visibility: hidden;
+					overflow: hidden;
+					transform: none;
+					top: 0;
+					left: 0;
+					width: 100%;
+					padding: var(--burger-submenu-padding);
+					transition: opacity 0.3s ease, max-height 0.1s ease;
+					background: var(--burger-submenu-bgd);
+					box-shadow: none;
+
+					&::before {
+						display: none;
+					}
+
+					&.is-visible {
+						opacity: 1;
+						visibility: visible;
+						pointer-events: all;
+						overflow: auto;
+						max-height: 1000px;
+						transition: opacity 0.3s ease, max-height 0.1s ease;
+					}
+				}
+			}
+		}
+	}
+
+	.nav-active & {
+		opacity: 1;
+		transform: translateX(0);
+		visibility: visible;
+		pointer-events: all;
+	}
+}
+
+body.nav-active {
+
+	.site-header__burger {
+
+		&::before {
+			animation: overlay-appear 0.25s linear both;
+		}
+	}
+}

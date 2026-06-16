@@ -1,0 +1,123 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "ds-blocks/ds-columns",
+	"title": "DST Columns",
+	"category": "ds-layouts",
+	"allowedBlocks": [
+		"ds-blocks/ds-column"
+	],
+	"description": "Display content in multiple columns, with blocks added to each column",
+	"example": {},
+	"attributes": {
+		"anchor": {
+			"type": "string",
+			"default": ""
+		},
+		"gap" : {
+			"type": "string",
+			"default": "0px"
+		},
+		"count": {
+			"type": "integer",
+			"default": 0
+		},
+		"reverseMobile" : {
+			"type": "boolean",
+			"default": false
+		},
+		"verticalAlign": {
+			"type": "string",
+			"default": ""
+		},
+		"templateLock": {
+			"type": [
+				"string",
+				"boolean"
+			],
+			"enum": [
+				"all",
+				"insert",
+				"contentOnly",
+				false
+			]
+		},
+		"tabletCount": {
+			"type": "integer",
+			"default": 1
+		},
+		"mobileCount": {
+			"type": "integer",
+			"default": 1
+		},
+		"textAlign": {
+			"type": "string",
+			"default": ""
+		},
+		"textAlignMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"isMultirow": {
+			"type": "boolean",
+			"default": false
+		},
+		"desktopColumnsPerRow": {
+			"type": "integer",
+			"default": 1
+		},
+		"moduleVariant": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundImage": {
+			"type": "array",
+			"default": []
+		},
+		"decorations": {
+			"type": "array",
+			"default": []
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"html": false,
+		"className": false,
+		"dsGapControl": true,
+		"dsContainers": true,
+		"dsClassList" : [
+			{
+				"name": "--half-text-half-media",
+				"label": "Half Text Half Media"
+			},
+			{
+			  "name": "--cards-list-v3",
+			  "label": "Cards List v3"
+			},
+			{
+			  "name": "--cards-media",
+			  "label": "Media Cards"
+			},
+			{
+			  "name": "--subscribe-banner",
+			  "label": "Subscribe Banner"
+			},
+			{
+				"name": "--testimonial-card",
+				"label": "Testimonial Card"
+			}
+		],
+		"interactivity": {
+			"clientNavigation": true
+		}
+	},
+	"textdomain": "digitalsilk",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

@@ -1,0 +1,513 @@
+/**
+ * Amadex Creative Experience — Level 5
+ * Premium micro-interactions, theming, glassmorphism, progress, accessibility.
+ * Scope: flight results → booking → confirmation. Desktop + mobile.
+ *
+ * @package Amadex
+ * @version 1.0.0
+ */
+
+/* --------------------------------------------------------------------------
+   DESIGN TOKENS & CUSTOM PROPERTIES
+   -------------------------------------------------------------------------- */
+:root {
+  --amadex-ce-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --amadex-ce-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --amadex-ce-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --amadex-ce-duration-fast: 0.2s;
+  --amadex-ce-duration-normal: 0.35s;
+  --amadex-ce-duration-slow: 0.5s;
+  --amadex-ce-primary: #0e7d3f;
+  --amadex-ce-primary-hover: #0a5f2f;
+  --amadex-ce-glass-bg: rgba(255, 255, 255, 0.85);
+  --amadex-ce-glass-border: rgba(255, 255, 255, 0.4);
+  --amadex-ce-shadow-sm: 0 2px 8px rgba(14, 125, 63, 0.08);
+  --amadex-ce-shadow-md: 0 8px 24px rgba(14, 125, 63, 0.12);
+  --amadex-ce-shadow-lg: 0 16px 48px rgba(14, 125, 63, 0.16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --amadex-ce-duration-fast: 0.01ms;
+    --amadex-ce-duration-normal: 0.01ms;
+    --amadex-ce-duration-slow: 0.01ms;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MICRO-INTERACTIONS — Buttons & CTAs
+   -------------------------------------------------------------------------- */
+.amadex-btn,
+button.amadex-btn,
+#amadex-confirm-book,
+.amadex-step-next,
+[id*="amadex-confirm"],
+input[type="submit"].amadex-submit {
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out),
+              box-shadow var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out),
+              background-color var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out),
+              border-color var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out);
+}
+
+.amadex-btn:not(:disabled):hover,
+button.amadex-btn:not(:disabled):hover,
+#amadex-confirm-book:not(:disabled):hover,
+.amadex-step-next:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: var(--amadex-ce-shadow-md);
+}
+
+.amadex-btn:not(:disabled):active,
+button.amadex-btn:not(:disabled):active,
+#amadex-confirm-book:not(:disabled):active,
+.amadex-step-next:not(:disabled):active {
+  transform: translateY(0) scale(0.98);
+  transition-duration: var(--amadex-ce-duration-fast);
+}
+
+.amadex-btn:focus-visible,
+#amadex-confirm-book:focus-visible,
+.amadex-step-next:focus-visible {
+  outline: 3px solid var(--amadex-ce-primary);
+  outline-offset: 2px;
+}
+
+/* Ripple placeholder — JS adds .amadex-ce-ripple */
+.amadex-ce-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  animation: amadex-ce-ripple-out var(--amadex-ce-duration-slow) var(--amadex-ce-ease-out) forwards;
+  pointer-events: none;
+}
+
+@keyframes amadex-ce-ripple-out {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-ce-ripple {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   FLIGHT CARDS — 3D lift & subtle flip
+   -------------------------------------------------------------------------- */
+.amadex-flight-detail-card,
+.amadex-flight-card,
+[class*="amadex-flight-card"] {
+  transition: transform var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out),
+              box-shadow var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.amadex-flight-detail-card:hover,
+.amadex-flight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--amadex-ce-shadow-md);
+}
+
+.amadex-flight-card-header {
+  cursor: pointer;
+  transition: background-color var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out);
+}
+
+.amadex-flight-card-header:hover {
+  background-color: rgba(14, 125, 63, 0.06);
+}
+
+.amadex-flight-card-content {
+  transition: opacity var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-flight-detail-card:hover,
+  .amadex-flight-card:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PROMOTIONAL CONTAINERS — Required for animation verification (position/overflow)
+   -------------------------------------------------------------------------- */
+.amadex-promotional-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   CONFIRMATION & GENERAL CARDS
+   -------------------------------------------------------------------------- */
+.amadex-card,
+.amadex-confirmation-page .amadex-card {
+  transition: transform var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out),
+              box-shadow var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out);
+}
+
+.amadex-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--amadex-ce-shadow-sm);
+}
+
+.amadex-confirmation-greeting {
+  animation: amadex-ce-fade-slide-down 0.6s var(--amadex-ce-ease-out) both;
+}
+
+@keyframes amadex-ce-fade-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-confirmation-greeting {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   GLASSMORPHISM — Modals & overlays
+   -------------------------------------------------------------------------- */
+.amadex-booking-processing-modal,
+.amadex-booking-processing-overlay .amadex-booking-processing-modal {
+  background: var(--amadex-ce-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--amadex-ce-glass-border);
+  box-shadow: var(--amadex-ce-shadow-lg);
+  animation: amadex-ce-modal-in 0.4s var(--amadex-ce-ease-out) both;
+}
+
+@keyframes amadex-ce-modal-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.amadex-booking-processing-overlay {
+  animation: amadex-ce-overlay-in 0.3s var(--amadex-ce-ease-out) both;
+}
+
+@keyframes amadex-ce-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-booking-processing-modal,
+  .amadex-booking-processing-overlay .amadex-booking-processing-modal,
+  .amadex-booking-processing-overlay {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   PROGRESS INDICATORS
+   -------------------------------------------------------------------------- */
+.amadex-booking-progress-modern,
+.amadex-booking-progress {
+  transition: opacity var(--amadex-ce-duration-normal) var(--amadex-ce-ease-out);
+}
+
+.booking-step-modern,
+.booking-step {
+  transition: background-color var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out),
+              color var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out),
+              transform var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out);
+}
+
+.booking-step-modern.is-active,
+.booking-step.is-active {
+  transform: scale(1.02);
+}
+
+/* Progress bar fill animation */
+.amadex-ce-progress-fill {
+  height: 4px;
+  background: linear-gradient(90deg, var(--amadex-ce-primary), #1a9d5f);
+  border-radius: 999px;
+  transform-origin: left;
+  transition: transform var(--amadex-ce-duration-slow) var(--amadex-ce-ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .booking-step-modern.is-active,
+  .booking-step.is-active {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   FORM INPUTS — Focus & validation
+   -------------------------------------------------------------------------- */
+.amadex-booking-page input[type="text"],
+.amadex-booking-page input[type="email"],
+.amadex-booking-page input[type="tel"],
+.amadex-booking-page select,
+.amadex-booking-page textarea,
+.amadex-booking-container input[type="text"],
+.amadex-booking-container input[type="email"],
+.amadex-booking-container input[type="tel"],
+.amadex-booking-container select,
+.amadex-booking-container textarea {
+  transition: border-color var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out),
+              box-shadow var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out),
+              transform var(--amadex-ce-duration-fast) var(--amadex-ce-ease-out);
+}
+
+.amadex-booking-page input:focus,
+.amadex-booking-page select:focus,
+.amadex-booking-page textarea:focus,
+.amadex-booking-container input:focus,
+.amadex-booking-container select:focus,
+.amadex-booking-container textarea:focus {
+  outline: none;
+  border-color: var(--amadex-ce-primary);
+  box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.15);
+}
+
+.amadex-ce-input-success {
+  border-color: var(--amadex-ce-primary) !important;
+  box-shadow: 0 0 0 2px rgba(14, 125, 63, 0.2) !important;
+}
+
+.amadex-ce-input-error {
+  animation: amadex-ce-shake 0.5s var(--amadex-ce-ease-out);
+}
+
+@keyframes amadex-ce-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-ce-input-error {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   LAZY REVEAL — Scroll-triggered fade-in
+   -------------------------------------------------------------------------- */
+.amadex-ce-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--amadex-ce-ease-out), transform 0.6s var(--amadex-ce-ease-out);
+}
+
+.amadex-ce-reveal.amadex-ce-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-ce-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .amadex-ce-reveal.amadex-ce-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SKELETON LOADERS
+   -------------------------------------------------------------------------- */
+.amadex-ce-skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e8e8e8 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: amadex-ce-skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+@keyframes amadex-ce-skeleton-pulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-ce-skeleton {
+    animation: none;
+    background: #f0f0f0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CONFETTI CANVAS — Confirmation celebration
+   -------------------------------------------------------------------------- */
+#amadex-ce-confetti-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999998;
+}
+
+/* --------------------------------------------------------------------------
+   SURPRISE — "Adventure Awaits" badge (confirmation)
+   -------------------------------------------------------------------------- */
+.amadex-ce-surprise-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(14, 125, 63, 0.12), rgba(26, 157, 95, 0.08));
+  border: 1px solid rgba(14, 125, 63, 0.25);
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0a5f2f;
+  opacity: 0;
+  transform: scale(0.9) translateY(10px);
+  animation: amadex-ce-surprise-in 0.6s var(--amadex-ce-ease-bounce) 0.3s forwards;
+  box-shadow: var(--amadex-ce-shadow-sm);
+}
+
+.amadex-ce-surprise-badge svg {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.amadex-ce-surprise-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.amadex-ce-surprise-ps {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a5f2f;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: amadex-ce-ps-in 0.5s var(--amadex-ce-ease-out) 1.2s forwards;
+}
+
+@keyframes amadex-ce-surprise-in {
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes amadex-ce-ps-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-ce-surprise-badge,
+  .amadex-ce-surprise-ps {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   CUSTOM SCROLLBAR (WebKit)
+   -------------------------------------------------------------------------- */
+.amadex-booking-page::-webkit-scrollbar,
+.amadex-confirmation-page::-webkit-scrollbar,
+.amadex-booking-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.amadex-booking-page::-webkit-scrollbar-track,
+.amadex-confirmation-page::-webkit-scrollbar-track,
+.amadex-booking-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.amadex-booking-page::-webkit-scrollbar-thumb,
+.amadex-confirmation-page::-webkit-scrollbar-thumb,
+.amadex-booking-container::-webkit-scrollbar-thumb {
+  background: var(--amadex-ce-primary);
+  border-radius: 4px;
+}
+
+.amadex-booking-page::-webkit-scrollbar-thumb:hover,
+.amadex-confirmation-page::-webkit-scrollbar-thumb:hover,
+.amadex-booking-container::-webkit-scrollbar-thumb:hover {
+  background: var(--amadex-ce-primary-hover);
+}
+
+/* --------------------------------------------------------------------------
+   SMOOTH SCROLL
+   -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE — Touch-friendly
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .amadex-btn,
+  #amadex-confirm-book,
+  #amadex-confirm-book-pagination,
+  #amadex-step-next,
+  .amadex-step-next,
+  .amadex-pagination-confirm {
+    min-height: 48px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(14, 125, 63, 0.1);
+  }
+
+  .amadex-flight-detail-card:hover,
+  .amadex-flight-card:hover {
+    transform: none;
+  }
+
+  .amadex-card:hover {
+    transform: none;
+  }
+}

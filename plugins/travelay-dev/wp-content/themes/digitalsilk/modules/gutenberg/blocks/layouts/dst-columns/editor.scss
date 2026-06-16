@@ -1,0 +1,88 @@
+// Range control custom reset layout.
+.ds-columns-range-control-custom-reset {
+
+    .components-range-control__root {
+
+        .components-range-control__wrapper {
+            order: 1;
+        }
+
+        > span {
+            order: 3;
+        }
+
+        .components-range-control__number {
+            order: 2;
+        }
+    }
+}
+
+/* Columns */
+
+.ds-columns,
+.ds-column {
+
+	&::after {
+		position: absolute;
+		top: -16px;
+		font-size: 10px;
+		color: #999;
+		border: 1px dotted #000;
+		line-height: 1.4;
+		padding-inline: 5px;
+	}
+}
+
+.ds-columns {
+	counter-reset: columns;
+	transition: all .3s;
+
+	&::after {
+		content: "Columns Main Wrapper";
+		left: 0;
+		cursor: pointer;
+	}
+}
+
+.ds-column {
+	counter-increment: columns;
+
+	&::after {
+		content: "Column Item " counter(columns);
+		right: 0;
+		cursor: pointer;
+	}
+}
+
+.ds-column.is-selected {
+
+	&::before {
+		outline: var(--wp-admin-theme-color) dashed 3px !important;
+	}
+}
+
+.ds-columns-modal {
+
+	.components-modal {
+
+		&__header {
+
+			.components-modal__header-heading {
+				font-size: 1.5em;
+				font-weight: 400;
+			}
+		}
+
+		&__content {
+
+			p {
+				margin: 0 0 3rem;
+			}
+
+			button {
+				width: 100%;
+    			justify-content: center;
+			}
+		}
+	}
+}

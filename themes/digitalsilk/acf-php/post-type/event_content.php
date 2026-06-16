@@ -1,0 +1,100 @@
+<?php
+if ( function_exists( 'acf_add_local_field_group' ) ) :
+	acf_add_local_field_group(
+		array(
+			'key'                   => 'group_6007079c7aabb',
+			'title'                 => 'Event Data',
+			'fields'                => array(
+				array(
+					'key'               => 'field_600707a2167d2',
+					'label'             => 'Start Date',
+					'name'              => 'event_start_date',
+					'type'              => 'date_picker',
+					'instructions'      => '',
+					'required'          => 1,
+					'conditional_logic' => 0,
+					'wrapper'           => array(
+						'width' => '50',
+						'class' => '',
+						'id'    => '',
+					),
+					'display_format'    => 'd/m/Y',
+					'return_format'     => 'd/m/Y',
+					'first_day'         => 1,
+				),
+				array(
+					'key'               => 'field_600707b3167d3',
+					'label'             => 'End Date',
+					'name'              => 'event_end_date',
+					'type'              => 'date_picker',
+					'instructions'      => '',
+					'required'          => 0,
+					'conditional_logic' => 0,
+					'wrapper'           => array(
+						'width' => '50',
+						'class' => '',
+						'id'    => '',
+					),
+					'display_format'    => 'd/m/Y',
+					'return_format'     => 'd/m/Y',
+					'first_day'         => 1,
+				),
+				array(
+					'key'               => 'field_600707cf09205',
+					'label'             => 'Location',
+					'name'              => 'location',
+					'type'              => 'text',
+					'instructions'      => '',
+					'required'          => 0,
+					'conditional_logic' => 0,
+					'wrapper'           => array(
+						'width' => '',
+						'class' => '',
+						'id'    => '',
+					),
+					'default_value'     => '',
+					'placeholder'       => '',
+					'prepend'           => '',
+					'append'            => '',
+					'maxlength'         => '',
+				),
+				array(
+					'key'               => 'field_600707d809206',
+					'label'             => 'Google map link',
+					'name'              => 'google_map_link',
+					'type'              => 'text',
+					'instructions'      => '',
+					'required'          => 0,
+					'conditional_logic' => 0,
+					'wrapper'           => array(
+						'width' => '',
+						'class' => '',
+						'id'    => '',
+					),
+					'default_value'     => '',
+					'placeholder'       => '',
+					'prepend'           => '',
+					'append'            => '',
+					'maxlength'         => '',
+				),
+			),
+			'location'              => array(
+				array(
+					array(
+						'param'    => 'post_type',
+						'operator' => '==',
+						'value'    => 'events',
+					),
+				),
+			),
+			'menu_order'            => 0,
+			'position'              => 'acf_after_title',
+			'style'                 => 'default',
+			'label_placement'       => 'top',
+			'instruction_placement' => 'label',
+			'hide_on_screen'        => '',
+			'active'                => true,
+			'description'           => '',
+		)
+	);
+endif;

@@ -1,0 +1,472 @@
+/**
+ * Amadex Admin Styles
+ */
+
+/* Admin General Styles */
+.amadex-admin {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.amadex-modal-close {
+    transition: none;
+}
+
+.amadex-modal-close:hover {
+    transform: none;
+}
+
+.amadex-stats-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.amadex-stat-card {
+    display: flex;
+    align-items: center;
+}
+
+img.emoji {
+   height: 3em !important;
+    width: 3em !important;
+}
+
+.wrap.amadex-bookings-page {
+    margin-bottom: 2rem;
+}
+
+.amadex-card.amadex-online-leads-card{
+    padding:10px;
+}
+
+.amadex-stat-label {
+    font-size: 20px;
+    font-weight: 700;
+}
+.amadex-stat-info {
+    display: flex;
+}
+
+.amadex-stat-number {
+    font-size: 20px;
+    font-weight: 500;
+}
+.amadex-admin h1 {
+    margin-top: 0;
+    color: #23282d;
+}
+
+.amadex-admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.amadex-logo img {
+    max-height: 50px;
+    width: auto;
+}
+
+.amadex-filters {
+    padding: 25px 0;
+}
+
+.amadex-stat-card {
+ gap:10px;
+}
+
+.amadex-stat-icon {
+    margin-left: 4px;
+}
+
+.amadex-stat-info{
+gap:5px;
+}
+
+.amadex-card.amadex-online-leads-card {
+    margin-left: 0;
+    margin-right: 20px;
+}
+
+.amadex-version {
+    color: #777;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Admin Cards */
+.amadex-admin-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px 20px;
+}
+
+.amadex-card {
+    flex: 1 1 calc(50% - 20px);
+    margin: 0 10px 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.amadex-card-full {
+    flex: 1 1 calc(100% - 20px);
+}
+
+.amadex-card-header {
+    padding: 15px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #eee;
+}
+
+.amadex-card-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #23282d;
+}
+
+.amadex-card-body {
+    padding: 20px;
+    color: #555;
+}
+
+/* Status Indicators */
+.amadex-status {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.amadex-status .dashicons {
+    margin-right: 10px;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+
+.amadex-status p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.amadex-status-success {
+    background-color: #f0f8f2;
+    color: #2c7b3a;
+    border-left: 4px solid #2c7b3a;
+}
+
+.amadex-status-success .dashicons {
+    color: #2c7b3a;
+}
+
+.amadex-status-error {
+    background-color: #fff8f8;
+    color: #a32222;
+    border-left: 4px solid #a32222;
+}
+
+.amadex-status-error .dashicons {
+    color: #a32222;
+}
+
+/* Shortcode Display */
+.amadex-shortcode-wrap {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    background: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #e5e5e5;
+}
+
+.amadex-shortcode-wrap code {
+    flex: 1;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+.amadex-copy-shortcode {
+    padding: 0 !important;
+    height: 28px;
+    width: 28px;
+}
+
+.amadex-copy-shortcode .dashicons {
+    margin: 3px 0 0 0;
+}
+
+/* Settings Tabs */
+.amadex-settings-tabs {
+    margin-bottom: 20px;
+}
+
+.amadex-settings-content {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #e5e5e5;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}
+
+/* Documentation Tabs */
+.amadex-documentation-tabs {
+    margin-top: 10px;
+}
+
+.amadex-tabs-nav {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+
+.amadex-tab-button {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-right: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #555;
+    transition: all 0.2s ease;
+}
+
+.amadex-tab-button:hover {
+    color: #0073aa;
+}
+
+.amadex-tab-button.active {
+    color: #0073aa;
+    border-bottom-color: #0073aa;
+}
+
+.amadex-tab-content {
+    display: none;
+}
+
+.amadex-tab-content.active {
+    display: block;
+}
+
+/* FAQ Section */
+.amadex-faq-item {
+    margin-bottom: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.amadex-faq-question {
+    padding: 15px;
+    background: #f9f9f9;
+    cursor: pointer;
+    font-weight: 500;
+    color: #23282d;
+    position: relative;
+}
+
+.amadex-faq-question:after {
+    content: "\f347";
+    font-family: dashicons;
+    position: absolute;
+    right: 15px;
+    transition: transform 0.2s ease;
+}
+
+.amadex-faq-item.active .amadex-faq-question:after {
+    transform: rotate(180deg);
+}
+
+.amadex-faq-answer {
+    padding: 15px;
+    display: none;
+    border-top: 1px solid #e5e5e5;
+    background: #fff;
+}
+
+/* Shortcode Documentation */
+.amadex-shortcode-doc {
+    margin-bottom: 30px;
+}
+
+.amadex-shortcode-doc h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #23282d;
+}
+
+.amadex-shortcode-doc h5 {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.amadex-shortcode-doc code {
+    background: #f5f5f5;
+    padding: 3px 5px;
+    border-radius: 3px;
+}
+
+/* Contact Page */
+.amadex-contact-info {
+    margin-bottom: 20px;
+}
+
+.amadex-contact-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.amadex-contact-item .dashicons {
+    margin-right: 15px;
+    color: #0073aa;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.amadex-contact-detail h3 {
+    margin: 0 0 5px;
+    font-size: 14px;
+    color: #23282d;
+}
+
+.amadex-contact-detail p {
+    margin: 0;
+}
+
+.amadex-support-options {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -5px;
+    list-style: none;
+    padding: 0;
+}
+
+.amadex-support-options li {
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+.amadex-support-options .dashicons {
+    margin-right: 5px;
+}
+
+/* Contact Form */
+.amadex-contact-form {
+    max-width: 100%;
+}
+
+.amadex-form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px 15px;
+}
+
+.amadex-form-group {
+    flex: 1 1 calc(50% - 20px);
+    margin: 0 10px;
+}
+
+.amadex-form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #23282d;
+}
+
+.amadex-form-group input[type="text"],
+.amadex-form-group input[type="email"],
+.amadex-form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.amadex-form-submit {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#amadex-contact-response {
+    margin-left: 15px;
+    font-weight: 500;
+}
+
+#amadex-contact-response.success {
+    color: #2c7b3a;
+}
+
+#amadex-contact-response.error {
+    color: #a32222;
+}
+
+/* API Test */
+.amadex-test-result {
+    margin-top: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: none;
+}
+
+.amadex-test-result.success {
+    display: block;
+    background-color: #f0f8f2;
+    color: #2c7b3a;
+    border-left: 4px solid #2c7b3a;
+}
+
+.amadex-test-result.error {
+    display: block;
+    background-color: #fff8f8;
+    color: #a32222;
+    border-left: 4px solid #a32222;
+}
+
+.amadex-test-result p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.amadex-test-result .dashicons {
+    margin-right: 8px;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 782px) {
+    .amadex-card {
+        flex: 1 1 100%;
+    }
+    
+    .amadex-form-group {
+        flex: 1 1 100%;
+        margin-bottom: 15px;
+    }
+    
+    .amadex-form-submit {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    #amadex-contact-response {
+        margin: 10px 0 0;
+    }
+}

@@ -1,0 +1,40 @@
+@use "../_DS-core/components/core--c-block";
+
+:root {
+	--l-block__padding-block: 15px;
+	--l-block__padding-inline: 15px;
+	--c-block__title-size: var(--dst--h4-font-size);
+	--c-block__title-weight: var(--dst--h4-font-weight);
+	--c-block__title-transform: var(--dst--h4-text-transform);
+	--c-block__title-font: var(--dst--h2-font);
+	--c-block__title-height: var(--dst--h4-line-height);
+	--c-block__title-ls: var(--dst--h4-letter-spacing);
+	--c-block__title-color: var(--dst--base-heading-color);
+	--c-block__text-size: var(--dst--base-text-size);
+	--c-block__title-margin: 0.5em;
+	--c-block__tag-size: 14px;
+	--c-block__tag-weight: 700;
+	--c-block__tag-transform: uppercase;
+	--c-block__tag-color: var(--dst--primary-color2);
+	--c-block__tagline-size: 1.6rem;
+	--c-block__tagline-weight: 700;
+	--c-block__tagline-transform: uppercase;
+	--c-block__tagline-color: var(--dst--pretitle-color);
+	--c-block__tagline-margin: 0.5em;
+
+	.is-style-colors-inverted {
+
+		--c-block__tagline-color: var(--dst--pretitle-color-alt);
+	}
+}
+
+.c-block {
+
+	&__btn {
+
+	}
+
+	@media (hover: hover) {
+		transition: transform 0.4s ease-out, background-color 0.4s;
+	}
+}

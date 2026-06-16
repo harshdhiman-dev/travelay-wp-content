@@ -1,0 +1,177 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+/**
+ ############################
+ #   MODULE: TABS
+ ############################
+ */
+
+.m-tabs {
+	contain: paint;
+}
+
+.l-tbnav {
+    display: flex;
+    gap: var(--tbnav-gap);
+    width: 100%;
+    text-align: center;
+
+    @include media("<=desktop") {
+
+        .js-tabs-to-acc-wrapper & {
+            display: none;
+        }
+    }
+
+    @include media(">desktop") {
+
+        .js-tabs-dropdown {
+            display: none;
+        }
+    }
+
+    &__item {
+        position: relative;
+
+        @include media("<=desktop") {
+
+            .js-tabsTabDrop-wrapper & {
+                display: none;
+            }
+        }
+    }
+}
+
+.c-tbnav {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+	padding: var(--tbnav-padding);
+	text-align: var(--tbnav-align);
+	background-color: var(--tbnav-bg);
+	color: var(--tbnav-color);
+	transition: all var(--dst--transition) ease-in;
+	min-width: 100px;
+	max-width: 300px;
+
+    &.is-active {
+        --tbnav-bg: var(--tbnav-bg-active);
+	    --tbnav-color: var(--tbnav-color-active);
+        box-shadow: var(--c-block__shadow, none);
+    }
+
+    &:not(.is-active):hover {
+        box-shadow: var(--c-block__shadow, none);
+    }
+
+    &__media {
+	    max-width: var(--tbnav-media-width);
+	    flex: 0 0 var(--tbnav-media-width);
+    }
+
+    &__label {
+        font-size: var(--tbnav-size);
+        font-weight: var(--tbnav-weight);
+        text-transform: var(--tbnav-uppercase, uppercase);
+	    line-height: 1.3;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--outline-color);
+        outline-offset: 1px;
+    }
+}
+
+.l-tbpanel {
+
+    &__item {
+        display: none;
+
+        .wp-admin & {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        @include media("<=desktop") {
+
+            .js-tabs-to-acc-wrapper & {
+                display: block;
+            }
+
+            .c-block {
+                flex-direction: column;
+            }
+        }
+
+        .l-accordion {
+            display: none;
+        }
+
+        .c-block {
+            opacity: 0;
+            transform: translate(-30px);
+            transition-property: transform, opacity;
+            will-change: opacity, transform;
+
+            .wp-admin & {
+                opacity: 1;
+            }
+        }
+
+        &.is-active {
+            display: block;
+
+            .l-accordion {
+
+                .is-block & {
+                    display: block;
+                }
+            }
+
+            .c-block {
+                animation: fade-translate-reverse 0.3s linear 1 forwards;
+            }
+        }
+    }
+
+    /* Mobile Title */
+
+    &__label {
+
+        @include media(">desktop") {
+            display: none;
+        }
+
+        @include media("<=desktop") {
+            display: block;
+            padding: 10px 20px;
+            background-color: var(--tbnav-mobile-bg);
+            color: var(--tbnav-mobile-color);
+            margin-bottom: 2px;
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 9px;
+                height: 9px;
+                border-top: 2px solid var(--tbnav-mobile-color);
+                border-right: 2px solid var(--tbnav-mobile-color);
+                right: 14px;
+                top: 40%;
+                transform: translateY(-50%) rotate(135deg);
+                transition: transform 0.1s ease-in;
+
+                .is-active & {
+                    transform: translateY(0) rotate(-45deg);
+                }
+            }
+        }
+    }
+}
+

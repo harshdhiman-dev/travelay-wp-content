@@ -1,0 +1,17 @@
+.editor-sidebar__panel {
+
+	[data-name="data_navigation"],
+	[data-name="data_thumbs"] {
+
+		.acf-button-group {
+			display: flex;
+			width: 170px;
+
+			> label {
+				width: 32%;
+			}
+		}
+
+	}
+
+}

@@ -1,0 +1,1370 @@
+/**
+ * Amadex New Flight Results Layout CSS
+ * Modern horizontal card design
+ */
+
+/* Search Summary Bar */
+.amadex-search-summary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 15px 20px;
+    border-radius: 8px;
+    /* margin-bottom: 15px; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.amadex-search-summary-info {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+a.amadex-price-box-call.amadex-call-btn {
+    text-decoration: none;
+    border-radius: 15px;
+    padding: 10px 15px;
+    background: #0E7D3F 0% 0% no-repeat;
+    gap: 0 !important;
+}
+
+img.amadex-popup-logo-img {
+    width: 250px;
+}
+
+span.amadex-call-icon-wrap img {
+    width: 20px;
+    height: 20px;
+}
+
+.amadex-search-route {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.amadex-search-dates {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+    padding: 4px 12px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+}
+
+.amadex-search-pax {
+    font-size: 14px;
+    color: rgba(255,255,255,0.9);
+}
+
+.amadex-search-modify-btn {
+    background: #fff;
+    color: #667eea;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.amadex-search-modify-btn:hover {
+    background: rgba(255,255,255,0.9);
+    transform: translateY(-2px);
+}
+
+/* Results Top Header */
+.amadex-results-top-header {
+    padding: 20px 0;
+    background: #fff;
+    display:none;
+    /* border-bottom: 1px solid #e0e0e0; */
+}
+
+.amadex-results-top-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+/* Airline Price Matrix */
+.amadex-airline-matrix {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.amadex-matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.amadex-matrix-table th,
+.amadex-matrix-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+
+.amadex-matrix-table th {
+    background: #f8f8f8;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-matrix-airline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.amadex-matrix-airline img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.amadex-matrix-airline span {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.amadex-matrix-label {
+    font-weight: 600;
+    text-align: left !important;
+    background: #f8f8f8;
+}
+
+.amadex-matrix-table td {
+    font-size: 16px;
+    font-weight: 600;
+    color: #007bff;
+}
+
+/* Disclaimer Note */
+.amadex-disclaimer-note {
+    background: #fff9e6;
+    border-left: 4px solid #ffc107;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #856404;
+}
+
+.amadex-disclaimer-note strong {
+    font-weight: 600;
+}
+
+/* Filter Pills */
+.amadex-filter-pills-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    padding: 15px 20px;
+    background: #fff;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.amadex-active-filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.amadex-sort-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.amadex-pill {
+    padding: 8px 16px;
+    border: 1px solid #d0d0d0;
+    border-radius: 20px;
+    background: #fff;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.amadex-pill:hover {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.amadex-pill.active,
+.amadex-pill-recommended {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.amadex-pill-icon {
+    font-size: 16px;
+}
+
+/* New Flight Card Design */
+.amadex-flight-card {
+    /* background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: box-shadow 0.3s; */
+}
+
+.amadex-flight-card:hover {
+    /* box-shadow: 0 4px 16px rgba(0,0,0,0.15); */
+}
+
+.amadex-flight-card-main {
+    display: flex;
+    align-items: stretch;
+    border-radius: 10px;
+}
+
+.amadex-flight-card-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    gap: 0;
+}
+
+.amadex-flight-card-airline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amadex-flight-card-airline img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.amadex-flight-card-airline span {
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Book Now Button Wrapper */
+/* .amadex-book-now-wrapper {
+    margin-top: 10px;
+} */
+
+.amadex-book-now-btn {
+    text-decoration: none !important;
+    display: inline-block;
+    background: #007bff;
+    color: #0E7D3F;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: #fff;
+    border: 1px solid #0E7D3F;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Inter';
+}
+
+.amadex-book-now-btn:hover {
+    /* background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+    color: #fff; */
+    text-decoration: none;
+}
+span#amadex-price-min-display {
+    margin-top: 14px;
+    color:#000000;
+    font-weight: 400;
+}
+
+.amadex-filter-group.amadex-filter-group-airlines {
+    border-top: 1px solid #E6E6E6;
+    /* margin: 10px 0; */
+    padding: 20px 0;
+}
+span#amadex-price-max-display{
+    margin-top: 14px;
+     color:#000000;
+     font-weight: 400;
+}
+.amadex-flight-card-info-header{
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+/* Flight Timeline */
+.amadex-flight-timeline {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+}
+
+.amadex-timeline-point {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.amadex-timeline-time {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-timeline-code {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-timeline-date {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+}
+
+.amadex-timeline-path {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+}
+
+.amadex-timeline-path::before {
+    content: '✈';
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    color: #007bff;
+    z-index: 3;
+    background: #fff;
+    padding: 2px 4px;
+    border-radius: 50%;
+}
+
+.amadex-timeline-path::after {
+    content: '📍';
+    position: absolute;
+    right: 0;
+    font-size: 16px;
+    color: #dc3545;
+    z-index: 3;
+    background: #fff;
+    padding: 2px 4px;
+    border-radius: 50%;
+}
+
+.amadex-timeline-line {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: #d0d0d0;
+    transform: translateY(-50%);
+}
+
+.amadex-timeline-plane {
+    position: relative;
+    z-index: 2;
+    font-size: 20px;
+    background: #fff;
+    padding: 0 5px;
+}
+
+.amadex-flight-layover {
+    position: absolute;
+    /* top: 50%; */
+    left: 50%;
+    top:4rem;
+    margin-top: -12px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    background: #fff;
+    padding: 5px 10px;
+    z-index: 3;
+}
+
+.amadex-layover-dot {
+    width: 8px;
+    height: 8px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    top: 8px;
+}
+
+.amadex-layover-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+}
+
+/* .amadex-layover-city {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(14, 125, 63, 1);
+} */
+
+.amadex-layover-time {
+    font-size: 11px;
+    color: #666;
+}
+
+.amadex-flight-share {
+    background: none;
+    border: 1px solid #007bff;
+    color: #007bff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+    align-self: flex-start;
+}
+
+.amadex-flight-share:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* Flight Card Policy Badges */
+.amadex-flight-class-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+}
+
+.amadex-flight-class {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.amadex-branded-fare-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    background: #F0F9F4;
+    color: #0E7D3F;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #0E7D3F;
+}
+
+.amadex-flight-policy-badges {
+    /*display: flex;*/
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    display: none;
+}
+
+.amadex-policy-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.amadex-policy-badge svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+.amadex-policy-badge-free-cancel {
+    background: #F0FDF4;
+    color: #0E7D3F;
+    border: 1px solid #86EFAC;
+}
+
+.amadex-policy-badge-fee-cancel {
+    background: #FFF7ED;
+    color: #D97706;
+    border: 1px solid #FCD34D;
+}
+
+.amadex-policy-badge-no-cancel {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FCA5A5;
+}
+
+.amadex-policy-badge-change-allowed {
+    background: #EFF6FF;
+    color: #2563EB;
+    border: 1px solid #93C5FD;
+}
+
+.amadex-policy-badge-no-change {
+    background: #FEF2F2;
+    color: #DC2626;
+    border: 1px solid #FCA5A5;
+}
+
+/* Fare Rules Panel Styles */
+.amadex-fare-info-section {
+    margin-top: 24px;
+    padding: 16px;
+    background: #F9FAFB;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+}
+
+.amadex-fare-info-section h5 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 12px 0;
+}
+
+.amadex-fare-info-item {
+    font-size: 13px;
+    color: #6B7280;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.amadex-fare-info-item:last-child {
+    margin-bottom: 0;
+}
+
+.amadex-fare-info-item strong {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Price Box */
+.amadex-flight-card-price {
+    background: #FFFFFF;
+    padding: 0 5px 15px 20px;
+    display: flex;
+    align-items: center;
+    min-width: 220px;
+}
+
+.amadex-price-box {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.amadex-price-box-class {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+}
+
+.amadex-price-box-amount {
+    font-size: 28px;
+    font-weight: 700;
+    color: #28a745;
+    text-align: center;
+}
+
+.amadex-price-box-label {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+
+.amadex-price-box-amenities {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    font-size: 18px;
+    padding: 10px 0;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.amadex-price-box-amenities span {
+    opacity: 0.4;
+}
+
+.amadex-price-box-amenities span.included {
+    opacity: 1;
+}
+
+.amadex-price-box-select {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.amadex-price-box-select:hover {
+    background: #0056b3;
+}
+
+.amadex-price-box-call {
+    background: #0E7D3F 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: block;
+}
+
+.amadex-price-box-call:hover {
+    background: #218838;
+    color: #fff;
+}
+
+/* Select Flight Modal Styles - New Design */
+.amadex-flight-detail-modal {
+    max-width: 700px;
+    padding: 0;
+}
+
+.amadex-modal-itinerary {
+    /* margin-bottom: 25px; */
+}
+
+.amadex-modal-itinerary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.amadex-modal-header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.amadex-modal-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-modal-separator {
+    color: #d0d0d0;
+    font-weight: 300;
+}
+
+.amadex-modal-date {
+    font-size: 14px;
+    color: #666;
+}
+
+.amadex-modal-share-btn {
+    background: none;
+    border: 1px solid #007bff;
+    color: #007bff;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.amadex-modal-share-btn:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.amadex-modal-flight-summary-card {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-radius: 12px 12px 0 0;
+    padding: 20px;
+    margin: 20px 0 0 0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.amadex-modal-flight-summary-card:hover {
+    background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.amadex-modal-flight-summary-card[data-expanded="true"] {
+    border-radius: 12px 12px 0 0;
+}
+
+.amadex-modal-card-header {
+    margin-bottom: 20px;
+}
+
+.amadex-modal-route-text {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: baseline;
+}
+
+.amadex-modal-route {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1565c0;
+}
+
+.amadex-modal-route-date {
+    font-size: 14px;
+    color: #333;
+}
+
+.amadex-modal-duration {
+    font-size: 14px;
+    color: #666;
+}
+
+.amadex-modal-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.amadex-modal-airline-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amadex-modal-airline-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.amadex-modal-airline-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-modal-dot {
+    font-size: 12px;
+    color: #999;
+}
+
+.amadex-modal-economy {
+    font-size: 14px;
+    color: #666;
+}
+
+.amadex-modal-flight-number {
+    font-size: 14px;
+    color: #333;
+}
+
+.amadex-modal-times-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.amadex-modal-time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.amadex-modal-stop-label {
+    font-size: 12px;
+    color: #999;
+    /* margin: 0 10px; */
+}
+
+.amadex-modal-chevron {
+    /* background: #fff;
+    border: 2px solid #90caf9; */
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: -2rem;
+}
+
+.amadex-modal-time-large {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1565c0;
+}
+
+.amadex-day-diff {
+    font-size: 14px;
+    color: #ff9800;
+    margin-left: 2px;
+}
+
+.amadex-modal-airport-code {
+    font-size: 13px;
+    color: #666;
+}
+
+.amadex-expand-arrow {
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: #4f5153;
+}
+
+.amadex-modal-chevron:hover .amadex-expand-arrow {
+    color: #007bff;
+}
+
+/* Expanded Details Section */
+.amadex-modal-expanded-details {
+    /* margin: 0 20px 0 20px; */
+    animation: slideDown 0.3s ease-out;
+    border-radius: 0 0 12px 12px;
+    overflow: hidden;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.amadex-detail-card {
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    padding: 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-top: -1px;
+}
+
+.amadex-detail-vertical-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.amadex-detail-vertical-timeline::before {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 50px;
+    bottom: 50px;
+    width: 2px;
+    background: none;
+    z-index: 1;
+}
+
+/* Departure Section */
+.amadex-detail-departure {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.amadex-detail-left {
+    min-width: 150px;
+}
+
+.amadex-detail-time-large {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    /* margin-bottom: 6px; */
+}
+
+.amadex-detail-location {
+    font-size: 16px;
+    color: #666;
+}
+
+.amadex-detail-right {
+    flex: 1;
+}
+
+.amadex-detail-airport-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 15px;
+    color: #333;
+}
+
+.amadex-detail-icon {
+    font-size: 18px;
+    color: #999;
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    padding: 2px;
+}
+
+/* Middle Section - Flight Info */
+.amadex-detail-middle {
+    /* padding: 30px 0 30px 50px; */
+    position: relative;
+}
+
+.amadex-detail-vertical-line {
+    position: absolute;
+    left: 208px;
+    top: -30px;
+    bottom: -30px;
+    width: 2px;
+    background: #d0d0d0;
+}
+
+.amadex-detail-flight-meta {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    margin-left: 12rem;
+}
+
+.amadex-detail-airline-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.amadex-detail-airline-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.amadex-detail-airline-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-detail-class {
+    margin-left: auto;
+    font-size: 14px;
+    color: #666;
+}
+
+.amadex-detail-flight-specs {
+    font-size: 14px;
+    color: #666;
+}
+
+.amadex-detail-operated {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Arrival Section */
+.amadex-detail-arrival {
+    display: flex;
+    gap: 50px;
+    margin-top: 20px;
+    position: relative;
+}
+
+.amadex-arrival-next-day {
+    margin-top: 6px;
+    color: #ff9800;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Old modal styles removed - using new design above */
+
+.amadex-modal-actions {
+    margin-top: 0;
+    text-align: center;
+    padding: 25px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
+}
+
+.amadex-modal-book-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 50px;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.amadex-modal-book-btn:hover {
+    background: linear-gradient(135deg, #218838 0%, #1aa179 100%);
+    color: #fff;
+    transform: translateY(-2px);
+    text-decoration: none;
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Share Modal Styles */
+.amadex-share-modal {
+    max-width: 500px;
+    padding: 30px;
+}
+
+.amadex-share-modal h3 {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
+.amadex-share-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.amadex-share-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.amadex-share-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    color: #333;
+}
+
+.amadex-share-option:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: #333;
+}
+
+.amadex-share-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s;
+}
+
+.amadex-share-option:hover .amadex-share-icon {
+    transform: scale(1.1);
+}
+
+.amadex-share-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.amadex-share-icon.whatsapp {
+    background: #25D366;
+    color: #fff;
+}
+
+.amadex-share-icon.gmail {
+    background: linear-gradient(135deg, #EA4335 0%, #4285F4 50%, #34A853 100%);
+    color: #fff;
+}
+
+.amadex-share-icon.copy {
+    background: #6c757d;
+    color: #fff;
+}
+
+.amadex-share-icon.messenger {
+    background: linear-gradient(135deg, #00B2FF 0%, #006AFF 100%);
+    color: #fff;
+}
+
+.amadex-share-icon.email {
+    background: #333;
+    color: #fff;
+}
+
+.amadex-share-icon.telegram {
+    background: #0088cc;
+    color: #fff;
+}
+
+.amadex-share-icon.facebook {
+    background: #1877f2;
+    color: #fff;
+}
+
+.amadex-share-option span {
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .amadex-flight-card-main {
+        flex-direction: column;
+    }
+
+    .amadex-flight-timeline {
+        flex-direction: row;
+        /* gap: 50px;
+        justify-content: space-between; */
+    }
+
+    .amadex-timeline-path {
+        width: 40px;
+        height: 60px;
+        flex: auto;
+    }
+
+    a.amadex-price-box-call.amadex-call-btn{
+    justify-content: center;
+}
+
+    .amadex-timeline-line {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        right: auto;
+        width: 2px;
+        height: 100%;
+        transform: translateX(-50%);
+    }
+
+    .amadex-timeline-plane {
+        transform: rotate(90deg);
+    }
+
+    .amadex-matrix-airline span {
+        font-size: 11px;
+    }
+    
+    .amadex-share-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .amadex-share-option {
+        padding: 15px 10px;
+    }
+    
+    .amadex-share-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .amadex-detail-departure,
+    .amadex-detail-middle,
+    .amadex-detail-arrival {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .amadex-detail-vertical-line {
+        display: block;
+        left:140px;
+    }
+    .amadex-modal-airline-info {
+        display: block;
+    }
+    .amadex-detail-flight-meta{
+        margin-left: 10rem;
+    }
+}
+
+/* =====================================================
+   CALL ICON STYLES & ANIMATIONS
+   ===================================================== */
+
+/* Call Icon Base Styles */
+.amadex-call-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+    display: inline-block;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.amadex-call-icon-small {
+    width: 18px;
+    height: 18px;
+    margin-right: 6px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.amadex-call-icon-btn {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+/* Pulse animation for call icon */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+/* Call button with icon */
+.amadex-price-box-call,
+.amadex-call-button,
+.amadex-call-number,
+.amadex-call-service {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Call text container - stack text vertically */
+.amadex-call-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+/* Call Now label */
+.amadex-call-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: inherit;
+    white-space: nowrap;
+}
+
+/* Phone number styling */
+.amadex-call-number-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: inherit;
+    white-space: nowrap;
+    font-family: 'Inter';
+}
+
+.amadex-call-button:hover .amadex-call-icon,
+.amadex-price-box-call:hover .amadex-call-icon,
+.amadex-call-number:hover .amadex-call-icon {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Shake animation on hover */
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-5px) rotate(-5deg);
+    }
+    75% {
+        transform: translateX(5px) rotate(5deg);
+    }
+}
+
+/* Mobile responsiveness for call icons */
+@media (max-width: 768px) {
+    .amadex-call-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+    }
+    
+    .amadex-call-icon-small {
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+    }
+    
+    .amadex-call-icon-btn {
+        width: 18px;
+        height: 18px;
+        margin-right: 6px;
+    }
+}

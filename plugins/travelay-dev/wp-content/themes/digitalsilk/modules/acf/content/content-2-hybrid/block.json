@@ -1,0 +1,56 @@
+{
+	"name": "acf/content-2-hybrid",
+	"title": "DST Content-2 (Hybrid)",
+	"description": "Content block with media that combines ACF and Gutenberg parts",
+	"style": [],
+	"script": [],
+	"category": "ds-hybrid",
+	"icon": "align-pull-left",
+	"keywords": [
+		"content",
+		"media"
+	],
+	"acf": {
+		"mode": "preview",
+		"renderCallback": "DS_ACF_Block_Manager::block_render_callback"
+	},
+	"attributes": {
+		"dsConfig": {
+			"customClasses": {
+				"dcbl-custom-v1": "dcbl-custom-v1",
+				"dcbl-custom-v2": "dcbl-custom-v2"
+			},
+			"decorClasses": {
+			}
+		},
+		"allowedBlocks": [
+			"ds-blocks/c-heading",
+			"ds-blocks/c-list",
+			"ds-blocks/button-group"
+		],
+		"templateArr": [
+			[
+				"ds-blocks/c-heading",
+				{
+					"dsContainerSideGap": false,
+					"dsContainer": ""
+				}
+			],
+			[
+				"ds-blocks/button-group",
+				[]
+			]
+		]
+	},
+	"supports": {
+		"anchor": true,
+		"mode": false,
+		"align": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"is_preview": true
+		}
+	}
+}

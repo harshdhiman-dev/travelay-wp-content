@@ -1,0 +1,141 @@
+.tdf-grid {
+	padding: 20px 0;
+}
+
+.tdf-loading,
+.tdf-error {
+	padding: 20px;
+	text-align: center;
+	color: #666;
+}
+
+.tdf-error {
+	color: #d32f2f;
+}
+
+.tdf-items {
+	display: grid;
+	grid-template-columns: repeat(var(--cols-desk, 3), 1fr);
+	gap: 20px;
+}
+
+@media (max-width: 768px) {
+	.tdf-items {
+		grid-template-columns: repeat(var(--cols-tab, 2), 1fr);
+	}
+}
+
+@media (max-width: 480px) {
+	.tdf-items {
+		grid-template-columns: repeat(var(--cols-mob, 1), 1fr);
+	}
+}
+
+.tdf-card {
+	position: relative;
+	border: 1px solid #e5e7eb;
+	border-radius: 8px;
+	padding: 20px;
+	background: #fff;
+	transition: box-shadow 0.2s;
+}
+
+.tdf-card:hover {
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.tdf-badge {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	background: #1E3A8A;
+	color: #fff;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 12px;
+	font-weight: 600;
+	text-transform: lowercase;
+}
+
+.tdf-date {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	font-size: 14px;
+	color: #666;
+}
+
+.tdf-route {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 20px 0;
+}
+
+.tdf-route-origin,
+.tdf-route-dest {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.tdf-code {
+	font-size: 24px;
+	font-weight: 700;
+	color: #1E3A8A;
+}
+
+.tdf-city {
+	font-size: 14px;
+	color: #666;
+}
+
+.tdf-starting {
+	font-size: 12px;
+	color: #999;
+	margin-top: 4px;
+}
+
+.tdf-line {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	position: relative;
+	height: 2px;
+	background: #e5e7eb;
+}
+
+.tdf-dots {
+	flex: 1;
+	height: 2px;
+	background: repeating-linear-gradient(to right, #e5e7eb 0, #e5e7eb 4px, transparent 4px, transparent 8px);
+}
+
+.tdf-icon {
+	position: absolute;
+	right: 0;
+	background: #fff;
+	padding: 0 4px;
+	font-size: 16px;
+}
+
+.tdf-price {
+	margin-top: 16px;
+	padding-top: 16px;
+	border-top: 1px solid #e5e7eb;
+	display: flex;
+	align-items: baseline;
+	gap: 4px;
+}
+
+.tdf-price-val {
+	font-size: 24px;
+	font-weight: 700;
+	color: #FF6B35;
+}
+
+.tdf-price-label {
+	font-size: 14px;
+	color: #666;
+}
+

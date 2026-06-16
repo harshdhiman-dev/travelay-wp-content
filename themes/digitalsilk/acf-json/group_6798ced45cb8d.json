@@ -1,0 +1,895 @@
+{
+    "key": "group_6798ced45cb8d",
+    "title": "Theme Forms",
+    "fields": [
+        {
+            "key": "field_60cc7faac4f95",
+            "label": "Demo Form Settings",
+            "name": "demo_form_settings",
+            "aria-label": "",
+            "type": "demo_form_settings",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "ds_asset_type": "",
+            "ds_default_value": 0,
+            "label_text": "Label",
+            "input_text": "Input with Text",
+            "input_placeholder": "Placeholder",
+            "success_text": "Thank you for your message. It has been sent.",
+            "error_text": "The field is required.",
+            "desc_text": "Please let us know what's on your mind. Have a question for us? Ask away."
+        },
+        {
+            "key": "field_60b9f3a8d2736",
+            "label": "Form Settings",
+            "name": "forms_settings",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ds_asset_type": "",
+            "ds_default_value": 0,
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_60ba1740b8cf0",
+                    "label": "Labels",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "accordion",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "",
+                    "ds_default_value": 0,
+                    "open": 1,
+                    "multi_expand": 1,
+                    "endpoint": 0
+                },
+                {
+                    "key": "field_60ba09d3d2737",
+                    "label": "Label Size",
+                    "name": "label-font-size",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--form-label-size",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_rem",
+                    "ds_css_key_name": "dst--form-label-size",
+                    "ds_default_value": 0,
+                    "default_value": 18,
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_60ba0eae6f8d1ds_p",
+                    "label": "Label Weight",
+                    "name": "label-font-weight",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "--dst--form-label-weight",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "font_weight",
+                    "ds_css_key_name": "dst--form-label-weight",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "300": "300",
+                        "400": "400",
+                        "500": "500",
+                        "600": "600",
+                        "700": "700",
+                        "800": "800",
+                        "900": "900"
+                    },
+                    "default_value": false,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_614082227960a",
+                    "label": "Label Text Transform",
+                    "name": "label-text-transform",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "--dst--form-label-text-transform",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "dst--form-label-text-transform",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "none": "none",
+                        "uppercase": "uppercase",
+                        "capitalize": "capitalize",
+                        "lowercase": "lowercase"
+                    },
+                    "default_value": false,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_60ba0abad2739",
+                    "label": "Label Text Color",
+                    "name": "dst--form-label-color",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "ds-color-selector",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "--dst--primary-color1": "Main Color 1",
+                        "--dst--primary-color2": "Main Color 2",
+                        "--dst--primary-color3": "Main Color 3",
+                        "--dst--secondary-color1": "Secondary Color 1",
+                        "--dst--secondary-color2": "Secondary Color 2",
+                        "--dst--secondary-color3": "Secondary Color 3",
+                        "custom": "Custom"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "default_value": "--dst--primary-color1",
+                    "layout": "vertical",
+                    "return_format": "value",
+                    "save_other_choice": 0
+                },
+                {
+                    "key": "field_60ba0a67d2738",
+                    "label": "Label Text Color Custom",
+                    "name": "dst--form-label-color_custom",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_60ba0abad2739",
+                                "operator": "==",
+                                "value": "custom"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher_color",
+                    "default_value": "",
+                    "enable_opacity": 1,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_60ba174cb8cf1",
+                    "label": "Inputs",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "accordion",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "",
+                    "ds_default_value": 0,
+                    "open": 1,
+                    "multi_expand": 1,
+                    "endpoint": 0
+                },
+                {
+                    "key": "field_60ba13735bbc0",
+                    "label": "Border Width",
+                    "name": "input-border-width",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--input-border-width",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_px",
+                    "ds_css_key_name": "dst--input-border-width",
+                    "ds_default_value": 0,
+                    "default_value": 1,
+                    "min": 1,
+                    "max": 3,
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": "px"
+                },
+                {
+                    "key": "field_60ba13c95bbc1",
+                    "label": "Border Radius",
+                    "name": "input-border-radius",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--input-border-radius",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_px",
+                    "ds_css_key_name": "dst--input-border-radius",
+                    "ds_default_value": 0,
+                    "default_value": "3px",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "px",
+                    "min": 0,
+                    "max": 50,
+                    "step": 1
+                },
+                {
+                    "key": "field_60ba15360960d",
+                    "label": "Vertical Gap",
+                    "name": "input-padding-top-bottom",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--input-padding-block",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_px",
+                    "ds_css_key_name": "dst--input-padding-block",
+                    "ds_default_value": 0,
+                    "default_value": "10px",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "px",
+                    "min": 0,
+                    "max": "",
+                    "step": "0.1"
+                },
+                {
+                    "key": "field_60ba15750960e",
+                    "label": "Horizontal Gap",
+                    "name": "input-padding-left-right",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--input-padding-inline",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_px",
+                    "ds_css_key_name": "dst--input-padding-inline",
+                    "ds_default_value": 0,
+                    "default_value": "20px",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "px",
+                    "min": 0,
+                    "max": "",
+                    "step": "0.1"
+                },
+                {
+                    "key": "field_60ba0b2f73918",
+                    "label": "Input Text Size",
+                    "name": "input-font-size",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--input-font-size",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_rem",
+                    "ds_css_key_name": "dst--input-font-size",
+                    "ds_default_value": 0,
+                    "default_value": 18,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "min": "",
+                    "max": "",
+                    "step": 1
+                },
+                {
+                    "key": "field_60ba0f496e183ds_p",
+                    "label": "Input Text Weight",
+                    "name": "input-font-weight",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "--dst--input-font-weight",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "font_weight",
+                    "ds_css_key_name": "dst--input-font-weight",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "300": "300",
+                        "400": "400",
+                        "500": "500",
+                        "600": "600",
+                        "700": "700",
+                        "800": "800",
+                        "900": "900"
+                    },
+                    "default_value": false,
+                    "allow_null": 0,
+                    "multiple": 0,
+                    "ui": 0,
+                    "return_format": "value",
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_67a281be7c946",
+                    "label": "Input \/ Select Height",
+                    "name": "input-height",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--input-height",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_rem",
+                    "ds_css_key_name": "dst--input-height",
+                    "ds_default_value": 0,
+                    "default_value": "",
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "step": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_60ba1108a3a60",
+                    "label": "",
+                    "name": "placeholder_separator_1",
+                    "aria-label": "",
+                    "type": "group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_60ba0c7473919",
+                                "operator": "!=",
+                                "value": "custom"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "",
+                    "ds_default_value": 0,
+                    "layout": "block",
+                    "sub_fields": []
+                },
+                {
+                    "key": "field_60ba0c7473919",
+                    "label": "Input Text Color",
+                    "name": "input-color",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "--dst--input-color",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "55",
+                        "class": "ds-color-selector",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher",
+                    "ds_css_key_name": "dst--input-color",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "--dst--primary-color1": "Main Color 1",
+                        "--dst--primary-color2": "Main Color 2",
+                        "--dst--primary-color3": "Main Color 3",
+                        "--dst--secondary-color1": "Secondary Color 1",
+                        "--dst--secondary-color2": "Secondary Color 2",
+                        "--dst--secondary-color3": "Secondary Color 3",
+                        "custom": "Custom"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "default_value": "--dst--primary-color1",
+                    "layout": "vertical",
+                    "return_format": "value",
+                    "save_other_choice": 0
+                },
+                {
+                    "key": "field_60ba0cca7391b",
+                    "label": "Input Text Color Custom",
+                    "name": "input-color_custom",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_60ba0c7473919",
+                                "operator": "==",
+                                "value": "custom"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher_color",
+                    "default_value": "",
+                    "enable_opacity": 1,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_60ba107076071",
+                    "label": "Input Background Color",
+                    "name": "input-background-color",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "--dst--input-bg-color",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "55",
+                        "class": "ds-color-selector",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher",
+                    "ds_css_key_name": "dst--input-bg-color",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "--dst--primary-color1": "Main Color 1",
+                        "--dst--primary-color2": "Main Color 2",
+                        "--dst--primary-color3": "Main Color 3",
+                        "--dst--secondary-color1": "Secondary Color 1",
+                        "--dst--secondary-color2": "Secondary Color 2",
+                        "--dst--secondary-color3": "Secondary Color 3",
+                        "custom": "Custom"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "default_value": "#fff",
+                    "layout": "vertical",
+                    "return_format": "value",
+                    "save_other_choice": 0
+                },
+                {
+                    "key": "field_60ba107576072",
+                    "label": "Input Background Color Custom",
+                    "name": "input-background-color_custom",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_60ba107076071",
+                                "operator": "==",
+                                "value": "custom"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher_color",
+                    "default_value": "",
+                    "enable_opacity": 1,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_60ba121424ba3",
+                    "label": "Input Border Color",
+                    "name": "input-border-color",
+                    "aria-label": "",
+                    "type": "radio",
+                    "instructions": "--dst--input-border-color",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "55",
+                        "class": "ds-color-selector",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher",
+                    "ds_css_key_name": "dst--input-border-color",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "--dst--primary-color1": "Main Color 1",
+                        "--dst--primary-color2": "Main Color 2",
+                        "--dst--primary-color3": "Main Color 3",
+                        "--dst--secondary-color1": "Secondary Color 1",
+                        "--dst--secondary-color2": "Secondary Color 2",
+                        "--dst--secondary-color3": "Secondary Color 3",
+                        "custom": "Custom"
+                    },
+                    "allow_null": 0,
+                    "other_choice": 0,
+                    "default_value": "#ddd",
+                    "layout": "vertical",
+                    "return_format": "value",
+                    "save_other_choice": 0
+                },
+                {
+                    "key": "field_60ba121824ba4",
+                    "label": "Input Border Color Custom",
+                    "name": "input-border-color_custom",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_60ba121424ba3",
+                                "operator": "==",
+                                "value": "custom"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color_switcher_color",
+                    "default_value": "",
+                    "enable_opacity": 1,
+                    "return_format": "string"
+                },
+                {
+                    "key": "field_60ba1756b8cf2",
+                    "label": "Rows",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "accordion",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "",
+                    "ds_default_value": 0,
+                    "open": 0,
+                    "multi_expand": 1,
+                    "endpoint": 0
+                },
+                {
+                    "key": "field_60ba167df8dd8",
+                    "label": "Vertical Gap",
+                    "name": "form-row-margin-top-bottom",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--form-row-margin-block",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_px",
+                    "ds_css_key_name": "dst--form-row-margin-block",
+                    "ds_default_value": 0,
+                    "default_value": "15px",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "px",
+                    "min": 0,
+                    "max": "",
+                    "step": "0.1"
+                },
+                {
+                    "key": "field_60ba1684f8dd9",
+                    "label": "Horizontal Gap",
+                    "name": "form-row-margin-left-right",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--form-row-margin-inline",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_px",
+                    "ds_css_key_name": "dst--form-row-margin-inline",
+                    "ds_default_value": 0,
+                    "default_value": "15px",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "px",
+                    "min": 0,
+                    "max": "",
+                    "step": "0.1"
+                },
+                {
+                    "key": "field_60ba18d7a7636",
+                    "label": "Messages",
+                    "name": "",
+                    "aria-label": "",
+                    "type": "accordion",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "",
+                    "ds_default_value": 0,
+                    "open": 0,
+                    "multi_expand": 1,
+                    "endpoint": 0
+                },
+                {
+                    "key": "field_60ba1e08a7637",
+                    "label": "Message Text Size",
+                    "name": "message-font-size",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--message-font-size",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "size_rem",
+                    "ds_css_key_name": "dst--message-font-size",
+                    "ds_default_value": 0,
+                    "default_value": 16,
+                    "min": "",
+                    "max": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "step": 1,
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_60ba1e15a7638",
+                    "label": "Message Line Height",
+                    "name": "message-line-height",
+                    "aria-label": "",
+                    "type": "number",
+                    "instructions": "--dst--message-line-height",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "def_value",
+                    "ds_css_key_name": "dst--message-line-height",
+                    "ds_default_value": 0,
+                    "default_value": "1.5",
+                    "min": 1,
+                    "max": 3,
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "step": "0.125",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
+                    "key": "field_60ba1e1fa7639ds_p",
+                    "label": "Message Text Weight",
+                    "name": "message-font-weight",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "--dst--message-font-weight",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "font_weight",
+                    "ds_css_key_name": "dst--message-font-weight",
+                    "ds_default_value": 0,
+                    "choices": {
+                        "300": "300",
+                        "400": "400",
+                        "500": "500",
+                        "600": "600",
+                        "700": "700",
+                        "800": "800",
+                        "900": "900"
+                    },
+                    "default_value": false,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 1,
+                    "ui": 0,
+                    "ajax": 0,
+                    "placeholder": ""
+                },
+                {
+                    "key": "field_6023e253916ec",
+                    "label": "Error Color",
+                    "name": "dst--validation-error-color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--validation-error-color",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#da747b",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_6023e24d916eb",
+                    "label": "Success Color",
+                    "name": "dst--validation-success-color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--validation-success-color",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#50b2a0",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                },
+                {
+                    "key": "field_60d347153a1cc",
+                    "label": "Notice Color",
+                    "name": "dst--validation-notice-color",
+                    "aria-label": "",
+                    "type": "color_picker",
+                    "instructions": "--dst--validation-notice-color",
+                    "required": 1,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "ds_asset_type": "color",
+                    "ds_css_key_name": "",
+                    "ds_default_value": 0,
+                    "default_value": "#ffb700",
+                    "enable_opacity": 0,
+                    "return_format": "string",
+                    "allow_in_bindings": 1
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-forms"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1739818287
+}

@@ -1,0 +1,437 @@
+/**
+ * Regional Settings Modal Styles
+ * Skyscanner-inspired design
+ */
+
+/* Regional Settings Button */
+.amadex-regional-settings-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.amadex-regional-settings-btn:hover:not(.amadex-regional-settings-btn--capsule) {
+    background: #f5f5f5;
+    border-color: #0E7D3F;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.amadex-regional-settings-btn:focus {
+    outline: none;
+    border-color: #0E7D3F;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.1);
+}
+
+/* Capsule Variant - Green Beautiful Capsule */
+#amadex-regional-settings-trigger.amadex-regional-settings-btn--capsule,
+.amadex-regional-settings-btn.amadex-regional-settings-btn--capsule,
+button.amadex-regional-settings-btn--capsule {
+    gap: 6px !important;
+    padding: 4px 12px !important;
+    border-radius: 999px !important;
+    background: #0E7D3F !important;
+    color: #ffffff !important;
+    border: 1px solid #0E7D3F !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 2px 4px rgba(14, 125, 63, 0.2) !important;
+    line-height: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: auto !important;
+}
+
+.amadex-regional-settings-btn--capsule .amadex-regional-settings-code {
+    color: #ffffff !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+}
+
+.amadex-regional-settings-btn--capsule .amadex-regional-settings-divider {
+    color: rgba(255, 255, 255, 0.7) !important;
+    opacity: 0.8 !important;
+    margin: 0 2px !important;
+    font-weight: 400 !important;
+}
+
+#amadex-regional-settings-trigger.amadex-regional-settings-btn--capsule:hover,
+.amadex-regional-settings-btn.amadex-regional-settings-btn--capsule:hover,
+button.amadex-regional-settings-btn--capsule:hover {
+    background: #0E7D3F !important;
+    border-color: #0E7D3F !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 16px rgba(14, 125, 63, 0.4), 0 0 20px rgba(14, 125, 63, 0.2) !important;
+}
+
+/* Ensure child elements stay white on hover */
+#amadex-regional-settings-trigger.amadex-regional-settings-btn--capsule:hover .amadex-regional-settings-code,
+.amadex-regional-settings-btn.amadex-regional-settings-btn--capsule:hover .amadex-regional-settings-code,
+button.amadex-regional-settings-btn--capsule:hover .amadex-regional-settings-code {
+    color: #ffffff !important;
+}
+
+#amadex-regional-settings-trigger.amadex-regional-settings-btn--capsule:hover .amadex-regional-settings-divider,
+.amadex-regional-settings-btn.amadex-regional-settings-btn--capsule:hover .amadex-regional-settings-divider,
+button.amadex-regional-settings-btn--capsule:hover .amadex-regional-settings-divider {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+#amadex-regional-settings-trigger.amadex-regional-settings-btn--capsule:focus,
+.amadex-regional-settings-btn.amadex-regional-settings-btn--capsule:focus,
+button.amadex-regional-settings-btn--capsule:focus {
+    outline: none !important;
+    border-color: #0E7D3F !important;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.3) !important;
+}
+
+.amadex-regional-settings-btn--capsule .screen-reader-text {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.amadex-regional-settings-labels {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.amadex-regional-settings-language,
+.amadex-regional-settings-country,
+.amadex-regional-settings-currency {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1rem;
+    color: #333;
+}
+
+/* Header Position */
+.amadex-regional-settings-btn-header {
+    margin-left: auto;
+}
+
+/* Floating Position */
+.amadex-regional-settings-btn-floating {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9998;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Regional Settings Modal */
+.amadex-regional-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none; /* Hidden by default, shown via JS */
+    align-items: center;
+    justify-content: center;
+}
+
+.amadex-regional-modal[style*="display: flex"],
+.amadex-regional-modal:not([style*="display: none"]) {
+    display: flex !important;
+}
+
+.amadex-regional-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.amadex-regional-modal-content {
+    position: relative;
+    background: #ffffff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    animation: amadex-modal-fade-in 0.3s ease-out;
+}
+
+@keyframes amadex-modal-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.amadex-regional-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.amadex-regional-modal-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.amadex-regional-modal-close {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #666;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amadex-regional-modal-close:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.amadex-regional-modal-body {
+    padding: 24px;
+}
+
+.amadex-regional-field {
+    margin-bottom: 24px;
+}
+
+.amadex-regional-field:last-child {
+    margin-bottom: 0;
+}
+
+.amadex-regional-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.amadex-regional-label-icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.amadex-regional-description {
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 12px 0;
+    line-height: 1.5;
+}
+
+.amadex-regional-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #ffffff;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.5%200-12.3%203.2-16.1%208.1-3.9%204.9-4.6%2011.4-2.1%2017.4l139.3%20192.6c3.9%205.3%2010.8%208.6%2018.2%208.6s14.3-3.3%2018.2-8.6l139.3-192.6c2.5-6%201.8-12.5-2.1-17.4Z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px;
+    padding-right: 40px;
+}
+
+.amadex-regional-select:hover {
+    border-color: #0E7D3F;
+}
+
+.amadex-regional-select:focus {
+    outline: none;
+    border-color: #0E7D3F;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.1);
+}
+
+.amadex-regional-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.amadex-regional-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.amadex-regional-btn-cancel {
+    background: #ffffff;
+    color: #333;
+    border: 1px solid #d0d0d0;
+}
+
+.amadex-regional-btn-cancel:hover {
+    background: #f5f5f5;
+    border-color: #0E7D3F;
+    color: #0E7D3F;
+}
+
+.amadex-regional-btn-save {
+    background: #0E7D3F;
+    color: #ffffff;
+}
+
+.amadex-regional-btn-save:hover {
+    background: #0d6e35;
+    box-shadow: 0 4px 12px rgba(14, 125, 63, 0.3);
+}
+
+.amadex-regional-btn-save:active {
+    transform: translateY(1px);
+}
+
+/* Notification Styles */
+.amadex-regional-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 10002;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: amadex-notification-slide-in 0.3s ease-out;
+    max-width: 300px;
+}
+
+.amadex-regional-notification-success {
+    background: #0E7D3F;
+    color: #ffffff;
+}
+
+.amadex-regional-notification-error {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.amadex-regional-notification-info {
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+@keyframes amadex-notification-slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .amadex-regional-modal-content {
+        width: 95%;
+        max-width: none;
+        border-radius: 12px;
+        max-height: 95vh;
+    }
+    
+    .amadex-regional-modal-header {
+        padding: 20px;
+    }
+    
+    .amadex-regional-modal-title {
+        font-size: 20px;
+    }
+    
+    .amadex-regional-modal-body {
+        padding: 20px;
+    }
+    
+    .amadex-regional-modal-footer {
+        padding: 20px;
+        flex-direction: row;
+    }
+    
+    .amadex-regional-btn {
+        width: 100%;
+    }
+    
+    .amadex-regional-settings-btn-floating {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+    }
+    
+    .amadex-regional-settings-labels {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .amadex-regional-settings-language,
+    .amadex-regional-settings-country,
+    .amadex-regional-settings-currency {
+        font-size: 0.7rem;
+    }
+
+    .amadex-regional-settings-btn--capsule {
+        padding: 3px 10px !important;
+        font-size: 11px !important;
+        letter-spacing: 0.02em !important;
+    }
+
+    .amadex-regional-settings-btn--capsule .amadex-regional-settings-code {
+        font-size: 11px !important;
+    }
+}

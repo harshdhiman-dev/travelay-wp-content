@@ -1,0 +1,181 @@
+@use "../../../mixins/include-media" as *;
+
+/* Slider Navigation / Arrows */
+
+.m-slider {
+
+    &__controls {
+        display: flex;
+        align-items: center;
+    }
+
+    & &__arrows {
+        background: var(--swiper-arrows-bg);
+        box-shadow: var(--swiper-arrows-shadow);
+        min-width: var(--swiper-navigation-size);
+        width: var(--swiper-navigation-size);
+        padding: 0;
+        margin: 0;
+        transition: all 0.2s;
+    }
+
+    &__arrows {
+
+        border-radius: 100%;
+        user-select: none;
+
+        &.swiper-button-disabled {
+            pointer-events: auto;
+        }
+
+        .is-square & {
+            border-radius: 0;
+        }
+
+        &::after {
+            display: none;
+            content: none;
+        }
+
+        .arrow-icon {
+            max-width: var(--swiper-navigation-size-icon);
+            max-height: var(--swiper-navigation-size-icon);
+            color: var(--swiper-arrows-color);
+            fill: var(--swiper-arrows-color);
+            pointer-events: bounding-box;
+            cursor: pointer;
+        }
+
+        &.-prev {
+
+            .arrow-icon {
+	            transform: scaleX(-1);
+            }
+        }
+
+        &:hover {
+            --swiper-arrows-color: var(--swiper-arrows-color-hover, var(--dst--primary-color2))
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--outline-color);
+            outline-offset: 1px;
+        }
+
+    }
+
+    &__nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        z-index: 2;
+    }
+
+    &:has([data-slider-navigation="inner-arrows"], [data-slider-navigation="outer-arrows"]) {
+
+        .m-slider__arrows {
+            transform: translateY(-50%);
+            top: 50%;
+
+            .wp-admin & {
+                top: 25vh;
+            }
+        }
+    }
+
+    /* Outer Arrows */
+
+    &:has([data-slider-navigation="outer-arrows"]) {
+        --swiper-navigation-sides-offset: 0;
+
+        @include media(">tablet") {
+
+            .l-heading {
+                margin-inline: var(--swiper-outer-gap);
+            }
+
+            .m-slider__container {
+                margin-inline: var(--swiper-outer-gap);
+            }
+
+            .m-slider__controls {
+                margin-inline: var(--swiper-outer-gap);
+            }
+        }
+    }
+
+    /* Inner Arrows */
+
+    &:has([data-slider-navigation="inner-arrows"]) {
+
+        @include media(">tablet") {
+            --swiper-navigation-sides-offset: calc(var(--dst--page-gutter) + 10px);
+        }
+
+    }
+
+    /* Bottom Arrows */
+
+    &:has([data-slider-navigation="bottom-arrows"]) {
+
+        .m-slider__controls {
+            justify-content: center;
+        }
+
+        .m-slider__arrows {
+            position: relative;
+            left: unset;
+            right: unset;
+        }
+
+        /* Progressbar Arrows */
+        &:has([data-slider-pagination="combo"]) {
+
+        }
+    }
+
+    /* Top Arrows */
+
+    &:has([data-slider-navigation="top-arrows"]) {
+
+        .m-slider__inner {
+            position: relative;
+        }
+
+        .m-slider__nav {
+            position: absolute;
+            top: -13px;
+            right: 0;
+            transform: translateY(-100%);
+        }
+
+        .m-slider__arrows {
+            position: relative;
+            left: unset;
+            right: unset;
+        }
+    }
+
+    /* Progressbar and fractions (Combo) */
+
+    &:has([data-slider-pagination="combo"]) {
+
+        .m-slider__pagination {
+            display: flex;
+            justify-content: space-between;
+            bottom: 0;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .swiper-pagination-progressbar {
+            position: relative;
+        }
+    }
+
+}

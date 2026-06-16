@@ -1,0 +1,60 @@
+@use "../_DS-core/mixins/include-media" as *;
+@use "../_DS-core/modules/core--testimonials";
+
+.slider-testimonials {
+	--testimonial-inner-gap: 30px;
+	--ttm-font-color: var(--dst--primary-color1);
+	--overlayOpacity: .7;
+
+	--avatar-size: 100px;
+	--author-font-size: inherit;
+	--author-font-weight: 600;
+	--author-color: var(--dst--primary-color1);
+	--avatar-border-size: 4px;
+	--avatar-border-color: var(--dst--primary-color2);
+	--avatar-border-color-active: var(--dst--primary-color1);
+
+	--company-font-size: 1.5rem;
+	--company-color: var(--dst--primary-color1);
+	--company-font-weight: 400;
+
+	--qoute-font-color: var(--dst--primary-color1);
+	--quote-font-size: 2.4rem;
+	--quote-font-weight: 600px;
+	--quote-line-height: 1.4;
+	--quote-color-accent: var(--dst--primary-color2);
+
+	--quote-icon-height: 50px;
+	--quote-icon-width: 50px;
+	--quote-icon-top: 0;
+	--quote-icon-left: -15px;
+
+	@include media("<=tablet") {
+		--avatar-size: 65px;
+	}
+
+	&__thumb {
+		--author-font-size: 1.4rem;
+	}
+}
+
+.c-quote {
+
+	&__title {
+
+		font-size: 2.2rem;
+		text-transform: uppercase;
+		margin-bottom: 1em;
+		font-weight: 600;
+	}
+}
+
+.dimbox-container:has(.quote-popup) {
+
+	--dst--popup-padding: 20px;
+
+	@include media(">tablet") {
+		--dst--popup-padding: 3rem;
+	}
+}
+

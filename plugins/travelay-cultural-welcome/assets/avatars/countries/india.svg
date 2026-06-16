@@ -1,0 +1,31 @@
+<svg viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="80" cy="188" rx="42" ry="8" fill="#0f172a" opacity="0.08"/>
+  <g class="tcw-figure">
+    <g class="tcw-limbs-namaste">
+      <path d="M46 112 C40 126 38 138 42 148" fill="none" stroke="#c98b63" stroke-width="10" stroke-linecap="round"/>
+      <path d="M114 112 C120 126 122 138 118 148" fill="none" stroke="#c98b63" stroke-width="10" stroke-linecap="round"/>
+      <g class="tcw-hands-namaste">
+        <path d="M56 110 L80 92 L104 110 L104 136 C104 148 93 156 80 156 C67 156 56 148 56 136 Z" fill="#c98b63"/>
+        <path d="M62 112 L80 98 L98 112" fill="none" stroke="var(--tcw-secondary,#fff)" stroke-width="2"/>
+        <path d="M66 122 L80 110 L94 122" fill="none" stroke="var(--tcw-secondary,#fff)" stroke-width="1.5"/>
+        <path d="M70 130 L80 120 L90 130" fill="none" stroke="var(--tcw-secondary,#fff)" stroke-width="1.5"/>
+        <circle cx="80" cy="118" r="3" fill="var(--tcw-accent,#000080)" opacity="0.35"/>
+      </g>
+    </g>
+    <g class="tcw-torso-group">
+      <path d="M52 94 L80 110 L108 94 L112 182 L48 182 Z" fill="var(--tcw-primary,#FF9933)"/>
+      <path d="M62 108 L80 120 L98 108" fill="none" stroke="var(--tcw-secondary,#fff)" stroke-width="2.5"/>
+      <rect x="73" y="122" width="14" height="22" rx="3" fill="var(--tcw-accent,#138808)" opacity="0.9"/>
+    </g>
+    <g class="tcw-head-group">
+      <path d="M50 38 C54 14 106 14 110 38 C114 54 112 84 104 102 C98 112 62 112 56 102 C48 84 46 54 50 38 Z" fill="#1f1f1f"/>
+      <ellipse cx="80" cy="58" rx="30" ry="34" fill="#c98b63"/>
+      <ellipse cx="68" cy="56" rx="4.5" ry="5.5" fill="#1f2937"/>
+      <ellipse cx="92" cy="56" rx="4.5" ry="5.5" fill="#1f2937"/>
+      <ellipse cx="69" cy="57" rx="1.4" ry="1.4" fill="#fff"/>
+      <ellipse cx="93" cy="57" rx="1.4" ry="1.4" fill="#fff"/>
+      <path d="M68 68 Q80 76 92 68" fill="none" stroke="#b45309" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="80" cy="48" r="2.2" fill="var(--tcw-primary,#FF9933)" opacity="0.55"/>
+    </g>
+  </g>
+</svg>

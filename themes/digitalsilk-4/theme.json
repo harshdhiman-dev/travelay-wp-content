@@ -1,0 +1,128 @@
+{
+	"settings": {
+		"appearanceTools": true,
+		"spacing": {
+			"blockGap": true,
+			"customSpacingSize": true
+		},
+		"typography": {
+			"fluid": false,
+			"fontSizes": [
+				{
+					"name": "Smaller",
+					"slug": "sm",
+					"size": "var(--dst--smaller-text-size)"
+				},
+				{
+					"name": "Base",
+					"slug": "base",
+					"size": "var(--dst--base-text-size)"
+				},
+				{
+					"name": "Larger",
+					"slug": "lg",
+					"size": "var(--dst--larger-text-size)"
+				},
+				{
+					"name": "Heading 1",
+					"slug": "h1",
+					"size": "var(--dst--h1-font-size)"
+				},
+				{
+					"name": "Heading 2",
+					"slug": "h2",
+					"size": "var(--dst--h2-font-size)"
+				},
+				{
+					"name": "Heading 3",
+					"slug": "h3",
+					"size": "var(--dst--h3-font-size)"
+				},
+				{
+					"name": "Heading 4",
+					"slug": "h4",
+					"size": "var(--dst--h4-font-size)"
+				},
+				{
+					"name": "Pre Title",
+					"slug": "pretitle",
+					"size": "var(--dst--pretitle-font-size)"
+				},
+				{
+					"name": "Sub Title",
+					"slug": "subtitle",
+					"size": "var(--dst--subtitle-font-size)"
+				},
+				{
+					"name": "Back Title",
+					"slug": "backtitle",
+					"size": "var(--dst--backtitle-font-size)"
+				},
+				{
+					"name": "Button",
+					"slug": "button",
+					"size": "var(--dst--btn-font-size)"
+				},
+				{
+					"name": "Blog",
+					"slug": "blog",
+					"size": "var(--dst--blog-text-size)"
+				}
+			]
+		},
+		"color": {
+			"palette": [
+				{
+					"name": "Primary 1",
+					"slug": "primary1",
+					"color": "var(--dst--primary-color1)"
+				},
+				{
+					"name": "Primary 2",
+					"slug": "primary2",
+					"color": "var(--dst--primary-color2)"
+				},
+				{
+					"name": "Primary 3",
+					"slug": "primary3",
+					"color": "var(--dst--primary-color3)"
+				},
+				{
+					"name": "Secondary 1",
+					"slug": "secondary1",
+					"color": "var(--dst--secondary-color1)"
+				},
+				{
+					"name": "Secondary 2",
+					"slug": "secondary2",
+					"color": "var(--dst--secondary-color2)"
+				},
+				{
+					"name": "Secondary 3",
+					"slug": "secondary3",
+					"color": "var(--dst--secondary-color3)"
+				},
+				{
+					"name": "Black",
+					"slug": "black",
+					"color": "#121212"
+				},
+				{
+					"name": "White",
+					"slug": "white",
+					"color": "#FFFFFF"
+				}
+			]
+		}
+	},
+	"styles": {
+		"elements": {
+			"link": {
+				"typography": {
+					"textDecoration": "default"
+				}
+			}
+		}
+	},
+	"version": 3
+}

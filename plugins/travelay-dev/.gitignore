@@ -1,0 +1,58 @@
+# Don't forget to also update `.dockerignore`!
+
+# generally ignored
+.env
+.ds-dev-mode
+.idea/
+.htaccess
+*.DS_Store
+*Thumbs.db
+_.sass-cache
+~imageoptim
+local-xdebuginfo.php
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
+
+# WP-specific data
+/wp-*.php
+/index.php
+license.txt
+readme.html
+xmlrpc.php
+wp-admin
+wp-includes
+wp-config.php
+wp-content/uploads
+wp-content/cache
+wp-content/wflogs
+wp-content/logs
+wp-content/backups/
+wp-content/backup-db/
+wp-content/blogs.dir/
+wp-content/ewww
+!wp-content/plugins/
+!wp-content/themes/
+wp-content/themes/digitalsilk/assets/_dist/*
+!wp-content/themes/digitalsilk/assets/_dist/.gitkeep
+wp-content/themes/digitalsilk/modules/gutenberg/build/*
+!wp-content/themes/digitalsilk/modules/gutenberg/build/.gitkeep
+wp-content/themes/digitalsilk/vendor/*
+wp-content/mu-plugins/*
+!wp-content/mu-plugins/index.php
+
+# ignore node dependency directories
+node_modules/
+**/node_modules/
+bower_components/
+.sass-cache/
+
+docker-compose.override.y*ml
+pnpm-lock.yaml
+package-lock.json
+/wp-content/themes/digitalsilk/composer.lock
+
+public
+public.pub

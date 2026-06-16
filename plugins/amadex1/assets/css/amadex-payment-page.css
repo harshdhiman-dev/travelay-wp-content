@@ -1,0 +1,733 @@
+/**
+ * Amadex Payment Page Styles
+ * Matches Alternative Airlines payment page layout
+ *
+ * @package Amadex
+ * @since 1.0.0
+ */
+
+/* Main Container */
+.amadex-payment-page-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    color: #111827;
+    background: #f9fafb;
+    min-height: 100vh;
+}
+
+/* Header Section */
+.amadex-payment-header {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.amadex-payment-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.amadex-payment-logo a {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    text-decoration: none;
+}
+
+.amadex-payment-timer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.timer-icon {
+    font-size: 16px;
+}
+
+.timer-text {
+    font-weight: 500;
+}
+
+.amadex-payment-total {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.total-label {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.total-amount {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.view-summary-btn {
+    display: none; /* Hidden on desktop */
+    background: #f97316;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.amadex-payment-route-summary {
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.route-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.route-codes {
+    font-weight: 500;
+    color: #111827;
+}
+
+.route-separator {
+    color: #d1d5db;
+}
+
+/* Main Content: Two-column layout on desktop */
+.amadex-payment-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    align-items: start;
+}
+
+/* Left Column: Summary */
+.amadex-payment-left-column {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Mobile Close Button */
+.mobile-summary-close {
+    display: none; /* Hidden on desktop */
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    cursor: pointer;
+    z-index: 1001;
+    align-items: center;
+    gap: 6px;
+}
+
+.mobile-summary-close:hover {
+    background: #e5e7eb;
+}
+
+.close-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.close-text {
+    font-size: 14px;
+}
+
+.amadex-payment-summary-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.summary-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #111827;
+}
+
+.summary-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.summary-label {
+    color: #6b7280;
+}
+
+.summary-value {
+    font-weight: 500;
+    color: #111827;
+}
+
+.summary-row.summary-total {
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    margin-top: 4px;
+}
+
+.summary-row.summary-total .summary-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.summary-row.summary-total .summary-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #f97316;
+}
+
+/* Flight Details Section */
+.amadex-payment-flight-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #111827;
+}
+
+.flight-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Flight Layover */
+.flight-layover {
+    padding: 12px 16px;
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #92400e;
+}
+
+.layover-icon {
+    font-size: 16px;
+}
+
+.layover-text {
+    font-weight: 500;
+}
+
+.flight-segment {
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.flight-airline-code {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.flight-aircraft {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+
+.flight-cabin {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.flight-departure,
+.flight-arrival {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+}
+
+.flight-time {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.flight-airport-code {
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.flight-airport-name {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.flight-terminal {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+.flight-duration-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 80px;
+}
+
+.flight-duration {
+    font-size: 12px;
+    color: #6b7280;
+    white-space: nowrap;
+}
+
+.flight-arrow {
+    color: #d1d5db;
+    font-size: 20px;
+}
+
+.flight-date {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 500;
+    padding-top: 8px;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Passengers Section */
+.amadex-payment-passengers-section {
+    margin-bottom: 0;
+}
+
+.passengers-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.passenger-item {
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.passenger-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.passenger-details {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.passenger-dob::after {
+    content: '•';
+    margin-left: 12px;
+    color: #d1d5db;
+}
+
+.passenger-gender::before,
+.passenger-nationality::before {
+    content: '•';
+    margin-left: 8px;
+    margin-right: 8px;
+    color: #d1d5db;
+}
+
+/* Right Column: Payment Form */
+.amadex-payment-right-column {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+}
+
+/* Payment Method Selector */
+.amadex-payment-method-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: #f9fafb;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    border: 1px solid #e5e7eb;
+}
+
+.payment-method-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.payment-method-icon {
+    font-size: 24px;
+}
+
+.payment-method-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.change-payment-method {
+    background: none;
+    border: none;
+    color: #f97316;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.change-payment-method:hover {
+    color: #ea580c;
+}
+
+/* Payment Form */
+.amadex-payment-form-container {
+    margin-bottom: 24px;
+}
+
+.payment-form-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
+}
+
+#stripe-payment-element-container {
+    margin-bottom: 24px;
+    min-height: 200px;
+}
+
+#stripe-payment-element {
+    padding: 0;
+    min-height: 200px;
+}
+
+/* Ensure Stripe Payment Element is visible */
+#stripe-payment-element > div,
+#stripe-payment-element .p1,
+#stripe-payment-element iframe {
+    min-height: 200px !important;
+}
+
+#stripe-payment-element-errors {
+    margin-top: 12px;
+    padding: 12px;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    color: #991b1b;
+    font-size: 14px;
+    display: none;
+}
+
+#stripe-payment-element-errors.visible {
+    display: block;
+}
+
+/* Payment Submit Button */
+.amadex-payment-submit-btn {
+    width: 100%;
+    background: #f97316;
+    color: #ffffff;
+    border: none;
+    padding: 16px 24px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-bottom: 20px;
+}
+
+.amadex-payment-submit-btn:hover:not(:disabled) {
+    background: #ea580c;
+}
+
+.amadex-payment-submit-btn:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Ensure button is always visible and clickable when enabled */
+#amadex-payment-submit {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+#amadex-payment-submit:disabled {
+    pointer-events: none !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+#amadex-payment-submit:not(:disabled) {
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+}
+
+/* Trust Indicators */
+.amadex-payment-trust-indicators {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.trust-badge {
+    font-size: 12px;
+    color: #6b7280;
+    padding: 4px 8px;
+}
+
+/* Help Section */
+.amadex-payment-help {
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.amadex-payment-help h4 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #111827;
+}
+
+.help-phone {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f97316;
+    margin-bottom: 4px;
+}
+
+.help-hours {
+    font-size: 12px;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Error Message */
+.amadex-payment-error {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 24px;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #991b1b;
+    text-align: center;
+}
+
+.amadex-payment-error p {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+}
+
+.amadex-payment-error a {
+    color: #f97316;
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .amadex-payment-page-container {
+        padding: 12px;
+    }
+    
+    .amadex-payment-header {
+        padding: 16px;
+    }
+    
+    .amadex-payment-header-top {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .amadex-payment-total {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .view-summary-btn {
+        display: block;
+    }
+    
+    /* Single column layout on mobile */
+    .amadex-payment-content {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    /* Hide left column by default on mobile */
+    .amadex-payment-left-column {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        overflow-y: auto;
+        padding: 20px;
+        border-radius: 0;
+    }
+    
+    .amadex-payment-left-column.mobile-expanded {
+        display: block;
+    }
+    
+    /* Show close button on mobile */
+    .mobile-summary-close {
+        display: flex;
+    }
+    
+    .amadex-payment-right-column {
+        position: static;
+    }
+    
+    .amadex-payment-left-column,
+    .amadex-payment-right-column {
+        padding: 20px;
+    }
+    
+    .summary-title,
+    .section-title,
+    .payment-form-title {
+        font-size: 16px;
+    }
+    
+    .total-amount {
+        font-size: 20px;
+    }
+    
+    .trust-badges {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+/* Tablet Responsive */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .amadex-payment-content {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+}
+
+/* Payment status message (return from Stripe – redirecting to confirmation) */
+#amadex-payment-status-message.amadex-payment-status {
+    font-size: 15px;
+    line-height: 1.4;
+}
+#amadex-payment-status-message.amadex-payment-status.success {
+    display: block !important;
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #10b981;
+}
+
+/* Confirming state (return from Stripe – skip complete_payment form, show confirmation) */
+.amadex-payment-confirming-state {
+    display: flex;
+    padding: 48px 24px;
+    text-align: center;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 12px;
+    margin: 24px 0;
+    min-height: 200px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.amadex-payment-confirming-state .amadex-confirming-message {
+    font-size: 18px;
+    font-weight: 600;
+    color: #065f46;
+    margin-bottom: 16px;
+}
+.amadex-payment-confirming-state .amadex-confirming-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #a7f3d0;
+    border-top-color: #059669;
+    border-radius: 50%;
+    animation: amadex-confirming-spin 0.8s linear infinite;
+}
+@keyframes amadex-confirming-spin {
+    to { transform: rotate(360deg); }
+}

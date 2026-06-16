@@ -1,0 +1,1268 @@
+
+.acf-field-group {
+
+	&[data-name="font_colors"] {
+
+		.acf-fields {
+			display: flex;
+			flex-wrap: wrap;
+
+			> .acf-field {
+				width: 50% !important;
+
+				> .acf-input {
+					width: 50%;
+				}
+
+				> .acf-label,
+				&::before {
+					width: 30%;
+				}
+			}
+		}
+
+		.acf-field.ds-color-selector {
+			min-height: 40px;
+		}
+	}
+
+	&[data-name="h1_title_placeholder"],
+	&[data-name="h2_title_placeholder"],
+	&[data-name="h3_title_placeholder"],
+	&[data-name="h4_title_placeholder"],
+	&[data-name="base_text_title_placeholder"],
+	&[data-name="larger_text_title_placeholder"],
+	&[data-name="smaller_text_title_placeholder"],
+	&[data-name="blog_text_title_placeholder"] {
+		background: #eee;
+		padding-top: 5px !important;
+		padding-bottom: 5px !important;
+
+		.acf-label {
+			margin: 0;
+			font-size: 20px;
+		}
+	}
+
+	//    &[data-name="buttons_styles"] {
+	//
+	//        .acf-fields {
+	//            display: flex;
+	//            flex-wrap: wrap;
+	//
+	//            > .acf-field.acf-accordion {
+	//                width: 100%;
+	//
+	//                .acf-accordion-title {
+	//                    background: #eee;
+	//                }
+	//
+	//	            .acf-accordion-content {
+	//
+	//		            .acf-fields > .acf-field {
+	//			            padding-top: 10px;
+	//			            padding-bottom: 20px;
+	//			            min-height: 50px !important;
+	//
+	//			            &:hover {
+	//				            .description {
+	//					            opacity: 1;
+	//				            }
+	//			            }
+	//		            }
+	//
+	//		            .description {
+	//			            margin: 0;
+	//			            position: absolute;
+	//			            bottom: -56px;
+	//			            font-size: 11px;
+	//			            opacity: 0;
+	//		            }
+	//	            }
+	//            }
+	//
+	//            div.button-icon-library .acf-input label img, {
+	//                max-height: 34px;
+	//            }
+	//        }
+	//
+	//	    .acf-field[data-name="button-icon-type"] {
+	//            border-left: #eee solid 1px;
+	//            border-right: #eee solid 1px;
+	//        }
+	//
+	//        .acf-field[data-name="button-icon"] {
+	//
+	//            .acf-image-uploader .image-wrap img[src$=".svg"] {
+	//                min-height: 60px;
+	//                min-width: 60px;
+	//            }
+	//        }
+	//    }
+
+}
+
+.acf-fields {
+
+	.wp-picker-container input[type="text"].wp-color-picker {
+		width: 6rem;
+		min-width: 5em;
+	}
+
+
+	//    > .acf-field[data-name="demo_button_settings"] {
+	//        position: sticky;
+	//        top: 20px;
+	//        z-index: 100;
+	//        background: #fff;
+	//        box-shadow: 6px -2px 12px 2px rgba(0, 0, 0, 0.15);
+	//        text-align: center;
+	//        padding: 0;
+	//
+	//        .c-btn-bar__preview {
+	//            display: flex;
+	//            align-items: center;
+	//            justify-content: center;
+	//
+	//            &__item {
+	//                display: flex;
+	//                flex-direction: column;
+	//                justify-content: space-between;
+	//                flex: 1 1 auto;
+	//
+	//                &:not(:first-child) {
+	//                    border-left: 1px solid #eee;
+	//                }
+	//
+	//                > div {
+	//                    padding: 0 20px 10px 20px;
+	//                    min-height: 62px;
+	//                    display: flex;
+	//                    justify-content: center;
+	//                    align-items: center;
+	//                }
+	//            }
+	//
+	//            label {
+	//                display: block;
+	//                text-align: center;
+	//                font-weight: 700;
+	//                margin-bottom: 10px;
+	//                padding: 5px;
+	//                background-color: #ddd;
+	//            }
+	//        }
+	//
+	//        .acf-label {
+	//            position: absolute;
+	//            background: #fff;
+	//            transform: translate(100%, -50%);
+	//            right: -5px;
+	//            top: 50%;
+	//            padding: 3px 10px;
+	//        }
+	//    }
+
+
+	> .acf-field [data-name="bg_color_type"] {
+
+		.acf-button-group {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}
+
+//div[data-name="buttons_styles"],
+//div[data-name="sticky_header_color"],
+//div[data-name="fixed_header_color"] {
+//
+//	+ .acf-field-extended-color-picker,
+//	.acf-field-extended-color-picker {
+//		position: relative;
+//		background: #fff;
+//		//box-shadow: 0 0 2px 2px rgba(0, 0, 0, .15);
+//		padding: 0 !important;
+//		width: 0;
+//		z-index: 9999 !important;
+//
+//		.acf-label {
+//			display: none;
+//		}
+//
+//		.acf-color-picker {
+//			position: absolute;
+//			right: 0;
+//			top: 35px;
+//		}
+//
+//		.wp-picker-holder {
+//			transform: translateY(-120%);
+//			position: relative;
+//		}
+//
+//		.wp-picker-container {
+//			text-align: right;
+//		}
+//	}
+//}
+
+/*************************************/
+
+
+[data-name="content_slider"] {
+
+	.acf-table {
+
+		> tbody > tr {
+
+			&::before {
+				content: 'Slide';
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				width: 50px;
+			}
+
+			&:not(:first-child) {
+
+				> td, &::before {
+					border-top: 2px solid #999;
+				}
+			}
+		}
+	}
+}
+
+.block-editor .edit-post-sidebar,
+.editor-sidebar__panel,
+.components-panel {
+
+	.acf-fields > .acf-field.acf-accordion .acf-accordion-title {
+		padding-block: 10px !important;
+	}
+
+	.acf-label label {
+		font-size: 12px;
+		letter-spacing: -0.1px;
+		font-family: Roboto, sans-serif;
+	}
+
+	.acf-field select {
+		min-width: 60px;
+	}
+
+	[data-name="image"],
+	[data-name="pretitle"],
+	[data-name="title"],
+	[data-name="backtitle"],
+	[data-name="subtitle"],
+	[data-name="link_popup"],
+	[data-name="image_size"] {
+		display: flex;
+		align-items: center;
+		min-width: 100% !important;
+
+		.acf-label {
+			width: 18%;
+			min-width: 18%;
+		}
+
+		.acf-input {
+			flex: 1 1 auto;
+		}
+	}
+
+	[data-name="description"] {
+
+		textarea {
+			font-size: 12px;
+		}
+
+		.wp-editor-container iframe {
+			min-height: 100px;
+			max-height: 140px;
+		}
+	}
+
+	[data-name="link_popup"] {
+
+		.acf-fields {
+			padding: 0;
+			border: none;
+			justify-content: flex-end;
+		}
+
+		.acf-field-button-group {
+			padding: 0 !important;
+
+			.acf-label {
+				display: none;
+			}
+		}
+	}
+
+	[data-name="bg_color"],
+	[data-name="has_shadow"],
+	[data-name="has_counter"],
+	[data-name="is_vertical"],
+	[data-name="content_position"],
+	[data-name="content_style"],
+	[data-name="text_position"],
+	[data-name="vertical_columns"],
+	[data-name="shape"] {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	[data-name="columns_order"] {
+
+		.acf-label {
+
+			label {
+				white-space: nowrap !important;
+			}
+		}
+	}
+
+	[data-name="columns_ratio"],
+	[data-name="text_clamp"],
+	[data-name="overlay_opacity"] {
+
+		.acf-range-wrap {
+			display: flex;
+			justify-content: space-between;
+
+			.acf-append {
+				position: absolute;
+				right: 25px;
+			}
+
+			input[type="range"] {
+				max-width: 90px !important;
+			}
+		}
+
+		.acf-label {
+			width: 65% !important;
+
+			label {
+				white-space: nowrap;
+			}
+		}
+	}
+
+	[data-name="overlay_opacity"],
+	[data-name="overlay_opacity_color"] {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+
+		.acf-label {
+			width: 100px;
+		}
+	}
+
+	[data-name="is_vertical"] {
+
+		.acf-label {
+			width: 65% !important;
+
+			label {
+				white-space: nowrap;
+			}
+		}
+	}
+
+	[data-name="cta_list"] {
+
+		.acf-fields {
+			display: flex;
+			flex-wrap: wrap;
+			//padding-bottom: 10px !important;
+
+			> .acf-field {
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+
+			[data-name="link"],
+			[data-name="size"],
+			[data-name="is_custom_icon"],
+			[data-name="style"] {
+				width: 100% !important;
+				padding-block: 2px !important;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				> .acf-label {
+					width: 25%;
+					text-align: left;
+					margin-bottom: 0;
+
+					label {
+						margin-bottom: 0;
+					}
+				}
+			}
+
+			.acf-button-group label {
+				padding: 2px 7px;
+			}
+
+			.link-wrap {
+				padding-block: 0;
+			}
+		}
+	}
+
+	.acf-fields {
+
+		&:has(.acf-accordion-title) {
+
+			> .acf-field {
+				padding-block: 1px !important;
+
+				&:has(.wp-picker-active) {
+					z-index: 10;
+				}
+			}
+
+			[data-name="content_type"] {
+				margin-bottom: 10px;
+			}
+		}
+
+		> .acf-field {
+			padding-block: 5px !important;
+		}
+
+		input[type="number"] {
+			min-width: 62px;
+		}
+
+		> .acf-field[data-name="inner_gap_top"],
+		> .acf-field[data-name="inner_gap_bottom"],
+		> .acf-field[data-name="inner_gap_right"],
+		> .acf-field[data-name="inner_gap_left"],
+		> .acf-field[data-name="border_radius"],
+		> .acf-field[data-name="columns_ratio"],
+		> .acf-field[data-name="text_clamp"] {
+			margin-block: 0;
+			padding-block: 0 !important;
+
+			.acf-label {
+				margin: 0 10px 0 0;
+				white-space: nowrap;
+				min-width: 65px;
+
+				label {
+					margin: 0;
+				}
+			}
+
+			.acf-range-wrap {
+				display: flex;
+				align-items: center;
+
+			}
+
+			input[type="range"] {
+				max-width: 100px;
+			}
+		}
+
+		> .acf-field[data-name="columns_ratio"] {
+
+			.acf-range-wrap {
+				flex-wrap: nowrap !important;
+			}
+		}
+
+		> .acf-field[data-name="inner_gap_bottom"] {
+			margin-bottom: 5px;
+		}
+
+		> .acf-field[data-name="inner_gap_right"] {
+			clear: none;
+		}
+
+		> .acf-field[data-name="inner_gap_left"] {
+			clear: none;
+		}
+
+		> .acf-field[data-name="horizontal_alignment"],
+		> .acf-field[data-name="vertical_alignment"] {
+
+			.acf-button-group {
+				width: 100%;
+			}
+
+			.acf-input {
+				display: inline-block;
+				//padding-left: 40px;
+				position: relative;
+				min-width: 200px;
+
+				&::after {
+					content: '';
+					width: 24px;
+					height: 100%;
+					left: 0;
+					bottom: 0;
+					position: absolute;
+					background-image: url("data:image/svg+xml,%3Csvg height='91' version='1.1' width='91' xml:space='preserve' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M47.289 61.694h20.4v3.4h-20.4zM40.488 43.818h27.201v3.399H40.488zM40.488 34.88h27.201v3.4H40.488zM40.488 25.941h27.201v3.4H40.488zM50.689 52.757h17v3.399h-17z'/%3E%3Cpath d='M31.139 69.083a1.69 1.69 0 001.201-.498l10.838-10.838a1.7 1.7 0 10-2.404-2.404l-7.936 7.936V25.941H29.44v37.337l-7.936-7.936a1.7 1.7 0 10-2.404 2.404l10.838 10.838c.332.333.765.499 1.201.499z'/%3E%3C/svg%3E");
+					background-repeat: no-repeat;
+					background-size: 24px;
+					background-position: 100% 50%;
+					transform: translateX(-100%);
+				}
+			}
+		}
+
+		> .acf-field[data-name="horizontal_alignment"] {
+
+			.acf-input::after {
+				transform: rotate(-90deg) translateY(-100%);
+			}
+		}
+
+		> .acf-field[data-name="media_component_settings"] {
+
+			.acf-field-button-group {
+				margin-block: 0;
+
+				.acf-button-group {
+					min-width: 165px;
+				}
+
+				.acf-label {
+					margin: 0 10px 0 0;
+				}
+			}
+
+			.acf-accordion-content .acf-fields > .acf-field {
+				//display: block !important;
+
+				.acf-label {
+					width: 100% !important;
+				}
+			}
+
+			[data-name="mobile"] {
+				display: block !important;
+
+				> .acf-label {
+					display: block;
+					width: 100% !important;
+					background-color: #dcffd9;
+
+					label {
+						font-weight: 700;
+					}
+				}
+
+				> .acf-input {
+
+					> .acf-fields {
+						border: none;
+					}
+				}
+
+				.acf-fields > .acf-field {
+					padding-inline: 0 !important;
+				}
+			}
+
+//			[data-name="focal_point"] {
+//
+//				.acf-button-group {
+//					display: flex;
+//					flex-wrap: wrap;
+//
+//					> label {
+//						width: calc(100% / 3);
+//						min-width: calc(100% / 3);
+//						margin: 0 !important;
+//						padding: 0 !important;
+//					}
+//				}
+//			}
+		}
+
+		> .acf-field[data-name="background"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="module_effects"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="layout_settings"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="content_styles"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="module_slider_settings"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="horizontal_alignment"],
+		> .acf-field[data-name="is_clickable"],
+		> .acf-field[data-name="settings"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="vertical_alignment"],
+		> .acf-field[data-name="component_settings"].acf-field-group > .acf-input > .acf-fields > .acf-field:not(.acf-field-accordion),
+		> .acf-field[data-name="component_settings"] .acf-accordion-content .acf-fields > .acf-field,
+		> .acf-field[data-name="text_component_settings"] .acf-accordion-content .acf-fields > .acf-field,
+		> .acf-field[data-name="media_component_settings"] .acf-accordion-content .acf-fields > .acf-field,
+		> .acf-field[data-name="media_background"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="background_accordion"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="media_image"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="media_video"] > .acf-input > .acf-fields > .acf-field,
+		> .acf-field[data-name="scroll_down"],
+		> .acf-field[data-name="field_group_banner_content_type"],
+		> .acf-field[data-name="scroll_down_position"] {
+			display: flex;
+			align-items: center;
+			width: 100% !important;
+			max-width: 450px;
+			justify-content: space-between;
+			padding: 4px 10px;
+			margin: 0;
+			border-bottom: 1px solid #f2f2f2;
+			transition: background-color .3s;
+
+			&:hover {
+				background-color: #dcffd9;
+			}
+
+			&:nth-child(odd) {
+				//background-color: #f2f2f2;
+			}
+
+			.acf-label:not(.acf-accordion-title) {
+				width: 40%;
+				white-space: nowrap;
+				margin: 0 10px 0 0;
+
+				label {
+					margin-bottom: 0;
+					white-space: normal;
+				}
+			}
+
+			.acf-button-group label {
+				padding: 5px 7px;
+
+				@container (max-width: 460px) {
+					padding-block: 2px;
+				}
+			}
+
+			button.button.wp-color-result {
+				margin-right: 0 !important;
+				margin-bottom: 0;
+			}
+
+			.acf-color-picker .wp-picker-container,
+			.wp-picker-open + .wp-picker-input-wrap {
+				display: flex;
+			}
+
+			.wp-picker-holder {
+				position: absolute;
+				z-index: 9999;
+				top: 25px;
+				right: 25px;
+			}
+		}
+
+		> .acf-field[data-name="media_background"],
+		> .acf-field[data-name="background_accordion"] {
+
+			[data-name="media_image"],
+			[data-name="media_video"],
+			[data-name="media_background"] {
+
+				> .acf-label {
+					max-width: 60px;
+				}
+
+				> .acf-input {
+					flex: 1 1 auto;
+				}
+			}
+
+			.acf-image-uploader {
+				text-align: right;
+			}
+
+			[data-name="video"] {
+
+				> .acf-label {
+					max-width: 50px;
+				}
+			}
+
+			.acf-file-uploader {
+
+				.file-icon img {
+					max-width: 18px;
+				}
+
+				.file-info {
+					margin-left: 36px;
+				}
+			}
+		}
+
+		> .acf-field[data-name="text_component_settings"] .acf-accordion-content .acf-fields > .acf-field[data-type="group"] {
+			display: block;
+
+			> .acf-label {
+				display: block;
+				width: 100% !important;
+				background-color: #dcffd9;
+			}
+
+			.acf-fields {
+				display: flex;
+				gap: 10px;
+				border: none;
+
+				> .acf-field {
+					padding-inline: 0;
+					display: block;
+				}
+
+				.acf-range-wrap {
+					display: flex;
+
+					input[type="range"] {
+						max-width: 100px;
+					}
+				}
+
+				.acf-append {
+					position: absolute;
+					right: 25px;
+				}
+			}
+		}
+
+		> .acf-field[data-name="component_settings"] {
+
+			.acf-field {
+
+				&[data-name="inner_gap_vertical"],
+				&[data-name="inner_gap_horizontal"] {
+					max-width: 48% !important;
+					display: inline-flex !important;
+					padding-right: 0 !important;
+
+					.acf-label {
+						margin-right: 0 !important;
+
+						label {
+							white-space: nowrap !important;
+						}
+					}
+
+					select {
+						min-width: 50px;
+					}
+				}
+			}
+		}
+
+		> .acf-field[data-name="layout_settings"] {
+
+			.acf-field {
+
+				&[data-name="card_gap_vertical"],
+				&[data-name="card_gap_horizontal"] {
+					max-width: 48% !important;
+					display: inline-flex !important;
+					padding-right: 0 !important;
+
+					.acf-label {
+						margin-right: 0 !important;
+
+						label {
+							white-space: nowrap !important;
+						}
+					}
+
+					select {
+						min-width: 50px;
+					}
+				}
+			}
+		}
+
+		> .acf-field[data-name="title_styles"] {
+			display: flex;
+			align-items: center;
+			min-width: 100% !important;
+
+			> .acf-label {
+				width: 18%;
+				min-width: 18%;
+			}
+
+			> .acf-input > .acf-fields {
+				display: flex;
+				flex-wrap: wrap;
+
+				> .acf-field {
+					display: flex;
+					align-items: center;
+					justify-content: flex-start;
+					gap: 10px;
+					padding: 4px 10px;
+					width: 100% !important;
+					border-bottom: 1px solid #f2f2f2;
+
+					.acf-label {
+						margin: 0 !important;
+						width: 80px !important;
+
+						label {
+							margin: 0;
+						}
+					}
+
+					&[data-name="tag"],
+					&[data-name="tag_style"] {
+						width: 48% !important;
+						border-bottom: 2px solid #f2f2f2;
+						gap: 0;
+						padding-right: 0;
+					}
+
+					&[data-name="horizontal_alignment"],
+					&[data-name="horizontal_alignment_mobile"],
+					&[data-name="layout"] {
+
+						.acf-label {
+							width: 80px !important;
+						}
+
+						.acf-input {
+							min-width: 200px;
+						}
+
+						.acf-button-group {
+							width: 100%;
+						}
+					}
+
+					.acf-button-group label {
+						padding: 5px 7px;
+						white-space: unset;
+
+						@container (max-width: 460px) {
+							padding-block: 2px;
+						}
+					}
+				}
+			}
+
+			&[data-key="field_group_content-2_title_styles"],
+			&[data-key="field_group_tabs_title_styles"],
+			&[data-key="field_group_banner_title_styles"],
+			&[data-key="field_group_content-simple_title_styles"],
+			&[data-key="field_group_advanced-banner-slider_title_styles"],
+			&[data-key="field_group_panel-slider_title_styles"],
+			&[data-key="field_group_contact_title_styles"],
+			&[data-key="field_group_accordion_title_styles"] {
+				display: block;
+
+				.acf-label {
+					width: 100%;
+				}
+
+				.acf-input:has(.acf-button-group) {
+					min-width: 150px !important;
+				}
+			}
+		}
+
+		> .acf-field[data-name="layout_settings"] > .acf-input > .acf-fields > .acf-field {
+
+			.acf-label:not(.acf-accordion-title) {
+				width: 60%;
+			}
+		}
+
+		> .acf-field[data-name="module_slider_settings"] {
+
+			> .acf-input > .acf-fields {
+
+				> .acf-field {
+					flex-wrap: wrap;
+
+					.acf-button-group {
+						flex-direction: row;
+						flex-wrap: wrap;
+					}
+
+					div[data-type="true_false"] {
+						display: flex;
+						align-items: center;
+						margin: 5px;
+
+						.acf-label {
+							width: 25%;
+							margin-right: 10px;
+						}
+
+						.acf-input {
+							width: 70%;
+							margin-left: 10px;
+						}
+					}
+
+					div[data-name="data_thumbs"],
+					div[data-name="data_vertical"] {
+
+						.acf-label {
+							min-width: 40%;
+						}
+
+					}
+
+					> .acf-label {
+						width: 100% !important;
+					}
+				}
+			}
+
+			.acf-accordion-content {
+
+				.acf-fields > .acf-field {
+					padding: 5px !important;
+				}
+			}
+
+			[data-name="data_columns"] {
+
+				.acf-label {
+					max-width: 54px;
+				}
+
+				ul.acf-radio-list.acf-hl li {
+					margin-right: 5px;
+				}
+			}
+
+			[data-name="data_columns-mobile"] {
+				flex-wrap: nowrap;
+
+				.acf-label {
+					max-width: 36% !important;
+				}
+
+				ul.acf-radio-list.acf-hl li {
+					margin-right: 5px;
+				}
+			}
+
+
+			[data-name="data_columns-gap"],
+			[data-name="data_columns-mobile-gap"] {
+
+				.acf-label {
+					max-width: 70% !important;
+				}
+			}
+
+			[data-name="data_leading-zero"],
+			[data-name="data_loop"],
+			[data-name="data_autoplay"],
+			[data-name="data_effect"] {
+
+				.acf-label {
+					width: auto !important;
+
+					label {
+						white-space: nowrap !important;
+					}
+				}
+
+				.acf-input {
+					min-width: 30%;
+				}
+			}
+
+			[data-name="data_loop"],
+			[data-name="data_autoplay"],
+			[data-name="data_effect"] {
+				border: none !important;
+				margin: 0 !important;
+				padding-block: 0 !important;
+
+				.acf-field {
+					padding: 0 !important;
+					margin: 0 !important;
+				}
+
+				.acf-true-false {
+
+					label {
+						justify-content: flex-end;
+						text-align: right;
+					}
+				}
+			}
+
+			[data-name="data_autoplay"],
+			[data-name="data_effect"] {
+
+				&:has([data-name="data_enabled"] .acf-switch.-on),
+				&:has([data-name="enabled"] .acf-switch.-on) {
+					flex-wrap: wrap !important;
+				}
+
+				.acf-input {
+					min-width: 65%;
+
+					.acf-fields {
+						border: none;
+						padding: 0;
+						margin: 0;
+
+						> .acf-field {
+							padding-block: 0;
+						}
+					}
+				}
+			}
+
+			[data-name="data_delay"] {
+				display: flex;
+
+				input[type="number"] {
+					max-width: 62px;
+				}
+			}
+
+			[data-name="data_observer"] {
+
+				.acf-label {
+					min-width: 60%;
+				}
+			}
+
+			[data-name="data_continuously"] {
+
+				.description {
+
+				}
+			}
+
+		}
+
+		[data-name="data_columns-mobile"] {
+			flex-wrap: nowrap !important;
+
+			.acf-label {
+				min-width: 35%;
+			}
+
+			.acf-range-wrap {
+				display: flex;
+				align-items: center;
+
+				input[type="range"] {
+					max-width: 40%;
+				}
+			}
+		}
+
+		> .acf-field[data-name="content_slider"] .acf-field.acf-accordion .acf-accordion-title,
+		> .acf-field[data-name="cards_widget"] .acf-field.acf-accordion .acf-accordion-title {
+			padding: 5px 10px !important;
+			margin: 0;
+			transition: all .2s;
+
+			&:hover {
+				background-color: #ddd;
+			}
+		}
+
+		> .acf-field[data-name="ds_custom_settings"] ul.acf-checkbox-list li {
+			float: none;
+
+			label {
+				cursor: pointer;
+			}
+		}
+
+	}
+
+	.resize-handle {
+		user-select: none;
+	}
+
+	.iris-border .iris-picker-inner {
+		display: flex;
+	}
+}
+
+[data-name="link_popup"] {
+	min-width: 90%;
+}
+
+[data-name="data_thumbs"],
+[data-name="arrow_type"] {
+
+	> .acf-label {
+		max-width: 65px !important;
+		min-width: 65px !important;
+	}
+
+	> .acf-input {
+		flex: 1 1 auto;
+		text-align: right;
+	}
+}
+
+[data-name="forms_settings"] {
+
+	.acf-accordion .acf-accordion-title {
+		background-color: #eee;
+	}
+
+	[data-name="label-color_custom"],
+	[data-name="input-color_custom"],
+	[data-name="input-background-color_custom"],
+	[data-name="input-border-color_custom"] {
+		min-width: 31%;
+
+		.acf-color-picker .wp-picker-holder {
+			bottom: 65px;
+		}
+	}
+}
+
+
+/* Header Settings*/
+
+[data-name="links_list"] {
+
+	.acf-fields > .acf-field[data-name="main_content"],
+	.acf-fields > .acf-field[data-name="title"],
+	.acf-fields > .acf-field[data-name="caption"],
+	.acf-fields > .acf-field[data-name="icon_position"],
+	.acf-fields > .acf-field[data-name="icon"] {
+		display: flex;
+		padding: 5px 12px;
+
+		.acf-label {
+			width: 35%;
+		}
+
+		img,
+		svg {
+			max-width: 30px;
+			min-width: 30px !important;
+			min-height: 30px !important;
+		}
+	}
+}
+
+
+//.block-editor-page .wp-block .block-editor-block-list__layout[data-is-drop-zone="true"],
+//.acf-block-body.acf-block-component .acf-block-preview {
+//    padding: 40px 0 0 0;
+//    min-height: 70px;
+//}
+
+.components-panel {
+
+	[data-name="ds_custom_settings"] {
+
+		.acf-button-group {
+			flex-wrap: wrap;
+		}
+	}
+}
+
+.acf-field[data-name='decor_global_image'] {
+
+	.image-tooltip {
+		position: absolute;
+		width: 100%;
+		height: auto;
+		z-index: 9;
+		background: #fff;
+		max-height: 300px;
+		object-fit: contain;
+		display: none;
+	}
+
+	label:hover {
+
+		.image-tooltip {
+			display: block;
+		}
+	}
+}
+
+.acf-field[data-name="ds_style_switcher"] {
+
+	.acf-radio-list {
+		display: flex;
+		flex-wrap: wrap;
+
+		li {
+			flex: 0 0 50%;
+			max-width: 50%;
+			padding: 0 5px;
+			margin-bottom: 10px;
+
+			label {
+				display: block;
+				padding: 5px;
+
+				&.selected {
+					border: 2px solid #40c840;
+				}
+			}
+
+			&:first-child {
+				flex: 0 0 100%;
+				max-width: 100%;
+			}
+		}
+	}
+
+	.image-tooltip {
+		width: 100%;
+		height: auto;
+		z-index: 9;
+		background: #fff;
+		max-height: 300px;
+		object-fit: contain;
+	}
+}
+
+[data-key="field_group_banner_advanced_settings"],
+[data-key="field_group_advanced-banner-slider_text_position"] {
+
+	&[data-name="text_position"] {
+		opacity: .5;
+		pointer-events: none;
+		filter: grayscale(1);
+	}
+}
+
+/* Cards Repeater */
+
+[data-name="cards_content_ac"],
+[data-name="card_item_ac"] {
+
+	[data-name="image"] {
+
+		.image-wrap {
+			max-width: 150px !important;
+			float: right;
+		}
+	}
+}
+
+.acf-color-picker .wp-picker-active {
+	z-index: 1111 !important;
+}
+

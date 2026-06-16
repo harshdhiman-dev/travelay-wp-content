@@ -1,0 +1,42 @@
+.dst-wrapper {
+
+    /* Set a minimum height in the editor, so the user is not confused when inserting empty wrapper */
+    min-height: 40px;
+
+    &__inner {
+
+        > .block-list-appender {
+            width: 100%;
+            bottom: 10px;
+            display: none;
+
+            > .ds-wrapper-appender {
+
+                > .block-editor-default-block-appender {
+
+                    > .block-editor-inserter {
+                        width: 100%;
+
+                        > button.components-button.has-icon {
+
+                            &::after {
+                                content: 'Append Inner Module';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /* IMPORTANT !!! Hide block list appender if the block is updating to prevent flashes */
+    &.is-selected:not(.is-updating) {
+
+		> .dst-wrapper__inner {
+
+			> .block-list-appender {
+				display: block;
+			}
+		}
+	}
+}

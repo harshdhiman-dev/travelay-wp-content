@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ds-blocks/dst-wrapper",
+	"title": "DST Wrapper",
+	"category": "ds-layouts",
+	"icon": "fullscreen-alt",
+	"description": "DigitalSilk wrapper component, with advanced options",
+	"example": {},
+	"attributes": {
+		"anchor": {
+			"type": "string",
+			"default": ""
+		},
+		"decorations": {
+			"type": "array",
+			"default": []
+		},
+		"backgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		"backgroundImage": {
+			"type": "array",
+			"default": []
+		},
+		"htmlTag": {
+			"type": "string",
+			"default": "div",
+			"enum": [
+				"div",
+				"section",
+				"article",
+				"aside",
+				"header",
+				"footer"
+			]
+		},
+		"moduleVariant": {
+			"type": "string",
+			"default": ""
+		},
+		"heightVariant": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"dsGapControl": true,
+		"dsContainers": true,
+		"dsClassList" : [
+			{
+				"name": "-mega-menu-box",
+				"label": "Mega Menu Box"
+			},
+		  {
+				"name": "--banner",
+				"label": "Banner"
+			},
+		  {
+				"name": "dst-adivaha-wrapper",
+				"label": "Adivaha Wrapper"
+			}
+		]
+	},
+	"textdomain": "dstheme",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

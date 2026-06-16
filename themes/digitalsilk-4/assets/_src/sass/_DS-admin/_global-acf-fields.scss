@@ -1,0 +1,290 @@
+@use "./widgets/mixins";
+
+.wp-admin {
+	--dst-admin-panel-bgd: #f4f4f4;
+	--dst-admin-panel-radius: 10px;
+	--dst-admin-panel-border-color: #bfbfbf;
+	--dst-admin-panel-accordion-bgd: #f0fbff;
+}
+
+.acf-settings-wrap {
+
+	// Fixed save button
+	#poststuff #post-body.columns-2 {
+		margin: 0;
+	}
+
+	#post-body.columns-2 #postbox-container-1 {
+		position: fixed;
+		margin: 0;
+		right: 24px;
+		top: 70px;
+		z-index: 999;
+		width: auto;
+
+		#side-sortables,
+		#submitdiv {
+			width: 100%;
+			min-width: unset;
+			min-height: unset;
+			overflow: hidden;
+			margin: 0;
+		}
+
+		#submitdiv {
+			border-radius: var(--dst-admin-panel-radius);
+			border: 0;
+
+			.inside {
+				container-type: normal;
+			}
+		}
+
+		.postbox-header {
+			display: none;
+		}
+	}
+
+	.postbox {
+		border-radius: var(--dst-admin-panel-radius);
+
+	}
+
+	.acf-fields.-sidebar::before {
+		border-radius: var(--dst-admin-panel-radius) 0 0 var(--dst-admin-panel-radius);
+	}
+
+	#publishing-action {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		.spinner {
+			display: none;
+		}
+	}
+
+	#major-publishing-actions {
+		border-radius: var(--dst-admin-panel-radius);
+		padding: 10px;
+		border: 1px solid var(--dst-admin-panel-border-color);
+		background: var(--dst-admin-panel-bgd);
+		overflow: hidden;
+
+		input {
+			background: var(--dst-admin-accent-color);
+			border-radius: var(--dst-admin-panel-radius);
+			height: 50px;
+			width: 100px;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+	}
+}
+
+.acf-field.acf-field {
+
+	.acf-label {
+		margin-bottom: 0;
+	}
+}
+
+.acf-accordion-content {
+
+	@include mixins.hover-title;
+
+	.acf-fields {
+
+		.acf-field-select,
+		.acf-field-true-false,
+		.acf-field-color-picker {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 5px;
+			width: 100%;
+			max-width: unset;
+		}
+
+		.acf-field-color-picker {
+
+			.wp-picker-container .wp-color-result.button {
+				margin-bottom: 0;
+				margin-right: 0;
+			}
+		}
+
+		.acf-input {
+
+			select {
+				min-width: 50px;
+				padding-right: 25px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		}
+
+		.acf-range-wrap {
+			display: flex;
+
+			input[type='range'] {
+				flex-grow: 1;
+			}
+		}
+
+		.acf-button-group {
+			flex-wrap: wrap;
+			gap: 1px;
+
+			label {
+				font-size: 12px;
+				margin: 0 0 0 -2px;
+				text-transform: lowercase;
+
+				&.selected {
+					font-weight: 700;
+				}
+			}
+		}
+
+		.acf-switch {
+
+			.acf-switch-on {
+				font-weight: 700;
+			}
+		}
+	}
+
+	.acf-label {
+		margin-bottom: 3px;
+
+		label {
+			letter-spacing: -.1px;
+		}
+	}
+}
+
+.acf-fields.-border {
+	border-radius: var(--dst-admin-panel-radius);
+	border-color: var(--dst-admin-panel-border-color);
+	overflow: hidden;
+
+	&:has(.wp-picker-container.wp-picker-active) {
+		overflow: visible;
+	}
+}
+
+.wp-admin .acf-accordion {
+	width: 100%;
+
+	label {
+		cursor: pointer;
+	}
+
+	.acf-accordion-title {
+		background: var(--dst-admin-panel-accordion-bgd);
+		cursor: pointer;
+		margin: 0;
+		transition: .2s;
+		user-select: none;
+
+		&:hover {
+			background: #fbf4d9;
+		}
+
+		> label {
+			margin: 0;
+			font-weight: 500;
+		}
+	}
+
+	&.-open {
+
+		> .acf-accordion-title {
+			background: color-mix(in srgb, var(--dst-admin-accent-color), transparent 85%);
+			transition: .2s;
+
+			> label {
+				font-weight: 700;
+			}
+		}
+
+		&:has(.wp-picker-container.wp-picker-active) {
+			z-index: 11;
+
+			> .acf-input .wp-picker-container.wp-picker-active {
+				display: flex;
+				position: relative;
+				align-items: flex-start;
+				gap: 5px;
+
+				.wp-picker-open + .wp-picker-input-wrap {
+					display: inline-flex;
+					vertical-align: top;
+				}
+
+				.wp-color-picker {
+					max-width: 140px;
+				}
+			}
+		}
+	}
+}
+
+.acf-field-color-picker {
+
+	&:has(.wp-picker-container.wp-picker-active) {
+		z-index: 11;
+
+		> .acf-input .wp-picker-container.wp-picker-active {
+			display: block;
+		}
+	}
+}
+
+.acf-tab-button {
+	transition: .3s;
+
+	&:hover {
+		transition: .3s;
+	}
+}
+
+.acf-table > tbody > tr > td {
+	border-width: 2px 0 0 1px;
+}
+
+.acf-repeater .acf-row-handle.order {
+	color: #555;
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.postbox-header {
+
+	.handle-actions {
+		height: 35px;
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		padding-right: 10px;
+
+		.handlediv {
+			width: 2rem;
+			height: 2rem;
+		}
+	}
+}
+
+ul.acf-radio-list,
+ul.acf-checkbox-list {
+
+	&:focus-within {
+		border-color: transparent;
+	}
+
+	li {
+		font-size: 12px;
+	}
+}

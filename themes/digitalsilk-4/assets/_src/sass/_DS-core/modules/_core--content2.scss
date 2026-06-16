@@ -1,0 +1,152 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+/**
+ ############################
+ #   MODULE: Double Content Blocks (dcbl-)
+ ############################
+ */
+
+.m-dcbl {
+
+	.container-fluid {
+
+		--dst--page-gutter: 0;
+
+		.c-block__inner {
+
+			max-width: calc(var(--dst--content-width) / 2 - var(--columns-gap));
+		}
+	}
+}
+
+.l-dcbl {
+
+	.c-block {
+		--columns-txt-ratio: calc(var(--columns-ratio) - var(--columns-gap, 2%));
+		--columns-img-ratio: calc(100% - var(--columns-ratio));
+
+		background-color: var(--c-txt-bg);
+		display: flex;
+		gap: var(--columns-gap, 2%);
+
+		&__inner {
+			width: 100%;
+		}
+
+		&__media {
+
+			@include media(">=tablet") {
+				flex: 1 1 auto;
+				display: flex;
+			}
+		}
+
+		&__text {
+
+			@include media(">=tablet") {
+				display: flex;
+				flex: 0 0 var(--columns-txt-ratio);
+				max-width: var(--columns-txt-ratio);
+				padding: var(--space-top-m, 15px) var(--space-right-m, 15px) var(--space-bottom-m, 15px) var(--space-left-m, 15px);
+				align-items: center;
+				justify-content: center;
+			}
+
+			@include media(">desktop") {
+				padding: var(--space-top, 30px) var(--space-right, 30px) var(--space-bottom, 30px) var(--space-left, 30px);
+			}
+
+			&.align-top {
+				align-items: flex-start;
+			}
+
+			&.align-center {
+				align-items: center;
+			}
+
+			&.align-bottom {
+				align-items: flex-end;
+			}
+		}
+
+		&__icon {
+			margin-bottom: 1em;
+			max-width: 200px;
+		}
+
+		@include media("<tablet") {
+			flex-direction: column;
+
+			&.order-default-mobile {
+				flex-direction: column
+			}
+
+			&.order-reverse-mobile {
+				flex-direction: column-reverse;
+			}
+		}
+
+		@include media("<=desktop") {
+			padding: var(--c-block-gm) 0;
+		}
+
+		@include media(">=tablet") {
+			padding: var(--c-block-gt) var(--c-block-gr) var(--c-block-gb) var(--c-block-gl);
+
+			&.order-default {
+
+				.c-block__text {
+
+					.container-fluid & {
+						justify-content: flex-end;
+					}
+				}
+
+				&.is-vertical {
+					flex-direction: column;
+				}
+			}
+
+			&.order-reverse {
+				flex-direction: row-reverse;
+
+				&.is-vertical {
+					flex-direction: column-reverse;
+				}
+
+				.c-block__text {
+
+					.container-fluid & {
+						justify-content: flex-start;
+					}
+				}
+			}
+
+			&.is-vertical {
+
+				--columns-ratio: unset !important; // temp fix
+
+				.c-block__media {
+					display: flex;
+					justify-content: center;
+
+					.c-media__embed,
+					iframe,
+					video {
+						width: 100%;
+					}
+				}
+
+				.c-media {
+					max-width: var(--columns-ratio);
+				}
+			}
+		}
+	}
+
+	@include media(">desktop-2k") {
+		max-width: var(--dst--desktop-width-2k);
+		margin-inline: auto;
+	}
+
+}

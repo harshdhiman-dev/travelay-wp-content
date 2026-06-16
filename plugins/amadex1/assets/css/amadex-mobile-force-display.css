@@ -1,0 +1,214 @@
+/**
+ * Amadex Mobile - Force Display All Search Fields
+ * CRITICAL: This ensures all fields show on mobile devices
+ */
+
+/* Force display on ALL mobile devices */
+
+.amadex-field-value::placeholder {
+    color: #bfbfbf;
+    opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+    
+    /* CRITICAL: Show search container and fields */
+    .amadex-search-modern,
+    .amadex-modern-form,
+    .amadex-search-container {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .amadex-modern-form.amadex-multi-city-mode div#return-field {
+        display: none !important;
+    }
+    
+    /* CRITICAL: Show search fields container */
+    /* .amadex-search-fields {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px !important;
+        visibility: visible !important;
+    } */
+    
+    .amadex-multi-city-flights,
+    .amadex-flight-segment {
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        gap: 0 !important;
+    }
+    
+    /* .amadex-field-input-wrap div#return-display {
+        width: 40% !important;
+    } */
+
+    /* CRITICAL: Show ALL individual fields */
+    .amadex-modern-field,
+    #origin-field,
+    #destination-field,
+    #departure-field,
+    #return-field,
+    #travellers-field {
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        border: 1px solid #E5E5E5 !important;
+        border-radius: 12px !important;
+        background: #FFFFFF !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Make travellers field span full width */
+    #travellers-field {
+        grid-column: 1 / -1 !important;
+    }
+    
+    /* CRITICAL: Show labels */
+    .amadex-field-label {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        color: #0E7D3F !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* CRITICAL: Show field values */
+    .amadex-field-value,
+    #modern-origin,
+    #modern-destination,
+    #departure-display,
+    #return-display {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        color: #000000 !important;
+        width: 100% !important;
+        background: transparent !important;
+        border: none !important;
+    }
+
+
+    
+    /* CRITICAL: Show travellers trigger */
+    .amadex-travellers-trigger,
+    .amadex-travellers-value,
+    .amadex-cabin-value {
+        display: flex !important;
+        flex-direction: row !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    .amadex-travellers-value,
+    .amadex-cabin-value {
+        display: block !important;
+    }
+    
+    /* Show swap button (hidden by default, shown between fields) */
+    .amadex-swap-button {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: absolute !important;
+        right: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        width: 40px !important;
+        height: 40px !important;
+        background: #0E7D3F !important;
+        border-radius: 50% !important;
+        border: 3px solid #0E7D3F !important;
+        z-index: 10 !important;
+    }
+    
+    /* Show search button */
+    button.amadex-search-btn {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: static !important;
+        width: 100% !important;
+        margin-top: 20px !important;
+        padding: 16px !important;
+        height: 54px !important;
+        border-radius: 16px !important;
+        background: #0E7D3F !important;
+        color: #ffffff !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+    
+    /* Ensure date and location fields have proper display */
+    .amadex-location-field,
+    .amadex-date-field,
+    .amadex-travellers-field {
+        display: flex !important;
+        flex-direction: column !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+   
+    
+    /* Calendar widget visibility */
+    .amadex-calendar-widget.active,
+    #departure-calendar.active, #return-calendar.active  {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: absolute !important;
+        z-index: 10000 !important;
+        left: 50% !important;
+        top: 70% !important;
+        transform: translate(-50%, -50%) !important;
+        width: calc(100vw - 32px) !important;
+        max-width: 400px !important;
+        background: #ffffff !important;
+        border-radius: 20px !important;
+        padding: 20px !important;
+    }
+    
+    
+    /* Dropdown visibility */
+    .amadex-suggestions-dropdown.active,
+    .amadex-travellers-dropdown.active {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        z-index: 9999 !important;
+    }
+
+}
+
+/* Extra small screens */
+@media only screen and (max-width: 375px) {
+    .amadex-modern-field {
+        padding: 14px 0 !important;
+    }
+    
+    .amadex-field-label {
+        font-size: 12px !important;
+    }
+    
+    .amadex-field-value {
+        font-size: 15px !important;
+    }
+    
+    .amadex-field-description {
+        font-size: 12px !important;
+    }
+}

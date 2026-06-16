@@ -1,0 +1,74 @@
+@use "../../_DS-core/mixins/include-media" as *;
+@use "../../_DS-core/layout/header/core--header_menu-desktop";
+
+/* Custom Navbar Settings */
+
+.site-header {
+	--dst--dropdown-bg: #fff;
+	--dst--dropdown-color: var(--dst--primary-color1);
+	--dst--dropdown-color-active: var(--dst--primary-color2);
+	--dst--dropdown-font-size: 1.8rem;
+	--dst--dropdown-font-weight: 600;
+	--dst--dropdown-padding: 1.5rem;
+	--dst--dropdown-width: 22rem;
+	--dst--dropdown-offset: 15px;
+	--dst--dropdown-radius: 5px;
+	--dst--dropdown-shadow: 0 4px 34px rgba(0, 7, 63, 0.1);
+	--dst--dropdown-link-vpadding: 5px;
+	--toggle-submenu-btn-width: auto;
+	--toggle-submenu-btn-height: 22px;
+}
+
+@include media(">desktop") {
+
+	.site-header {
+
+		&__top {
+
+			.top-content {
+				width: 100%;
+				padding-block: 1.3rem;
+				border-bottom: 1px solid rgba(189, 189, 189, 0.74);
+			}
+		}
+	}
+
+	.nav-main,
+	.nav-secondary {
+
+		.sub-menu {
+			// Dropdown triangle
+
+			&::before {
+				content: "";
+				position: absolute;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 10px 10px 10px;
+				border-color: transparent transparent var(--dst--dropdown-bg) transparent;
+				top: -10px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
+
+	/* Navbar Main */
+
+	.nav-main {
+
+		&__links {
+
+		}
+	}
+
+	/* Navbar Secondary */
+
+	.nav-secondary {
+
+		&__links {
+
+		}
+	}
+}

@@ -1,0 +1,51 @@
+/**
+ * Amadex Virtual Scrolling Styles
+ * 
+ * CSS for virtual scrolling container and items
+ *
+ * @package Amadex
+ * @since 1.1.0
+ */
+
+/* Virtual Scroll Container */
+.amadex-virtual-scroll-container {
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Virtual Scroll Wrapper */
+.amadex-virtual-scroll-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Virtual Scroll Content */
+.amadex-virtual-scroll-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+/* Virtual Scroll Item */
+.amadex-virtual-scroll-item {
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Smooth scrolling */
+.amadex-virtual-scroll-container {
+    scroll-behavior: smooth;
+}
+
+/* Hide scrollbar on mobile (optional) */
+@media (max-width: 768px) {
+    .amadex-virtual-scroll-container {
+        -webkit-overflow-scrolling: touch;
+    }
+}

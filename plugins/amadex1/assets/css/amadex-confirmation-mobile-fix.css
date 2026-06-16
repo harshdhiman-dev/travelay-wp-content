@@ -1,0 +1,331 @@
+/**
+ * Amadex Confirmation Page - Mobile Width Fix
+ * Emergency fix for text cutoff and width overflow issues
+ */
+
+/* ============================================
+   Global Mobile Overflow Fix
+   ============================================ */
+
+   .amadex-greeting-content {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #0E7D3F;
+    border-radius: 15px 15px 0px 0px;
+    border-bottom: none;
+    padding: 10px 0 0;
+}
+
+@media (max-width: 768px) {
+    /* Prevent horizontal scroll globally */
+    body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    html {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix confirmation page container */
+    .amadex-confirmation-page,
+    body.amadex-confirmation-page {
+        padding: 12px 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Fix all content containers */
+    .amadex-confirmation-content,
+    .amadex-confirmation-sidebar,
+    .amadex-confirmation-nav {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        /* padding-left: 10px !important;
+        padding-right: 10px !important; */
+    }
+
+    .amadex-confirmation-main{
+        padding:0!important;
+    }
+    
+    /* Fix booking progress bar */
+    .amadex-booking-progress-modern {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 10px 6px !important;
+        gap: 4px !important;
+        flex-wrap: wrap !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        justify-content: center !important;
+    }
+    
+    .booking-step-modern {
+        min-width: auto !important;
+        flex: 1 !important;
+        padding: 6px 8px !important;
+        font-size: 10px !important;
+        gap: 4px !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        box-sizing: border-box !important;
+        max-width: calc(33.33% - 4px) !important;
+    }
+    
+    .booking-step-label-modern {
+        font-size: 10px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    
+    .booking-step-icon-modern {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .booking-step-divider-modern {
+        display: none !important;
+    }
+    
+    /* Fix greeting banner */
+    .amadex-confirmation-greeting.amadex-greeting-banner {
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        /*overflow-x: hidden !important;*/
+        border-radius: 16px !important;
+    }
+    
+    .amadex-greeting-content {
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-greeting-title,
+    .amadex-greeting-message {
+        font-size: 14px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        line-height: 1.5 !important;
+    }
+    
+    .amadex-greeting-title {
+        font-weight: 700 !important;
+    }
+    
+    /* Fix booking ID and status */
+    .amadex-booking-id,
+    .amadex-booking-status,
+    .amadex-booking-reference {
+        font-size: 13px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-booking-status h2,
+    .amadex-booking-status h3 {
+        font-size: 16px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Fix all text elements */
+    .amadex-confirmation-page h1,
+    .amadex-confirmation-page h2,
+    .amadex-confirmation-page h3,
+    .amadex-confirmation-page h4,
+    .amadex-confirmation-page p,
+    .amadex-confirmation-page span,
+    .amadex-confirmation-page div {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix flight details cards */
+    .amadex-flight-detail-card,
+    .amadex-passenger-details-card,
+    .amadex-card,
+    .amadex-booking-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        padding: 14px 12px !important;
+    }
+    
+    .amadex-flight-itinerary-header,
+    .amadex-flight-itinerary-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 14px 10px !important;
+        flex-wrap: wrap !important;
+    }
+    
+    /* Fix route display */
+    .amadex-route-display,
+    .amadex-flight-route {
+        font-size: 14px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+    
+    /* Convert table to card layout on mobile */
+    .amadex-passenger-table {
+        display: block !important;
+        width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        overflow: visible !important;
+    }
+    
+    /* .amadex-passenger-table thead {
+        display: none !important;
+    }
+     */
+    .amadex-passenger-table tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .amadex-passenger-table tbody tr {
+        display: block !important;
+        width: 100% !important;
+        background: #FFFFFF !important;
+        border: 1px solid #E6E6E6 !important;
+        border-radius: 16px !important;
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-passenger-table tbody tr:last-child {
+        margin-bottom: 0 !important;
+    }
+    
+    .amadex-passenger-table tbody tr:hover {
+        transform: none !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    .amadex-passenger-table tbody td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 12px 0 !important;
+        border: none !important;
+        border-bottom: 1px solid #F1F5F9 !important;
+        font-size: 14px !important;
+        white-space: normal !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-passenger-table tbody td:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .amadex-passenger-table tbody td:first-child {
+        padding-top: 0 !important;
+    }
+    
+    /* Add labels before values */
+    .amadex-passenger-table tbody td::before {
+        content: attr(data-label) !important;
+        font-weight: 500 !important;
+        color: #6B7280 !important;
+        font-size: 14px !important;
+        flex: 0 0 auto !important;
+        margin-right: 16px !important;
+        text-align: left !important;
+    }
+    
+    /* Style the values */
+    .amadex-passenger-table tbody td {
+        font-weight: 700 !important;
+        color: #000000 !important;
+        text-align: right !important;
+        flex: 1 !important;
+    }
+    
+    /* Fix segment details */
+    .amadex-segment-detail,
+    .amadex-greeting-banner .amadex-segment-detail {
+        padding: 14px 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Fix call now banner */
+    .amadex-call-now-banner {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px 10px !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-call-phone-number {
+        font-size: 18px !important;
+        word-wrap: break-word !important;
+    }
+}
+
+/* ============================================
+   Extra Small Screens (≤ 375px)
+   ============================================ */
+@media (max-width: 375px) {
+    .amadex-confirmation-page {
+        padding: 10px 8px 30px !important;
+    }
+    
+    .booking-step-modern {
+        padding: 5px 6px !important;
+        font-size: 9px !important;
+    }
+    
+    .booking-step-label-modern {
+        font-size: 9px !important;
+    }
+    
+    .booking-step-icon-modern {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 12px !important;
+    }
+    
+    .amadex-greeting-title,
+    .amadex-greeting-message {
+        font-size: 13px !important;
+    }
+    
+    .amadex-booking-progress-modern {
+        padding: 8px 4px !important;
+        gap: 3px !important;
+    }
+}
+

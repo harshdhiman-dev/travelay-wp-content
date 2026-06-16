@@ -1,0 +1,14 @@
+@use "./widgets/mixins";
+
+.edit-post-fullscreen-mode-close.components-button .edit-post-fullscreen-mode-close_site-icon,
+.edit-site-site-icon__image,
+.edit-site-editor__view-mode-toggle .edit-site-editor__view-mode-toggle-icon img,
+.edit-site-editor__view-mode-toggle .edit-site-editor__view-mode-toggle-icon svg {
+	background-color: #124c76;
+	object-fit: contain;
+}
+
+.edit-post-fullscreen-mode-close.components-button {
+	background-color: #124c76;
+	--wp-admin-border-width-focus: transparent;
+}

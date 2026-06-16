@@ -1,0 +1,220 @@
+@use "../widgets/mixins";
+
+/* Theme Settings - Fonts */
+
+[data-name="font_settings"] {
+
+    .acf-fields {
+
+        .acf-fields {
+
+            .acf-field {
+                display: block;
+            }
+        }
+    }
+
+    @include mixins.accordion-tile;
+
+    .acf-accordion-content {
+
+        @include mixins.hover-title;
+    }
+}
+
+#poststuff {
+
+    .inside {
+        container-type: inline-size;
+        container-name: fields;
+    }
+
+    .c-heading-preview {
+        position: relative;
+
+        .c-heading__sub,
+        .c-heading__pre,
+        .c-heading__title {
+            position: relative;
+            z-index: 2;
+            padding: 0;
+        }
+
+        .c-heading__title {
+            font-size: inherit;
+            font-weight: inherit;
+            line-height: inherit;
+        }
+
+        .c-heading {
+            position: relative;
+
+            &.-h3,
+            &.-h4 {
+                max-width: 40%;
+            }
+        }
+
+
+        .is-longer {
+            position: absolute;
+            right: 0;
+            top: -27px;
+        }
+
+        &:has(input[id="is-longer"]:checked) {
+
+            .c-heading__title {
+
+                &::after {
+                    content: ' Lorem Ipsum dolor';
+                }
+            }
+        }
+
+    }
+
+    .inside.-sidebar {
+
+        [data-name="layout_settings"] {
+
+            > .acf-input {
+
+                .acf-fields {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    > .acf-field {
+                        width: 50%;
+                    }
+                }
+            }
+        }
+    }
+
+    .titles-preview {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        &__heading {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 4px 10px;
+            background: #eee;
+            margin: -5px -4px 10px;
+        }
+
+        &__item {
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 5px;
+
+
+            &.is-mobile {
+                max-width: 360px;
+                padding-inline: var(--dst--page-gutter);
+	            padding-block: 40px;
+
+	            background-color: #fff;
+	            border-radius: 40px;
+	            box-shadow: 0 0 0 10px #1f1f1f, 0 0 0 13px #191919, 0 0 0 20px #111;
+	            min-height: 700px;
+	            margin: 40px auto;
+	            position: relative;
+	            width: 360px;
+
+	            &::before {
+		            content: '';
+		            position: absolute;
+		            top: 0;
+		            left: 50%;
+		            transform: translateX(-50%);
+		            width: 200px;
+		            height: 30px;
+		            background-color: #000;
+		            border-bottom-left-radius: 20px;
+		            border-bottom-right-radius: 20px;
+		            z-index: 1000;
+	            }
+            }
+        }
+
+    }
+
+    .inside.acf-fields.-top:has(.c-heading-preview) {
+        display: flex;
+        flex-direction: row-reverse;
+        container-type: inline-size;
+        container-name: preview;
+
+        > .acf-field-demo-title-settings {
+            width: 50%;
+
+            @container preview (max-width: 1000px) {
+                width: 40%;
+                padding-inline: 0;
+            }
+        }
+
+        > [data-name="font_settings"] {
+            width: 50%;
+
+            @container preview (max-width: 1000px) {
+                width: 60%;
+            }
+
+            > .acf-input {
+                position: sticky;
+                top: 40px;
+            }
+
+            .acf-accordion-content {
+
+                .acf-fields > .acf-field {
+                    min-height: unset !important;
+                }
+            }
+        }
+    }
+
+
+    @container fields (max-width: 1100px) {
+
+        .acf-fields > .acf-field {
+            padding: 10px 5px;
+        }
+    }
+
+}
+
+.acf-field-group {
+
+	&[data-name="font_colors"] {
+
+		.acf-fields {
+			display: flex;
+			flex-wrap: wrap;
+
+			> .acf-field {
+				width: 50% !important;
+
+				> .acf-input {
+					width: 50%;
+				}
+
+				> .acf-label,
+				&::before {
+					width: 30%;
+				}
+			}
+		}
+
+		.acf-field.ds-color-selector {
+			min-height: 40px;
+		}
+	}
+
+}

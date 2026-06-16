@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ds-blocks/button-group",
+	"version": "1.0.0",
+	"title": "DST Buttons Group",
+	"category": "ds-components",
+	"icon": "columns",
+	"description": "Group of buttons",
+	"example": {},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"dsGapControl": true,
+		"dsEffects" : true
+	},
+	"attributes": {
+		"anchor": {
+			"type": "string",
+			"default": ""
+		},
+		"justifyContent": {
+			"type": "string",
+			"default": "flex-start"
+		},
+		"justifyContentMobile": {
+			"type": "string",
+			"default": "flex-start"
+		},
+		"gapBetween": {
+			"type": "number",
+			"default": 10
+		},
+		"alignment": {
+			"type": "string",
+			"default": "horizontal"
+		}
+	},
+	"textdomain": "ds-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

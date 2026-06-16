@@ -1,0 +1,486 @@
+/**
+ * Amadex Step Elements — Level 5
+ * Visible creative elements per step: heroes, badges, teasers, strips.
+ *
+ * @package Amadex
+ * @version 1.0.0
+ */
+
+:root {
+  --amadex-se-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --amadex-se-dur: 0.35s;
+  --amadex-se-dur-slow: 0.5s;
+  --amadex-se-primary: var(--amadex-ce-color-brand, #0e7d3f);
+  --amadex-se-primary-light: rgba(14, 125, 63, 0.12);
+  --amadex-se-muted: var(--amadex-ce-color-muted, #6b7280);
+  --amadex-se-shadow: 0 2px 12px rgba(14, 125, 63, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --amadex-se-dur: 0.01ms;
+    --amadex-se-dur-slow: 0.01ms;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   HERO
+   -------------------------------------------------------------------------- */
+.amadex-se-hero {
+  font-size: calc(1.75rem * var(--amadex-ce-text-scale, 1));
+  font-weight: 700;
+  line-height: var(--amadex-ce-line-height, 1.5);
+  letter-spacing: var(--amadex-ce-letter-spacing, 0em);
+  color: var(--amadex-ce-color-primary, #111827);
+  margin: 0 0 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: amadex-se-fade-in var(--amadex-se-dur-slow) var(--amadex-se-ease) forwards;
+}
+
+.amadex-se-hero svg {
+  flex-shrink: 0;
+  width: 2rem; /* 32px - larger to match hero text */
+  height: 2rem;
+  color: var(--amadex-se-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-se-hero {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   BADGE
+   -------------------------------------------------------------------------- */
+.amadex-se-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem; /* 10px 16px - matches trip selector scale */
+  font-size: 0.9375rem; /* 15px - matches booking engine field values */
+  font-weight: 600;
+  color: var(--amadex-se-primary);
+  background: var(--amadex-se-primary-light);
+  border-radius: 999px;
+  margin-top: 0.75rem;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: amadex-se-badge-in var(--amadex-se-dur-slow) var(--amadex-se-ease) 0.3s forwards;
+}
+
+.amadex-se-badge svg {
+  width: 1.125rem; /* 18px - larger to match badge text */
+  height: 1.125rem;
+  flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-se-badge {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   TEASER (Next: X)
+   -------------------------------------------------------------------------- */
+.amadex-se-teaser {
+  font-size: calc(0.9375rem * var(--amadex-ce-text-scale, 1));
+  font-weight: 500;
+  line-height: var(--amadex-ce-line-height, 1.5);
+  letter-spacing: var(--amadex-ce-letter-spacing, 0em);
+  color: var(--amadex-se-muted);
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.amadex-se-teaser svg {
+  width: 1.125rem; /* 18px - larger to match text */
+  height: 1.125rem;
+  color: var(--amadex-se-primary);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   STRIP (full-width bar)
+   -------------------------------------------------------------------------- */
+.amadex-se-strip {
+  background: var(--amadex-se-primary-light);
+  border: 1px solid rgba(14, 125, 63, 0.2);
+  border-radius: 12px;
+  padding: 1rem 1.25rem; /* 16px 20px - more generous padding */
+  margin-bottom: 1.5rem;
+  font-size: 1rem; /* 16px - larger, matches booking engine prominence */
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-shadow: var(--amadex-se-shadow);
+}
+
+.amadex-se-strip svg {
+  width: 1.5rem; /* 24px - larger to match strip text */
+  height: 1.5rem;
+  color: var(--amadex-se-primary);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   MINI ROUTE (Origin — ✈ — Destination)
+   -------------------------------------------------------------------------- */
+.amadex-se-route-mini {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+  font-size: calc(1rem * var(--amadex-ce-text-scale, 1));
+  font-weight: 500;
+  line-height: var(--amadex-ce-line-height, 1.5);
+  color: var(--amadex-ce-color-primary, #374151);
+}
+
+.amadex-se-route-mini .amadex-se-route-dash {
+  width: 24px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amadex-se-primary));
+  border-radius: 1px;
+}
+
+.amadex-se-route-mini .amadex-se-route-plane {
+  width: 20px;
+  height: 20px;
+  color: var(--amadex-se-primary);
+}
+
+.amadex-se-route-mini .amadex-se-route-dash + .amadex-se-route-dash {
+  background: linear-gradient(90deg, var(--amadex-se-primary), transparent);
+}
+
+/* --------------------------------------------------------------------------
+   MICRO-PROGRESS (1 of 2 complete)
+   -------------------------------------------------------------------------- */
+.amadex-se-micro-progress {
+  font-size: 0.8125rem;
+  color: var(--amadex-se-muted);
+  margin-bottom: 0.75rem;
+}
+
+.amadex-se-micro-progress strong {
+  color: var(--amadex-se-primary);
+}
+
+/* --------------------------------------------------------------------------
+   POPULAR ROUTES CHIPS
+   -------------------------------------------------------------------------- */
+.amadex-se-popular {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  align-items: center;
+}
+
+.amadex-se-popular > span {
+  font-size: 0.9375rem; /* 15px - matches booking engine */
+  font-weight: 500;
+  color: var(--amadex-se-muted);
+  margin-right: 0.25rem;
+}
+
+.amadex-se-popular-chip {
+  padding: 0.6875rem 1.25rem; /* 11px 20px - matches trip selector button scale */
+  font-size: 0.9375rem; /* 15px - matches trip selector and field values */
+  font-weight: 500;
+  color: #374151;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background var(--amadex-se-dur), border-color var(--amadex-se-dur), transform var(--amadex-se-dur), box-shadow var(--amadex-se-dur);
+  white-space: nowrap;
+}
+
+.amadex-se-popular-chip:hover {
+  background: var(--amadex-se-primary-light);
+  border-color: rgba(14, 125, 63, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--amadex-se-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-se-popular-chip:hover {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   FINDING FLIGHTS STRIP (search submit)
+   -------------------------------------------------------------------------- */
+.amadex-se-finding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem; /* 16px 20px - matches strip padding */
+  font-size: 1rem; /* 16px - matches strip font size */
+  font-weight: 500;
+  color: var(--amadex-se-primary);
+  background: var(--amadex-se-primary-light);
+  border-radius: 12px;
+  margin-top: 1.25rem;
+  opacity: 0;
+  animation: amadex-se-fade-in var(--amadex-se-dur) var(--amadex-se-ease) forwards;
+}
+
+.amadex-se-finding-plane {
+  width: 1.5rem; /* 24px - matches strip icon size */
+  height: 1.5rem;
+  animation: amadex-se-plane-move 1.2s var(--amadex-se-ease) infinite;
+}
+
+@keyframes amadex-se-plane-move {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-se-finding-plane {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   RESULTS: We found your flights + count
+   -------------------------------------------------------------------------- */
+.amadex-se-results-hero {
+  font-size: 1.5rem; /* 24px - larger, matches hero prominence */
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.amadex-se-results-count {
+  font-size: 1.75rem; /* 28px - larger, more prominent */
+  font-weight: 800;
+  color: var(--amadex-se-primary);
+}
+
+/* --------------------------------------------------------------------------
+   SELECT YOUR FLIGHT STRIP
+   -------------------------------------------------------------------------- */
+.amadex-se-select-strip {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   SKIP IS OKAY (seats)
+   -------------------------------------------------------------------------- */
+.amadex-se-skip-ok {
+  font-size: 0.9375rem; /* 15px - matches booking engine */
+  font-weight: 400;
+  color: var(--amadex-se-muted);
+  margin-top: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   YOU'RE PROTECTED (review)
+   -------------------------------------------------------------------------- */
+.amadex-se-protected {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem; /* 15px - matches booking engine field values */
+  font-weight: 600;
+  color: var(--amadex-se-primary);
+  margin-bottom: 1.25rem;
+}
+
+.amadex-se-protected svg {
+  width: 1.125rem; /* 18px - larger to match text */
+  height: 1.125rem;
+}
+
+/* --------------------------------------------------------------------------
+   PER-FIELD MICRO-SUCCESS (search / passengers)
+   -------------------------------------------------------------------------- */
+.amadex-se-field-wrap {
+  position: relative;
+}
+
+.amadex-se-field-success {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: var(--amadex-se-primary);
+  opacity: 0;
+  transition: opacity var(--amadex-se-dur) var(--amadex-se-ease);
+}
+
+.amadex-se-field-wrap.is-valid .amadex-se-field-success {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   BOOK NOW MICRO-CELEBRATION
+   -------------------------------------------------------------------------- */
+.amadex-se-book-dots {
+  position: absolute;
+  pointer-events: none;
+}
+
+.amadex-se-book-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amadex-se-primary);
+  animation: amadex-se-dot-out 0.5s var(--amadex-se-ease) forwards;
+  opacity: 0.9;
+}
+
+@keyframes amadex-se-dot-out {
+  to {
+    transform: translate(var(--dx, 0), var(--dy, 0)) scale(0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-se-book-dot {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   SECTION ENTER (booking steps)
+   -------------------------------------------------------------------------- */
+.amadex-se-enter .amadex-flight-detail-card,
+.amadex-se-enter .amadex-review-section {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: amadex-se-card-in var(--amadex-se-dur-slow) var(--amadex-se-ease) forwards;
+}
+
+.amadex-se-enter .amadex-flight-detail-card:nth-child(1),
+.amadex-se-enter .amadex-review-section:nth-child(1) { animation-delay: 0.05s; }
+.amadex-se-enter .amadex-flight-detail-card:nth-child(2),
+.amadex-se-enter .amadex-review-section:nth-child(2) { animation-delay: 0.1s; }
+.amadex-se-enter .amadex-flight-detail-card:nth-child(3),
+.amadex-se-enter .amadex-review-section:nth-child(3) { animation-delay: 0.15s; }
+.amadex-se-enter .amadex-flight-detail-card:nth-child(4),
+.amadex-se-enter .amadex-review-section:nth-child(4) { animation-delay: 0.2s; }
+.amadex-se-enter .amadex-flight-detail-card:nth-child(5),
+.amadex-se-enter .amadex-review-section:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes amadex-se-card-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes amadex-se-fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes amadex-se-badge-in {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .amadex-se-enter .amadex-flight-detail-card,
+  .amadex-se-enter .amadex-review-section {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   OPTIONAL / RECOMMENDED BADGES (add-ons)
+   -------------------------------------------------------------------------- */
+.amadex-se-optional {
+  font-size: 0.75rem; /* 12px - matches booking engine labels */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--amadex-se-muted);
+  margin-left: 0.5rem;
+}
+
+.amadex-se-recommended {
+  font-size: 0.75rem; /* 12px - matches booking engine labels */
+  font-weight: 600;
+  color: var(--amadex-se-primary);
+  margin-left: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   SECURE BAR (payment page)
+   -------------------------------------------------------------------------- */
+.amadex-se-secure-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem; /* 14px 20px - more generous */
+  font-size: 0.9375rem; /* 15px - matches booking engine */
+  font-weight: 600;
+  color: var(--amadex-se-primary);
+  background: var(--amadex-se-primary-light);
+  border-bottom: 1px solid rgba(14, 125, 63, 0.2);
+}
+
+.amadex-se-secure-bar svg {
+  width: 1.125rem; /* 18px - larger to match text */
+  height: 1.125rem;
+}
+
+/* --------------------------------------------------------------------------
+   MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  .amadex-se-hero {
+    font-size: 1.5rem; /* 24px - still prominent on mobile */
+  }
+
+  .amadex-se-strip {
+    padding: 0.875rem 1rem; /* 14px 16px - generous on mobile */
+    font-size: 0.9375rem; /* 15px - matches booking engine */
+  }
+
+  .amadex-se-popular {
+    margin-bottom: 1rem;
+  }
+
+  .amadex-se-popular-chip {
+    padding: 0.625rem 1rem; /* 10px 16px - slightly smaller on mobile but still readable */
+    font-size: 0.875rem; /* 14px - readable on mobile */
+  }
+
+  .amadex-se-results-hero {
+    font-size: 1.25rem; /* 20px - good mobile size */
+  }
+}

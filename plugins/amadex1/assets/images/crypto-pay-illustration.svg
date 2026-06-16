@@ -1,0 +1,45 @@
+<svg width="300" height="240" viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Crypto.com Pay Illustration</title>
+  <desc id="desc">Person running with coins in front of a phone and payment cards.</desc>
+  <defs>
+    <linearGradient id="phoneGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f3f6ff"/>
+      <stop offset="100%" stop-color="#dbe8ff"/>
+    </linearGradient>
+    <linearGradient id="coinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd166"/>
+      <stop offset="100%" stop-color="#f4a261"/>
+    </linearGradient>
+  </defs>
+  <rect width="300" height="240" fill="none"/>
+  <ellipse cx="180" cy="210" rx="110" ry="18" fill="rgba(13,115,64,0.08)"/>
+  <rect x="140" y="30" width="110" height="180" rx="16" fill="url(#phoneGradient)"/>
+  <rect x="160" y="60" width="70" height="12" rx="6" fill="#d0d7f8"/>
+  <rect x="160" y="82" width="90" height="8" rx="4" fill="#b9c4f4"/>
+  <rect x="160" y="100" width="90" height="50" rx="8" fill="#f6f8ff"/>
+  <rect x="160" y="160" width="90" height="8" rx="4" fill="#b9c4f4"/>
+  <rect x="160" y="176" width="70" height="8" rx="4" fill="#d0d7f8"/>
+  <rect x="198" y="14" width="70" height="50" rx="10" fill="#5d64a8"/>
+  <circle cx="220" cy="192" r="36" fill="#fff" stroke="#bfc6f8" stroke-width="6"/>
+  <path d="M212 186l14 14 28-28" fill="none" stroke="#5d64a8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(70 70)">
+    <path d="M32 110l14-46-14-32" stroke="#6e5cb3" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M60 30c10 0 20 10 18 20l-10 50H34l-8 36" fill="#7870c9"/>
+    <path d="M36 108l-12 36" stroke="#5940a6" stroke-width="8" stroke-linecap="round"/>
+    <path d="M28 0c8 0 16 6 16 16s-8 18-16 18-16-8-16-18S20 0 28 0z" fill="#5940a6"/>
+    <circle cx="66" cy="150" r="10" fill="#1a1f62"/>
+    <circle cx="12" cy="150" r="10" fill="#1a1f62"/>
+  </g>
+  <g transform="translate(36 150)">
+    <circle cx="26" cy="26" r="26" fill="url(#coinGradient)"/>
+    <text x="26" y="32" text-anchor="middle" font-family="Arial" font-size="18" fill="#8c4a00">₿</text>
+  </g>
+  <g transform="translate(108 130) scale(0.85)">
+    <circle cx="26" cy="26" r="26" fill="url(#coinGradient)"/>
+    <text x="26" y="32" text-anchor="middle" font-family="Arial" font-size="18" fill="#8c4a00">$</text>
+  </g>
+</svg>
+
+
+
+

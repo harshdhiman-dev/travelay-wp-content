@@ -1,0 +1,10 @@
+@use "../_DS-core/mixins/include-media" as *;
+
+.adivaha-switcher-mobile {
+  display: flex;
+  text-align: center;
+
+  @include media(">tablet") {
+	display: none;
+  }
+}

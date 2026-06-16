@@ -1,0 +1,28 @@
+{
+    "name": "digitalsilk/ds-gf-tracking",
+    "description": "Starter theme for Digital Silk projects.",
+    "version": "1.0.0",
+    "type": "wordpress-theme",
+    "homepage": "https://git.dsstaging1.com/wp-plugins/ds-gf-tracking",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+      "digitalsilk/phpcs": "dev-master"
+    },
+    "scripts": {
+      "phpcs": "phpcs .",
+      "phpcbf": "phpcbf .",
+      "build": [
+        "rm -rf vendor",
+        "composer install --no-dev --no-plugins -o"
+      ]
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "alleyinteractive/composer-wordpress-autoloader": true
+        }
+    }
+}

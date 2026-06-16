@@ -1,0 +1,15 @@
+{
+  "name": "crypto-pay",
+  "version": "1.0.0",
+  "description": "Crypto.com Pay for WooCommerce",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build assets/js/blocks/src/crypto-pay.js --output-path=assets/js/blocks/build",
+    "start": "wp-scripts start assets/js/blocks/src/crypto-pay.js --output-path=assets/js/blocks/build"
+  },
+  "author": "",
+  "license": "GPL-2.0-or-later",
+  "devDependencies": {
+    "@wordpress/scripts": "^26.0.0"
+  }
+} 

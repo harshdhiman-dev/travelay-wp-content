@@ -1,0 +1,44 @@
+@use "../_DS-core/mixins/include-media" as *;
+
+.error404 {
+
+	&__inner {
+		height: 100%;
+	}
+
+	.dst-wrapper {
+
+		&.--banner {
+
+			.dst-wrapper {
+
+				&__inner {
+					padding-block: 13vmin 13vmin;
+
+					@include media(">desktop") {
+						justify-content: center;
+					}
+
+					.c-heading {
+
+						&__pre {
+							font-size: 4rem;
+							font-weight: 400;
+							color: var(--dst--secondary-color2);
+							letter-spacing: 0.25em;
+							margin-bottom: 2rem;
+
+							&::after {
+								display: none;
+							}
+						}
+
+						&__sub {
+							margin-top: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}

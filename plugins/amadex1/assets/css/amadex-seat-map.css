@@ -1,0 +1,1756 @@
+/* ============================================
+   Seat Selection Styles
+   ============================================ */
+
+/* Seat Selection Section */
+
+.amadex-row-number {
+    width: 25px;
+    height: 32px;
+    min-width: 25px;
+}
+
+.amadex-se-results-hero-wrap {
+    display: none;
+}
+
+#amadex-seat-selection-section {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding: 0 24px 20px;
+    background-color: unset;
+    background: unset;
+    border-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-width: 0px;
+    border-style: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-image: none;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important; /* Hide overflow, let scrollable container handle it */
+    overflow-y: visible;
+    position: relative;
+    isolation: isolate;
+    contain: none !important;
+    min-width: 0;
+    min-height: 400px;
+    height: auto;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+#amadex-seat-selection-section h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#amadex-seat-selection-section .amadex-section-subtitle {
+    margin: 0 0 24px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Loading State */
+.amadex-seat-map-loading {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.amadex-seat-map-loading p {
+    margin: 16px 0 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.amadex-loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #0e7d3f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Unavailable State */
+.amadex-seat-map-unavailable {
+    padding: 20px;
+}
+
+.amadex-notice {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.amadex-notice-info {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    color: #1976d2;
+}
+
+.amadex-notice-info p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Seat Maps Container - Match structure with amadex-flight-details-list */
+#amadex-seat-maps-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important; /* Hide overflow, let scrollable container handle scrolling */
+    overflow-y: visible;
+    position: relative;
+    isolation: isolate;
+    contain: none !important;
+    min-width: 0;
+    text-align: left;
+    vertical-align: middle;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    background: unset;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    padding: 0;
+    /* Smooth scrolling */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure all children of seat maps container respect parent width, but allow seat map content to expand */
+#amadex-seat-maps-container > *:not(.amadex-seat-map-scrollable-container):not(.amadex-seat-map-content) {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Seat Map Segment - Match structure with amadex-flight-detail-card */
+#amadex-seat-maps-container .amadex-flight-details-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+    border-radius: 20px;
+    overflow: visible !important;
+    padding: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative;
+    isolation: isolate;
+    contain: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: rgba(222, 232, 227, 1);
+}
+
+#amadex-seat-maps-container .amadex-flight-details-card h4 {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    flex-shrink: 0; /* Keep header visible */
+    text-align: left;
+    vertical-align: top;
+}
+
+/* Scrollable container - plane image is on content so it scrolls with seats */
+.amadex-seat-map-scrollable-container {
+    min-height: 320px;
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    background: #fff; /* No plane image here - it's on content so both scroll together */
+    padding: 20px 16px;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #8B8B8B#f0f0f0;
+    scrollbar-gutter: stable;
+    touch-action: pan-x pan-y pinch-zoom;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Desktop - screen-adaptable height, thin right scrollbar */
+@media (min-width: 769px) {
+    .amadex-seat-map-scrollable-container {
+        max-height: 600px;
+        min-height: 400px;
+        overflow-x: auto;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #0E7D3F #f0f0f0;
+    }
+    
+    .amadex-seat-map-scrollable-container::-webkit-scrollbar {
+        width: 8px;   /* Thin right (vertical) scrollbar */
+        height: 10px;
+    }
+    
+    .amadex-seat-map-scrollable-container::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 10px;
+    }
+    
+    .amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb {
+        background: #0E7D3F;
+        border-radius: 10px;
+        border: 2px solid #f0f0f0;
+        transition: background 0.2s ease;
+    }
+    
+    .amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:hover {
+        background: #085D2C;
+    }
+    
+    /* Smooth horizontal scrolling for seat map content */
+    .amadex-seat-map-scrollable-container .amadex-seat-map-content {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        /* Ensure smooth horizontal scroll */
+        will-change: scroll-position;
+    }
+    
+    /* Smooth scrolling for seat rows on horizontal scroll */
+    .amadex-seat-map-content .amadex-seat-row {
+        scroll-behavior: smooth;
+    }
+}
+
+
+.amadex-seat-map-scrollable-container:active {
+    cursor: default;
+}
+
+/* Base styles for seat map content - plane image here so it scrolls with seats */
+.amadex-seat-map-content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    padding: 24px 20px 24px;
+    text-align: center;
+    width: auto;
+    min-width: fit-content;
+    min-height: 320px;
+    box-sizing: border-box;
+    position: relative;
+    /* Plane image on content so it scrolls together with seat rows */
+    /*background: url('../images/Group 6034.svg') no-repeat top center;*/
+    background: #fff;
+    background-size:100% auto;
+}
+/* Subtle side shading for 3D oval effect */
+.amadex-seat-map-content::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+.amadex-seat-map-content {
+    padding-top: 0 !important;
+}
+/* Wing shapes - decorative, mid-cabin (left and right) */
+.amadex-seat-map-wings {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+.amadex-wing {
+    position: absolute;
+    top: 42%;
+    width: 16%;
+    max-width: 72px;
+    height: 12%;
+    max-height: 48px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    border-radius: 2px;
+}
+.amadex-wing-left {
+    left: -6%;
+    transform: rotate(-12deg);
+}
+.amadex-wing-right {
+    right: -6%;
+    left: auto;
+    transform: rotate(12deg);
+}
+.amadex-seat-map-scrollable-container .amadex-seat-map-content {
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+    min-width: fit-content;
+    width: auto;
+    will-change: transform;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    min-height: 320px;
+}
+/* Ensure seat rows and content sit above background/shadow */
+.amadex-seat-map-content .amadex-seat-row,
+.amadex-seat-map-content .amadex-seat,
+.amadex-seat-map-content > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Seat hover tooltip - white rounded popup, bullets, seat ID, price in green (match reference design) */
+#amadex-seat-tooltip.amadex-seat-tooltip {
+    position: fixed;
+    z-index: 99999;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06);
+    padding: 12px 14px;
+    min-width: 140px;
+    max-width: 220px;
+    box-sizing: border-box;
+}
+#amadex-seat-tooltip.amadex-seat-tooltip.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+.amadex-seat-tooltip-list {
+    margin: 0 0 8px 0;
+    padding: 0 0 0 18px;
+    list-style: disc;
+    font-size: 12px;
+    color: #444;
+    line-height: 1.45;
+}
+.amadex-seat-tooltip-list li {
+    margin-bottom: 2px;
+}
+.amadex-seat-tooltip-strike {
+    text-decoration: line-through;
+    color: #888;
+}
+.amadex-seat-tooltip-seat {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 4px;
+}
+.amadex-seat-tooltip-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0E7D3F;
+}
+
+/* Seat selection badge (popover when clicking an available seat: passenger choice + seat info + price) */
+.amadex-seat-selection-badge {
+    position: fixed;
+    z-index: 99999;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.06);
+    padding: 14px 16px;
+    min-width: 200px;
+    max-width: 280px;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+.amadex-seat-selection-badge.is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+/* Badge when seat is already selected: green style like selected seat */
+/*.amadex-seat-selection-badge.amadex-seat-selection-badge--selected {*/
+/*    background: rgba(14, 125, 63, 0.08);*/
+/*    border: 2px solid #0E7D3F;*/
+/*    box-shadow: 0 6px 24px rgba(14, 125, 63, 0.2), 0 0 0 1px rgba(14, 125, 63, 0.1);*/
+/*}*/
+.amadex-seat-selection-badge.amadex-seat-selection-badge--selected .amadex-seat-badge-seat-number {
+    color: #0E7D3F;
+}
+/* Badge inside seat map content: sits just above the seat, scrolls with map */
+.amadex-seat-map-content .amadex-seat-selection-badge.amadex-seat-selection-badge-inline {
+    position: absolute;
+    z-index: 100;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    width: auto!important;
+}
+.amadex-seat-badge-passengers {
+    margin-bottom: 10px;
+    text-align: left;
+}
+.amadex-seat-badge-passenger-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    padding-left: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    transition: background 0.15s ease;
+}
+/* Other passengers can click any option to assign seat to themselves */
+.amadex-seat-badge-passenger-option:hover {
+    background: rgba(14, 125, 63, 0.1);
+}
+/* Passenger who has this seat: green highlight + tick */
+.amadex-seat-badge-passenger-option.has-seat {
+    background: rgba(14, 125, 63, 0.12);
+    border-left: 3px solid #0E7D3F;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+.amadex-seat-badge-passenger-option.has-seat:hover {
+    background: rgba(14, 125, 63, 0.16);
+}
+/* Tick icon for selected passenger (has this seat) - shows smoothly */
+/* .amadex-seat-badge-passenger-option.has-seat .amadex-seat-badge-tick {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
+    flex-shrink: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230E7D3F' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center / 14px 14px no-repeat;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+} */
+.amadex-seat-selection-badge.is-visible .amadex-seat-badge-passenger-option.has-seat .amadex-seat-badge-tick {
+    opacity: 1;
+    transform: scale(1);
+}
+.amadex-seat-badge-passenger-option input[type="radio"] {
+    margin: 0;
+    accent-color: #0E7D3F;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+.amadex-seat-badge-passenger-option input[type="radio"]:checked + .amadex-seat-badge-passenger-name {
+    font-weight: 600;
+    color: #0E7D3F;
+}
+.amadex-seat-badge-passenger-name {
+    font-size: 14px;
+    color: #333;
+}
+.amadex-seat-badge-features {
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+        text-align: left;
+}
+.amadex-seat-badge-features ul {
+    margin: 0 0 4px 0;
+    padding: 0 0 0 18px;
+    list-style: disc;
+}
+.amadex-seat-badge-features li {
+    margin-bottom: 2px;
+}
+.amadex-seat-badge-footer {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+}
+.amadex-seat-badge-seat-number {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+}
+.amadex-seat-badge-price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0E7D3F;
+}
+
+.amadex-seat.available .amadex-seat-number {
+    opacity: 0;
+}
+
+/* Right wing (second wing via wrapper - we use a single pseudo for left; add right in media or duplicate) */
+/* #amadex-seat-maps-container .amadex-seat-map-scrollable-container {
+    background: url('../images/Plane Design.svg') no-repeat center top;
+    background-size: cover;
+    border-radius: 12px;
+} */
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar {
+    width: 6px;   /* Thin right (height) scrollbar */
+    height: 8px;
+}
+
+/* Horizontal scrollbar at bottom - smooth scrolling */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar:horizontal {
+    height: 8px;
+}
+
+/* Vertical scrollbar on right */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar:vertical {
+    width: 6px; /* Thin right side */
+    right: 0;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+/* Horizontal scrollbar track at bottom */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-track:horizontal {
+    background: #f0f0f0;
+    border-radius: 10px;
+    bottom: 0;
+    position: absolute;
+}
+
+/* Vertical scrollbar track on right */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-track:vertical {
+    background: #f0f0f0;
+    border-radius: 10px;
+    right: 0;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb {
+    background: #0E7D3F;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    transition: background 0.2s ease;
+}
+
+/* Horizontal scrollbar thumb - smooth scrolling */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:horizontal {
+    background: #0E7D3F;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    transition: background 0.2s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+
+/* Vertical scrollbar thumb */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:vertical {
+    background: #0E7D3F;
+    border-radius: 6px;
+    border: 1px solid #f0f0f0;
+    transition: background 0.2s ease;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: #085D2C;
+}
+
+/* Smooth horizontal scrollbar hover effect */
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:horizontal:hover {
+    background: #085D2C;
+    transform: scaleY(1.1);
+}
+
+/* Ensure seat map content can expand naturally within scrollable container - supports zoom */
+.amadex-seat-map-scrollable-container .amadex-seat-map-content {
+    width: auto;
+    min-width: fit-content;
+    max-width: none;
+    box-sizing: border-box;
+    position: relative;
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+    will-change: transform;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Legacy support for old structure (if any) */
+.amadex-seat-map-segment {
+    margin: 24px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-seat-map-segment h4 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-seat-map-wrapper {
+    overflow-x: visible !important;
+    overflow-y: visible;
+    padding: 8px;
+    background: #fff;
+    border-radius: 8px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0;
+    contain: none !important;
+    position: relative;
+    isolation: isolate;
+}
+
+/* Desktop: Allow horizontal scroll when needed with smooth scrolling */
+@media (min-width: 769px) {
+    .amadex-seat-map-wrapper {
+        overflow-x: visible !important;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure seat map content can expand and scroll smoothly on desktop */
+    .amadex-seat-map-scrollable-container .amadex-seat-map-content {
+        transition: transform 0.1s ease-out;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        /* Smooth horizontal scrolling */
+        will-change: scroll-position;
+    }
+    
+    /* Seat selection section - smooth scrolling on desktop */
+    #amadex-seat-selection-section {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        /* Prevent page scroll, allow smooth container scroll */
+        overscroll-behavior-x: contain;
+        overscroll-behavior-y: contain;
+    }
+    
+    /* Seat maps container - proper overflow handling on desktop */
+    #amadex-seat-maps-container {
+        overflow-x: hidden;
+        overflow-y: visible;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Smooth horizontal scrolling for seat map scrollable container */
+    .amadex-seat-map-scrollable-container {
+        /* Enhanced smooth scrolling for horizontal direction */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        /* Smooth momentum scrolling for horizontal */
+        overscroll-behavior-x: contain;
+        overscroll-behavior-y: contain;
+        /* Enable smooth horizontal scroll */
+        scroll-snap-type: none;
+        /* Optimize for smooth horizontal scrolling */
+        will-change: scroll-position;
+        /* Ensure horizontal scroll is smooth */
+        overflow-x: auto;
+        overflow-y: auto;
+    }
+    
+    /* Additional smooth scrolling optimization for horizontal seat map */
+    .amadex-seat-map-scrollable-container * {
+        /* Prevent layout shifts during scroll */
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+}
+
+/* Itinerary Group Heading */
+.amadex-seat-map-itinerary-group {
+    margin: 32px 0 16px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-seat-map-itinerary-group:first-child {
+    margin-top: 0;
+}
+
+.amadex-itinerary-heading {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0e7d3f;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #0e7d3f;
+}
+
+.amadex-cockpit-arcs {
+    display: none!important;
+}
+
+/* Front/Back of Aircraft - orientation labels */
+.amadex-seat-map-orientation {
+    text-align: center;
+    margin-bottom: 12px;
+    padding: 10px 0;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.amadex-seat-map-orientation-back {
+    margin-bottom: 0;
+    margin-top: 12px;
+    padding: 10px 0;
+}
+
+.amadex-cockpit-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+/* Five dark green curved cockpit arcs (match design) */
+.amadex-cockpit-arcs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+.amadex-cockpit-arcs span {
+    display: inline-block;
+    width: 18px;
+    height: 10px;
+    background: #2E7D32;
+    border-radius: 50% 50% 0 0;
+    box-shadow: 0 1px 3px rgba(46, 125, 50, 0.35);
+}
+.amadex-cockpit-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 2px;
+}
+.amadex-cockpit-label::before,
+.amadex-cockpit-label::after {
+    content: 'â–²';
+    font-size: 9px;
+    color: #4CAF50;
+}
+.amadex-back-indicator .amadex-cockpit-label::before,
+.amadex-back-indicator .amadex-cockpit-label::after {
+    content: 'â–¼';
+}
+
+/* Seat Column Header */
+.amadex-seat-map-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+.amadex-seat-column-label {
+    width: 25px;
+    min-width: 25px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #666;
+    padding: 4px 0;
+}
+
+.amadex-row-number-header {
+    width: 40px;
+    min-width: 40px;
+}
+/* Seat Row - compact gap to match design */
+.amadex-seat-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 4px 0;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+    vertical-align: middle;
+}
+
+
+/* Row Number - Light grey rounded box */
+.amadex-row-number {
+    width: 100%;
+    min-width: unset;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+    padding: 6px 8px;
+    /*background: #F5F5F5;*/
+    /*border-radius: 4px;*/
+    /*border: 1px solid #E0E0E0;*/
+}
+
+/* Seat Gap (for missing seats - not aisles) - match seat size */
+.amadex-seat-gap {
+    width: 100%;
+    min-width: unset;
+    height: 44px;
+    background: transparent;
+}
+
+/* Aisle Indicator - Visual separator for walking paths */
+.amadex-aisle-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #E8F5E9 0%, #F1F8F4 50%, #E8F5E9 100%);
+    border-left: 2px dashed #81C784;
+    border-right: 2px dashed #81C784;
+    position: relative;
+    min-width: 24px;
+    width: 24px;
+}
+
+.amadex-aisle-indicator.amadex-aisle-vertical {
+    height: 44px;
+    min-height: 44px;
+    background: repeating-linear-gradient(
+        90deg,
+        #E8F5E9 0px,
+        #E8F5E9 2px,
+        #F1F8F4 2px,
+        #F1F8F4 4px
+    );
+    border-left: 2px solid #81C784;
+    border-right: 2px solid #81C784;
+    border-radius: 0;
+}
+
+.amadex-aisle-indicator.amadex-aisle-header {
+    height: 32px;
+    min-height: 32px;
+    background: repeating-linear-gradient(
+        90deg,
+        #E8F5E9 0px,
+        #E8F5E9 2px,
+        #F1F8F4 2px,
+        #F1F8F4 4px
+    );
+    border-left: 2px solid #81C784;
+    border-right: 2px solid #81C784;
+    border-radius: 0;
+}
+
+/* Aisle label (optional - can be added with text) */
+.amadex-aisle-indicator::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 4px,
+            rgba(129, 199, 132, 0.3) 4px,
+            rgba(129, 199, 132, 0.3) 6px
+        );
+    pointer-events: none;
+}
+
+/* Aisle Indicators - Visual representation of walking paths */
+.amadex-aisle-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(
+        90deg,
+        #E8F5E9 0px,
+        #E8F5E9 8px,
+        #C8E6C9 8px,
+        #C8E6C9 16px
+    );
+    border-left: 2px dashed #81C784;
+    border-right: 2px dashed #81C784;
+    position: relative;
+}
+
+/* Vertical aisle indicator in seat rows - match seat height */
+.amadex-aisle-indicator.amadex-aisle-vertical {
+    width: 20px;
+    min-width: 20px;
+    height: 44px;
+    min-height: 44px;
+    margin: 0 3px;
+    border-radius: 4px;
+    opacity: 0;
+}
+
+/* Aisle indicator in column header */
+.amadex-aisle-indicator.amadex-aisle-header {
+    width: 25px;
+    min-width: 25px;
+    height: 30px;
+    margin: 0 4px;
+    border-radius: 4px;
+    border-left: 2px dashed #81C784;
+    border-right: 2px dashed #81C784;
+    border-top: none;
+    border-bottom: none;
+}
+
+/* Aisle label (optional, can be added if needed) */
+.amadex-aisle-indicator::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 2 L10 18 M2 10 L18 10' stroke='%2381C784' stroke-width='1.5' stroke-dasharray='2,2'/%3E%3C/svg%3E");
+    background-repeat: repeat-y;
+    background-position: center;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.amadex-aisle-indicator.amadex-aisle-header::after {
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+/* Passenger Selector */
+/* Flight Segment Tabs - Desktop - Matched to Website Button Theme */
+.amadex-seat-map-tabs-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom:0;
+    padding: 0;
+    position: relative;
+    isolation: isolate;
+    background-color: unset;
+    background: unset;
+}
+
+/* Tab strip: long gray bottom border */
+.amadex-seat-map-tabs-list {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #d0d0d0;
+    /* overflow-x: auto;
+    -webkit-overflow-scrolling: touch; */
+    overflow-y: visible;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.amadex-seat-map-tabs-list::-webkit-scrollbar {
+    height: 4px;
+}
+
+.amadex-seat-map-tabs-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.amadex-seat-map-tabs-list::-webkit-scrollbar-thumb {
+    background: #0E7D3F;
+    border-radius: 2px;
+}
+
+/* Inactive tab: dark text, no green, transparent background */
+.amadex-seat-map-tab {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 3px solid transparent !important;
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #333 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    border-radius: 0 !important;
+    transition: color 0.2s, border-color 0.2s, background 0.2s !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    margin-bottom: -1px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.amadex-seat-map-tab:hover {
+    color: #0E7D3F !important;
+    background: rgba(14, 125, 63, 0.06) !important;
+}
+
+/* Active tab: green text + green bottom underline */
+.amadex-seat-map-tab.active,
+.amadex-seat-map-tab.active:hover {
+    background: #0e7d3f1f !important;
+    color: #0E7D3F !important;
+    border: none !important;
+    border-bottom: 4px solid #0E7D3F !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+}
+
+.amadex-seat-map-tabs-content {
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    clear: both;
+    min-width: 0;
+    contain: layout style;
+}
+
+.amadex-seat-map-tab-panel {
+    display: none;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    clear: both;
+    position: relative;
+    min-width: 0;
+    contain: layout style;
+}
+
+.amadex-seat-map-tab-panel.active {
+    display: block;
+}
+
+/* Ensure seat map content doesn't break layout */
+.amadex-seat-map-tab-panel .amadex-flight-details-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: visible !important;
+    overflow-y: visible;
+    min-width: auto;
+    contain: layout style;
+}
+
+.amadex-seat-map-tab-panel .amadex-seat-map-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: visible !important;
+    overflow-y: visible;
+    min-width: auto;
+    contain: layout style;
+}
+
+/* Passenger Selector Buttons - Desktop */
+.amadex-passenger-selector-wrapper {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    display: none!important;
+}
+
+.amadex-passenger-selector-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.amadex-passenger-selector-btn {
+    background: #F5F5F5;
+    border: 2px solid #E0E0E0;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.amadex-passenger-selector-btn:hover {
+    background: #EEEEEE;
+    border-color: #BDBDBD;
+}
+
+.amadex-passenger-selector-btn.active {
+    background: rgba(14, 125, 63, 1);
+    border-color: rgba(14, 125, 63, 1);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.amadex-passenger-selector:focus {
+    outline: none;
+    border-color: #0e7d3f;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.1);
+}
+
+/* Individual Seat - rounded square, match design */
+.amadex-seat {
+    width: 100%;
+    height: 40px;
+    min-width: 0%;
+    border: 1px solid #d0d0d0;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #f0f0f0;
+    color: #333;
+    user-select: none;
+    position: relative;
+    padding: 4px 2px;
+    vertical-align: middle;
+}
+
+.amadex-seat-number {
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 0;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.amadex-seat-summary-route .amadex-seat-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.amadex-seat-price.is-free {
+    color: #666;
+    font-weight: 600;
+}
+
+.amadex-seat-selected-indicator {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    background: #2E7D32;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.amadex-seat:hover:not(.unavailable):not(.selected) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Available Seat - light gray/white standard; price in orange badge */
+.amadex-seat.available {
+    border-color: #d0d0d0;
+    color: #333;
+    background: #EE9C31;
+}
+
+/*.amadex-seat.available:hover {*/
+/*    border-color: #0E7D3F;*/
+/*    box-shadow: 0 2px 10px rgba(14, 125, 63, 0.2);*/
+/*    transform: translateY(-1px);*/
+/*}*/
+
+.amadex-seat.available .amadex-seat-price {
+    color: #fff;
+    font-weight: 700;
+    font-size: 10px;
+    background: #FF9800;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-top: 2px;
+    line-height: 1.2;
+}
+.amadex-seat.available .amadex-seat-price.is-free {
+    background: #9E9E9E;
+    color: #fff;
+    display: none;
+}
+
+/* Selected Seat - Green with centered tick */
+.amadex-seat.selected {
+    border-color: #0E7D3F;
+    background: #0E7D3F;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.4);
+}
+
+.amadex-seat.selected:hover {
+    background: #0a5f2e;
+    border-color: #0a5f2e;
+}
+
+.amadex-seat.selected .amadex-seat-number {
+    color: #fff;
+    font-weight: 700;
+    visibility: hidden;
+}
+
+.amadex-seat.selected .amadex-seat-price {
+    color: #fff;
+    font-weight: 600;
+    display: none;
+}
+
+/* Centered tick icon for selected seat */
+.amadex-seat.selected::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 12px;
+    height: 12px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 511.985 511.985'%3E%3Cpath d='M500.088 83.681c-15.841-15.862-41.564-15.852-57.426 0L184.205 342.148 69.332 227.276c-15.862-15.862-41.574-15.862-57.436 0-15.862 15.862-15.862 41.574 0 57.436l143.585 143.585c7.926 7.926 18.319 11.899 28.713 11.899 10.394 0 20.797-3.963 28.723-11.899l287.171-287.181c15.862-15.851 15.862-41.574 0-57.435z' fill='%23ffffff'/%3E%3C/svg%3E") center / contain no-repeat;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Keep passenger badge above tick */
+.amadex-seat.selected .amadex-seat-selected-indicator {
+    z-index: 10;
+}
+
+/* Unavailable/Occupied Seat - grey with centered X (cross) */
+.amadex-seat.unavailable {
+    border-color: #ccc;
+    background: #E6E6E6;
+    color: #fff;
+    cursor: not-allowed;
+    opacity: 1;
+}
+.amadex-seat.unavailable .amadex-seat-number {
+    display: none;
+}
+.amadex-seat.unavailable .amadex-seat-price {
+    display: none;
+}
+.amadex-seat.unavailable::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 14px;
+    height: 14px;
+    /* background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M4.59 59.41a2 2 0 0 0 2.83 0L32 34.83l24.59 24.58a2 2 0 0 0 2.83-2.83L34.83 32 59.41 7.41a2 2 0 0 0-2.83-2.83L32 29.17 7.41 4.59a2 2 0 0 0-2.82 2.82L29.17 32 4.59 56.59a2 2 0 0 0 0 2.82z' fill='%23000000'/%3E%3C/svg%3E") center / contain no-repeat; */
+    pointer-events: none;
+}
+
+/* Legroom / Extra space seat - Green with "LS" */
+.amadex-seat.legroom.available {
+    background: #2E7D32;
+    border-color: #1B5E20;
+    color: #fff;
+}
+.amadex-seat.legroom.available .amadex-seat-number {
+    color: #fff;
+}
+.amadex-seat.legroom.available .amadex-seat-price {
+    display: none;
+}
+.amadex-seat.legroom.available::before {
+    content: 'LS';
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+.amadex-seat.legroom.available .amadex-seat-number {
+    display: none;
+}
+
+/* Window Seat Indicator - Subtle indicator */
+/*.amadex-seat.window {*/
+/*    border-left-width: 3px;*/
+/*    border-left-color: #81C784;*/
+/*}*/
+
+.amadex-seat.selected.window {
+    border-left-color: #fff;
+}
+
+/*.amadex-seat.available.window {*/
+/*    border-left-color: #F57C00;*/
+/*}*/
+
+/* Aisle Seat Indicator - Subtle indicator */
+/*.amadex-seat.aisle {*/
+/*    border-right-width: 3px;*/
+/*    border-right-color: #81C784;*/
+/*}*/
+
+.amadex-seat.selected.aisle {
+    border-right-color: #fff;
+}
+
+/*.amadex-seat.available.aisle {*/
+/*    border-right-color: #F57C00;*/
+/*}*/
+
+/* Seat Legend */
+.amadex-seat-legend {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    flex: 1;
+    min-width: 100%;
+}
+
+.amadex-seat-legend h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}
+
+.amadex-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.amadex-legend-item .amadex-seat {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    cursor: default;
+    font-size: 10px;
+    border-radius: 3px;
+}
+
+.amadex-legend-item .amadex-seat:hover {
+    transform: none;
+}
+
+/* Legend - Match design: Grey (Occupied), Orange (Available), Green (Selected) */
+.amadex-legend-item .amadex-seat.available {
+    background: #EE9C31;
+}
+
+.amadex-legend-item .amadex-seat.selected {
+    background: #0E7D3F;
+    border-color: #0E7D3F;
+}
+
+.amadex-legend-item .amadex-seat.unavailable {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+}
+
+.amadex-legend-item .amadex-seat.window {
+    background: #FFFFFF;
+    border: 1px solid #81C784;
+}
+
+.amadex-legend-item .amadex-seat.aisle {
+    background: #FFFFFF;
+    border: 1px solid #81C784;
+}
+
+/* Selected Seats Summary - Redesigned grouped by passenger */
+/* .amadex-selected-seats-summary {
+    margin-top: 24px;
+    padding: 20px;
+    background: #F0F9F3;
+    border-radius: 12px;
+    border: 2px solid #0e7d3f;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.1);
+} */
+
+.amadex-selected-seats-summary h4 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0e7d3f;
+    display: none!important;
+    /* padding-bottom: 12px;
+    border-bottom: 2px solid #0e7d3f; */
+}
+
+#amadex-selected-seats-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Passenger Group Container - must be visible when summary is shown */
+/* .amadex-seat-summary-passenger {
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #c8e6c9;
+} */
+
+.amadex-seat-summary-passenger:last-child {
+    margin-bottom: 0;
+}
+
+/* Passenger Header */
+.amadex-seat-summary-passenger-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e8f5e9;
+    flex-wrap: wrap;
+}
+
+.amadex-passenger-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #242323;
+    flex: 1;
+    min-width: 150px;
+}
+
+.amadex-passenger-type {
+    padding: 4px 10px;
+    background: #0e7d3f;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amadex-passenger-subtotal {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0e7d3f;
+    margin-left: auto;
+}
+
+/* Routes List */
+.amadex-seat-summary-routes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Individual Route/Seat Item */
+.amadex-seat-summary-route {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: #F9F9F9 0% 0% no-repeat padding-box;
+    border: 1px solid #E6E6E6;
+    border-radius: 15px;
+    /* border-left: 3px solid #0e7d3f; */
+    transition: background-color 0.2s ease;
+}
+
+div#amadex-selected-seats-summary {
+    margin-bottom: 10px;
+}
+
+.amadex-seat-summary-route:last-child {
+    margin-bottom: 0;
+}
+
+.amadex-seat-summary-route:hover {
+    background: #f0f9f3;
+}
+
+.amadex-seat-info {
+    padding: 4px 10px;
+    background: #0e7d3f;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.amadex-seat.available .amadex-seat-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+    min-width: auto;
+    opacity: 0;
+}
+
+.amadex-seat-total-price {
+    margin: 16px 0 0 0;
+    /* padding-top: 16px;
+    border-top: 2px solid #0e7d3f; */
+    font-size: 18px;
+    font-weight: 700;
+    color: #0e7d3f;
+    text-align: right;
+    display: none!important;
+}
+
+
+/* Seat Selection Actions Container - Desktop Layout */
+@media (min-width: 768px) {
+    /* Create a flex container for legend and actions */
+    .amadex-seat-legend-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0px;
+    margin-top: 0;
+    width: 100%;
+    flex-direction: column;
+}
+    
+    /* When legend is inside the wrapper */
+    .amadex-seat-legend-wrapper .amadex-seat-legend {
+        margin-top: 0;
+        flex: 0 1 auto;
+    }
+    
+    /* When actions are inside the wrapper */
+    .amadex-seat-legend-wrapper .amadex-seat-selection-actions {
+        margin-top: 0;
+        flex: 0 0 auto;
+    }
+    
+    /* Fallback: If no wrapper, use positioning */
+    #amadex-seat-selection-section .amadex-seat-legend {
+        margin-top:0;
+    }
+    
+    #amadex-seat-selection-section .amadex-seat-selection-actions {
+        margin-top: 24px;
+    }
+}
+
+/* Seat Selection Actions */
+.amadex-seat-selection-actions {
+    margin-top: 24px;
+    text-align: right;
+}
+
+.amadex-seat-selection-actions .amadex-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.amadex-btn-secondary {
+    background: #FFFFFF;
+    color: #0E7D3F;
+    border: 1px solid #0E7D3F;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.amadex-btn-secondary:hover {
+    background: #0E7D3F;
+    color: #FFFFFF;
+}
+
+/* Skip Seat Selection Button */
+#amadex-skip-seat-selection {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* No Seat Map Message */
+.amadex-no-seatmap {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+div#amadex-mobile-price-bar {
+    border-radius: 20px 20px 0 0 !important;
+    border: 1px solid #0E7D3F;
+}
+
+span.amadex-cockpit-icon {
+    /*display: none;*/
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+    /* Constrain seat map height on mobile to prevent viewport overflow - plane scrolls inside container */
+    .amadex-seat-map-scrollable-container {
+        max-height: min(480px, calc(100vh - 280px)) !important;
+        min-height: 220px !important;
+        overflow-y: auto !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+    #amadex-seat-maps-container .amadex-seat-map-scrollable-container {
+        max-height: min(480px, calc(100vh - 280px)) !important;
+    }
+    #amadex-seat-selection-section {
+        min-height: 0 !important;
+    }
+
+.amadex-seat {
+        width: 20px !important;
+        height: 25px !important;
+        min-width: 18px !important;
+    }
+
+    .amadex-row-number {
+         padding: 4px 2px;
+         font-size: 10px;
+         height: 24px;
+    }
+    .amadex-seat-column-label {
+        width: 20px !important;
+        height: 20px !important;
+        min-width: 20px !important;
+        min-height: 20px;
+     }
+     .amadex-seat-map-content {
+             background-size: 180% auto;
+     }
+     .amadex-seat-summary-passenger-header {
+         flex-wrap: nowrap;
+     }
+     .amadex-seat-map-tab {
+         font-size: 12px;
+         padding: 10px 12px;
+         border-radius: 0 !important;
+     }
+     .amadex-passenger-type{
+         font-size: 10px;
+     }
+     .amadex-passenger-name{
+         min-width: 90px;
+     }
+     .amadex-route-info{
+         min-width: 145px;
+     }
+     .amadex-seat-total-price {
+    margin: 10px 0 0 0;
+    font-size: 12px;
+     }
+     .amadex-seat-summary-routes .amadex-seat-price {
+    font-size:12px!important;
+}
+}

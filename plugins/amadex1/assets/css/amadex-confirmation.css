@@ -1,0 +1,1702 @@
+/**
+ * Amadex Confirmation Page Styles
+ * Extracted from amadex-booking.css for confirmation page only
+ */
+
+/* ============================================
+   Global Overflow Prevention
+   ============================================ */
+body.amadex-confirmation-page,
+html body.amadex-confirmation-page {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* ============================================
+   Main Confirmation Page Container
+   ============================================ */
+.amadex-confirmation-page {
+    --amadex-confirmation-text: var(--amadex-ce-color-confirmation-primary, #111827);
+    --amadex-confirmation-muted: var(--amadex-ce-color-confirmation-muted, #6b7280);
+    --amadex-confirmation-brand: var(--amadex-ce-color-brand, #0e7d3f);
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px 20px 40px;
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
+    color: var(--amadex-confirmation-text);
+    line-height: var(--amadex-ce-line-height, 1.5);
+    letter-spacing: var(--amadex-ce-letter-spacing, 0em);
+}
+
+button.sort-tab:focus {
+    outline: none!important;
+}
+
+.amadex-confirmation-page * {
+    box-sizing: border-box;
+}
+
+/* Ensure no element exceeds container width */
+.amadex-confirmation-page > * {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* ============================================
+   Top Navigation Bar
+   ============================================ */
+.amadex-confirmation-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 20px 0 30px; */
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-confirmation-nav .amadex-booking-progress-modern {
+    margin-bottom: 0;
+}
+
+/* ============================================
+   Main Content Layout
+   ============================================ */
+.amadex-confirmation-content {
+    display: grid;
+    grid-template-columns: 1.7fr 0.9fr;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-confirmation-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    min-width: 0; 
+}
+
+.amadex-confirmation-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    min-width: 0; 
+}
+
+
+.amadex-confirmation-greeting.amadex-greeting-banner .amadex-segment-detail {
+    background: none !important;
+    box-shadow: none;
+    padding: 0;
+}
+/* ============================================
+   Greeting Section - Green Banner
+   ============================================ */
+.amadex-confirmation-greeting.amadex-greeting-banner {
+    background: #fff;
+    border-radius: 20px;
+    padding: 0;
+    /* box-shadow: 0px 0px 15px #00000029; */
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    color: #fff;
+    width: 100%;
+    max-width: 100%;
+    /* box-sizing: border-box;
+    overflow-x: hidden; */
+    min-width: 0;
+}
+
+.amadex-confirmation-greeting.amadex-greeting-banner:hover {
+    box-shadow: 0px 6px 25px rgba(14, 125, 63, 0.35);
+    transform: translateY(-2px);
+}
+
+.amadex-greeting-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0;
+}
+
+.amadex-greeting-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.amadex-greeting-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amadex-greeting-icons {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.amadex-check-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    animation: checkmarkPop 0.5s ease-out;
+}
+
+@keyframes checkmarkPop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.amadex-greeting-text {
+    flex-grow: 1;
+}
+
+.amadex-greeting-title {
+    margin: 0 0 8px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0E7D3F;
+    line-height: 1.5;
+}
+
+.amadex-greeting-message {
+    margin: 0;
+    font-size: 16px;
+    color: #000000;
+    line-height: 1.65;
+}
+
+.amadex-wave-icon {
+    font-size: 48px;
+    animation: wave 1s ease-in-out infinite;
+    animation-delay: 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes wave {
+    0%, 100% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(14deg);
+    }
+    75% {
+        transform: rotate(-14deg);
+    }
+}
+
+/* ============================================
+   Booking Status Section
+   ============================================ */
+.amadex-booking-status {
+    margin-top: 0;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 24px 28px;
+    box-shadow: 0px 0px 15px #00000029;
+    margin-bottom: 24px;
+}
+
+.amadex-status-text {
+    margin: 0!important;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: -0.2px;
+}
+
+.amadex-booking-id {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    align-items: center;
+}
+
+.amadex-booking-id-label {
+    font-size: 14px;
+    color: #000;
+    letter-spacing: 0.8px;
+    font-weight: 500;
+}
+
+.amadex-booking-id-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0E7D3F;
+}
+
+/* ============================================
+   Booking Section Container
+   ============================================ */
+.amadex-booking-section {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px -15px 15px #00000029;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.amadex-booking-section h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* ============================================
+   Flight Itinerary Card
+   ============================================ */
+.amadex-flight-itinerary-card {
+    background: none!important;
+    border-radius: 0!important;
+    padding: 0;
+    box-shadow: 0px 0px 15px #00000029;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+}
+
+.amadex-flight-itinerary-card:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.amadex-flight-itinerary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 22px 30px;
+    background: #F4FBF3;
+    border-bottom: 1px solid #E1E9E0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.amadex-flight-itinerary-header:hover {
+    background: #EEF9F2;
+}
+
+.amadex-flight-itinerary-header.is-expanded {
+    border-bottom-color: #0E7D3F;
+}
+
+.amadex-flight-summary-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.amadex-flight-route-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0 !important;
+}
+
+.amadex-flight-meta-line {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #4A5568;
+    margin-bottom: 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.amadex-flight-meta-line span:not(:last-child)::after {
+    content: '•';
+    margin-left: 8px;
+    color: #C0CEC5;
+}
+
+.amadex-itinerary-title {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -0.3px;
+}
+
+.amadex-itinerary-summary {
+    display: flex;
+    gap: 8px;
+    font-size: 14px;
+    color: #4A5568;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    align-items: center;
+}
+
+.amadex-itinerary-summary span {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.amadex-itinerary-summary span:not(:last-child)::after {
+    content: '·';
+    position: absolute;
+    right: -12px;
+    color: #9CA3AF;
+    font-weight: 400;
+}
+
+.amadex-itinerary-toggle {
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #4A5568;
+    cursor: pointer;
+    padding: 6px;
+    transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+.amadex-itinerary-toggle:hover {
+    background: rgba(14, 125, 63, 0.1);
+    color: #0E7D3F;
+}
+
+.amadex-itinerary-toggle .amadex-chevron-up {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.amadex-flight-itinerary-header.is-expanded .amadex-chevron-up {
+    transform: rotate(180deg);
+}
+
+.amadex-flight-itinerary-content {
+    padding: 28px 30px;
+    max-height: 5000px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 1;
+}
+
+.amadex-flight-itinerary-content.is-collapsed {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+}
+
+/* ============================================
+   Flight Detail Card (Used in Confirmation)
+   ============================================ */
+.amadex-flight-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.amadex-flight-detail-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 25px 45px rgba(11, 60, 29, 0.08);
+}
+
+.amadex-flight-detail-card.is-expanded {
+    border-color: #0e7d3f;
+    box-shadow: 0 30px 70px rgba(14, 125, 63, 0.18);
+}
+
+.amadex-flight-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 30px;
+    background: #F4FBF3;
+    border-bottom: 1px solid #E1E9E0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.amadex-flight-card-header:hover {
+    background: #EEF9F2;
+}
+
+.amadex-flight-card-summary {
+    flex: 1;
+}
+
+.amadex-flight-card-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amadex-flight-card-toggle .amadex-chevron-icon {
+    transition: transform 0.3s ease;
+    color: #000;
+}
+
+.amadex-flight-card-content {
+    padding: 28px 30px;
+    display: block;
+}
+
+/* ============================================
+   Segment Detail Styles
+   ============================================ */
+.amadex-segment-detail {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    /* background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    box-shadow: 0 25px 45px rgba(11, 60, 29, 0.08);
+    transition: all 0.3s ease; */
+}
+
+.amadex-segment-detail:hover {
+    box-shadow: 0 30px 70px rgba(14, 125, 63, 0.18);
+    transform: translateY(-2px);
+}
+
+.amadex-segment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.amadex-segment-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 120px;
+}
+
+.amadex-segment-label-date {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.amadex-segment-type {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+}
+
+.amadex-segment-type-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+
+.amadex-segment-date-label {
+    font-size: 14px;
+    color: #4A5568;
+    font-weight: 500;
+}
+
+.amadex-segment-airline-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.amadex-segment-airline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.amadex-segment-airline img,
+.amadex-airline-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.amadex-airline-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.amadex-airline-name {
+    font-weight: 700;
+    color: #1a202c;
+    font-size: 16px;
+}
+
+.amadex-airline-code {
+    font-size: 13px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.amadex-segment-travel-class {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+    min-width: 100px;
+}
+
+.amadex-segment-travel-class span {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+}
+
+.amadex-segment-travel-class strong {
+    font-size: 16px;
+    color: #073F20;
+}
+
+.amadex-segment-travel-class-right {
+    text-align: right;
+    font-size: 14px;
+    color: #4A5568;
+}
+
+.amadex-segment-travel-class-right strong {
+    color: #000;
+    font-weight: 600;
+}
+
+.amadex-segment-route-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: 16px 0;
+    /* border-top: 1px dashed #E4EDE3;
+    border-bottom: 1px dashed #E4EDE3; */
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.amadex-segment-point {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+}
+
+.amadex-segment-point.is-arrival {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.segment-point-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #9CA3AF;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.segment-point-time {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A202C;
+    line-height: 1.2;
+    margin: 4px 0;
+}
+
+.segment-point-airport {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1F2D2A;
+    line-height: 1.4;
+}
+
+.segment-point-date {
+    font-size: 12px;
+    color: #707070;
+    font-weight: 400;
+    margin-top: 2px;
+}
+
+.amadex-segment-timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #4A5568;
+    font-weight: 600;
+    position: relative;
+}
+
+.amadex-timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.amadex-timeline-line {
+    width: 2px;
+    height: 72px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #0e7d3f 0%, #34D399 100%);
+}
+
+.amadex-timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0e7d3f;
+    border: 2px solid #D8F1E0;
+}
+
+.amadex-timeline-line-vertical {
+    width: 2px;
+    height: 80px;
+    background: #D1D5DB;
+    border-radius: 999px;
+    position: absolute;
+    top: -62px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.amadex-timeline-airplane {
+    position: relative;
+    z-index: 2;
+    transform: rotate(90deg);
+    transform-origin: center center;
+    margin: 20px 0;
+}
+
+.amadex-airplane-icon {
+    width: 18px;
+    height: 12.33px;
+    transform: rotate(90deg);
+    fill: #0e7d3f;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(90deg);
+    z-index: 1;
+}
+
+.timeline-duration {
+    position: relative;
+    z-index: 2;
+    background: #FFFFFF;
+    padding: 2px 8px;
+    font-size: 13px;
+    color: #707070;
+    font-weight: 500;
+}
+
+.amadex-duration-pill {
+    padding: 6px 18px;
+    border-radius: 999px;
+    background: #EEF9F2;
+    color: #0e7d3f;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 10px 20px rgba(7, 63, 32, 0.12);
+    margin-top: 10px;
+}
+
+.amadex-stopover-banner {
+    background: #FFF8ED;
+    border: 1px solid #F8D7A4;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #111827;
+    text-align: center;
+    font-weight: 500;
+    margin-left: 6rem;
+}
+
+/* ============================================
+   Main Flight Details Section Container
+   ============================================ */
+.main-flight-details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 15px #00000029;
+    border-radius: 20px;
+    padding: 28px 20px;
+}
+
+/* ============================================
+   Card Styles (Used in Confirmation)
+   ============================================ */
+.amadex-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 32px;
+    box-shadow: 0px 0px 15px #00000029;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.amadex-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0E7D3F, #0aa870);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.amadex-card:hover::before {
+    opacity: 1;
+}
+
+.amadex-card:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.amadex-card h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+}
+
+/* ============================================
+   What Happens Next Section
+   ============================================ */
+.amadex-what-happens-next {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 25px 20px;
+    box-shadow: none;
+    margin-bottom: 0!important;
+    border: 1px solid #f2f2f2;
+}
+
+.amadex-what-happens-next h2 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+}
+
+ol.amadex-next-steps {
+    padding-left: 0;
+}
+
+.amadex-next-steps {
+    counter-reset: amadex-steps;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amadex-next-steps li {
+    counter-increment: amadex-steps;
+    position: relative;
+    padding-left: 42px;
+    margin-bottom: 18px;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.6;
+    transition: all 0.2s ease;
+}
+
+.amadex-next-steps li:hover {
+    color: #0E7D3F;
+    /* transform: translateX(4px); */
+}
+
+.amadex-next-steps li::before {
+    content: counter(amadex-steps);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #F6F6F6 0% 0% no-repeat padding-box;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* ============================================
+   Support Card - Green Background
+   ============================================ */
+.amadex-support-card {
+    background: #0E7D3F;
+    color: #fff;
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0px 0px 15px #00000029;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.amadex-support-header {
+    padding: 10px 0 25px;
+    background: #0E7D3F;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+}
+
+.amadex-support-header h2 {
+    color: #fff;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.amadex-support-header p {
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 0;
+    line-height: 1.65;
+    font-size: 14px;
+}
+
+.amadex-support-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 32px 28px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.amadex-support-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
+
+.amadex-support-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #000;
+    text-decoration: none!important;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+}
+
+.amadex-support-link:hover {
+    color: #0E7D3F;
+    transform: translateX(4px);
+}
+
+.amadex-support-link svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.amadex-support-link:hover svg {
+    stroke: #0E7D3F;
+}
+
+.amadex-support-illustration {
+    flex-shrink: 0;
+    margin-left: 24px;
+    opacity: 0.9;
+}
+
+.amadex-support-svg {
+    width: 200px;
+    height: auto;
+    max-width: 100%;
+}
+
+/* ============================================
+   Passenger Details Card
+   ============================================ */
+.amadex-passenger-details-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 28px 20px;
+    box-shadow: 0px 0px 15px #00000029;
+    transition: all 0.3s ease;
+}
+
+.amadex-passenger-details-card:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.amadex-passenger-details-card h2 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -0.3px;
+}
+
+.amadex-section-subtitle {
+    font-size: 14px;
+    color: #000;
+    margin: -8px 0 20px 0;
+}
+
+.amadex-passenger-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E6E6E6;
+    border-radius: 20px;
+}
+
+section.amadex-card.amadex-passenger-details-card {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.amadex-passenger-table th {
+    padding: 14px 8px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.amadex-passenger-table th:first-child {
+    padding-left: 10px;
+}
+
+.amadex-passenger-table th:last-child {
+    padding-right: 10px;
+}
+
+.amadex-passenger-table td {
+    padding: 16px 8px;
+    font-size: 14px;
+    color: #000;
+    font-weight: 700;
+    border-bottom: 1px solid #F1F5F9;
+    transition: all 0.2s ease;
+    border-right: 1px solid #e6e6e6;
+}
+
+.amadex-passenger-table td:first-child {
+    padding-left: 20px;
+    font-weight: 600;
+    color: #000;
+}
+
+.amadex-passenger-table td:last-child {
+    padding-right: 20px;
+}
+
+.amadex-passenger-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.amadex-passenger-table tbody tr:hover {
+    background: #F9FBF8;
+    transform: translateX(2px);
+}
+
+.amadex-passenger-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ============================================
+   Price Summary Card (Confirmation Sidebar)
+   ============================================ */
+.amadex-confirmation-sidebar .amadex-price-summary-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: none;
+    margin-bottom: 0;
+    transition: all 0.3s ease;
+    border: 1px solid #f2f2f2;
+}
+
+.amadex-confirmation-sidebar .amadex-price-summary-card:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.amadex-confirmation-sidebar .amadex-price-summary-card h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: -0.3px;
+}
+
+.amadex-confirmation-sidebar .amadex-price-breakdown {
+    background: #FDFEFE;
+    border: 1px solid #E5F1E8;
+    border-radius: 16px;
+    padding: 20px 18px;
+}
+
+.amadex-confirmation-sidebar .amadex-price-row {
+    transition: all 0.2s ease;
+}
+
+.amadex-confirmation-sidebar .amadex-price-row:hover {
+    background: rgba(14, 125, 63, 0.02);
+    border-radius: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.amadex-confirmation-sidebar .amadex-price-row.total {
+    background: #F2F2F2;
+    border-radius: 15px;
+    padding: 8px 20px;
+    margin-top: 8px;
+    border: 1px solid #E5E5E5;
+}
+
+/* ============================================
+   Empty State
+   ============================================ */
+.amadex-confirmation-empty {
+    text-align: center;
+}
+
+.amadex-empty-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.amadex-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: #0e7d3f;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.amadex-button-outline {
+    background: transparent;
+    border: 2px solid #0e7d3f;
+    color: #0e7d3f;
+}
+
+/* ============================================
+   Responsive Styles
+   ============================================ */
+@media (max-width: 992px) {
+    .amadex-confirmation-page {
+        padding: 20px 16px 40px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-confirmation-content {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        gap: 20px !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-confirmation-main,
+    .amadex-confirmation-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .amadex-confirmation-sidebar {
+        order: 2;
+    }
+    
+    .amadex-confirmation-nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 12px;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-booking-progress-modern {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px 8px !important;
+        gap: 6px !important;
+        flex-wrap: wrap !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .booking-step-modern {
+        min-width: auto !important;
+        flex: 1 !important;
+        padding: 8px 10px !important;
+        font-size: 11px !important;
+        white-space: nowrap !important;
+        max-width: calc(33.33% - 4px) !important;
+        box-sizing: border-box !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Fix overflow on mobile */
+    body,
+    html {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-confirmation-page {
+        padding: 12px 10px 40px !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+    
+    .amadex-confirmation-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+        padding: 0 !important;
+        gap: 16px !important;
+    }
+    
+    .amadex-confirmation-main,
+    .amadex-confirmation-sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
+    
+    /* Ensure all child elements respect container width */
+    .amadex-confirmation-page *,
+    .amadex-confirmation-content * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        word-wrap: break-word !important;
+    }
+    
+    /* Fix all text containers */
+    .amadex-confirmation-page h1,
+    .amadex-confirmation-page h2,
+    .amadex-confirmation-page h3,
+    .amadex-confirmation-page h4,
+    .amadex-confirmation-page h5,
+    .amadex-confirmation-page h6,
+    .amadex-confirmation-page p,
+    .amadex-confirmation-page span,
+    .amadex-confirmation-page div,
+    .amadex-confirmation-page label {
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix flex containers */
+    .amadex-confirmation-page .amadex-flex,
+    .amadex-confirmation-page [class*="flex"] {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix grid containers */
+    .amadex-confirmation-page [class*="grid"] {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix images and media */
+    .amadex-confirmation-page img,
+    .amadex-confirmation-content img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    
+    /* Fix tables */
+    .amadex-confirmation-page table,
+    .amadex-confirmation-content table {
+        width: 100% !important;
+        max-width: 100% !important;
+        table-layout: auto !important;
+        word-wrap: break-word !important;
+        overflow-x: auto !important;
+        display: block !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .amadex-card{
+        margin-bottom: 0;
+    }
+    
+    .amadex-confirmation-page table thead,
+    .amadex-confirmation-page table tbody,
+    .amadex-confirmation-page table tr {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-confirmation-page table th,
+    .amadex-confirmation-page table td {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        padding: 8px 12px !important;
+        text-align: left !important;
+    }
+    
+    .amadex-confirmation-page table th:before,
+    .amadex-confirmation-page table td:before {
+        content: attr(data-label) ": ";
+        font-weight: 700;
+        display: inline-block;
+        min-width: 100px;
+    }
+    
+    /* Fix SVG elements */
+    .amadex-confirmation-page svg,
+    .amadex-confirmation-content svg {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    
+    .amadex-confirmation-nav {
+        flex-direction: column;
+        align-items: center !important;
+        gap: 12px;
+        width: 100% !important;
+        max-width: 100% !important;
+        /* padding: 12px 8px 16px !important; */
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-confirmation-nav .amadex-booking-progress-modern {
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center;
+        padding: 10px 6px !important;
+        gap: 4px !important;
+        flex-wrap: wrap !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-confirmation-greeting {
+        padding: 16px 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-greeting-content {
+        flex-direction: column !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-greeting-title {
+        font-size: 16px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+    
+    .amadex-greeting-message {
+        font-size: 14px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+    
+    .amadex-flight-itinerary-header {
+        padding: 14px 10px !important;
+        flex-wrap: wrap;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-flight-itinerary-content {
+        padding: 14px 10px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Convert table to card layout on mobile */
+    .amadex-passenger-table {
+        display: block !important;
+        width: 100% !important;
+        border: none !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        overflow: visible !important;
+    }
+    
+
+    .amadex-passenger-table tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+    
+    .amadex-passenger-table tbody tr {
+        display: block !important;
+        width: 100% !important;
+        background: #FFFFFF !important;
+        border: 1px solid #E6E6E6 !important;
+        border-radius: 16px !important;
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+        box-sizing: border-box !important;
+    }
+    
+    .amadex-passenger-table tbody tr:last-child {
+        margin-bottom: 0 !important;
+    }
+    
+    .amadex-passenger-table tbody tr:hover {
+        transform: none !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    .amadex-passenger-table tbody td {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 12px 0 !important;
+        border: none !important;
+        border-bottom: 1px solid #F1F5F9 !important;
+        font-size: 14px !important;
+        white-space: normal !important;
+        box-sizing: border-box !important;
+        font-weight: 700 !important;
+        color: #000000 !important;
+        text-align: right !important;
+        flex: 1 !important;
+        word-break: break-word !important;
+    }
+    
+    .amadex-passenger-table tbody td:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0 !important;
+    }
+    
+    .amadex-passenger-table tbody td:first-child {
+        padding-top: 0 !important;
+    }
+    
+    /* Add labels before values */
+    .amadex-passenger-table tbody td::before {
+        content: attr(data-label) !important;
+        font-weight: 500 !important;
+        color: #6B7280 !important;
+        font-size: 14px !important;
+        flex: 0 0 auto !important;
+        margin-right: 16px !important;
+        text-align: left !important;
+        min-width: 120px !important;
+    }
+    
+    .amadex-confirmation-nav .booking-step-modern {
+        min-width: auto !important;
+        padding: 6px 8px !important;
+        font-size: 10px !important;
+        flex: 1 !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+    }
+    
+    .amadex-confirmation-nav .booking-step-label-modern {
+        font-size: 10px !important;
+        white-space: nowrap !important;
+    }
+    
+    .amadex-confirmation-nav .booking-step-icon-modern {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 14px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .amadex-confirmation-nav .booking-step-divider-modern {
+        display: none !important;
+    }
+    
+    .amadex-support-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 12px !important;
+    }
+    
+    .amadex-support-illustration {
+        margin-left: 0;
+        margin-top: 16px;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-support-svg {
+        width: 100% !important;
+        max-width: 280px !important;
+    }
+    
+    /* Fix Booking ID and Status */
+    .amadex-booking-id,
+    .amadex-booking-status {
+        font-size: 14px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+    }
+    
+    .amadex-booking-status h2,
+    .amadex-booking-status h3 {
+        font-size: 18px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+    
+    /* Fix greeting banner on mobile */
+    .amadex-confirmation-greeting.amadex-greeting-banner {
+        padding: 16px 12px !important;
+        border-radius: 16px !important;
+    }
+    
+    .amadex-greeting-banner .amadex-segment-detail {
+        padding: 14px 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .amadex-greeting-banner h2,
+    .amadex-greeting-banner h3,
+    .amadex-greeting-banner p {
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix cards */
+    .amadex-card,
+    .amadex-booking-section,
+    .amadex-flight-detail-card,
+    .amadex-passenger-details-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 16px 12px !important;
+    }
+    .amadex-stopover-banner{
+        margin: 0!important;
+        width: 100%;
+    }
+    /* Fix segment route grid */
+    .amadex-segment-route-grid {
+        grid-template-columns: 1fr auto 1fr;
+        gap: 16px !important;
+    }
+    
+    .amadex-segment-point.is-arrival {
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+}
+
+@media (max-width: 640px) {
+    /* Additional mobile fixes for smaller screens */
+    .amadex-confirmation-page {
+        padding: 12px 8px 40px !important;
+    }
+    
+    .amadex-confirmation-nav {
+        padding: 12px 0 !important;
+    }
+    
+    .amadex-confirmation-greeting {
+        padding: 16px 12px !important;
+    }
+    
+    .amadex-greeting-title {
+        font-size: 16px !important;
+    }
+    
+    .amadex-greeting-message {
+        font-size: 14px !important;
+    }
+    
+    .amadex-flight-itinerary-header {
+        padding: 12px 8px !important;
+    }
+    
+    .amadex-flight-itinerary-content {
+        padding: 12px 8px !important;
+    }
+    
+    .amadex-card,
+    .amadex-booking-section,
+    .amadex-flight-detail-card,
+    .amadex-passenger-details-card {
+        padding: 12px 8px !important;
+    }
+    
+    .amadex-passenger-table {
+        font-size: 11px !important;
+    }
+    
+    .amadex-passenger-table th,
+    .amadex-passenger-table td {
+        padding: 8px 4px !important;
+    }
+    
+    .segment-point-time {
+        font-size: 22px !important;
+    }
+    
+    .amadex-support-content {
+        padding: 12px 8px !important;
+    }
+}

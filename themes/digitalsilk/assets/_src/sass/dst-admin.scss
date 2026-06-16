@@ -1,0 +1,73 @@
+/*
+// Core settings */
+
+@use "_DS-core/mixins";
+@use "_DS-core/helpers/util-classes";
+@use "layout/typography";
+
+// General components
+
+@use "components/c-btn";
+@use "components/c-media";
+@use "components/c-block";
+@use "components/c-video";
+@use "components/c-list";
+@use "components/c-columns";
+@use "components/c-popup";
+@use "components/posts";
+@use "components/social-icons";
+@use "components/scroll-down";
+
+// Layout
+
+@use "layout/wysiwyg";
+@use "forms/forms";
+
+// Site Components
+
+@use "modules/banner";
+@use "modules/headings";
+@use "modules/content1";
+@use "modules/content2";
+@use "modules/content3";
+@use "modules/wrapper";
+@use "modules/ds-columns";
+
+// General admin styles
+@use "_DS-admin/admin-general";
+@use "_DS-admin/global-acf-fields";
+// Widgets
+@use "_DS-admin/widgets/color-picker";
+@use "_DS-admin/widgets/toolbars";
+@use "_DS-admin/widgets/button-icon-library";
+@use "_DS-admin/guttenberg-preview";
+@use "_DS-admin/full-site-editor-preview";
+//@use "_DS-admin/sidebar-settings";
+// Theme Settings
+@use "_DS-admin/panels/modules-settings";
+@use "_DS-admin/panels/theme-settings";
+@use "_DS-admin/panels/font-settings";
+@use "_DS-admin/panels/buttons-settings";
+@use "_DS-admin/panels/forms-settings";
+@use "_DS-admin/panels/header-settings";
+@use "_DS-admin/panels/footer-settings";
+@use "_DS-admin/panels/sidebar-settings";
+@use "_DS-admin/panels/content-settings";
+@use "_DS-admin/panels/module-content1-settings";
+@use "_DS-admin/panels/module-content2-settings";
+@use "_DS-admin/panels/module-slider-settings";
+@use "_DS-admin/panels/module-tabs-settings";
+
+// Blog
+@use "blog/widgets/cta-custom-box";
+
+// Visuals
+
+@use "visuals/animate";
+@use "visuals/decorations";
+@use "visuals/backgrounds";
+
+// Vendors
+
+@use "../../../assets/vendors/swiper/swiper-bundle.min.css";
+

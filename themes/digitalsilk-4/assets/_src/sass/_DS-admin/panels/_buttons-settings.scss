@@ -1,0 +1,141 @@
+@use "../widgets/mixins";
+
+/* Theme Settings - Button */
+.acf-fields {
+
+    > .acf-field[data-name="demo_button_settings"] {
+        position: sticky;
+        top: 32px;
+        z-index: 100;
+        background: #fff;
+        box-shadow: 6px -2px 12px 2px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        padding: 0;
+
+        > .acf-label {
+            display: none;
+        }
+
+        .c-btn-bar__preview {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &__item {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                flex: 1 1 auto;
+
+                &:not(:first-child) {
+                    border-left: 1px solid #eee;
+                }
+
+                > div {
+                    padding: 0 20px 10px 20px;
+                    min-height: 65px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+
+            label {
+                display: block;
+                text-align: center;
+                font-weight: 700;
+                margin-bottom: 10px;
+                padding: 5px;
+                background-color: var(--dst-admin-panel-bgd);
+            }
+        }
+
+        .acf-label {
+            position: absolute;
+            background: #fff;
+            transform: translate(100%, -50%);
+            right: -5px;
+            top: 50%;
+            padding: 3px 10px;
+        }
+    }
+}
+
+
+.acf-field-group[data-name="buttons_styles"] {
+
+    .acf-fields {
+        display: flex;
+        flex-wrap: wrap;
+
+        .acf-label {
+            margin: 0 0 6px;
+        }
+
+        .acf-field {
+            display: block;
+            position: relative;
+        }
+
+        .acf-field-true-false {
+            width: auto;
+
+            label {
+                margin-bottom: 5px;
+            }
+        }
+
+        .acf-button-group {
+            flex-wrap: nowrap;
+        }
+
+        .acf-accordion-title {
+            margin: 0;
+        }
+
+        .acf-accordion {
+
+            .acf-accordion-content {
+
+                .acf-fields > .acf-field {
+                    min-height: 50px !important;
+
+                }
+
+                @include mixins.hover-title;
+            }
+        }
+
+        div.button-icon-library .acf-input label img, {
+            max-height: 34px;
+        }
+    }
+
+    @include mixins.accordion-tile;
+
+    [data-name="button-icon-type"] {
+        border-left: #eee solid 1px;
+        border-right: #eee solid 1px;
+    }
+
+    [data-name="button-icon"] {
+
+        .acf-image-uploader .image-wrap img[src$=".svg"] {
+            min-height: 60px;
+            min-width: 60px;
+        }
+    }
+
+	[data-name="button-icon-size"] {
+
+		> .acf-label .description {
+			top: 74px !important;
+		}
+
+		&::after {
+			content: 'e.g. 1rem, 30%, etc.';
+			display: block;
+		}
+	}
+}
+

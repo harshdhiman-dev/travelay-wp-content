@@ -1,0 +1,58 @@
+@use "../../mixins/include-media" as *;
+
+.m-slider {
+	position: relative;
+	overflow: hidden;
+
+	&.container-fluid {
+		padding-inline: 0;
+	}
+
+	.swiper-slide {
+		height: auto;
+	}
+
+	&__container {
+		z-index: 0;
+	}
+
+	&__outer {
+		position: relative;
+	}
+
+	&__slide {
+
+		@include media("<=desktop") {
+			height: auto;
+		}
+	}
+
+	&__img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&.has-tabs {
+
+		.m-slider__container {
+			padding-bottom: 0 !important;
+		}
+	}
+
+	[data-slider-autoplay-continuously="1"] {
+
+		.swiper-wrapper {
+			transition-timing-function: linear;
+		}
+	}
+
+	.swiper {
+
+		.wp-admin & {
+
+			pointer-events: none;
+		}
+	}
+
+}

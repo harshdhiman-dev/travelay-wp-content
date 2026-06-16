@@ -1,0 +1,74 @@
+@use "../../_DS-core/mixins/include-media" as *;
+@use "../../_DS-core/mixins/mini-mixins" as *;
+
+/* 1rem = 10px */
+
+html {
+
+	font-size: 50%;
+
+	@media (min-width: 768px) and (-webkit-min-device-pixel-ratio: 1.20) and (-webkit-max-device-pixel-ratio: 1.49) {
+		font-size: 55.5555%;
+	}
+
+	@media (min-width: 768px) and (-webkit-min-device-pixel-ratio: 1.50) {
+		font-size: 50%;
+	}
+
+	@include media(">desktop-m") {
+		font-size: 58%;
+	}
+
+	@include media(">desktop-l") {
+		font-size: 62.5%;
+	}
+
+	@include media(">desktop-2k") {
+		font-size: 67%;
+	}
+}
+
+.-h1, .is-wysiwyg h1 {
+	line-height: var(--dst--h1-line-height, 1);
+	font-weight: var(--dst--h1-font-weight, 600);
+	font-family: var(--dst--h1-font);
+	margin-bottom: var(--dst--h1-margin-bottom, .5em);
+	text-transform: var(--dst--h1-text-transform);
+	letter-spacing: var(--dst--h1-letter-spacing, 0);
+	font-size: #{"clamp(calc(var(--dst--h1-font-size-mobile) * 1.25), var(--dst--h1-clamp-formula), var(--dst--h1-font-size))"};
+	color: var(--dst--base-heading-color);
+}
+
+.-h2, .is-wysiwyg h2 {
+	line-height: var(--dst--h2-line-height, 1);
+	font-weight: var(--dst--h2-font-weight, 600);
+	font-family: var(--dst--h2-font);
+	text-transform: var(--dst--h2-text-transform);
+	letter-spacing: var(--dst--h2-letter-spacing, 0);
+	font-size: #{"clamp(calc(var(--dst--h2-font-size-mobile) * 1.25), var(--dst--h-clamp-formula), var(--dst--h2-font-size))"};
+	margin-bottom: var(--dst--h2-margin-bottom, .5em);
+}
+
+.-h3, .is-wysiwyg h3 {
+	line-height: var(--dst--h3-line-height, 1);
+	font-weight: var(--dst--h3-font-weight, 600);
+	font-family: var(--dst--h3-font);
+	text-transform: var(--dst--h3-text-transform);
+	letter-spacing: var(--dst--h3-letter-spacing, 0);
+	font-size: #{"clamp(calc(var(--dst--h3-font-size-mobile) * 1.25), var(--dst--h-clamp-formula), var(--dst--h3-font-size))"};
+	margin-bottom: var(--dst--h3-margin-bottom, .5em);
+}
+
+.-h4, .is-wysiwyg h4 {
+	line-height: var(--dst--h4-line-height, 1);
+	font-weight: var(--dst--h4-font-weight, 600);
+	font-family: var(--dst--h4-font);
+	text-transform: var(--dst--h4-text-transform);
+	letter-spacing: var(--dst--h4-letter-spacing, 0);
+	margin-bottom: var(--dst--h4-margin-bottom, .5em);
+	font-size: calc(var(--dst--h4-font-size-mobile) * 1.25);
+
+	@include media('>desktop') {
+		font-size: var(--dst--h4-font-size);
+	}
+}

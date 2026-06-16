@@ -1,0 +1,14 @@
+.husky
+_dist
+admin
+assets/vendors
+assets/_src/js/function-calls
+assets/_src/js/library
+acf-json
+acf-php
+core/lib
+*.min.js
+assets/_src/js/utils
+node_modules/
+build/
+vendor/

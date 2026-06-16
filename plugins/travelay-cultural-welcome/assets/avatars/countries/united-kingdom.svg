@@ -1,0 +1,61 @@
+<svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="ukSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5d0b5"/>
+      <stop offset="100%" stop-color="#e8b796"/>
+    </linearGradient>
+    <linearGradient id="ukBlazer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a3a6e"/>
+      <stop offset="100%" stop-color="var(--tcw-primary,#012169)"/>
+    </linearGradient>
+    <linearGradient id="ukHair" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a3728"/>
+      <stop offset="100%" stop-color="#2d241e"/>
+    </linearGradient>
+    <radialGradient id="ukGlow" cx="50%" cy="30%" r="60%">
+      <stop offset="0%" stop-color="#fff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="100" cy="248" rx="52" ry="9" fill="#0f172a" opacity="0.1"/>
+  <g class="tcw-figure">
+    <g class="tcw-limbs-group tcw-limbs-nod">
+      <path d="M58 168 C52 190 50 212 54 228" fill="none" stroke="url(#ukSkin)" stroke-width="11" stroke-linecap="round"/>
+      <path d="M142 168 C148 190 150 212 146 228" fill="none" stroke="url(#ukSkin)" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="54" cy="230" rx="8" ry="6" fill="url(#ukSkin)"/>
+      <ellipse cx="146" cy="230" rx="8" ry="6" fill="url(#ukSkin)"/>
+    </g>
+    <g class="tcw-arm-wave">
+      <path d="M142 158 C158 142 172 118 178 96" fill="none" stroke="url(#ukSkin)" stroke-width="12" stroke-linecap="round"/>
+      <g class="tcw-wave-hand">
+        <ellipse cx="180" cy="92" rx="14" ry="12" fill="url(#ukSkin)"/>
+        <path d="M170 84 L170 72 M176 82 L176 68 M182 81 L182 66 M188 82 L188 68 M194 84 L194 72" stroke="#d4a574" stroke-width="2.2" stroke-linecap="round"/>
+      </g>
+    </g>
+    <g class="tcw-torso-group">
+      <path d="M52 148 C52 128 72 118 100 118 C128 118 148 128 148 148 L152 238 L48 238 Z" fill="url(#ukBlazer)"/>
+      <path d="M72 118 L100 138 L128 118" fill="#f8fafc"/>
+      <path d="M88 138 L100 152 L112 138 L112 210 L88 210 Z" fill="#ffffff"/>
+      <path d="M88 138 L100 152 L112 138" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+      <path d="M52 148 L72 118 L100 138 L128 118 L148 148" fill="none" stroke="#0f2744" stroke-width="1.5" opacity="0.4"/>
+      <circle cx="100" cy="175" r="3" fill="var(--tcw-accent,#C8102E)" opacity="0.85"/>
+      <path d="M48 238 L152 238 L148 248 L52 248 Z" fill="#1e293b" opacity="0.15"/>
+    </g>
+    <g class="tcw-head-group">
+      <path d="M62 52 C64 28 136 28 138 52 C140 72 136 88 128 96 C118 106 82 106 72 96 C64 88 60 72 62 52 Z" fill="url(#ukHair)"/>
+      <ellipse cx="100" cy="78" rx="34" ry="38" fill="url(#ukSkin)"/>
+      <ellipse cx="100" cy="62" rx="24" ry="16" fill="url(#ukGlow)"/>
+      <ellipse cx="86" cy="76" rx="5" ry="6" fill="#1e293b"/>
+      <ellipse cx="114" cy="76" rx="5" ry="6" fill="#1e293b"/>
+      <ellipse cx="88" cy="77" rx="1.8" ry="2" fill="#fff"/>
+      <ellipse cx="116" cy="77" rx="1.8" ry="2" fill="#fff"/>
+      <path d="M88 74 Q86 72 84 74" fill="none" stroke="#1e293b" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M116 74 Q118 72 120 74" fill="none" stroke="#1e293b" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M90 92 Q100 100 110 92" fill="none" stroke="#c2785c" stroke-width="2.2" stroke-linecap="round"/>
+      <ellipse cx="78" cy="84" rx="6" ry="3.5" fill="#e38b7b" opacity="0.28"/>
+      <ellipse cx="122" cy="84" rx="6" ry="3.5" fill="#e38b7b" opacity="0.28"/>
+      <path d="M100 108 C96 118 92 122 88 120" fill="none" stroke="url(#ukSkin)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M100 108 C104 118 108 122 112 120" fill="none" stroke="url(#ukSkin)" stroke-width="8" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

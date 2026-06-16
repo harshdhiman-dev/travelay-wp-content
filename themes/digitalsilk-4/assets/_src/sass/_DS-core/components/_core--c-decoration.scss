@@ -1,0 +1,52 @@
+@use "../mixins/include-media" as *;
+
+.c-decoration {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+
+	&__item {
+		position: absolute;
+		left: var(--c-decoration-position-desktop-left, 0);
+		top: var(--c-decoration-position-desktop-top, 0);
+		display: var(--c-decoration-display-desktop, block);
+		width: var(--c-decoration-width-desktop, auto);
+		height: var(--c-decoration-height-desktop, auto);
+		transform: translate(-50%, -50%) rotate(var(--c-decoration-rotate ,0));
+
+		img,
+		svg,
+		div {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+
+		@include media("<=desktop") {
+			left: var( --c-decoration-position-tablet-left, var(--c-decoration-position-desktop-left, 0) );
+			top: var( --c-decoration-position-tablet-top, var(--c-decoration-position-desktop-top, 0) );
+			display: var( --c-decoration-display-tablet, var(--c-decoration-display-desktop, block) );
+			width: var( --c-decoration-width-tablet, var(--c-decoration-width-desktop, auto) );
+			height: var( --c-decoration-height-tablet, var(--c-decoration-height-desktop, auto ));
+		}
+
+		@include media("<=tablet") {
+			left: var(--c-decoration-position-mobile-left,
+				var(--c-decoration-position-tablet-left,
+					var(--c-decoration-position-desktop-left, 0)));
+			top: var(--c-decoration-position-mobile-top,
+				var(--c-decoration-position-tablet-top,
+					var(--c-decoration-position-desktop-top, 0)));
+			display: var(--c-decoration-display-mobile,
+				var(--c-decoration-display-tablet,
+					var(--c-decoration-display-desktop, block)));
+			width: var(--c-decoration-width-mobile,
+				var(--c-decoration-width-tablet,
+					var(--c-decoration-width-desktop, auto)));
+			height: var(--c-decoration-height-mobile,
+				var(--c-decoration-height-tablet,
+					var(--c-decoration-height-desktop, auto)));
+		}
+	}
+}

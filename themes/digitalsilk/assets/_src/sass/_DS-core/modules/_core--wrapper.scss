@@ -1,0 +1,112 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+/**
+ ###################
+ #   Module: WRAPPER
+ ###################
+ */
+
+.m-wrapper {
+    --wrap-col-1: 50%;
+    --wrap-col-2: 50%;
+    --wrap-col-gap: 20px;
+    position: relative;
+
+    &__inner {
+	    position: relative;
+	    z-index: 1;
+
+        > a[name] {
+            display: none;
+            position: absolute;
+        }
+    }
+
+	&__bg {
+		--dst--page-gutter: 0;
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+
+		&:empty {
+			display: none;
+		}
+	}
+
+    .wp-admin & {
+        padding-inline: 30px;
+    }
+
+    &.has-columns {
+
+        @include media(">tablet") {
+
+            .m-wrapper__inner {
+                margin-inline: auto;
+                width: 100%;
+                max-width: calc(var(--dst--content-width) + var(--dst--page-gutter, 20px) * 2);
+
+                display: flex;
+                flex-wrap: nowrap;
+                gap: var(--wrap-col-gap);
+
+                > .m-block,
+                > .m-slider,
+                > .wp-block,
+                > .m-wrapper-column {
+
+                    &:nth-of-type(odd) {
+                        flex: 0 0 calc(var(--wrap-col-1) - var(--wrap-col-gap) / 2);
+                    }
+
+                    &:nth-of-type(even) {
+                        flex: 0 0 calc(var(--wrap-col-2) - var(--wrap-col-gap) / 2);
+                        max-width: calc(var(--wrap-col-2) - var(--wrap-col-gap) / 2);
+                    }
+                }
+
+                .block-editor-block-list__layout {
+                    display: flex;
+                    flex-wrap: nowrap;
+
+                    > div {
+
+                        &:nth-of-type(odd) {
+                            flex: 0 0 var(--wrap-col-1);
+                        }
+
+                        &:nth-of-type(even) {
+                            flex: 0 0 var(--wrap-col-2);
+                            max-width: var(--wrap-col-2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include media(">tablet") {
+
+        &.align-top {
+
+            .m-wrapper__inner {
+                align-items: flex-start;
+            }
+        }
+
+        &.align-center {
+
+            .m-wrapper__inner {
+                align-items: center;
+            }
+        }
+
+        &.align-bottom {
+
+            .m-wrapper__inner {
+                align-items: flex-end;
+            }
+        }
+
+    }
+}

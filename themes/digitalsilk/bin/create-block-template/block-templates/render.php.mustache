@@ -1,0 +1,29 @@
+<?php
+/**
+ * {{title}} markup
+ *
+ * @package DST\Blocks\{{namespaceSnakeCase}}
+ *
+ * @var array    $attributes         Block attributes.
+ * @var string   $content            Block content.
+ * @var WP_Block $block              Block instance.
+ */
+
+$extra_attributes = ds_theme_generate_extra_atts( $attributes, $block );
+?>
+
+<div <?php echo get_block_wrapper_attributes( $extra_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	{{#isInnerBlocksVariant}}
+	<div class="wp-block-{{namespace}}-{{slug}}__inner">
+		<?php
+		/*
+		* $content outputs html from innerBlocks, it is already sanitized.
+		*
+		* Don't re-sanitize with `wp_kses_post` as it can break the core filters
+		* No additional sanitization is required
+		*/
+		echo $content; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		?>
+	</div>
+	{{/isInnerBlocksVariant}}
+</div>

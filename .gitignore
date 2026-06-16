@@ -1,0 +1,66 @@
+# ===================
+# WordPress wp-content
+# ===================
+
+# Uploads (media files — too large for git, backed up separately)
+uploads/
+
+# Cache files
+cache/
+w3tc-config/
+wp-cache-config.php
+object-cache.php
+advanced-cache.php
+litespeed/
+ls-cache/
+
+# Debug
+debug.log
+error_log
+
+# ===================
+# Hostinger-specific
+# ===================
+mu-plugins/hostinger-*.php
+mu-plugins/starter-starter/
+
+# ===================
+# Build / Dependencies
+# ===================
+node_modules/
+vendor/
+.DS_Store
+Thumbs.db
+
+# Environment files (contain secrets)
+.env
+!.env.default
+!.env.example
+
+# Vite dev mode flag (local dev only)
+themes/digitalsilk/.ds-dev-mode
+
+# ===================
+# IDE / Editor
+# ===================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ===================
+# OS files
+# ===================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# ===================
+# Package locks (optional — uncomment if you want to track them)
+# ===================
+# themes/digitalsilk/package-lock.json

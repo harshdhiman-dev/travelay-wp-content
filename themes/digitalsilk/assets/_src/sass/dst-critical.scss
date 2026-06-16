@@ -1,0 +1,19 @@
+/*  CRITICAL CSS: Base styles for the "Above the fold" / First Visible Viewport
+	Add  styles for modules or components that should be applied to the critical path here.
+*/
+@forward "_DS-core/helpers";
+
+// Critical Layout
+@forward "layout/base";
+@forward "layout/typography";
+@forward "layout/header";
+
+/* Above the fold modules */
+@forward "modules/banner";
+@forward "modules/headings";
+@forward "components/c-btn";
+@forward "components/c-media";
+@forward "components/c-block";
+@forward "components/c-columns";
+@forward "components/social-icons";
+@forward "visuals/scrollbars";

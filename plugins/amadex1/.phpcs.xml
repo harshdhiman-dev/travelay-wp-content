@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Amadex WordPress Plugin">
+    <description>PHP CodeSniffer configuration for Amadex WordPress Plugin</description>
+    
+    <!-- Exclude WordPress function warnings -->
+    <rule ref="WordPress">
+        <exclude name="WordPress.WP.I18n"/>
+    </rule>
+    
+    <!-- Ignore undefined function warnings for WordPress functions -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+</ruleset>
+

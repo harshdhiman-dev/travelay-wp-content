@@ -1,0 +1,22 @@
+.edge-cs {
+	background-color: #fff;
+
+	.l-circular {
+		flex: 0 0 50%;
+		max-width: 50%;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+
+	.l-slider-nav {
+		position: absolute;
+		right: -45%;
+		transform: translate(-45%, -50%);
+		width: 45%;
+		top: 50%;
+		left: auto;
+		padding: 0;
+		z-index: 1;
+	}
+}

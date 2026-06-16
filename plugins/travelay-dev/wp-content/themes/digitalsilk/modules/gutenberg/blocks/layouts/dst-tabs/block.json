@@ -1,0 +1,113 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "ds-blocks/ds-tabs",
+  "title": "DST Tabs (Gutenberg)",
+  "category": "ds-hybrid",
+  "icon": "table-row-after",
+  "description": "Advanced DigitalSilk Tabs component, with icons, arrows, and dropdowns.",
+  "example": {},
+  "attributes": {
+	"tabsStyle": {
+	  "type": "string",
+	  "default": "horizontal"
+	},
+	"anchor": {
+	  "type": "string",
+	  "default": ""
+	},
+	"tabItem": {
+	  "type": "object",
+	  "default": {}
+	},
+	"tabArrows": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"showLabelsTitle": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"labelsTitle": {
+	  "type": "string",
+	  "default": ""
+	},
+	"showDescription": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"isNumberedLabels": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"blockSelectedIndex": {
+	  "type": "number",
+	  "default": 1
+	},
+	"isActiveSelected": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"tabStyles": {
+	  "type": "object",
+	  "default": {}
+	},
+	"tabAccordion": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"tabDropdown": {
+	  "type": "boolean",
+	  "default": false
+	},
+	"moduleVariant": {
+	  "type": "string",
+	  "default": ""
+	}
+  },
+  "providesContext": {
+	"ds-blocks/selectedIndex": "blockSelectedIndex",
+	"ds-blocks/tabItem": "tabItem",
+	"ds-blocks/tabAccordion": "tabAccordion",
+	"ds-blocks/isActiveSelected": "isActiveSelected",
+	"ds-blocks/showDescription": "showDescription",
+	"ds-blocks/isNumberedLabels": "isNumberedLabels"
+  },
+  "usesContext": [],
+  "parent": null,
+  "allowedBlocks": [
+	"ds-blocks/ds-tab-item"
+  ],
+  "supports": {
+	"html": false,
+	"innerBlocks": true,
+	"anchor": true,
+	"dsClassList": [
+	  {
+		"name": "--with-faq",
+		"label": "With FAQ"
+	  },
+	  {
+		"name": "--tabs-list",
+		"label": "Tabs List"
+	  },
+	  {
+		"name": "tabs-custom-1",
+		"label": "Custom class 1"
+	  },
+	  {
+		"name": "tabs-custom-2",
+		"label": "Custom class 2"
+	  }
+	],
+	"interactivity": true,
+	"dsContainers": true
+  },
+  "textdomain": "digitalsilk",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "editorStyle": "file:./index.css",
+  "render": "file:./markup.php",
+  "viewScript": "file:./view.js",
+  "viewScriptModule": "file:./interactivity.js"
+}

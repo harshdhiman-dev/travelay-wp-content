@@ -1,0 +1,32 @@
+/**
+ * WordPress dependencies
+ */
+{{#isDefaultVariant}}
+import { __ } from '@wordpress/i18n';
+import { useBlockProps } from '@wordpress/block-editor';
+{{/isDefaultVariant}}
+{{#isInnerBlocksVariant}}
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+{{/isInnerBlocksVariant}}
+import classNames from 'classnames';
+
+export const BlockEdit = (props) => {
+	const { attributes, setAttributes, wrapperProps } = props;
+	const blockProps = useBlockProps(
+		{
+			...wrapperProps,
+			className: classNames( wrapperProps?.className, 'my-custom-block-wrapper-class' ),
+		}
+	);
+	{{#isInnerBlocksVariant}}
+	const innerBlocksProps = useInnerBlocksProps({}, {});
+	{{/isInnerBlocksVariant}}
+
+	return (
+		<div {...blockProps}>
+			{{#isInnerBlocksVariant}}
+			<div {...innerBlocksProps} />
+			{{/isInnerBlocksVariant}}
+		</div>
+	);
+};

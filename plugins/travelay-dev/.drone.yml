@@ -1,0 +1,375 @@
+---
+kind: pipeline
+type: docker
+name: WordPress
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+- name: Coding standard
+  image: registry.digitalocean.com/dslk/devops/docker-phpcs:php8.2
+  cache_from: registry.digitalocean.com/dslk/devops/docker-phpcs:php8.2
+  environment:
+    GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+    SSH_KEY:
+      from_secret: git_ssh_key
+  commands:
+  - mkdir -p ~/.ssh
+  - echo "$${SSH_KEY}" > ~/.ssh/id_rsa
+  - chmod 400 ~/.ssh/id_rsa
+  - if [ -f wp-content/themes/digitalsilk/.env.default ]; then cd wp-content/themes/digitalsilk && composer install && composer phpcs; fi
+  - if [ -f wp-content/themes/digitalexpress/.env.default ]; then cd wp-content/themes/digitalexpress && composer install && composer phpcs; fi
+  when:
+    event:
+    - pull_request
+    branch:
+      exclude:
+      - master
+      
+- name: Pre-flight check
+  image: registry.digitalocean.com/dslk/devops/docker-tools
+  environment:
+    COMPOSE_PROJECT_NAME: ${DRONE_REPO_NAME}${DRONE_DEPLOY_TO}
+    IMAGE_NAME: ${DRONE_REPO_NAME}
+    IMAGE_TAG: "${DRONE_BRANCH}-${DRONE_BUILD_NUMBER}"
+    SITE_NAME: "${DRONE_REPO_NAME}${DRONE_DEPLOY_TO}.dsstaging1.com"
+  commands:
+  # test docker-compose configuration
+  - docker-compose config
+  when:
+    branch:
+      exclude:
+      - master
+
+- name: Get submodules
+  image: alpine/git:latest
+  environment:
+    GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
+    SSH_KEY:
+      from_secret: git_ssh_key
+  commands:
+  - mkdir -p ~/.ssh
+  - echo "$${SSH_KEY}" > ~/.ssh/id_rsa
+  - chmod 400 ~/.ssh/id_rsa
+  - git submodule update --init --recursive --remote
+  when:
+    event:
+      exclude:
+      - promote
+      - pull_request
+
+- name: Critical CSS compile
+  image: registry.digitalocean.com/dslk/base/yarn:22
+  cache_from: registry.digitalocean.com/dslk/base/yarn:22
+  commands:
+  - if [ -f wp-content/themes/digitalsilk/.env.default ]; then cp wp-content/themes/digitalsilk/.env.default wp-content/themes/digitalsilk/.env && cd wp-content/themes/digitalsilk && npm install && npm run build; fi
+  - if [ -f wp-content/themes/digitalexpress/.env.default ]; then cp wp-content/themes/digitalexpress/.env.default wp-content/themes/digitalexpress/.env && cd wp-content/themes/digitalexpress && npm install && npm run build; fi
+  when:
+    branch:
+    - master
+    - develop
+    event:
+      exclude:
+      - promote
+      - pull_request
+
+- name: Build and push docker image
+  image: plugins/docker
+  settings:
+    registry: registry.digitalocean.com
+    repo: registry.digitalocean.com/dslk/projects/${DRONE_REPO_NAME}
+    config:
+      from_secret: registry_creds
+    tags:
+    - ${DRONE_BRANCH}
+    - ${DRONE_BRANCH}-${DRONE_BUILD_NUMBER}
+  when:
+    event:
+      exclude:
+      - promote
+      - pull_request
+
+- name: Deployment - Development
+  image: registry.digitalocean.com/dslk/devops/docker-tools
+  environment:
+    # Compose CLI vars
+    DOCKER_HOST:
+      from_secret: docker_host_dev
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CA:
+      from_secret: docker_ca_dev
+    DOCKER_CERT:
+      from_secret: docker_cert_dev
+    DOCKER_KEY:
+      from_secret: docker_key_dev
+    REGISTRY_CONF:
+      from_secret: registry_creds
+    COMPOSE_PROJECT_NAME: ${DRONE_REPO_NAME}
+    IMAGE_NAME: ${DRONE_REPO_NAME}
+    IMAGE_TAG: "${DRONE_BRANCH}-${DRONE_BUILD_NUMBER}"
+    SITE_NAME: "${DRONE_REPO_NAME}.dsstaging1.com"
+    NGINX_BASIC_AUTH: true
+    MYSQL_PASSWORD:
+      from_secret: mysql_password_dev
+    MYSQL_ROOT_PASSWORD:
+      from_secret: mysql_root_password_dev
+  commands:
+  # registry authentication
+  - mkdir -p ~/.docker
+  - echo "$${DOCKER_CA}"     > ~/.docker/ca.pem
+  - echo "$${DOCKER_CERT}"   > ~/.docker/cert.pem
+  - echo "$${DOCKER_KEY}"    > ~/.docker/key.pem
+  - echo "$${REGISTRY_CONF}" > ~/.docker/config.json
+  - docker-compose pull
+  - docker-compose up -d
+  # quick cleanup of unused data
+  - docker system prune -a -f
+  when:
+    branch:
+    - develop
+    event:
+      exclude:
+      - promote
+      - pull_request
+
+- name: Deployment - PP
+  image: registry.digitalocean.com/dslk/devops/docker-tools
+  environment:
+    DOCKER_HOST:
+      from_secret: docker_host_dev
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CA:
+      from_secret: docker_ca_dev
+    DOCKER_CERT:
+      from_secret: docker_cert_dev
+    DOCKER_KEY:
+      from_secret: docker_key_dev
+    REGISTRY_CONF:
+      from_secret: registry_creds
+    COMPOSE_PROJECT_NAME: ${DRONE_REPO_NAME}preprod
+    IMAGE_NAME: ${DRONE_REPO_NAME}
+    IMAGE_TAG: "preprod-${DRONE_BUILD_NUMBER}"
+    SITE_NAME: "${DRONE_REPO_NAME}preprod.dsstaging1.com"
+    NGINX_BASIC_AUTH: true
+    MYSQL_PASSWORD:
+      from_secret: mysql_password_dev
+    MYSQL_ROOT_PASSWORD:
+      from_secret: mysql_root_password_dev
+  commands:
+  # registry authentication
+  - mkdir -p ~/.docker
+  - echo "$${DOCKER_CA}"     > ~/.docker/ca.pem
+  - echo "$${DOCKER_CERT}"   > ~/.docker/cert.pem
+  - echo "$${DOCKER_KEY}"    > ~/.docker/key.pem
+  - echo "$${REGISTRY_CONF}" > ~/.docker/config.json
+  - docker-compose pull
+  - docker-compose up --no-start
+  - docker-compose stop mysql && docker run --rm -v ${DRONE_REPO_NAME}preprod_dbdata:/preprod alpine sh -c 'rm -rf /preprod/*'
+  - docker exec ${DRONE_REPO_NAME}_mysql sh -c "mysqldump --single-transaction --no-tablespaces -u ${DRONE_REPO_NAME} -p$${MYSQL_PASSWORD} ${DRONE_REPO_NAME} | gzip > /docker-entrypoint-initdb.d/${DRONE_REPO_NAME}.sql.gz"
+  - docker run --rm -v "${DRONE_REPO_NAME}_dbinit:/dev-env" -v "${DRONE_REPO_NAME}preprod_dbinit:/preprod" alpine sh -c "cp /dev-env/${DRONE_REPO_NAME}.sql.gz /preprod/"
+  - docker run --rm -v "${DRONE_REPO_NAME}_uploads:/dev-env" -v "${DRONE_REPO_NAME}preprod_uploads:/preprod" alpine sh -c "cp -r /dev-env/* /preprod/ || true"
+  - docker-compose up -d
+  - docker system prune -a -f
+  when:
+    branch:
+    - preprod
+    event:
+    - push
+
+- name: Fetch production deployment recipe
+  image: alpine/git
+  commands:
+  - git clone https://git.dsstaging1.com/infra/production-hcloud.git
+  when:
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    - production
+    - prod
+    - live
+
+- name: Disable HT Notification
+  image: registry.digitalocean.com/dslk/infra/hosttracker
+  commands:
+  - chmod +x /srv/notiController.php
+  - php /srv/notiController.php ${DRONE_REPO_NAME} false
+  when:
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    - production
+    - prod
+    - live
+
+
+- name: Production pre-flight check
+  image: registry.digitalocean.com/dslk/devops/docker-tools
+  environment:
+    COMPOSE_PROJECT_NAME: ${DRONE_REPO_NAME}
+    IMAGE_NAME: ${DRONE_REPO_NAME}
+    IMAGE_TAG: "${DRONE_BRANCH}-${DRONE_BUILD_PARENT}"
+  commands:
+  - cd production-hcloud
+  # Copy docker-compose-8.yml if it exists, otherwise copy docker-compose.${DRONE_REPO_NAME}.yml if available.
+  - >
+    if [ -f docker-compose-8.yml ]; then
+      cp docker-compose-8.yml docker-compose.override.yml;
+    elif [ -f docker-compose.${DRONE_REPO_NAME}.yml ]; then
+      cp docker-compose.${DRONE_REPO_NAME}.yml docker-compose.override.yml;
+    fi
+  # Test docker-compose configuration
+  - docker-compose --env-file=${DRONE_REPO_NAME}.env config
+  when:
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    - production
+    - prod
+    - live
+
+
+- name: Deployment - Production
+  image: registry.digitalocean.com/dslk/devops/docker-tools
+  environment:
+    # Compose CLI vars
+    DOCKER_HOST:
+      from_secret: docker_host_prod
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CA:
+      from_secret: docker_ca_prod
+    DOCKER_CERT:
+      from_secret: docker_cert_prod
+    DOCKER_KEY:
+      from_secret: docker_key_prod
+    REGISTRY_CONF:
+      from_secret: registry_creds
+    COMPOSE_PROJECT_NAME: ${DRONE_REPO_NAME}
+    IMAGE_NAME: ${DRONE_REPO_NAME}
+    # note, DRONE_BUILD_PARENT instead of DRONE_BUILD_NUMBER because
+    # a promotion creates a new "subbuild"
+    IMAGE_TAG: "${DRONE_BRANCH}-${DRONE_BUILD_PARENT}"
+  commands:
+  # registry authentication
+  - mkdir -p ~/.docker
+  - echo "$${DOCKER_CA}"     > ~/.docker/ca.pem
+  - echo "$${DOCKER_CERT}"   > ~/.docker/cert.pem
+  - echo "$${DOCKER_KEY}"    > ~/.docker/key.pem
+  - echo "$${REGISTRY_CONF}" > ~/.docker/config.json
+  - cd production-hcloud
+  # enable customizations: default to docker-compose-8.yml, fallback to repository-specific file
+  - >
+    if [ -f docker-compose-8.yml ]; then
+      cp docker-compose-8.yml docker-compose.override.yml;
+    elif [ -f docker-compose.${DRONE_REPO_NAME}.yml ]; then
+      cp docker-compose.${DRONE_REPO_NAME}.yml docker-compose.override.yml;
+    fi
+  - docker-compose --env-file=${DRONE_REPO_NAME}.env pull
+  - docker-compose --env-file=${DRONE_REPO_NAME}.env up -d
+  - docker exec "${DRONE_REPO_NAME}_varnish" varnishadm 'ban req.url ~ .'
+  # quick cleanup of unused data
+  - docker system prune -a -f
+  when:
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    # same environment, different aliases
+    - production
+    - prod
+    - live
+
+- name: Enable HT Notification
+  image: registry.digitalocean.com/dslk/infra/hosttracker
+  commands:
+  - chmod +x /srv/notiController.php
+  - php /srv/notiController.php ${DRONE_REPO_NAME} true
+  when:
+    status:
+    - success
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    - production
+    - prod
+    - live
+
+- name: Purge Cloudflare cache
+  image: registry.digitalocean.com/dslk/infra/docker-cloudflare
+  environment:
+    API_TOKEN:
+      from_secret: cloudflare_api_token
+    API_EMAIL:
+      from_secret: cloudflare_email    
+    DOMAIN:
+      from_secret: cloudflare_domain      
+  commands:
+  - /srv/cloudflare.sh
+  when:
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    - production
+    - cc
+
+- name: Notify DevOps
+  image: drillster/drone-email:latest
+  settings:
+    host:
+      from_secret: sendgrid_host
+    username:
+      from_secret: sendgrid_user
+    password:
+      from_secret: sendgrid_key
+    port: 587
+    from.address: devops@digitalsilk.com
+    from.name: Mihajlo Lazic
+    recipients: 615703_880586.tl2783639@tasks.teamwork.com
+    recipients_only: true
+    subject: >
+      !:skull: Failure on {{ repo.name }} #{{ build.number }} build
+    body: >
+      <p>Failure build number <strong>#{{ build.number }} on <strong>{{ repo.owner }}/{{ repo.name }}</p>
+      <p>Labels:</p>
+      <ul>
+      <li>Build number: #{{ build.number }}</li>
+      <li>Build link: {{ build.link }}</li>
+      <li>Branch: <strong>{{ commit.branch }}</strong></li>
+      <li>Author: {{ commit.author.name }} ({{ commit.author.email }})</li>
+      <li>Message: {{ commit.message }}</li>
+      <li>Commit link: {{ commit.link }}</li>
+      </ul>
+  when:
+    status:
+    - failure
+    branch:
+    - master
+    event:
+    - promote
+    target:
+    - production
+    - prod
+    - live
+
+
+image_pull_secrets:
+- registry_creds
+
+
+trigger:
+  branch:
+  - master
+  - develop
+  - preprod

@@ -1,0 +1,143 @@
+@use "../widgets/mixins";
+
+/* Theme Settings  - Theme Colors */
+
+[data-name="theme_colors"],
+[data-name="alternative_colors"] {
+
+    > .acf-input .acf-fields.-border {
+
+        .acf-field-color-picker {
+
+            &:first-child {
+
+                &::before {
+                    border-radius: var(--dst-admin-panel-radius) var(--dst-admin-panel-radius) 0 0;
+                }
+            }
+
+            &:last-child {
+
+                &::before {
+                    border-radius: 0 0 var(--dst-admin-panel-radius) var(--dst-admin-panel-radius);
+                }
+            }
+        }
+    }
+
+    @include mixins.hover-title(16px);
+
+    .acf-fields {
+
+        .acf-field-color-picker {
+            display: flex;
+            padding-block: 8px;
+	        align-items: center;
+            min-height: auto !important;
+
+            .wp-picker-container .wp-color-result.button {
+                margin-bottom: 0;
+            }
+        }
+
+        > .acf-field {
+
+            .description {
+                left: 12px;
+            }
+        }
+    }
+
+	> .acf-label label {
+		font-weight: 700;
+		font-size: 16px;
+		margin-bottom: .5em;
+	}
+}
+
+[data-name="alternative_colors"] {
+
+    .acf-table {
+        border-radius: var(--dst-admin-panel-radius);
+        border-color: var(--dst-admin-panel-border-color);
+        counter-reset: list-item 3;
+
+        tr {
+
+            &:first-child {
+
+                td.order {
+                    border-radius: var(--dst-admin-panel-radius) 0 0 0;
+                }
+
+                td.remove {
+                    border-radius: 0 var(--dst-admin-panel-radius) var(--dst-admin-panel-radius) 0;
+                }
+            }
+
+            &:nth-last-child(2) {
+
+                td.order {
+                    border-radius: 0 0 0 var(--dst-admin-panel-radius);
+                }
+
+                td.remove {
+                    border-radius: 0 0 var(--dst-admin-panel-radius) 0;
+                }
+            }
+        }
+    }
+
+    .acf-label, label {
+        margin: 0;
+    }
+
+	.acf-label {
+		min-width: 210px;
+	}
+
+    .acf-row {
+
+	    .acf-row-number {
+		    display: none;
+	    }
+
+	    .acf-row-handle {
+		    width: 5px;
+		    background: none;
+		    border: none;
+	    }
+
+	    .acf-field {
+		    padding-left: 5px;
+	    }
+
+        .acf-label {
+
+            &::after {
+                content: 'Secondary Color ' counter(list-item);
+                counter-increment: list-item;
+                padding-left: 5px;
+            }
+        }
+
+        .acf-row-handle.order {
+            padding: 0;
+            //            color: transparent;
+        }
+    }
+
+    .acf-actions {
+        text-align: left;
+
+        .acf-button {
+            float: none;
+        }
+    }
+
+}
+
+[data-name="components_settings"] {
+
+    @include mixins.hover-title(55px);
+}

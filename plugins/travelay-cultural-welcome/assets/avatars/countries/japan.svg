@@ -1,0 +1,38 @@
+<svg viewBox="0 0 200 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <linearGradient id="jpSkin" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5d0b5"/>
+      <stop offset="100%" stop-color="#f0c7a8"/>
+    </linearGradient>
+    <linearGradient id="jpKimono" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="var(--tcw-primary,#BC002D)"/>
+      <stop offset="100%" stop-color="#8b0020"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="100" cy="248" rx="52" ry="9" fill="#0f172a" opacity="0.1"/>
+  <g class="tcw-figure">
+    <g class="tcw-limbs-bow">
+      <path d="M58 168 C52 192 50 214 54 230" fill="none" stroke="url(#jpSkin)" stroke-width="11" stroke-linecap="round"/>
+      <path d="M142 168 C148 192 150 214 146 230" fill="none" stroke="url(#jpSkin)" stroke-width="11" stroke-linecap="round"/>
+      <ellipse cx="54" cy="232" rx="8" ry="6" fill="url(#jpSkin)"/>
+      <ellipse cx="146" cy="232" rx="8" ry="6" fill="url(#jpSkin)"/>
+    </g>
+    <g class="tcw-torso-group">
+      <path d="M54 148 L100 168 L146 148 L150 238 L50 238 Z" fill="url(#jpKimono)"/>
+      <path d="M54 148 L100 168 L146 148" fill="none" stroke="var(--tcw-accent,#1A1A2E)" stroke-width="2.5"/>
+      <path d="M68 168 L100 186 L132 168" fill="none" stroke="var(--tcw-secondary,#fff)" stroke-width="2"/>
+      <ellipse cx="100" cy="198" rx="8" ry="10" fill="var(--tcw-secondary,#fff)" opacity="0.2"/>
+    </g>
+    <g class="tcw-head-group">
+      <path d="M64 48 C66 26 134 26 136 48 C138 64 134 82 126 90 C116 100 84 100 74 90 C66 82 62 64 64 48 Z" fill="#1a1a2e"/>
+      <ellipse cx="100" cy="78" rx="34" ry="38" fill="url(#jpSkin)"/>
+      <ellipse cx="86" cy="76" rx="5" ry="6" fill="#1e293b"/>
+      <ellipse cx="114" cy="76" rx="5" ry="6" fill="#1e293b"/>
+      <ellipse cx="88" cy="77" rx="1.8" ry="2" fill="#fff"/>
+      <ellipse cx="116" cy="77" rx="1.8" ry="2" fill="#fff"/>
+      <path d="M90 92 Q100 98 110 92" fill="none" stroke="#c2785c" stroke-width="2" stroke-linecap="round"/>
+      <path d="M100 108 C96 118 92 122 88 120" fill="none" stroke="url(#jpSkin)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M100 108 C104 118 108 122 112 120" fill="none" stroke="url(#jpSkin)" stroke-width="8" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

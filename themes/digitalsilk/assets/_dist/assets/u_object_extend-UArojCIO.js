@@ -1,0 +1,1 @@
+const e=(r,n)=>{for(const t in n)n[t]&&n[t].constructor&&n[t].constructor===Object?(r[t]=r[t]||{},e(r[t],n[t])):r[t]=n[t];return r},o=(r,n)=>{const t={};for(const c in r)t[c]=n[c]||r[c];return t};export{o as a,e as u};

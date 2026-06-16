@@ -1,0 +1,3183 @@
+/**
+ * Amadex Modern Search Bar Styles
+ * Enhanced with Smooth Functionality & Modern UI
+ */
+
+/* ==================== Container ==================== */
+input[type=text] {
+    background: none;
+    border:none;
+    padding:none;
+}
+
+/* .amadex-search-modern {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    margin-top:20px;
+} */
+
+.amadex-price-summary-card, .amadex-booking-main {
+     box-shadow: none!important;
+     border: 1px solid #E5E5E5 !important;
+     padding: 20px 15px;
+}
+
+section.amadex-card.amadex-passenger-details-card {
+    border: 1px solid #E6E6E6 !important;
+    margin-top: 15px;
+}
+
+ .amadex-passenger-form-card{
+margin-bottom: 0!important;
+}
+ 
+.amadex-flight-route-title {
+    font-size: 15px;
+}
+
+input.amadex-dropdown-search-input {
+    padding-left: 20px !important;
+}
+
+.amadex-field-input-wrap input {
+    padding-left: 0 !important;
+}
+
+ .main-calnder-mobile {
+    display: contents;
+   }
+
+/* .amadex-multi-city-flights div#return-field {
+    border-right: 1px solid #E8E8E8;
+} */
+
+.amadex-modern-field.amadex-location-field.field-active input#modern-origin {
+    font-weight: 700;
+}
+
+.amadex-modern-field.amadex-location-field.field-active input#modern-destination {
+    font-weight: 700;
+}
+.amadex-modern-field.amadex-date-field {
+    justify-content: center;
+}
+
+/* Apply flexbox alignment properties to specific fields */
+/*#travellers-field {*/
+/*    justify-content: center;*/
+/*    vertical-align: bottom;*/
+/*}*/
+
+/* #destination-field, #origin-field {
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+} */
+
+
+/* ==================== Main Search Card ==================== */
+/* ==================== Trip Type Selector ==================== */
+/*.amadex-trip-selector {*/
+/*    display: flex;*/
+/*    gap: 8px;*/
+/*    background: #fff;*/
+/*    border-radius: 24px;*/
+/*    opacity: 1;*/
+/*    width: fit-content;*/
+/*    max-width: 450px;*/
+/*    padding: 6px;*/
+/*    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);*/
+/*    transition: all 0.3s ease;*/
+/*    height: 40px!important;*/
+/*}*/
+/*.amadex-trip-selector {*/
+/*    display: flex;*/
+/*    gap: 8px;*/
+/*    background: #fff;*/
+/*    border-top-left-radius: 10px !important;*/
+/*    opacity: 1;*/
+/*    width: fit-content;*/
+/*    max-width: 450px;*/
+/*    padding: 30px 20px;*/
+/*    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);*/
+/*    transition: all 0.3s ease;*/
+/*    height: 40px!important;*/
+/*    border-top-right-radius: 10px !important;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+.amadex-search-modern .amadex-trip-option {
+    position: relative;
+}
+
+/* .amadex-search-modern .amadex-trip-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+} */
+
+/*.amadex-search-modern .amadex-trip-label {*/
+/*    display: inline-block;*/
+/*    padding: 4px 20px;*/
+/*    border-radius: 10px;*/
+/*    font-size: 14px!important;*/
+/*    font-weight: 500;*/
+/*    color: #000000;*/
+/*    background: transparent;*/
+/*    cursor: pointer;*/
+/*    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);*/
+/*    user-select: none;*/
+/*    white-space: nowrap;*/
+/*    position: relative;*/
+/*    z-index: 1;*/
+/*}*/
+
+/* .amadex-trip-label:hover {
+    color: #0E7D3F;
+    background: rgba(14, 125, 63, 0.08);
+} */
+
+/* .amadex-search-modern .amadex-trip-option input[type="radio"]:checked + .amadex-trip-label {
+    color: #ffffff;
+    font-weight: 500;
+    background: #0E7D3F;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.3), 0 4px 12px rgba(14, 125, 63, 0.15);
+    transform: scale(1.02);
+} */
+
+/* ==================== Search Fields Container ==================== */
+/* Desktop: Horizontal grid layout | Mobile: Vertical stack */
+/* .amadex-search-modern .amadex-search-fields {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    border: 1px solid #E5E5E5;
+    border-radius: 18px;
+    opacity: 1;
+    background: #ffffff;
+    position: relative;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    min-height: 110px;
+} */
+
+/* ==================== TABLET (769px - 1024px) - EXPERT/GOD MODE FIX ==================== */
+/* Isolated breakpoint range to fix Samsung 10-inch tablet and other tablets */
+/* This range is completely isolated from mobile (≤768px) and desktop (≥1025px) */
+/* ADVANCED IMPLEMENTATION: 3-column grid to match desired layout (Cities | Dates+Travellers | Search) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* EXPERT/GOD MODE: 3-column grid layout for tablets - enables Dates + Travellers in same row */
+    /* .amadex-search-modern .amadex-search-fields,
+    .amadex-modern-form:not(.amadex-multi-city-mode) .amadex-search-fields {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 0.85fr !important;
+        grid-template-rows: auto auto auto !important;
+        gap: 16px !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: auto !important;
+        padding: 0 !important;
+    } */
+
+    /* Row 1: Cities - Origin | Destination */
+    /* #origin-field {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+        padding-right: 60px !important;
+    } */
+
+    /* #destination-field {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+        padding-left: 60px !important;
+    } */
+
+    /* Swap button: ADVANCED - Grid positioning for perfect centering between cities */
+    /* button.amadex-swap-button {
+        display: flex !important;
+        visibility: visible !important;
+        grid-column: 1 / 3 !important;
+        grid-row: 1 !important;
+        justify-self: center !important;
+        align-self: center !important;
+        position: relative !important;
+        z-index: 10 !important;
+        width: 48px !important;
+        height: 48px !important;
+        min-width: 48px !important;
+        border-radius: 50% !important;
+        background: #0E7D3F !important;
+        border: 3px solid #ffffff !important;
+        box-shadow: 0 2px 8px rgba(14, 125, 63, 0.3) !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+    } */
+
+    /* Swap button hover state */
+    /* button.amadex-swap-button:hover {
+        background: #0a6835 !important;
+        transform: scale(1.05) !important;
+        box-shadow: 0 4px 12px rgba(14, 125, 63, 0.4) !important;
+    } */
+
+    /* Row 2: Dates + Travellers - Departure | Return | Travellers */
+    #departure-field {
+        grid-column: 1 !important;
+        grid-row: 2 !important;
+    }
+
+    #return-field {
+        grid-column: 2 !important;
+        grid-row: 2 !important;
+    }
+
+    /* ADVANCED: Travellers moved from Row 3 to Row 2, Column 3 - matches desired layout */
+    #travellers-field {
+        grid-column: 3 !important; /* Column 3 instead of spanning full width */
+        grid-row: 2 !important;    /* Row 2 instead of Row 3 - grouped with dates */
+    }
+
+    /* Individual field styling for tablets - enhanced for consistency */
+    /* .amadex-modern-field,
+    #origin-field,
+    #destination-field,
+    #departure-field,
+    #return-field,
+    #travellers-field {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 16px 18px !important;
+        min-height: 70px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        border: 1px solid #E5E5E5 !important;
+        border-radius: 12px !important;
+        background: #ffffff !important;
+        box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.08) !important;
+        box-sizing: border-box !important;
+        transition: all 0.2s ease !important;
+    } */
+
+    /* ADVANCED: Ensure all fields in Row 2 have equal height for visual alignment */
+    /* #departure-field,
+    #return-field,
+    #travellers-field {
+        min-height: 70px !important;
+        align-items: flex-start !important;
+        justify-content: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+    } */
+
+    /* Remove right border from fields (using individual borders instead) */
+    /* .amadex-modern-field:not(:last-child):not(.amadex-swap-button) {
+        border-right: none !important; 
+    } */
+
+    /* Search button: Full width, positioned in Row 3 */
+    button.amadex-search-btn {
+        display: flex !important;
+        visibility: visible !important;
+        grid-column: 1 / -1 !important; /* Span all 3 columns */
+        grid-row: 3 !important;        /* Row 3 instead of Row 4 */
+        position: static !important;
+        width: 100% !important;
+        margin-top: 16px !important;
+        margin-bottom: 0 !important;
+        padding: 14px 24px !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        min-height: 50px !important;
+        background: #0E7D3F !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+
+    /* Search button hover state */
+    button.amadex-search-btn:hover {
+        background: #0a6835 !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 0 4px 12px rgba(14, 125, 63, 0.3) !important;
+    }
+
+    /* Search button active state */
+    button.amadex-search-btn:active {
+        transform: translateY(0) !important;
+        box-shadow: 0 2px 6px rgba(14, 125, 63, 0.2) !important;
+    }
+
+    /* Field labels, values, descriptions - visible and properly sized */
+    .amadex-field-label,
+    .amadex-field-value,
+    .amadex-field-description {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Field label styling */
+    .amadex-field-label {
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        color: #0E7D3F !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* Field value styling */
+    .amadex-field-value {
+        font-weight: 600 !important;
+        color: #000000 !important;
+    }
+
+    /* Field description styling */
+    .amadex-field-description {
+        font-size: 12px !important;
+        color: #6B7280 !important;
+        margin-top: 4px !important;
+    }
+
+    /* ADVANCED: Field input wrapper alignment for consistent appearance */
+    /* .amadex-field-input-wrap {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 4px !important;
+    } */
+
+    #travellers-field .amadex-travellers-value {
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        color: #000000 !important;
+    }
+
+    #travellers-field .amadex-cabin-value {
+        font-size: 12px !important;
+        color: #6B7280 !important;
+        margin-top: 2px !important;
+    }
+
+    /* ADVANCED: Prevent field content overflow */
+    .amadex-modern-field {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .amadex-field-value {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    /* ADVANCED: Ensure date fields display correctly */
+    #departure-field .amadex-field-value,
+    #return-field .amadex-field-value {
+        /* font-size: 15px !important; */
+        font-weight: 600 !important;
+        color: #000000 !important;
+    }
+
+    #departure-field .amadex-field-description,
+    #return-field .amadex-field-description {
+        font-size: 12px !important;
+        color: #6B7280 !important;
+    }
+
+    /* Container adjustments for tablets */
+    .amadex-search-modern {
+        padding: 0 24px !important; /* Increased from 20px */
+        max-width: 100% !important;
+    }
+
+    /* .amadex-modern-form {
+        padding: 24px 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    } */
+
+    /* Trip selector adjustments */
+    /* .amadex-trip-selector {
+        width: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        margin-bottom: 24px;
+    } */
+
+    /* .amadex-trip-label {
+        padding: 12px 28px !important;
+        font-size: 14px !important;
+    } */
+
+    /* ADVANCED: Ensure grid container has proper positioning context for swap button */
+    /* .amadex-search-fields {
+        position: relative !important;
+    } */
+
+    /* ADVANCED: Handle edge case - if swap button is not in grid, fallback positioning */
+    /* button.amadex-swap-button:not([style*="grid-column"]) {
+        position: absolute !important;
+        left: calc(50% - 24px) !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+    } */
+
+    /* ADVANCED: Ensure search button icon alignment */
+    button.amadex-search-btn svg,
+    button.amadex-search-btn::after {
+        display: inline-block !important;
+        vertical-align: middle !important;
+    }
+}
+
+/* ==================== TABLET PORTRAIT ORIENTATION (769px - 1024px) ==================== */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+    /* ADVANCED: 3-column grid works perfectly for portrait - same layout structure */
+    /* Additional portrait-specific adjustments */
+    .amadex-modern-form {
+        padding: 20px 16px !important;
+    }
+    
+    /* Ensure 3-column grid is maintained in portrait */
+    /* .amadex-search-modern .amadex-search-fields,
+    .amadex-modern-form:not(.amadex-multi-city-mode) .amadex-search-fields {
+        grid-template-columns: 1fr 1fr 0.85fr !important;
+        grid-template-rows: auto auto auto !important;
+    } */
+}
+
+/* ==================== TABLET LANDSCAPE ORIENTATION (769px - 1024px) ==================== */
+/* @media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) { */
+    /* ADVANCED: 3-column grid maintained for landscape - optimal use of horizontal space */
+    /* .amadex-modern-form {
+        padding: 20px 24px !important;
+    } */
+    
+    /* Ensure 3-column grid is maintained in landscape */
+    /* .amadex-search-modern .amadex-search-fields,
+    .amadex-modern-form:not(.amadex-multi-city-mode) .amadex-search-fields {
+        grid-template-columns: 1fr 1fr 0.85fr !important;
+        grid-template-rows: auto auto auto !important;
+    } */
+    
+    /* Slightly adjust column proportions for landscape if needed */
+    /* Can use 1fr 1fr 1fr for equal columns if space allows */
+/* } */
+
+/* ==================== DESKTOP (≥1025px) - UPDATED BREAKPOINT ==================== */
+/* EXPERT/GOD MODE: Changed from 769px to 1025px to isolate desktop from tablets */
+/* This ensures tablets (769px-1024px) use tablet rules, desktop (≥1025px) uses desktop rules */
+@media (min-width: 1025px) {
+    /* Force grid layout on desktop for Round Trip and One Way */
+    /* .amadex-search-modern .amadex-search-fields,
+    .amadex-modern-form:not(.amadex-multi-city-mode) .amadex-search-fields {
+        display: grid !important;
+        grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1.2fr !important;
+        flex-direction: row !important;
+        gap: 0 !important;
+        border: 1px solid #E8E8E8 !important;
+        border-radius: 16px !important;
+        background: #ffffff !important;
+        width: calc(100% - 160px) !important;
+        max-width: calc(100% - 160px) !important;
+        min-height: 60px !important;
+    } */
+
+    /* .amadex-modern-field,
+    #origin-field,
+    #destination-field,
+    #departure-field,
+    #return-field,
+    #travellers-field {
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 40px !important;
+        padding: 2px 20px !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+    } */
+
+    button.amadex-swap-button {
+        display: flex !important;
+        visibility: visible !important;
+    }
+   
+    button.amadex-search-btn {
+        display: flex !important;
+        visibility: visible !important;
+    }
+    
+    .amadex-field-label,
+    .amadex-field-value,
+    .amadex-field-description {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+
+/* searching state handled in loading section below */
+
+/* .amadex-modern-field:not(:last-child):not(.amadex-swap-button) {
+    border-right: 1px solid #E5E5E5;
+} */
+
+.amadex-modern-field:hover {
+    background: #F0FFF7;
+    border-radius: 16px;
+}
+
+.amadex-modern-field:focus-within {
+    background: rgba(14, 125, 63, 0.04);
+}
+
+/* Disable hover and focus states for disabled date fields */
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled:hover,
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled:focus-within,
+#return-field.field-disabled.subtle-disabled:hover,
+#return-field.field-disabled.subtle-disabled:focus-within {
+    background: transparent !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+/* ==================== DESKTOP FIELD STYLES (≥1025px) ==================== */
+/* EXPERT/GOD MODE: Updated from 769px to 1025px to isolate from tablets */
+@media (min-width: 1025px) {
+    .amadex-modern-field {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        min-height: 115px;
+        justify-content: center;
+    }
+/* 
+    .amadex-modern-field:not(:last-child):not(.amadex-swap-button) {
+        border-right: 1px solid #E8E8E8;
+    } */
+
+    /* Apply specific flexbox alignment for desktop */
+    #travellers-field {
+        /*height: 44px;*/
+        justify-content: center;
+    }
+
+    .amadex-modern-field.amadex-date-field {
+        /*align-items: center;*/
+    }
+
+    #return-field {
+        align-items: center;
+    }
+
+    /* #destination-field {
+        justify-content: center;
+        align-items: flex-start;
+    } */
+
+    /* #origin-field {
+        justify-content: center;
+        align-items: flex-start;
+    } */
+}
+
+/* Active state with green border */
+.amadex-modern-field.field-active {
+    background: rgba(14, 125, 63, 0.03);
+    border: 2px solid #0E7D3F !important;
+    border-radius: 12px!important;
+    margin: -2px;
+    padding: 14px 22px;
+}
+
+/* Active state for date fields when calendar is open */
+.amadex-modern-field.amadex-date-field.field-active {
+    background: rgba(14, 125, 63, 0.03);
+    border: 2px solid #0E7D3F !important;
+    border-radius: 12px;
+    margin: -2px;
+    padding: 14px 22px;
+}
+
+/* Active state for travellers field when dropdown is open */
+.amadex-modern-field.amadex-travellers-field.field-active {
+    background: rgba(14, 125, 63, 0.03);
+    border: 2px solid #0E7D3F !important;
+    border-radius: 12px;
+    margin: -2px;
+    padding: 14px 22px;
+}
+
+/* Disabled Field State - For One Way Return Date */
+.amadex-modern-field.field-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    position: relative;
+}
+
+/* Override disabled styles for return-promo to look normal/active */
+.amadex-modern-field.field-disabled.return-promo {
+    /* opacity: 1 !important; */
+    cursor: default;
+    pointer-events: none;
+}
+
+.amadex-modern-field.field-disabled.return-promo::after {
+    display: none !important;
+}
+
+.amadex-modern-field.field-disabled.return-promo .amadex-field-label {
+    color: #0E7D3F !important;
+    opacity: 1 !important;
+    font-size: 12px!important;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+}
+
+.amadex-modern-field.field-disabled.return-promo .amadex-field-value {
+    color: #111827 !important;
+    opacity: 1 !important;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.amadex-modern-field.field-disabled.return-promo .amadex-field-value strong {
+    font-weight: 700 !important;
+    color: #111827 !important;
+}
+
+.amadex-modern-field.field-disabled.return-promo .amadex-field-description {
+    color: #6B7280 !important;
+    opacity: 1 !important;
+    display: none;
+}
+
+/* One-way trip: Return date field opacity - Apply to all forms */
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled,
+#return-field.field-disabled.subtle-disabled,
+.amadex-modern-form #return-field.field-disabled.subtle-disabled,
+.amadex-modern-form .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled,
+.amadex-search-modern #return-field.field-disabled.subtle-disabled,
+.amadex-search-modern .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled {
+    opacity: 0.2 !important;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    touch-action: none !important;
+    position: relative;
+}
+
+/* Disable all child elements to prevent calendar opening */
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled *,
+#return-field.field-disabled.subtle-disabled *,
+.amadex-modern-form #return-field.field-disabled.subtle-disabled *,
+.amadex-modern-form .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled *,
+.amadex-search-modern #return-field.field-disabled.subtle-disabled *,
+.amadex-search-modern .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled * {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    touch-action: none !important;
+}
+
+/* Specifically disable calendar trigger elements */
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled .amadex-field-value,
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled .amadex-field-input-wrap,
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled #return-display,
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled #return-day,
+.amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled input,
+#return-field.field-disabled.subtle-disabled .amadex-field-value,
+#return-field.field-disabled.subtle-disabled .amadex-field-input-wrap,
+#return-field.field-disabled.subtle-disabled #return-display,
+#return-field.field-disabled.subtle-disabled #return-day,
+#return-field.field-disabled.subtle-disabled input {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    touch-action: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Results page: Return date field opacity for one-way trips */
+.amadex-results-page .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled,
+.amadex-results-page #return-field.field-disabled.subtle-disabled,
+.amadex-results-page .amadex-modern-form #return-field.field-disabled.subtle-disabled {
+    opacity: 0.2 !important;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    user-select: none !important;
+    touch-action: none !important;
+}
+
+/* Disable all child elements on results page */
+.amadex-results-page .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled *,
+.amadex-results-page #return-field.field-disabled.subtle-disabled *,
+.amadex-results-page .amadex-modern-form #return-field.field-disabled.subtle-disabled * {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    touch-action: none !important;
+}
+
+/* Mobile: Ensure return date field opacity for one-way trips */
+@media (max-width: 768px) {
+    .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled,
+    #return-field.field-disabled.subtle-disabled,
+    .amadex-modern-form #return-field.field-disabled.subtle-disabled,
+    .amadex-modern-form .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled,
+    .amadex-search-modern #return-field.field-disabled.subtle-disabled {
+        opacity: 0.2 !important;
+        pointer-events: none !important;
+        cursor: not-allowed !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        touch-action: none !important;
+        -webkit-touch-callout: none !important;
+    }
+    
+    /* Disable all child elements and prevent calendar opening */
+    .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled *,
+    #return-field.field-disabled.subtle-disabled *,
+    .amadex-modern-form #return-field.field-disabled.subtle-disabled *,
+    .amadex-modern-form .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled *,
+    .amadex-search-modern #return-field.field-disabled.subtle-disabled * {
+        pointer-events: none !important;
+        cursor: not-allowed !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        touch-action: none !important;
+    }
+    
+    /* Specifically disable calendar trigger elements */
+    .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled .amadex-field-value,
+    .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled .amadex-field-input-wrap,
+    .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled #return-display,
+    .amadex-modern-field.amadex-date-field.field-disabled.subtle-disabled #return-day,
+    #return-field.field-disabled.subtle-disabled .amadex-field-value,
+    #return-field.field-disabled.subtle-disabled .amadex-field-input-wrap,
+    #return-field.field-disabled.subtle-disabled #return-display,
+    #return-field.field-disabled.subtle-disabled #return-day {
+        pointer-events: none !important;
+        cursor: not-allowed !important;
+        touch-action: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+} 
+
+.amadex-field-input-wrap input {
+    border: none !important;
+}
+
+/* .amadex-multi-city-flights div#return-field {
+    opacity: 2 !important;
+} */
+
+.amadex-modern-field.field-disabled.subtle-disabled::after {
+    display: none;
+}
+
+.amadex-modern-field.field-disabled.subtle-disabled .amadex-field-label,
+.amadex-modern-field.field-disabled.subtle-disabled .amadex-field-value,
+.amadex-modern-field.field-disabled.subtle-disabled .amadex-field-description {
+    color: inherit;
+    opacity: 1;
+}
+
+.amadex-modern-field.field-disabled.subtle-disabled .amadex-field-label {
+    color: #0E7D3F;
+    font-weight: 600;
+}
+
+/* .amadex-modern-field.field-disabled.subtle-disabled .amadex-field-value {
+    color: #000000;
+    font-weight: 500;
+    font-size: 16px;
+} */
+
+.amadex-modern-field.field-disabled.subtle-disabled .amadex-field-description {
+    color: #6B7280;
+}
+
+.amadex-modern-field.field-disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+    z-index: 1;
+}
+
+.amadex-modern-field.field-disabled .amadex-field-label,
+.amadex-modern-field.field-disabled .amadex-field-value,
+.amadex-modern-field.field-disabled .amadex-field-description {
+    color: #9CA3AF;
+}
+
+   /* Hide sticky search bar on scroll - Mobile */
+    .amadex-search-bar-wrapper.sticky,
+    .amadex-search-bar-wrapper.fixed,
+    .amadex-search-summary-modern.sticky,
+    .amadex-search-summary-modern.fixed {
+        display: none !important;
+        position: static !important;
+    }
+
+
+/* ==================== Results Page Search Bar ==================== */
+.amadex-results-page .amadex-search-summary-modern {
+    margin-bottom: 0px;  
+    width: 100%;
+}
+
+/* .amadex-search-summary-modern .amadex-modern-form {
+    margin: 0;
+    padding: 20px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+} */
+
+/* Multi-city mode - expandable background */
+.amadex-search-summary-modern .amadex-modern-form.amadex-multi-city-mode {
+    /* background: #ffffff; */
+    min-height: auto;
+    max-height: none;
+    transition: all 0.4s ease;
+    animation: expandForm 0.3s ease;
+}
+
+@keyframes expandForm {
+    from {
+        opacity: 0.9;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.amadex-results-page #amadex-modify-search-btn .amadex-search-icon {
+    display: none;
+}
+
+.amadex-results-page .amadex-search-summary-modern .amadex-field-label {
+    color: #000000; 
+}
+
+.amadex-search-summary-modern .amadex-location-field .amadex-field-value {
+        font-weight: 600;
+ }
+
+ .amadex-results-page .amadex-search-summary-modern div#destination-description{
+  display:none;
+}
+
+.amadex-results-page .amadex-search-summary-modern div#origin-description{
+display:none;
+}
+.amadex-search-summary-modern .amadex-field-description {
+   padding: 10px 0;
+   font-size:14px;
+}
+.amadex-search-summary-modern .amadex-field-input-wrap {
+    flex-direction: row;
+    gap: 6px!important;
+    align-items:center; 
+    justify-content: flex-start;
+}
+/* .amadex-search-summary-modern .amadex-date-field .amadex-field-value {width: 80%;} */
+
+
+/* form#amadex-modern-form div#return-display {
+    width: 100% !important;
+} */
+
+/* input:focus, select:focus {
+    border-color: #0E7D3F;
+    box-shadow: 0 0 0 1px rgba(5, 150, 105, 0.14), 0 8px 20px rgba(5, 150, 105, 0.18);
+    transform: translateY(-1px);
+} */
+.amadex-results-page #destination-field {
+    padding-left: 25px;
+}
+/* .amadex-search-btn.amadex-search-btn-results {
+    left: 100rem !important;
+    width: 50%;
+} */
+.amadex-results-page .amadex-search-summary-modern .amadex-travellers-trigger {
+ flex-direction: column;
+}
+
+/* .amadex-multi-city-flights button.amadex-swap-button {
+    top: 0.6rem;
+} */
+
+input#ccnumber {
+    border-radius: 15px !important;
+}
+
+input#ccexp {
+    border-radius: 15px !important;
+}
+input#cvv {
+    border-radius: 15px !important;
+}
+
+/* .amadex-search-summary-modern .amadex-date-field .amadex-field-value {
+    width: 60%;
+} */
+
+.amadex-field-input-wrap input:hover {
+    background: #F0FFF8 !important;
+}
+
+.amadex-results-page .amadex-search-summary-modern .amadex-trip-selector {
+  margin-bottom: 0;
+  background: none;
+  box-shadow:none;
+}
+
+.amadex-search-summary-modern button.amadex-search-btn {
+           height: 80px;
+           margin-bottom: 4px;
+           left: 58.5rem;
+}
+
+.amadex-results-page .amadex-search-summary-modern .amadex-modern-field {
+    justify-content:center;
+     min-height: 50px;
+}
+
+.amadex-modern-field.amadex-date-field.subtle-disabled.field-disabled.return-promo div#return-display {
+    width: 100% !important;
+    font-size: 12px;;
+}
+
+.amadex-results-page .amadex-search-summary-modern .amadex-search-fields {
+    min-height: 80px;
+    width: 85%;
+    grid-template-columns: 1.3fr 1.3fr 1fr 1fr 1.2fr;
+}
+
+/* .amadex-modern-field.field-disabled.subtle-disabled .amadex-field-value{
+    width: 100%!important;
+} */
+
+.amadex-modern-form:not(.amadex-multi-city-mode) .amadex-flight-segment:not([data-segment="1"]) {
+    display: none !important;
+}
+
+.amadex-search-summary-modern button.amadex-search-btn {left: 100rem!important; top:4px; min-height: 50px;}
+
+/* .amadex-results-page .amadex-search-summary-modern button.amadex-swap-button {
+bottom: 0.6rem;
+} */
+/* ==================== Multi-City Layout ==================== */
+/* .amadex-search-container {
+    position: relative;
+        background: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+} */
+
+/* .amadex-multi-city-flights {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+} */
+
+/*.amadex-flight-segment {*/
+/*    position: relative;*/
+/*    margin-bottom: 0!important; */
+/*    padding-bottom: 2px;*/
+/*    border:none!important;*/
+/*}*/
+
+/* .amadex-flight-segment {
+    position: relative;
+    margin-bottom: 0!important;
+    padding-bottom: 2px;
+    border: none!important;
+    padding: 18px;
+    border-radius: 10px !important;
+} */
+
+/* .amadex-flight-segment:last-child {
+    margin-bottom: 0;
+} */
+
+.amadex-modern-form:not(.amadex-multi-city-mode) .amadex-flight-segment:not([data-segment="1"]) {
+    display: none;
+}
+
+/* .amadex-multi-city-mode .amadex-flight-segment + .amadex-flight-segment {
+    border-top: 1px solid #E5E7EB;
+    padding-top: 18px;
+    margin-top: 8px;
+} */
+
+/* Adjust search fields for multi-city mode */
+/* .amadex-multi-city-mode .amadex-search-fields {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr 1fr 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 0;
+} */
+
+.amadex-modern-form.has-extra-segments .amadex-search-btn {
+    grid-column: 1 / -1;
+    justify-self: center;
+    /* width: 220px; */
+    margin: 16px auto 0;
+    top: 3rem;
+}
+
+input[type=text] {
+    background: none;
+}
+
+/* Add City Button - Green with White Border */
+.amadex-add-city-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    background: #ffffff;
+    border: 1px solid #0E7D3F;
+    border-radius: 15px;
+    color: #0E7D3F;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+
+div#return-field-2 {
+    border-right: 1px solid #E8E8E8;
+}
+.amadex-add-city-btn .amadex-add-city-icon {
+    width: 26px;
+    height: 26px;
+   border:none;    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    line-height: 1;
+}
+
+.amadex-add-city-btn:hover {
+    background: rgba(14, 125, 63, 0.05);
+    border-color: #0a6835;
+    color: #0a6835;
+    transform: translateY(-1px);
+}
+
+.amadex-add-city-btn:active {
+    transform: translateY(0);
+}
+
+.amadex-add-city-btn:disabled,
+.amadex-add-city-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    color: #93A38E;
+    border-color: #C8D1C8;
+    transform: none;
+}
+
+.amadex-modern-form.has-extra-segments .amadex-add-city-btn {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* Remove Button - Grey with X Icon */
+.amadex-remove-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.amadex-remove-field .amadex-field-label {
+    visibility: hidden;
+    height: 16px;
+    display:none;
+}
+
+.amadex-remove-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+.amadex-remove-segment-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    background: #F3F4F6;
+    border-radius: 999px;
+    color: #000;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.amadex-modern-form.amadex-multi-city-mode.has-extra-segments .amadex-field-description {
+    display: none;
+}
+
+form#amadex-modern-form-results button#amadex-modify-search-btn {
+    /* height: 70px; */
+    margin-bottom:0;
+}
+.amadex-flight-price-wrapper .amadex-flight-price{
+    color: #000;
+}
+
+.amadex-remove-segment-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.5;
+}
+
+.amadex-remove-segment-btn:hover {
+    background: #E5E7EB;
+    border-color: #9CA3AF;
+    color: #374151;
+}
+
+.amadex-remove-segment-btn:active {
+    transform: scale(0.98);
+}
+
+/* Multi-City Return Field - Promotional Text */
+.amadex-return-placeholder .amadex-field-value {
+    color: #000;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.amadex-return-placeholder .amadex-field-input-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.amadex-return-promo {
+    background: #ffffff;
+    border: none;
+    cursor: default;
+    pointer-events: none;
+}
+
+.amadex-return-promo .amadex-field-value {
+    color: #111827;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Make "Save More" bold within the text */
+.amadex-return-promo .amadex-field-value strong {
+    font-weight: 700;
+    color: #111827;
+}
+
+.amadex-return-promo .amadex-field-label {
+    color: #0E7D3F;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: capitalize;
+    opacity: 1;
+}
+
+.amadex-return-promo .amadex-field-description {
+    display: none;
+}
+
+.amadex-field-label {
+    font-size: 13px!important;
+    font-weight: 600;
+    color: #0E7D3F!important;
+    letter-spacing: 0.2px;
+    text-transform: capitalize;
+    opacity: 1;
+    margin-bottom: 6px;
+    transition: all 0.3s ease;
+}
+
+#modern-origin.amadex-field-value::placeholder,
+#modern-destination.amadex-field-value::placeholder {
+    font-weight: 500;
+    color: #000000; /* Adjust placeholder color */
+    opacity: 1; /* Ensures the placeholder color is fully visible */
+}
+
+/* Placeholder color for dynamically added origin/destination inputs */
+input[id^="modern-origin"]::placeholder,
+input[id^="modern-destination"]::placeholder {
+    color: #000;
+    font-weight: 600;
+    opacity: 1;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="reset"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border-color: inherit !important;
+    box-shadow: none !important;
+    outline: none !important;
+    color: inherit !important;
+}
+
+.amadex-modern-field:focus-within .amadex-field-label {
+    color: #0a5f30;
+    transform: translateY(-1px);
+}
+
+.amadex-field-input-wrap {
+    display: flex;
+    flex-direction: row;
+    color: #202924;
+    gap: 10px;
+    align-items: center;
+}
+
+/* .amadex-field-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: #000000;
+    padding: 6px 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+} */
+
+.amadex-field-value::placeholder {
+    color: #cbd5e1;
+    font-weight: 500;
+}
+
+.amadex-field-value:focus {
+    outline: none;
+    color: #0E7D3F;
+}
+
+.amadex-field-value:hover {
+    color: #0E7D3F;
+    background: #F0FFF7;
+}
+
+.amadex-field-description {
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    letter-spacing: 0px;
+    color: #6B7280;
+    opacity: 1;
+    transition: all 0.3s ease;
+    display: none!important;
+}
+
+/* ==================== Origin/Destination Fields ==================== */
+/* .amadex-location-field .amadex-field-value {
+    text-align: left;
+    letter-spacing: 0px;
+    color: #000000 !important;
+    opacity: 1;
+    border: none;
+    box-shadow: none;
+    padding: 0!important;
+    font-size: 15px!important;
+} */
+
+/* ==================== Dropdown Container ==================== */
+/* .amadex-suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    right: -5rem;
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+                0 8px 24px rgba(0, 0, 0, 0.08);
+    max-height: 420px;
+    overflow: hidden;
+    z-index: 1000;
+    margin-top: 14px;
+    display: none;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+} */
+
+.amadex-suggestions-dropdown.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    animation: slideInDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== Search Input Inside Dropdown ==================== */
+.amadex-dropdown-search {
+    padding: 16px 18px 14px 18px;
+    background: #ffffff;
+    /* border-bottom: 1px solid #F3F4F6; */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.amadex-dropdown-search-input {
+    width: 100%;
+    padding: 12px 14px 12px 42px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 400;
+    background: #F9FAFB;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #1F2937;
+}
+
+.amadex-dropdown-search-input::placeholder {
+    color: #9CA3AF;
+    font-weight: 400;
+}
+
+.amadex-dropdown-search-input:focus {
+    outline: none;
+    border-color: #0E7D3F;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.1);
+}
+
+.amadex-dropdown-search-icon {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #6B7280;
+    pointer-events: none;
+}
+
+.amadex-dropdown-search-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+/* ==================== Scrollable Suggestions Area ==================== */
+.amadex-suggestions-scroll {
+    max-height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Smooth scrolling */
+.amadex-suggestions-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ==================== Custom Scrollbar ==================== */
+.amadex-suggestions-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.amadex-suggestions-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 8px 0;
+}
+
+.amadex-suggestions-scroll::-webkit-scrollbar-thumb {
+    background: #D1D5DB;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.amadex-suggestions-scroll::-webkit-scrollbar-thumb:hover {
+    background: #0E7D3F;
+}
+
+/* Firefox scrollbar */
+.amadex-suggestions-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #D1D5DB transparent;
+}
+
+/* ==================== Section Headers ==================== */
+.amadex-suggestions-section {
+    padding: 14px 18px 10px 18px;
+    background: transparent;
+}
+
+.amadex-suggestions-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* ==================== Suggestion Items==================== */
+.amadex-suggestion-item {
+    padding: 14px 18px;
+    cursor: pointer;
+    border-bottom: 1px solid #CFCFCF;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.amadex-suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.amadex-suggestion-item:hover {
+    background: #F0FDF4;
+}
+
+/* Left arrow indicator on hover */
+.amadex-suggestion-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0px;
+    background: #0E7D3F;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.amadex-suggestion-item:hover::before {
+    width: 4px;
+}
+
+/* ==================== Suggestion Content ==================== */
+.amadex-suggestion-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.amadex-suggestion-city {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1F2937;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.amadex-suggestion-item:hover .amadex-suggestion-city {
+    color: #0E7D3F;
+}
+
+.amadex-suggestion-airport {
+    font-size: 13px;
+    color: #6B7280;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 400;
+}
+
+/* ==================== Airport Code Pill  ==================== */
+.amadex-suggestion-code {
+    padding: 6px 14px;
+    background: #fff;
+    color: #0E7D3F;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 16px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border: 1px solid #0E7D3F;
+    box-shadow: 0 2px 6px rgba(14, 125, 63, 0.25);
+    letter-spacing: 0.5px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.amadex-suggestion-item:hover .amadex-suggestion-code {
+    /* background: #0a5f30; */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(14, 125, 63, 0.35);
+}
+
+/* .amadex-suggestions-dropdown {
+    width: 320px;
+} */
+
+/* ==================== Empty State ==================== */
+.amadex-suggestions-empty {
+    padding: 32px 18px;
+    text-align: center;
+    color: #9CA3AF;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+table.amadex-calendar-table {
+    border: none !important;
+    border-style: none !important;
+}
+
+.amadex-modern-field.amadex-date-field.field-active {
+    background: rgba(14, 125, 63, 0.03);  /* Light green tint */
+    border: 2px solid #0E7D3F !important;  /* Green border */
+    border-radius: 12px;
+    margin: -2px;
+    padding: 14px 22px;
+}
+
+/* ==================== Custom Calendar Widget - Positioned Below Date Field ==================== */
+/* Ensure date field container is positioned relative for calendar positioning */
+.amadex-modern-field.amadex-date-field,
+#departure-field,
+#return-field {
+    position: relative;
+}
+
+/* Calendar widget positioned below the date field - Single month view */
+/* .amadex-calendar-widget,
+#departure-calendar,
+#return-calendar {
+    position: absolute;
+    top: 82%;
+    left: 44rem;
+    right: 0;
+    width: 100%;
+    min-width: 320px;
+    max-width: 400px;
+    background: #ffffff;
+    border: 1px solid #E8E8E8;
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15),
+                0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    z-index: 10001;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 4px;
+} */
+
+/* Active state - show calendar below date field */
+.amadex-calendar-widget.active,
+#departure-calendar.active,
+#return-calendar.active {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0);
+    animation: slideInDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When date field is active, ensure calendar appears below it */
+.amadex-modern-field.amadex-date-field.field-active ~ .amadex-calendar-widget,
+#departure-field.field-active ~ #departure-calendar,
+#return-field.field-active ~ #return-calendar,
+.amadex-modern-field.amadex-date-field.field-active + .amadex-calendar-widget,
+#departure-field.field-active + #departure-calendar,
+#return-field.field-active + #return-calendar {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0);
+}
+
+
+/* Arrow pointing to date field */
+div#departure-calendar::before,
+div#return-calendar::before,
+.amadex-calendar-widget::before {
+   /* content: '';
+    position: absolute;
+    top: -8px;
+    left: 26px;
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border-left: 1px solid #E5E7EB;
+    border-top: 1px solid #E5E7EB;
+    transform: rotate(45deg); */
+}
+
+/* Calendar Header - Two Dates Display */
+.amadex-calendar-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* margin-bottom: 24px; */
+    padding-bottom: 18px;
+    padding-right: 50px;
+    border-bottom: 2px solid #CFCFCF;
+    gap: 40px;
+    position: relative;
+}
+
+.amadex-calendar-selected-date {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1F2937;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.amadex-calendar-date-item {
+    position: relative;
+    padding-bottom: 6px;
+}
+
+.amadex-calendar-date-item.active {
+    color: #0E7D3F;
+}
+
+.amadex-calendar-date-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #0E7D3F;
+    border-radius: 2px;
+}
+
+.amadex-calendar-trip-type {
+    font-size: 14px;
+    color: #9CA3AF;
+    font-weight: 500;
+    margin-left: auto;
+    display: none;
+}
+
+/* Calendar Close Button */
+.amadex-calendar-close-btn {
+    position: absolute;
+    top: 0;
+    right: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6B7280;
+    transition: all 0.2s ease;
+    z-index: 10;
+    border-radius: 8px;
+}
+
+.amadex-calendar-close-btn:hover {
+    background: #F3F4F6;
+    color: #1F2937;
+}
+
+.amadex-calendar-close-btn:active {
+    background: #E5E7EB;
+    transform: scale(0.95);
+}
+
+.amadex-calendar-close-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Calendar Grid Container - Single Month View */
+.amadex-calendar-months {
+    display: block;
+    position: relative;
+    padding-top: 15px;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Remove vertical border for single month */
+.amadex-calendar-months::before {
+    display: none;
+}
+
+span.amadex-calendar-day.selected {
+    background: #0E7D3F;
+    color: #fff;
+}
+
+/* Single Month - Centered and Responsive */
+.amadex-calendar-month {
+    min-width: 280px;
+    max-width: 100%;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.amadex-calendar-month-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+    position: relative;
+    padding: 0 8px;
+}
+
+.amadex-calendar-month-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1F2937;
+    letter-spacing: 0.2px;
+    text-align: center;
+    flex: 1;
+    margin: 0 8px;
+}
+
+.amadex-calendar-nav {
+    display: flex;
+    gap: 6px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    pointer-events: none;
+}
+
+.amadex-calendar-nav-btn {
+    pointer-events: auto;
+}
+
+.amadex-calendar-nav-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #F3F4F6;
+    color: #1F2937;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: none;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.amadex-calendar-nav-btn:hover:not(:disabled) {
+    background: #E8F5E9;
+    color: #0E7D3F;
+    transform: scale(1.05);
+}
+
+.amadex-calendar-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: #F3F4F6;
+    color: #9CA3AF;
+}
+
+/* Calendar Table */
+.amadex-calendar-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px 4px;
+    border: none !important;
+    border-style: none !important;
+    margin-bottom: 0!important;
+}
+
+.amadex-calendar-table thead th {
+    font-size: 13px;
+    font-weight: 600;
+    color: #707070;
+    text-align: center;
+    padding: 10px 4px;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+    border: none !important;
+    border-style: none !important;
+}
+
+.amadex-calendar-table tbody td {
+    text-align: center;
+    padding: 2px;
+    border: none !important;
+    border-style: none !important;
+}
+
+/* Day Cell - Pixel Perfect from Screenshot */
+.amadex-calendar-day {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1F2937;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    background: transparent;
+}
+
+.amadex-calendar-day:hover:not(.disabled):not(.selected) {
+    background: #F0FDF4;
+    color: #0E7D3F;
+    border-color: #E8F5E9;
+}
+
+/* Selected Start/End Dates - Green Background */
+.amadex-calendar-day.selected {
+    background: #0E7D3F !important;
+    color: #ffffff !important;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.25);
+    border-color: #0E7D3F;
+}
+
+/* In-Range Dates - Light Green Background */
+.amadex-calendar-day.in-range {
+    background: #E8F5E9;
+    color: #0E7D3F;
+    font-weight: 500;
+}
+
+.amadex-calendar-day.disabled {
+    color: #B9B9B9;
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+.amadex-calendar-day.other-month {
+    color: #E5E7EB;
+    font-weight: 400;
+}
+
+.amadex-calendar-day.today:not(.selected) {
+    border-color: #0E7D3F;
+    font-weight: 600;
+    color: #0E7D3F;
+}
+
+/* Tablet Responsive for Calendar (768px) - Single Month View */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* .amadex-calendar-widget,
+    #departure-calendar,
+    #return-calendar {
+        position: absolute !important;
+        top: calc(100% + 8px) !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        min-width: 400px !important;
+        max-width: 450px !important;
+        padding: 20px 24px !important;
+        z-index: 10001 !important;
+        max-height: 50vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+        background: #ffffff !important;
+        border-radius: 16px !important;
+        transform: translateY(-8px) !important;
+    } */
+    
+    /* Single month on tablet */
+    .amadex-calendar-months {
+        display: block !important;
+    }
+    
+    .amadex-calendar-months::before {
+        display: none !important;
+    }
+    
+    .amadex-calendar-widget.active,
+    #departure-calendar.active,
+    #return-calendar.active {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Ensure date field container allows overflow */
+    .amadex-modern-field.amadex-date-field,
+    #departure-field,
+    #return-field {
+        position: relative !important;
+        overflow: visible !important;
+    }
+    
+    /* Ensure parent containers allow calendar overflow */
+    /* .amadex-modern-form,
+    .amadex-search-container,
+    .amadex-search-fields {
+        overflow: visible !important;
+        position: relative !important;
+    } */
+    
+    /* Tablet: Show 2 columns side by side */
+    /* .amadex-calendar-months {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 24px !important;
+        max-height: 38vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        display: grid !important;
+    } */
+    
+    /* Show vertical border on tablet */
+    .amadex-calendar-months::before {
+        display: block !important;
+    }
+    
+    .amadex-calendar-month {
+        min-width: 280px;
+    }
+    
+    .amadex-calendar-day {
+        width: 36px;
+        height: 36px;
+        font-size: 15px;
+    }
+}
+
+
+/* ==================== Swap Button ==================== */
+/* .amadex-swap-button {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 50% !important;
+    background: #0E7D3F;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.3s ease, 
+                box-shadow 0.3s ease;
+    margin-bottom: 8px;
+    flex-shrink: 0;
+    opacity: 1;
+    padding: 0;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.25);
+    overflow: visible;
+    transform: rotate(0deg);
+    will-change: transform;
+} */
+
+/* .amadex-swap-button:hover {
+    background: #0a6835;
+    box-shadow: 0 4px 12px rgba(14, 125, 63, 0.35);
+    transform: rotate(0deg) scale(1.05);
+} */
+
+/* .amadex-swap-button:active {
+    transform: rotate(0deg) scale(0.95);
+    box-shadow: 0 3px 12px rgba(14, 125, 63, 0.35);
+} */
+
+/* Anticlockwise rotation animation on swap */
+/* .amadex-swap-button.rotating {
+    transform: rotate(-180deg);
+    background: #0a6835;
+    box-shadow: 0 4px 16px rgba(14, 125, 63, 0.4);
+} */
+
+/* Keyframe for smooth anticlockwise rotation */
+@keyframes rotateAnticlockwise {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-180deg);
+    }
+}
+
+/* Animation class for swap action */
+/* .amadex-swap-button.animating {
+    animation: rotateAnticlockwise 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+} */
+
+/* .amadex-swap-button svg {
+    width: 48px!important;
+    height: 48px!important;
+    fill: #ffffff;
+    stroke: #ffffff;
+    stroke-width: 0.5;
+    display: block;
+    transition: filter 0.3s ease;
+    pointer-events: none;
+} */
+
+/* .amadex-swap-button:hover svg {
+    filter: brightness(1.1);
+}
+
+.amadex-swap-button.rotating svg {
+    filter: brightness(1.15);
+} */
+
+input.amadex-dropdown-search-input {
+    box-shadow:none!important;
+    border: none!important;
+     padding-left: 20px !important;
+    /* margin-top: 10px; */
+    margin-top: 6px;
+}
+
+/* ==================== Date Fields ==================== */
+/* .amadex-date-field .amadex-field-value {
+    cursor: pointer;
+} */
+
+.amadex-date-field input[type="date"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ==================== Travellers & Cabin Dropdown ==================== */
+.amadex-travellers-field {
+    position: relative;
+}
+
+.amadex-travellers-trigger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 4px 0;
+    cursor: pointer;
+    /* position: relative; */
+}
+
+/* .amadex-modern-form.amadex-multi-city-mode.has-extra-segments .amadex-modern-field.amadex-location-field {
+    padding-left: 30px !important;
+} */
+
+/* ==================== TABLET/MID-RANGE DESKTOP (770px - 1112px) ==================== */
+/* EXPERT/GOD MODE: This range overlaps with tablet, but is more specific */
+/* Note: Tablet rules (769px-1024px) will take precedence for most cases */
+@media (min-width: 770px) and (max-width: 1112px) {
+    /* Specific adjustments for mid-range screens */
+     /* .amadex-travellers-trigger::after {
+        right: -16px !important;
+        top: 44% !important;
+        width: 10px !important;
+        height: 10px !important;
+    } */
+    .amadex-travellers-value svg {
+     display: none !important;
+    }
+    .amadex-field-value {
+        font-size: 12px !important;
+    }
+    .amadex-field-value {
+        padding : 0 0 !important;
+    }
+}
+
+/* ==================== DROPDOWN ARROW - DESKTOP ONLY (≥1025px) ==================== */
+/* EXPERT/GOD MODE: Updated from 769px to 1025px to isolate from tablets */
+@media (min-width: 1025px) {
+    /* .amadex-travellers-trigger::after {
+        content: '';
+        position: absolute;
+        right: -30px;
+        top: 30%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        border-right: 2px solid #000000;
+        border-bottom: 2px solid #000000;
+        transform: translateY(-60%) rotate(45deg);
+        transition: transform 0.3s ease;
+    } */
+    /* .amadex-results-page .amadex-search-summary-modern .amadex-modern-form.amadex-multi-city-mode.has-extra-segments button.amadex-swap-button {
+        left: 46.5rem;
+    } */
+
+    /* .amadex-modern-form.amadex-multi-city-mode.has-extra-segments button.amadex-swap-button {
+
+        top: 0.6rem;
+        left: 41.5rem;
+    } */
+    .amadex-travellers-field.active .amadex-travellers-trigger::after {
+        transform: translateY(-40%) rotate(-135deg);
+    }
+}
+
+@media (max-width: 768px) {
+    /* .amadex-travellers-trigger::after {
+        display: none !important;
+    } */
+}
+
+.amadex-travellers-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.amadex-cabin-value {
+    font-size: 13px;
+    letter-spacing: 0px;
+    color: #202924;
+}
+.amadex-form-field input {
+    border-radius: 15px !important;
+    border: 1px solid #E6E6E6 !important;
+    padding: 14px 15px !important;
+}
+/* ==================== Swap Button Base Styles ==================== */
+/* button.amadex-swap-button {
+    position: absolute;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%) rotate(0deg);
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    background: none!important;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                background-color 0.3s ease;
+    box-shadow: none!important;
+    z-index: 10;
+    font-size: 20px;
+    will-change: transform;
+} */
+
+/* button.amadex-swap-button:hover {
+    background: #0a6835;
+    transform: translateX(-50%) rotate(0deg) scale(1.05);
+    box-shadow: 0 6px 20px rgba(14, 125, 63, 0.5), 0 3px 10px rgba(14, 125, 63, 0.4);
+} */
+
+/* button.amadex-swap-button:active {
+    transform: translateX(-50%) rotate(0deg) scale(0.95);
+} */
+
+/* Anticlockwise rotation animation for positioned button */
+/* button.amadex-swap-button.rotating {
+    transform: translateX(-50%) rotate(-180deg);
+} */
+
+/* Keyframe for positioned button rotation */
+@keyframes rotateAnticlockwisePositioned {
+    from {
+        transform: translateX(-50%) rotate(0deg);
+    }
+    to {
+        transform: translateX(-50%) rotate(-180deg);
+    }
+}
+
+/* Animation class for positioned button */
+/* button.amadex-swap-button.animating {
+    animation: rotateAnticlockwisePositioned 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+} */
+
+/* button.amadex-swap-button svg,
+button.amadex-swap-button i {
+    color: #ffffff;
+    font-size: 20px;
+    width: 60px;
+    height: 80px;
+    background: #0e7d3f;
+    border-radius: 50px;
+    transition: filter 0.3s ease;
+    pointer-events: none;
+} */
+
+/* button.amadex-swap-button:hover svg,
+button.amadex-swap-button:hover i {
+    filter: brightness(1.1);
+}
+
+button.amadex-swap-button.rotating svg,
+button.amadex-swap-button.rotating i {
+    filter: brightness(1.15);
+} */
+/*label.amadex-field-label {*/
+/*    display: none !important;*/
+/*}*/
+/* Desktop - Swap button between origin and destination */
+@media (min-width: 769px) {
+    /* button.amadex-swap-button {
+        position: absolute;
+        left: calc(50% - 28px);
+        bottom: 1.2rem;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+    } */
+}
+
+/* ==================== Search Button ==================== */
+.amadex-search-btn {
+    background: linear-gradient(135deg, #0E7D3F 0%, #0a6835 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 18px 36px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    min-height: 50px;
+    margin-bottom: 8px;
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(14, 125, 63, 0.25), 0 2px 6px rgba(14, 125, 63, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ==================== DESKTOP - SEARCH BUTTON POSITIONED ABSOLUTELY (≥1025px) ==================== */
+/* EXPERT/GOD MODE: Updated from 769px to 1025px to isolate from tablets */
+@media (min-width: 1025px) {
+    button.amadex-search-btn {
+        position: absolute;
+        right: 0;
+        bottom: 0.5rem;
+        width: auto;
+        min-width: 140px;
+        padding: 0 32px;
+        transform: none;
+    }
+}
+
+/* .amadex-search-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+} */
+
+.amadex-search-btn:hover::before {
+    left: 100%;
+}
+
+/* button.amadex-swap-button {
+    position: absolute;
+    margin-left: -19.2rem!important;
+    z-index: 2;
+} */
+/* .amadex-results-page .amadex-search-summary-modern #origin-description {
+    display: none !important;
+} */
+/* .amadex-results-page .amadex-search-summary-modern div#destination-description {
+    display: none!important;
+} */
+/* button.amadex-swap-button::before {
+    display: none;
+} */
+.amadex-travellers-field {
+    border-right: none !important;
+}
+/* .amadex-modern-form button.amadex-search-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 146px;
+    height: 100%;
+    background: #0E7D3F;
+    border-radius: 0 16px 16px 0;
+    opacity: 1;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    flex-shrink: 0;
+    z-index: 2;
+} */
+
+.amadex-search-btn:hover:not(.loading) {
+    background: linear-gradient(135deg, #0a6835 0%, #085428 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(14, 125, 63, 0.35), 0 4px 12px rgba(14, 125, 63, 0.2);
+    color: #ffffff;
+}
+
+.amadex-search-btn:active:not(.loading) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 125, 63, 0.3);
+}
+
+/* Search Icon - SVG with perfect alignment */
+.amadex-search-btn .amadex-search-icon {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-left: 2px;
+    transition: all 0.3s ease;
+}
+
+.amadex-search-btn svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+}
+
+.amadex-search-btn .search-icon-svg {
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+}
+
+/* Ensure text and icon are perfectly aligned */
+.amadex-search-btn {
+    line-height: 1;
+}
+
+.amadex-search-btn:hover .amadex-search-icon {
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* ==================== Passengers Modal ==================== */
+/* Base Travellers Dropdown Styles - Desktop */
+.amadex-travellers-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+                0 8px 24px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+    z-index: 1000;
+    margin-top: 14px;
+    /* min-width: 360px; */
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active State - Desktop */
+.amadex-travellers-dropdown.active,
+.amadex-modern-field.amadex-travellers-field.field-active .amadex-travellers-dropdown,
+.amadex-modern-field.amadex-travellers-field.field-active .amadex-travellers-dropdown.active,
+#travellers-field.field-active .amadex-travellers-dropdown,
+#travellers-field.field-active .amadex-travellers-dropdown.active {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    animation: slideInDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Travellers Field - Ensure proper z-index hierarchy */
+.amadex-modern-field.amadex-travellers-field,
+#travellers-field {
+    overflow: visible;
+    align-items: flex-start;
+}
+
+/* When other dropdowns are active, ensure travellers field doesn't interfere */
+.amadex-location-field.field-active ~ .amadex-travellers-field,
+.amadex-location-field.field-active ~ #travellers-field,
+.amadex-date-field.field-active ~ .amadex-travellers-field,
+.amadex-date-field.field-active ~ #travellers-field {
+    z-index: 1;
+    opacity: 1;
+}
+
+/* When travellers field is active, ensure it's above other fields */
+.amadex-modern-field.amadex-travellers-field.field-active,
+#travellers-field.field-active,
+#travellers-field.active {
+    z-index: 1002;
+    position: relative;
+}
+
+.amadex-modern-field.amadex-travellers-field.field-active .amadex-travellers-dropdown,
+#travellers-field.field-active .amadex-travellers-dropdown,
+#travellers-field.active .amadex-travellers-dropdown {
+    z-index: 10003;
+}
+
+.amadex-travellers-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    /* right: 32rem; */
+    width: 16px;
+    height: 16px;
+    background: #ffffff;
+    border-left: 1px solid #E5E7EB;
+    border-top: 1px solid #E5E7EB;
+    transform: rotate(45deg);
+}
+
+.amadex-traveller-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    /* border-bottom: 1px solid #F3F4F6; */
+}
+
+.amadex-traveller-row:last-child {
+    border-bottom: 1px solid #F3F4F6;
+    margin-bottom: 4px;
+}
+
+.amadex-traveller-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.amadex-traveller-type {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    letter-spacing: -0.2px;
+}
+
+.amadex-traveller-age {
+    font-size: 12px;
+    color: #202924;
+    font-weight: 400;
+}
+
+.amadex-traveller-counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amadex-counter-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0;
+}
+
+/* Grey Minus Button */
+.amadex-counter-btn.amadex-counter-minus {
+    background: #F1F1F1;
+    color: #000;
+    border: 1px solid #D1D5DB;
+    border-radius: 5px;
+}
+
+.amadex-counter-btn.amadex-counter-minus:hover:not(:disabled) {
+    background: #D1D5DB;
+    transform: scale(1.05);
+}
+
+.amadex-counter-btn.amadex-counter-minus:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Green Plus Button */
+.amadex-counter-btn.amadex-counter-plus {
+    background: #0E7D3F;
+    color: #ffffff;
+    border: 1px solid #0E7D3F;border-radius:5px;
+}
+
+.amadex-counter-btn.amadex-counter-plus:hover:not(:disabled) {
+    background: #0a6835;
+    border-color: #0a6835;
+    transform: scale(1.05);
+}
+
+.amadex-counter-btn.amadex-counter-plus:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.amadex-counter-value {
+    min-width: 32px;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #202924;
+}
+
+.amadex-cabin-selector {
+    /* margin-top: 20px; */
+    padding-top: 0px;
+    border-top: none;
+    /*border-top: 1px solid #E6E6E6; */
+}
+
+.amadex-cabin-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 14px;
+    letter-spacing: -0.2px;
+}
+
+.amadex-cabin-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.amadex-cabin-btn {
+    padding: 11px 16px;
+    border: 1px solid #CFCFCF;
+    border-radius: 15px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.amadex-cabin-btn:hover:not(.active) {
+    border-color: #9CA3AF;
+    background: #F9FAFB;
+}
+
+.amadex-cabin-btn.active {
+    border-color: #0E7D3F;
+    background: rgba(14, 125, 63, 0.08);
+    color: #0E7D3F;
+    font-weight: 600;
+}
+
+/* .amadex-cabin-btn.active:hover {
+    background: rgba(14, 125, 63, 0.12);
+    border-color: #0a6835;
+} */
+
+/* Apply Button - Pixel Perfect from Screenshot */
+.amadex-travellers-apply-btn {
+    width: 100%;
+    padding: 14px 24px;
+    margin-top: 20px;
+    background: #0E7D3F;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    letter-spacing: 0.3px;
+}
+
+.amadex-travellers-apply-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(14, 125, 63, 0.2);
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 1200px) {
+    /* .amadex-search-fields {
+        grid-template-columns: 1.5fr auto 1.5fr 1.3fr 1.3fr 1.5fr auto;
+        gap: 12px;
+    } */
+    
+
+    .amadex-search-btn {
+        padding: 14px 24px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 992px) {
+    /* .amadex-modern-form {
+        padding: 24px 20px;
+    } */
+    
+    /* .amadex-search-fields {
+        grid-template-columns: 1fr;
+        gap: 0;
+    } */
+    
+    .amadex-modern-field {
+        padding: 10px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .amadex-modern-field:last-child {
+        border-bottom: none;
+    }
+    
+    .amadex-swap-button {
+        display: none;
+    }
+    
+    .amadex-search-btn {
+        width: 100%;
+        margin-top: 16px;
+        margin-bottom: 0;
+    }
+    
+    .amadex-field-description {
+        white-space: normal;
+    }
+    
+    /* Removed duplicate travellers dropdown rule - using main mobile styles */
+}
+
+@media (max-width: 640px) {
+    .amadex-modern-form {
+        padding: 5px 0;
+        border-radius: 12px;
+    }
+    
+    .amadex-trip-selector {
+        flex-wrap: wrap;
+    }
+    
+    .amadex-trip-label {
+        padding: 8px 15px;
+    }
+    
+    .amadex-cabin-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== Loading State ==================== */
+.amadex-search-btn.loading {
+    color: transparent !important;
+    pointer-events: none;
+    background: #0E7D3F !important;
+    opacity: 1 !important;
+    cursor: not-allowed;
+    overflow: visible !important;
+    /* box-shadow managed by pulse-glow animation below */
+}
+
+/* ==================== DESKTOP: MAINTAIN POSITION (≥1025px) ==================== */
+@media (min-width: 1025px) {
+    .submit-btn-amadex {
+        display: contents !important; 
+    }
+
+}
+
+/* Mobile: Maintain static position */
+@media (max-width: 768px) {
+    /* .amadex-search-btn.loading {
+        position: static !important;
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        top: auto !important;
+    } */
+}
+
+.amadex-search-btn.loading .amadex-search-icon {
+    display: none !important;
+}
+
+.amadex-search-btn.loading > * {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.amadex-modern-form.amadex-multi-city-mode .amadex-modern-field.amadex-date-field.field-disabled.return-promo{
+    background: #FFFFFF !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Apply opacity only to text content, not the background */
+.amadex-modern-form.amadex-multi-city-mode .amadex-modern-field.amadex-date-field.field-disabled.return-promo .amadex-field-label,
+.amadex-modern-form.amadex-multi-city-mode .amadex-modern-field.amadex-date-field.field-disabled.return-promo .amadex-field-value,
+.amadex-modern-form.amadex-multi-city-mode .amadex-modern-field.amadex-date-field.field-disabled.return-promo .amadex-field-description,
+.amadex-modern-form.amadex-multi-city-mode .amadex-modern-field.amadex-date-field.field-disabled.return-promo .amadex-field-input-wrap {
+    opacity: 0.2 !important;
+}
+
+.amadex-search-btn.loading::before {
+    display: none !important;
+    content: none !important;
+}
+
+@keyframes amadex-btn-spin {
+    0%   { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ==================== Search Loading — Full UX Polish ==================== */
+
+/* Button: pulse glow while loading */
+.amadex-search-btn.loading {
+    animation: amadex-btn-loading-glow 1.4s ease-in-out infinite !important;
+}
+
+@keyframes amadex-btn-loading-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(14, 125, 63, 0.45); }
+    50%       { box-shadow: 0 0 0 6px rgba(14, 125, 63, 0); }
+}
+
+/* Search fields: blur + lock while searching */
+.amadex-search-modern .amadex-modern-form.searching .amadex-search-fields {
+    pointer-events: none;
+    opacity: 0.55;
+    filter: blur(0.5px);
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Overlay shimmer on the whole search bar while loading */
+.amadex-search-modern .amadex-modern-form.searching .amadex-search-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.18) 40%,
+        rgba(255,255,255,0.30) 50%,
+        rgba(255,255,255,0.18) 60%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: amadex-shimmer 1.6s linear infinite;
+    pointer-events: none;
+    z-index: 5;
+}
+
+@keyframes amadex-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+
+/* Trip type selector: dim while searching */
+.amadex-search-modern .amadex-modern-form.searching .amadex-confirmation-nav {
+    opacity: 0.4;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Button click press ripple */
+.amadex-search-btn:active:not(.loading) {
+    transform: scale(0.96) translateY(0) !important;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.4) !important;
+    transition: transform 0.1s ease, box-shadow 0.1s ease !important;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+    }
+}
+
+
+
+/* ==================== Focus States ==================== */
+
+@keyframes slideInFocus {
+    from {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    to {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+/* Form Entrance Animation */
+@keyframes formEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.amadex-modern-form {
+    animation: formEntrance 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth transition for field borders */
+.amadex-modern-field {
+    will-change: background, box-shadow;
+    background: none;
+}
+
+/* Add ripple effect on click */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* ==================== Additional Polish & Enhancements ==================== */
+
+/* Smooth scrollbar for dropdowns */
+.amadex-travellers-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.amadex-travellers-dropdown::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 0 16px 16px 0;
+}
+
+.amadex-travellers-dropdown::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.amadex-travellers-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #0E7D3F;
+}
+
+/* Prevent text selection on interactive elements */
+.amadex-trip-label,
+.amadex-counter-btn,
+.amadex-cabin-btn,
+.amadex-swap-button,
+.amadex-search-btn {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Add hardware acceleration for smooth animations */
+.amadex-modern-form,
+.amadex-swap-button,
+.amadex-search-btn,
+.amadex-trip-label,
+.amadex-suggestions-dropdown,
+.amadex-travellers-dropdown {
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* Enhanced focus ring for accessibility */
+.amadex-field-value:focus-visible,
+.amadex-counter-btn:focus-visible,
+.amadex-cabin-btn:focus-visible {
+    outline: 2px solid #0E7D3F;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    .amadex-search-modern {
+        box-shadow: none;
+    }
+    
+    .amadex-modern-form {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .amadex-modern-form {
+        border: 2px solid currentColor;
+    }
+    
+    .amadex-search-btn {
+        border: 2px solid currentColor;
+    }
+}
+
+
+a.c-btn.-default.-primary.dst-adivaha-switcher {
+    display: none;
+}
+
+.amadex-disclaimer-note {
+    display: none!important;
+}
+
+/*New CSS 11-3-26 */
+
+/* =========================
+   MULTI CITY (INLINE STYLE)
+========================= */
+
+#amadex-multicity-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.amadex-multi-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1fr auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.amadex-multi-row input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* .amadex-add-city-btn {
+    margin-top: 8px;
+    padding: 10px;
+    border: 1px dashed #0a7c4a;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #0a7c4a;
+    font-weight: 500;
+} */
+
+/* .amadex-add-city-btn:hover {
+    background: rgba(10, 124, 74, 0.05);
+} */
+
+.remove-mc {
+    background: #ff4d4f;
+    color: #fff;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+/* ============================================
+   MULTI-CITY SEGMENT SWAP BUTTON
+   Matches main bar #swap-locations style exactly
+   ============================================ */
+/* button.amadex-segment-swap {
+    flex: 0 0 auto !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+    z-index: 10 !important;
+    overflow: visible !important;
+    will-change: transform !important;
+    box-shadow: none !important;
+} */
+
+/* button.amadex-segment-swap svg {
+    display: block !important;
+    pointer-events: none !important;
+    width: 48px !important;
+    height: 48px !important;
+    transition: filter 0.3s ease, transform 0.4s ease, box-shadow 0.3s ease !important;
+    border-radius: 50% !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.41) !important;
+} */
+
+/* button.amadex-segment-swap:hover svg {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35) !important;
+    filter: brightness(1.1) !important;
+} */
+
+button.amadex-segment-swap.swap-rotate svg {
+    transform: rotate(180deg) !important;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35) !important;
+    filter: brightness(1.15) !important;
+}
+
+button.amadex-segment-swap:focus,
+button.amadex-segment-swap:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+button.amadex-segment-swap:focus,
+button.amadex-segment-swap:focus-visible,
+button.amadex-segment-swap:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+button.amadex-segment-swap svg:focus,
+button.amadex-segment-swap svg:focus-visible {
+    outline: none !important;
+}

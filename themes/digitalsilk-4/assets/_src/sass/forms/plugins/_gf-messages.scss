@@ -1,0 +1,117 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+.gform_validation_errors,
+.gform_confirmation_wrapper {
+	--dst--message-padding: 20px;
+	--dst--form-icon-error: url("data:image/svg+xml,%3Csvg width='24' height='22' viewBox='0 0 24 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10.1997 2.48404L1.28218 17.3711C1.09832 17.6895 1.00104 18.0505 1.00001 18.4181C0.998979 18.7858 1.09424 19.1473 1.27631 19.4668C1.45838 19.7862 1.72092 20.0524 2.0378 20.2388C2.35469 20.4253 2.71487 20.5255 3.08252 20.5296H20.9175C21.2851 20.5255 21.6453 20.4253 21.9622 20.2388C22.2791 20.0524 22.5416 19.7862 22.7237 19.4668C22.9058 19.1473 23.001 18.7858 23 18.4181C22.999 18.0505 22.9017 17.6895 22.7178 17.3711L13.8003 2.48404C13.6127 2.17461 13.3484 1.91879 13.033 1.74125C12.7177 1.5637 12.3619 1.47043 12 1.47043C11.6381 1.47043 11.2823 1.5637 10.967 1.74125C10.6516 1.91879 10.3873 2.17461 10.1997 2.48404V2.48404Z' stroke='red' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 7.89438V12.1057' stroke='red' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M12 16.3178H12.0105' stroke='red' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+	--dst--form-icon-success: url("data:image/svg+xml,%3Csvg width=\'52\' height=\'62\' viewBox=\'0 0 52 62\' fill=\'none\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath fill-rule=\'evenodd\' clip-rule=\'evenodd\' d=\'M38.3891 28.4518L27.5823 20.7873L46.9229 5.6756L38.3891 28.4518ZM24.2288 27.1634L28.0664 24.471L25.9163 22.9458L24.2288 27.1634ZM24.4763 19.7567L35.8832 10.8452L20.8195 18.2333L21.7778 26.0041L24.0517 20.3264H24.052C24.1412 20.1018 24.2883 19.9055 24.4776 19.7578L24.4763 19.7567ZM43.1944 4.21839L10.7965 11.1474L19.4125 15.8818L43.1944 4.21839ZM49.7012 0.029511L10.2219 8.4732C9.49804 8.62846 8.86925 9.07814 8.48203 9.71657C8.09514 10.3546 7.98447 11.1259 8.17558 11.8495C8.36637 12.5731 8.84273 13.1852 9.49273 13.5431L18.1008 18.2735L19.6963 31.2371V31.2368C19.7543 31.7121 20.0539 32.122 20.4857 32.3173C20.9178 32.5127 21.419 32.465 21.8074 32.1917L30.4251 26.1458L36.8424 30.6984V30.6981C37.5242 31.1819 38.3884 31.3198 39.184 31.0717C39.9799 30.824 40.6177 30.2182 40.913 29.4302L51.2449 1.85328C51.3599 1.5456 51.3615 1.20605 51.2495 0.897104C51.1376 0.588165 50.9194 0.330661 50.6351 0.171296C50.3505 0.0119306 50.0191 -0.0385602 49.7008 0.0296065L49.7012 0.029511Z\' fill=\'%230e7d3f\'/%3E%3Cpath d=\'M14.6913 22.8254C9.28522 27.0301 -0.68593 38.3228 2.67783 49.8557C6.88253 64.2718 34.5137 59.4664 39.9197 58.2651\' stroke=\'%230e7d3f\' stroke-width=\'3\'/%3E%3C/svg%3E%0A");
+	--dst--message-success-color: var(--dst--primary-color2);
+}
+
+.gform_confirmation_wrapper {
+	background: color-mix(in srgb, var(--dst--validation-success-color), transparent 85%);
+	border: 1px solid var(--dst--primary-color2);
+	border-radius: var(--dst--message-radius, 6px);
+	padding: var(--dst--message-padding);
+	color: var(--dst--message-success-color);
+	font-size: var(--dst--message-font-size);
+	font-weight: var(--dst--message-font-weight);
+	line-height: var(--dst--message-line-height);
+	margin-block: 1em;
+	text-align: center;
+	position: relative;
+
+	&::before {
+		content: "";
+		width: 40px;
+		min-height: 5rem;
+		display: block;
+		margin: 0 auto 15px;
+		background-image: var(--dst--form-icon-success);
+		background-repeat: no-repeat;
+		background-size: contain;
+
+		@include media(">desktop") {
+			width: 52px;
+			height: 62px;
+			margin: 0 auto 15px;
+		}
+	}
+
+	h3, h4 {
+		color: var(--dst--validation-success-color);
+		font-size: 2.2rem;
+		margin-bottom: 1em;
+
+		@include media(">desktop") {
+			font-size: 2.8rem;
+		}
+	}
+
+	br {
+		display: none;
+	}
+}
+
+.gform_validation_error {
+
+	.validation_message {
+		color: var(--dst--validation-error-color);
+		font-size: var(--dst--message-font-size);
+		font-weight: var(--dst--message-font-weight);
+	}
+}
+
+.gfield_error {
+	--dst--input-border-color: var(--dst--validation-error-color);
+}
+
+.gform_validation_errors {
+	display: flex;
+	flex-direction: column;
+	border: var(--dst--input-border-width) solid var(--dst--validation-error-color);
+	border-radius: var(--dst--message-radius, 6px);
+	margin-bottom: var(--dst--form-row-margin-block);
+	padding: var(--dst--message-padding);
+	font-size: var(--dst--message-font-size);
+	font-weight: var(--dst--message-font-weight);
+	line-height: var(--dst--message-line-height);
+	color: var(--dst--validation-error-color);
+	background: color-mix(in srgb, var(--dst--validation-error-color), transparent 85%);
+
+	ul, ol {
+		margin: 10px 0 0 calc(24px + 0.5em);
+	}
+
+	ol {
+		list-style: none;
+	}
+
+	.gform-icon {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: .5em;
+		flex-shrink: 0;
+		background-image: var(--dst--form-icon-error);
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+}
+
+.gform_submission_error {
+	font-size: var(--dst--message-font-size);
+	font-weight: var(--dst--message-font-weight);
+	color: var(--dst--validation-error-color);
+	display: flex;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+}
+
+.gform_validation_error_link {
+	color: var(--dst--validation-error-color);
+}

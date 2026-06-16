@@ -1,0 +1,23 @@
+@use "../../../_DS-core/mixins/include-media" as *;
+@use "../../../_DS-core/modules/sliders/slider-type/slider-dsbls";
+
+.slider-dsbls {
+	--dsbls-title-size: 3rem;
+	--dsbls-title-weight: 700;
+	--dsbls-text-size: 1.8rem;
+	--dsbls-color: #fff;
+	--dsbls-overlay: var(--dst--primary-color1);
+
+	--dsbls-height: 500px;
+
+	--c-block__title-color: #fff;
+
+	@include media(">desktop-m") {
+		--dsbls-height: 680px;
+	}
+
+	@include media(">desktop-l") {
+		--dsbls-height: 780px;
+	}
+
+}

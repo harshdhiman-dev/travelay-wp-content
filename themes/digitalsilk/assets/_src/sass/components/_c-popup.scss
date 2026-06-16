@@ -1,0 +1,155 @@
+@use "../_DS-core/mixins/include-media" as *;
+
+body .dimbox-container {
+	--dst--popup-background: var(--dst--primary-color1);
+	--dst--popup-width: 95rem;
+	--dst--popup-padding: 15px 2px 2px 2px;
+	--dst--popup-close-bg: var(--dst--secondary-color1);
+	--dst--popup-close-size: 4rem;
+	--dst--popup-close-icon-size: 60%;
+	--outline-size: max(2px, 0.08em);
+	--outline-style: solid;
+	--outline-color: currentcolor;
+	transition: all .5s;
+
+	@include media(">desktop") {
+		--dst--popup-padding: 3rem;
+	}
+
+	*:active,
+	*:focus,
+	*:focus-visible {
+		outline: none;
+	}
+
+	&::before {
+		background: var(--dst--popup-background);
+	}
+
+	.dimbox-content {
+		transition: clip-path .5s, opacity .5s;
+		clip-path: inset(42% 42% 42% 42%);
+		display: flex;
+	}
+
+	.dimbox-content,
+	.dimbox-ajax-content,
+	.dimbox-inline-content {
+		max-width: var(--dst--popup-width);
+	}
+
+	.dimbox-buttons {
+		right: 0;
+		top: 0;
+		//transform: translateY(-100%);
+		transition: all 1s;
+		opacity: 0;
+		border-radius: 10px;
+		overflow: hidden;
+	}
+
+	&.show {
+
+		.dimbox-content {
+			clip-path: inset(0% 0% 0% 0%);
+		}
+	}
+
+	&.dimbox-loaded {
+
+		.dimbox-buttons {
+
+			opacity: 1;
+		}
+	}
+
+	.dimbox-iframe {
+		width: 100%;
+		height: auto;
+	}
+
+	.dimbox-iframe-container,
+	.dimbox-video-container {
+		height: auto;
+
+
+		iframe, video {
+			aspect-ratio: 16 / 9;
+			transition: all 1s;
+			height: 460px;
+			width: 800px;
+			min-height: 460px;
+			min-width: 800px;
+		}
+	}
+
+	.dimbox-btn-close {
+		margin: 1.6rem;
+		opacity: 1;
+		background-color: var(--dst--popup-close-bg, transparent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 1s;
+
+		svg {
+			color: var(--dst--secondary-color6);
+			vertical-align: top;
+			height: var(--dst--popup-close-icon-size);
+			width: var(--dst--popup-close-icon-size);
+		}
+
+		@include media(">desktop") {
+			height: var(--dst--popup-close-size);
+			width: var(--dst--popup-close-size);
+		}
+	}
+
+	.dimbox-buttons,
+	.dimbox-btn-prev,
+	.dimbox-btn-next {
+
+		*:active,
+		*:focus,
+		*:focus-visible {
+			outline: var(--outline-size) var(--outline-style) var(--outline-color);
+			outline-offset: var(--outline-offset, var(--outline-size));
+		}
+	}
+
+	.dimbox-ajax-content,
+	.dimbox-inline-content {
+	  	border-radius: 3rem;
+		padding: var(--dst--popup-padding, 15px);
+	}
+
+	.dimbox-video-container {
+		display: inline-flex;
+		width: auto;
+	}
+
+	> .dimbox-buttons {
+		border-radius: 0;
+		transform: none;
+	}
+
+	> .dimbox-sequence {
+		position: absolute;
+		bottom: 16px;
+		top: auto;
+		left: 0;
+		width: 100%;
+		text-align: center;
+	}
+
+}
+
+.dimbox-noscroll {
+
+	padding: 0 !important;
+}
+
+
+.dimbox-hide {
+	display: none;
+}

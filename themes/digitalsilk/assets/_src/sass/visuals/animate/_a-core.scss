@@ -1,0 +1,28 @@
+:root {
+	interpolate-size: allow-keywords;
+
+}
+
+a {
+	transition: color var(--dst--transition);
+}
+
+input[type="text"] {
+	transition: border var(--dst--transition), background-color var(--dst--transition);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	transition: font-size var(--dst--transition);
+}
+
+svg {
+	transition: fill var(--dst--transition), stroke var(--dst--transition), background-color var(--dst--transition), color var(--dst--transition);
+}
+
+img,
+picture {
+	transition: transform 0.5s, opacity var(--dst--transition);
+}

@@ -1,0 +1,165 @@
+.dst-icon-picker {
+    cursor: pointer;
+    display: inline-block;
+    border: 1px dashed;
+    position: relative;
+    line-height: 0;
+    --icon-picker-color-error: #d72728;
+
+    img,
+    svg {
+        display: block;
+        color: currentcolor;
+        fill: currentcolor;
+	    pointer-events: auto !important;
+    }
+
+    button {
+        color: inherit !important;
+    }
+
+    &.-no-icon {
+        display: none;
+    }
+}
+
+.iconPopover {
+    --header-height: 4em;
+    --icon-picker-color-gray: #f0f0f0;
+    --icon-picker-color-gray-dark: #e0e0e0;
+    --icon-picker-color-black: #1e1e1e;
+    --icon-picker-color-acent: var(--wp-admin-theme-color, #3858e9);
+
+    &__wrapper {
+        background-color: #fff;
+        width: 450px;
+        position: relative;
+    }
+
+    // Style the panel button.
+    .components-panel .components-panel__body-toggle.components-button {
+        padding: 16px 48px 16px 16px;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: sticky;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: var(--header-height);
+        border-bottom: 1px solid var(--icon-picker-color-gray);
+        background-color: #fff;
+    }
+
+    &__pill {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 300px;
+        background-color: var(--icon-picker-color-gray);
+        border-radius: 5px;
+        padding: 0.5em 1em;
+        text-decoration: none;
+        color: var(--icon-picker-color-black);
+        appearance: none;
+        border: none;
+        cursor: pointer;
+
+        &:hover,
+        &:active {
+            background-color: var(--icon-picker-color-gray-dark);
+            color: var(--icon-picker-color-black);
+        }
+
+        &:focus {
+            box-shadow: none;
+            outline: none;
+        }
+
+        &.-disabled {
+            pointer-events: none;
+        }
+    }
+
+    &__title {
+        margin: 0;
+    }
+
+    // Modify popover appearance.
+    .components-popover__content {
+        border: none;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.iconList {
+    list-style: none;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat( 5, 1fr );
+
+    &__item {
+        margin: 0;
+
+        &.-selected {
+
+            button {
+                border-color: var(--icon-picker-color-acent);
+            }
+        }
+
+        button {
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            padding: 1em;
+            background-color: transparent;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0;
+            color: var(--icon-picker-color-black);
+            font-size: 11px;
+            transition: 300ms all;
+
+            &:hover,
+            &:active {
+                border-color: var(--icon-picker-color-acent);
+            }
+        }
+
+        svg,
+        img {
+            margin-bottom: 1em;
+            fill: #1e1e1e;
+            color: #1e1e1e;
+        }
+    }
+
+    &__category {
+        padding: 0 1em;
+        margin-bottom: -.25em;
+    }
+
+    &__error {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25em;
+        text-decoration: none !important;
+        color: var(--icon-picker-color-error) !important;
+
+        p {
+            margin: 0;
+            color: var(--icon-picker-color-error);
+        }
+    }
+}

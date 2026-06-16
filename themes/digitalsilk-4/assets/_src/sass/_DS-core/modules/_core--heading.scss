@@ -1,0 +1,94 @@
+@use "../mixins/include-media" as *;
+
+/* Heading Component */
+
+/**
+ * HEADING Module
+ *
+ * Standalone heading selectors, title, pre/sub-title
+ *
+ */
+
+.c-heading {
+
+	&__title {
+		position: relative;
+		font-size: inherit;
+		font-weight: inherit;
+		text-transform: inherit;
+		line-height: inherit;
+		color: var(--dst--base-heading-color);
+		margin: 0;
+		z-index: 1;
+	}
+
+	&__pre {
+		color: var(--dst--pretitle-color, var(--dst--primary-color2));
+		line-height: var(--dst--pretitle-line-height, 1.4);
+		letter-spacing: var(--dst--pretitle-letter-spacing, 0);
+		margin-bottom: var(--dst--pretitle-margin-bottom, .5em);
+		font-family: var(--dst--pretitle-font);
+		font-weight: var(--dst--pretitle-font-weight, 500);
+		text-transform: var(--dst--pretitle-text-transform);
+		font-size: calc(var(--dst--pretitle-font-size-mobile, 18px) * 1.25);
+
+		@include media('>desktop') {
+			font-size: var(--dst--pretitle-font-size, 2.4rem);
+		}
+	}
+
+	&__sub {
+		color: var(--dst--subtitle-color, var(--dst--primary-color2));
+		line-height: var(--dst--subtitle-line-height, 1.4);
+		letter-spacing: var(--dst--subtitle-letter-spacing, 0);
+		margin-top: var(--dst--subtitle-margin-bottom, .5em);
+		font-family: var(--dst--subtitle-font);
+		font-weight: var(--dst--subtitle-font-weight, 500);
+		text-transform: var(--dst--subtitle-text-transform);
+		font-size: calc(var(--dst--subtitle-font-size-mobile, 18px) * 1.25);
+
+		@include media('>desktop') {
+			font-size: var(--dst--subtitle-font-size, 2.4rem);
+		}
+	}
+
+	&__preamble {
+		width: calc(100vw - 8.1px);
+		max-width: none;
+		position: relative;
+		left: 50%;
+		right: 50%;
+		margin-left: -50vw;
+		margin-right: -50vw;
+		height: 10px;
+
+		color: var(--dst--backtitle-color);
+		letter-spacing: var(--dst--backtitle-letter-spacing, 0);
+		font-family: var(--dst--backtitle-font);
+		font-weight: var(--dst--backtitle-font-weight, 500);
+		text-transform: var(--dst--backtitle-text-transform);
+		font-size: var(--dst--backtitle-font-size, 2.4rem);
+		opacity: .2;
+		line-height: .8;
+		white-space: nowrap;
+		top: 0;
+		padding: .2em 0;
+	}
+
+	&__description {
+		font-size: var(--dst--heading-desc-size, var(--dst--base-text-size));
+		color: var(--dst--base-text-color);
+	}
+
+	.is-style-colors-inverted & {
+		--dst--base-heading-color: var(--dst--base-heading-color-alt);
+		--dst--pretitle-color: var(--dst--pretitle-color-alt);
+		--dst--backtitle-color: var(--dst--backtitle-color-alt);
+		--dst--subtitle-color: var(--dst--subtitle-color-alt);
+	}
+
+	.no-inner-margin & {
+		margin-bottom: 0;
+	}
+
+}

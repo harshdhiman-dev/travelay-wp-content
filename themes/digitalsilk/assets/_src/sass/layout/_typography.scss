@@ -1,0 +1,26 @@
+@use "../_DS-core/layout/core--typography";
+@use "../_DS-core/mixins/font-face" as *;
+
+// For downloading google fonts please use https://gwfh.mranftl.com/fonts
+
+// Custom Font Mixin Example:
+
+@include addFontFace('inter-tight', '@/fonts/inter-tight', ('woff2'), (
+		createFontMap('inter-tight-v8-latin-regular', 400),
+		createFontMap('inter-tight-v8-latin-500', 500),
+		createFontMap('inter-tight-v8-latin-600', 600),
+		createFontMap('inter-tight-v8-latin-700', 700),
+		createFontMap('inter-tight-v8-latin-800', 800),
+));
+@include addFontFace('inter', '@/fonts/inter', ('woff2'), (
+		createFontMap('inter-v18-latin-regular', 400),
+		createFontMap('inter-v18-latin-700', 700),
+		createFontMap('inter-v18-latin-900', 900),
+));
+
+// Set Global Font Variables
+
+:root {
+	--dst--font-primary: 'inter';
+	--dst--font-secondary: 'inter-tight';
+}

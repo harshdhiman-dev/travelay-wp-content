@@ -1,0 +1,117 @@
+@use "../../mixins/include-media" as *;
+
+.nav-main,
+.nav-secondary {
+	--menu-arrow-size:2.4rem;
+
+	&,
+	&__wrap {
+		height: 100%;
+	}
+
+	a:not(.c-btn) {
+		display: block;
+		text-decoration: none;
+	}
+
+	.nav-icon {
+		color: var(--menu-arrow-color, currentcolor);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		pointer-events: none;
+		background: transparent;
+		border: 0;
+		top: 5px;
+		transform: none;
+		height: var(--toggle-submenu-btn-height, 22px);
+		cursor: pointer;
+		width: var(--toggle-submenu-btn-width, auto);
+		max-height: calc(var(--toggle-submenu-btn-height, 20px) + var(--navbar-link-vpadding, 0px));
+		margin-left: -.5rem;
+		padding-inline: 0;
+		outline: none;
+
+		@include media('<=desktop') {
+			background: var(--toggle-submenu-btn-bg);
+		}
+
+		.icon {
+			width: var(--menu-arrow-size, 1.4rem);
+			height: var(--menu-arrow-size, 1.4rem);
+			transition: transform 0.36s ease-in-out;
+		}
+
+		&__close {
+
+			@include media('>desktop') {
+				display: none;
+			}
+		}
+	}
+
+	/* Sub menu toggle */
+
+	.menu-item-has-children {
+		position: relative;
+
+		@include media('>desktop') {
+			display: flex;
+		}
+
+		> a:not(.c-btn),
+		> .plain-menu-item {
+			padding-right: 1ch;
+			position: relative;
+		}
+
+		> .nav-icon {
+
+			&[aria-expanded='true'] {
+
+				.icon {
+					transform: rotate(180deg);
+				}
+			}
+		}
+
+		@include media('>desktop') {
+
+			> .sub-menu {
+				transform: translate(-50%, 0);
+
+			}
+
+			> .nav-icon {
+
+				&[aria-expanded='true'] {
+
+					+ .sub-menu {
+						animation: overlay-appear .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+					}
+				}
+			}
+
+			&.is-open,
+			&:hover,
+			&:focus-visible {
+
+				&::before {
+					opacity: 1;
+				}
+
+				> .nav-icon {
+
+					.icon {
+						transform: rotate(180deg);
+					}
+				}
+
+				> .sub-menu {
+					animation: overlay-appear .5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+				}
+			}
+
+		}
+	}
+}

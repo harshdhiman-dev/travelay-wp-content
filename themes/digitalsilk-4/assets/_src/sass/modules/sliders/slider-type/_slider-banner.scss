@@ -1,0 +1,76 @@
+@use "../../../_DS-core/mixins/include-media" as *;
+@use "../../../_DS-core/modules/sliders/slider-type/slider-banner";
+
+.slider-banner {
+
+	--tab-bg: #fff;
+	--tab-color: var(--dst--primary-color2);
+	--tab-bg-active: var(--dst--primary-color1);
+	--tab-color-active: #fff;
+	--tab-border-color: #555;
+
+	.m-banner {	}
+
+	/* Banner Slider Thumbnails Layouts (DELETE all below if no thumbs in design) */
+
+	/* Thumbs Layout V1: Bottom tabs view */
+
+	.l-slider-nav:has(.slider-nav-v1) {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 1;
+	}
+
+	/* Thumbs Layout V2 */
+
+	.l-slider-nav:has(.slider-nav-v2) {
+		display: grid;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 1;
+	}
+
+	.slider-nav-v2 {
+		width: 50%;
+		justify-self: flex-end;
+		padding: 10px;
+		display: flex;
+		justify-content: flex-end;
+
+		.slider-nav__item {
+			max-width: 120px;
+		}
+
+		.slider-nav__icon {
+			display: block;
+			overflow: hidden;
+			height: 100%;
+
+			img {
+				height: 100%;
+				width: 100%;
+				object-fit: cover;
+			}
+		}
+	}
+
+	/* Thumbs Layout V3: Top Tabs View */
+
+	.m-slider__container:has(.slider-nav-v3) {
+		display: flex;
+		flex-direction: column-reverse;
+		width: 100%;
+
+		.l-slider-nav {
+			position: relative;
+		}
+	}
+
+}
+
+
+

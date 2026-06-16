@@ -1,0 +1,58 @@
+{
+    "apiVersion": 2,
+    "name": "ds-blocks/ds-tab",
+    "title": "Tab item",
+    "description": "Tab item",
+    "icon": "list-view",
+    "parent": ["ds-blocks/ds-tabs"],
+    "supports": {
+        "reusable": false,
+        "anchor": true,
+        "html": false,
+        "background": {
+            "backgroundImage": true,
+            "backgroundSize": true
+        },
+        "typography": {
+            "fontSize": true,
+            "__experimentalFontFamily": true,
+            "__experimentalTextTransform": true,
+            "__experimentalDefaultControls": {
+                "fontSize": true,
+                "textTransform": true
+            }
+        }
+    },
+    "attributes": {
+        "anchor": {
+            "type": "string",
+            "default": ""
+        },
+        "currentBlockIndex": {
+            "type": "number"
+        }
+    },
+    "usesContext" : [
+        "ds-blocks/selectedIndex",
+        "ds-blocks/tabItem",
+        "ds-blocks/tabAccordion",
+        "ds-blocks/isActiveSelected",
+        "ds-blocks/currentBlockClientId",
+	  	"ds-blocks/showDescription",
+	  	"ds-blocks/isNumberedLabels"
+    ],
+    "styles": [
+		{
+			"name": "default",
+			"label": "Default",
+			"isDefault": true
+		},
+		{
+			"name": "inverted",
+			"label": "Inverted"
+		}
+	],
+    "textdomain": "digitalsilk",
+	"editorScript": "file:./index.js",
+	"render": "file:./markup.php"
+}

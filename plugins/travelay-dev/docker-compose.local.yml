@@ -1,0 +1,22 @@
+# Use this file as docker-compose.override.yml!
+version: "2.4"
+
+services:
+  wordpress:
+    image: registry.digitalocean.com/dslk/php/wordpress:php7.4
+    hostname: wp
+    environment:
+    - NGINX_BASIC_AUTH=false
+    - WP_HOME=http://localhost:8080
+    - WP_SITEURL=http://localhost:8080
+    - WP_CONFIG_HTTPS=false
+    ports:
+    - "8080:80"
+    volumes:
+    - "./wp-content:/var/www/wp-content"
+
+
+networks:
+  default:
+  frontend:
+  mail:

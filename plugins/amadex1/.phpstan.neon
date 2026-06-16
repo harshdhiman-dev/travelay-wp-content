@@ -1,0 +1,55 @@
+parameters:
+    level: 5
+    paths:
+        - includes
+        - amadex.php
+    ignoreErrors:
+        # WordPress Core Functions
+        - '#Call to undefined function add_action#'
+        - '#Call to undefined function add_filter#'
+        - '#Call to undefined function wp_verify_nonce#'
+        - '#Call to undefined function check_ajax_referer#'
+        - '#Call to undefined function wp_send_json_success#'
+        - '#Call to undefined function wp_send_json_error#'
+        - '#Call to undefined function sanitize_text_field#'
+        - '#Call to undefined function sanitize_email#'
+        - '#Call to undefined function sanitize_textarea_field#'
+        - '#Call to undefined function current_user_can#'
+        - '#Call to undefined function is_wp_error#'
+        - '#Call to undefined function wp_remote_get#'
+        - '#Call to undefined function wp_remote_post#'
+        - '#Call to undefined function wp_remote_retrieve_body#'
+        - '#Call to undefined function get_option#'
+        - '#Call to undefined function is_email#'
+        - '#Call to undefined function get_bloginfo#'
+        - '#Call to undefined function get_site_url#'
+        - '#Call to undefined function wp_mail#'
+        - '#Call to undefined function wp_strip_all_tags#'
+        - '#Call to undefined function dbDelta#'
+        - '#Call to undefined function __#'
+        - '#Call to undefined function esc_html#'
+        - '#Call to undefined function esc_html__#'
+        - '#Call to undefined function esc_attr#'
+        - '#Call to undefined function esc_url#'
+        - '#Call to undefined function esc_textarea#'
+        - '#Call to undefined function plugin_dir_path#'
+        - '#Call to undefined function plugin_dir_url#'
+        - '#Call to undefined function plugin_basename#'
+        - '#Call to undefined function register_activation_hook#'
+        - '#Call to undefined function get_permalink#'
+        - '#Call to undefined function home_url#'
+        - '#Call to undefined function current_time#'
+        # WordPress Constants
+        - '#Undefined constant ABSPATH#'
+        - '#Undefined constant DB_NAME#'
+        - '#Undefined constant ARRAY_A#'
+        - '#Undefined constant ARRAY_N#'
+        # General WordPress function patterns
+        - '#Undefined function#'
+        - '#Call to undefined function [a-zA-Z0-9\\_]+#'
+    excludePaths:
+        - vendor
+        - node_modules
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+

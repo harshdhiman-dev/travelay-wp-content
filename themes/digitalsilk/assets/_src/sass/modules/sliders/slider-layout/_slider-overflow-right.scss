@@ -1,0 +1,28 @@
+@use "../../../_DS-core/mixins/include-media" as *;
+
+@include media(">desktop") {
+
+	.m-slider.overflow-right {
+
+		.m-slider__outer {
+			display: flex;
+			gap: 5rem;
+			overflow: visible;
+		}
+
+		.l-heading {
+			flex: 25% 0 0;
+		}
+
+		.m-slider__inner {
+			flex: 1 1 auto;
+			margin-right: -50vw;
+			overflow: hidden;
+			padding-right: calc(50vw + 10px);
+		}
+
+		.m-slider__container {
+			overflow: visible;
+		}
+	}
+}

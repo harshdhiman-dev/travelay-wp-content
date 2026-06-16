@@ -1,0 +1,46 @@
+@mixin hover-title($top: 52px) {
+
+	.acf-fields > .acf-field {
+
+		.description {
+			margin: 0;
+			position: absolute;
+			top: $top;
+			font-size: 11px;
+			opacity: 0;
+			left: 0;
+		}
+
+		&:hover {
+
+			.description {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+@mixin accordion-tile {
+
+	.acf-fields.-border {
+		border: 0;
+	}
+
+	.acf-fields {
+
+		.acf-field-accordion {
+			margin-bottom: 0.4em;
+			border-radius: var(--dst-admin-panel-radius);
+			border: 0;
+
+			.acf-accordion-title {
+				border-radius: var(--dst-admin-panel-radius);
+				border: 1px solid var(--dst-admin-panel-border-color);
+			}
+
+			.acf-input.acf-accordion-content > .acf-fields {
+				border: 0;
+			}
+		}
+	}
+}

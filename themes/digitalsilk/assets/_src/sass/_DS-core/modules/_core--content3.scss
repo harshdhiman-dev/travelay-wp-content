@@ -1,0 +1,158 @@
+@use "../../_DS-core/mixins/include-media" as *;
+
+/**
+ ############################
+ #   MODULE: C Content Blocks (ccbl-)
+ ############################
+ */
+
+/**
+ ##########################
+ #   Custom Content Blocks
+ ##########################
+ */
+
+.l-ccbl {
+
+	--ccbl-icon-size: 100px;
+
+	@include media("<=tablet") {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	@include media(">tablet") {
+		display: grid;
+		gap: var(--l-block__gap);
+	}
+
+	&__img {
+		grid-area: item-img;
+		align-content: center;
+		display: grid;
+
+		@include media("<=tablet") {
+			display: none;
+		}
+	}
+
+	&__item {
+
+		@include media("<=tablet") {
+			width: 100%;
+		}
+
+		@include media(">tablet") {
+
+			&:nth-child(2) {
+				grid-area: item1;
+			}
+
+			&:nth-child(3) {
+				grid-area: item2;
+			}
+
+			&:nth-child(4) {
+				grid-area: item3;
+			}
+
+			&:nth-child(5) {
+				grid-area: item4;
+			}
+
+			&:nth-child(6) {
+				grid-area: item5;
+			}
+
+			&:nth-child(7) {
+				grid-area: item6;
+			}
+
+			&:nth-child(8) {
+				grid-area: item7;
+			}
+
+			&:nth-child(9) {
+				grid-area: item8;
+			}
+		}
+
+		.is-vertical {
+
+			.c-block__media {
+				margin-bottom: 1em;
+			}
+		}
+
+		.is-horizontal {
+
+			@include media("<=tablet") {
+				flex-direction: column;
+			}
+
+			@include media(">tablet") {
+				display: flex;
+
+				.c-block__media {
+					display: flex;
+					gap: 15px;
+
+					.c-media {
+						margin: auto;
+					}
+				}
+			}
+		}
+	}
+
+	.c-block {
+		width: 100%;
+		padding: var(--c-block__padding-block, 15px) var(--c-block__padding-inline, 15px);
+		position: relative;
+
+		&.align-top {
+			align-items: flex-start;
+		}
+
+		&.align-center {
+			align-items: center;
+		}
+
+		&.align-bottom {
+			align-items: flex-end;
+		}
+	}
+
+	.c-block__media {
+		flex: 0 0 var(--ccbl-icon-size);
+		height: var(--ccbl-icon-size);
+		min-width: var(--ccbl-icon-size);
+		margin-right: 20px;
+
+		@include media("<=tablet") {
+			margin: 0 0 15px;
+		}
+	}
+
+	.c-block__body {
+		flex: 1 1 auto;
+
+		.-h4 {
+			margin: 0;
+		}
+	}
+
+	.c-block__title {
+		color: var(--dst--base-heading-color);
+	}
+
+	.c-block__link-full {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 10;
+	}
+}
+

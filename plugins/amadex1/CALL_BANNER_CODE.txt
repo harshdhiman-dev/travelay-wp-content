@@ -1,0 +1,670 @@
+<style>
+  :root{
+    --travelay-green:#0E7D3F;
+    --travelay-orange:#F6851F;
+    --travelay-dark:#0b0f12;
+    --panel-bg: rgba(0,0,0,0.10);
+    --card-radius:16px;
+    --safe-bottom: 12px;
+    --outer-pad: 12px;
+    --rotator-font: 15px;
+  }
+
+  .tgn-banner{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    pointer-events:none;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+
+  .tgn-card{
+    width:100%;
+    max-width:620px;
+    pointer-events:auto;
+    position:relative;
+    filter:drop-shadow(0 12px 28px rgba(0,0,0,0.28));
+  }
+
+  @keyframes tgnBlinkBG{
+    0%,49%{ background:var(--travelay-green); }
+    50%,100%{ background:var(--travelay-orange); }
+  }
+  @keyframes tgnStroke{
+    0%,49%{ stroke:var(--travelay-green); }
+    50%,100%{ stroke:var(--travelay-orange); }
+  }
+  @keyframes tgnShine{
+    0%   { transform:translateX(-160%) skewX(-20deg); opacity:0; }
+    10%  { opacity:0.35; }
+    35%  { opacity:0; }
+    100% { transform:translateX(260%) skewX(-20deg); opacity:0; }
+  }
+
+  .tgn-drawer{
+    position:relative;
+    overflow:hidden;
+    border-radius:var(--card-radius);
+    border:1px solid rgba(255,255,255,0.55);
+    background:var(--travelay-green);
+  }
+
+  .tgn-collapsed{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 14px;
+    cursor:pointer;
+    user-select:none;
+    color:#fff;
+    text-decoration:none;
+    animation:tgnBlinkBG 1.05s steps(1,end) infinite;
+    transform:skewX(-8deg);
+    position:relative;
+    overflow:hidden;
+  }
+  .tgn-collapsed::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    width:60%;
+    background:rgba(255,255,255,0.75);
+    mix-blend-mode:overlay;
+    transform:translateX(-160%) skewX(-20deg);
+    animation:tgnShine 2.4s linear infinite;
+    pointer-events:none;
+  }
+
+  .tgn-collapsed-inner{
+    transform:skewX(8deg);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    position:relative;
+    z-index:2;
+  }
+
+  .tgn-icon{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:#fff;
+    display:grid;
+    place-items:center;
+    flex:0 0 46px;
+  }
+  .tgn-icon svg{
+    width:20px;
+    height:20px;
+    fill:none;
+    stroke:var(--travelay-green);
+    stroke-width:2.3;
+    animation:tgnStroke 1.05s steps(1,end) infinite;
+  }
+
+  .tgn-center{
+    flex:1;
+    min-width:0;
+    text-align:center;
+    line-height:1.15;
+  }
+
+  .tgn-rotator{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.96);
+    color:#111;
+    font-weight:900;
+    letter-spacing:0.01em;
+    font-size:var(--rotator-font);
+    white-space:nowrap;
+    max-width:100%;
+  }
+  .tgn-rotator span{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:100%;
+    display:block;
+  }
+
+  .tgn-arrow{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.18);
+    border:1px solid rgba(255,255,255,0.35);
+    font-size:18px;
+    line-height:1;
+  }
+
+  @media (max-width:420px){
+    :root{ --rotator-font: 14px; }
+    .tgn-rotator{ padding:7px 12px; }
+  }
+
+  .tgn-expanded{
+    max-height:0;
+    opacity:0;
+    transform:translateY(6px);
+    transition:max-height .28s ease, opacity .18s ease, transform .18s ease;
+    background:var(--panel-bg);
+    backdrop-filter:blur(2px);
+  }
+
+  .tgn-open .tgn-expanded{
+    max-height: calc(100dvh - 130px);
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  .tgn-panel{
+    padding:12px 14px 14px 14px;
+    max-height: calc(100dvh - 150px);
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @supports not (height: 100dvh) {
+    .tgn-open .tgn-expanded{ max-height: calc(100vh - 130px); }
+    .tgn-panel{ max-height: calc(100vh - 150px); }
+  }
+
+  .tgn-panel-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+    color:#fff;
+    margin-bottom:10px;
+  }
+
+  .tgn-title{
+    font-weight:900;
+    letter-spacing:.02em;
+    font-size:14px;
+    line-height:1.2;
+  }
+  .tgn-subtitle{
+    font-weight:600;
+    opacity:.9;
+    font-size:12px;
+    margin-top:2px;
+  }
+
+  .tgn-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex:0 0 auto;
+  }
+
+  .tgn-btn{
+    border:none;
+    cursor:pointer;
+    color:#fff;
+    background:rgba(255,255,255,0.18);
+    border:1px solid rgba(255,255,255,0.35);
+    border-radius:12px;
+    width:40px;
+    height:40px;
+    display:grid;
+    place-items:center;
+    font-size:18px;
+    line-height:1;
+  }
+
+  .tgn-close{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    border:none;
+    background:#000;
+    color:#fff;
+    font-size:14px;
+    line-height:1;
+    cursor:pointer;
+    margin-top:9px;
+  }
+
+  .tgn-grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:10px;
+  }
+  @media (max-width:720px){
+    .tgn-grid{ grid-template-columns:1fr; }
+  }
+
+  .tgn-item{
+    --accent1:#111;
+    --accent2:#111;
+    --mark:url("");
+    --tint: rgba(0,0,0,0.035);
+
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px 12px 12px 14px;
+    border-radius:14px;
+    text-decoration:none;
+    color:#0b0f12;
+    background:rgba(255,255,255,0.98);
+    border:1px solid rgba(0,0,0,0.06);
+    overflow:hidden;
+    isolation:isolate;
+    transform:translateZ(0);
+    min-width:0;
+  }
+
+  .tgn-item::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:7px;
+    background:linear-gradient(180deg, var(--accent1), var(--accent2));
+    box-shadow: 2px 0 0 rgba(0,0,0,0.04);
+    z-index:0;
+  }
+
+  .tgn-item::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg, var(--tint), transparent 62%),
+      var(--mark);
+    background-repeat:no-repeat;
+    background-position: right 12px center;
+    background-size: 64px 64px;
+    opacity:1;
+    z-index:0;
+  }
+
+  .tgn-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-width:0;
+    position:relative;
+    z-index:1;
+    flex:1;
+  }
+
+  .tgn-badge{
+    flex:0 0 auto;
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    font-weight:900;
+    font-size:12px;
+    letter-spacing:.04em;
+    padding:6px 10px;
+    border-radius:999px;
+    color:#fff;
+    background:var(--travelay-dark);
+    white-space:nowrap;
+  }
+
+  .tgn-flag{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    overflow:hidden;
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,0.28),
+      0 1px 2px rgba(0,0,0,0.18);
+    flex:0 0 18px;
+    display:block;
+  }
+  .tgn-flag svg{ width:18px; height:18px; display:block; }
+
+  .tgn-number{
+    font-weight:900;
+    font-size:14px;
+    letter-spacing:.01em;
+    position:relative;
+    z-index:1;
+    min-width:0;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  @media (min-width:721px){
+    .tgn-number{
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      line-height:1.15;
+    }
+  }
+
+  .tgn-call{
+    flex:0 0 auto;
+    font-weight:900;
+    font-size:12px;
+    padding:7px 10px;
+    border-radius:999px;
+    background:rgba(0,0,0,0.08);
+    position:relative;
+    z-index:1;
+    white-space:nowrap;
+  }
+
+  @media (max-width:380px){
+    .tgn-item{ padding:11px 10px 11px 12px; }
+    .tgn-badge{ padding:6px 9px; }
+    .tgn-call{ padding:7px 9px; }
+    .tgn-number{ font-size:13px; }
+  }
+
+  .tgn-us{
+    --accent1:#B22234; --accent2:#3C3B6E;
+    --tint: rgba(178,34,52,0.06);
+    --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg opacity='0.10'%3E%3Cpath fill='%233C3B6E' d='M40 16l2.4 4.9 5.4.8-3.9 3.8.9 5.4L40 28.7l-4.8 2.5.9-5.4-3.9-3.8 5.4-.8z'/%3E%3Cpath fill='%23B22234' d='M14 40h36v4H14zm0 8h36v4H14z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .tgn-au{
+    --accent1:#012169; --accent2:#012169;
+    --tint: rgba(1,33,105,0.06);
+    --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg opacity='0.10' fill='%23ffffff'%3E%3Cpath d='M40 18l2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.3-4.5 2.3.9-5-3.6-3.5 5-.7z'/%3E%3Cpath d='M48 34l1.6 3.3 3.6.5-2.6 2.6.6 3.6-3.2-1.7-3.2 1.7.6-3.6-2.6-2.6 3.6-.5z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .tgn-uk{
+    --accent1:#012169; --accent2:#C8102E;
+    --tint: rgba(1,33,105,0.06);
+    --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg opacity='0.10'%3E%3Cpath fill='%23012169' d='M14 18l36 28v-6L22 18z'/%3E%3Cpath fill='%23C8102E' d='M14 46l36-28v6L22 46z'/%3E%3Cpath fill='%23C8102E' d='M30 14h4v36h-4z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .tgn-ca{
+    --accent1:#D80621; --accent2:#D80621;
+    --tint: rgba(216,6,33,0.06);
+    --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg opacity='0.10'%3E%3Cpath fill='%23D80621' d='M32 12l3 9 9-2-6 7 6 7-9-2-3 9-3-9-9 2 6-7-6-7 9 2z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .tgn-in{
+    --accent1:#FF9933; --accent2:#138808;
+    --tint: rgba(255,153,51,0.06);
+    --mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg opacity='0.10'%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='%23000080' stroke-width='3'/%3E%3Cpath d='M32 18v28M18 32h28M22.1 22.1l19.8 19.8M41.9 22.1L22.1 41.9' stroke='%23000080' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .tgn-note{
+    margin-top:10px;
+    color:#fff;
+    opacity:.92;
+    font-size:12px;
+    font-weight:700;
+    text-align:center;
+  }
+
+  @media (min-width:769px){
+    .tgn-collapsed, .tgn-collapsed-inner, .tgn-rotator, .tgn-title, .tgn-number, .tgn-call, .tgn-badge{
+      transform:translateZ(0);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      backface-visibility:hidden;
+      text-rendering:optimizeLegibility;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .tgn-collapsed{ animation:none !important; }
+    .tgn-icon svg{ animation:none !important; }
+    .tgn-collapsed::after{ display:none !important; }
+    .tgn-expanded{ transition:none !important; }
+  }
+</style>
+
+<div class="tgn-banner" id="tgnBanner">
+  <div class="tgn-card">
+    <div class="tgn-drawer" id="tgnDrawer">
+      <div class="tgn-collapsed" id="tgnToggle" role="button" aria-label="Open global support numbers">
+        <div class="tgn-collapsed-inner">
+          <div class="tgn-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <div class="tgn-center">
+            <div class="tgn-rotator" aria-live="polite">
+              <span id="tgnRotatingLine">📞 CLICK TO CALL YOUR LOCAL TFN</span>
+            </div>
+          </div>
+          <div class="tgn-arrow" aria-hidden="true" id="tgnArrow">⬆️</div>
+        </div>
+      </div>
+      <div class="tgn-expanded" id="tgnExpanded" aria-hidden="true">
+        <div class="tgn-panel">
+          <div class="tgn-panel-header">
+            <div>
+              <div class="tgn-title">🌍 FREE GLOBAL SUPPORT</div>
+              <div class="tgn-subtitle">Select your country toll-free line to call</div>
+            </div>
+            <div class="tgn-actions">
+              <button class="tgn-btn" id="tgnCollapseBtn" type="button" aria-label="Collapse">⬇️</button>
+              <button class="tgn-close" id="tgnHideBtn" type="button" aria-label="Hide banner">&times;</button>
+            </div>
+          </div>
+          <div class="tgn-grid" role="list">
+            <a class="tgn-item tgn-us" role="listitem" href="tel:+18777210410" aria-label="Call US support">
+              <div class="tgn-left">
+                <div class="tgn-badge">
+                  <span class="tgn-flag" aria-hidden="true"></span>
+                  US
+                </div>
+                <div class="tgn-number">+1 (877) 721-0410</div>
+              </div>
+              <div class="tgn-call">CALL</div>
+            </a>
+            <a class="tgn-item tgn-au" role="listitem" href="tel:+611800370349" aria-label="Call Australia support">
+              <div class="tgn-left">
+                <div class="tgn-badge">
+                  <span class="tgn-flag" aria-hidden="true"></span>
+                  AU
+                </div>
+                <div class="tgn-number">+61 1800 370 349</div>
+              </div>
+              <div class="tgn-call">CALL</div>
+            </a>
+            <a class="tgn-item tgn-uk" role="listitem" href="tel:+448002946339" aria-label="Call UK support">
+              <div class="tgn-left">
+                <div class="tgn-badge">
+                  <span class="tgn-flag" aria-hidden="true"></span>
+                  UK
+                </div>
+                <div class="tgn-number">+44 800 294 6339</div>
+              </div>
+              <div class="tgn-call">CALL</div>
+            </a>
+            <a class="tgn-item tgn-ca" role="listitem" href="tel:+18777210410" aria-label="Call Canada support">
+              <div class="tgn-left">
+                <div class="tgn-badge">
+                  <span class="tgn-flag" aria-hidden="true"></span>
+                  CA
+                </div>
+                <div class="tgn-number">+1 (877) 721-0410</div>
+              </div>
+              <div class="tgn-call">CALL</div>
+            </a>
+            <a class="tgn-item tgn-in" role="listitem" href="tel:+917888798732" aria-label="Call India support">
+              <div class="tgn-left">
+                <div class="tgn-badge">
+                  <span class="tgn-flag" aria-hidden="true"></span>
+                  IN
+                </div>
+                <div class="tgn-number">+91 78887 98732</div>
+              </div>
+              <div class="tgn-call">CALL</div>
+            </a>
+          </div>
+          <div class="tgn-note">Toll-Free Numbers • No Call Charges • 24/7 Human Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var banner = document.getElementById('tgnBanner');
+  var drawer = document.getElementById('tgnDrawer');
+  var toggle = document.getElementById('tgnToggle');
+  var expanded = document.getElementById('tgnExpanded');
+  var arrow = document.getElementById('tgnArrow');
+  var collapseBtn = document.getElementById('tgnCollapseBtn');
+  var hideBtn = document.getElementById('tgnHideBtn');
+  var rotatorEl = document.getElementById('tgnRotatingLine');
+
+  if(!banner || !drawer || !toggle || !expanded || !arrow || !rotatorEl) return;
+
+  var all = document.querySelectorAll('#tgnBanner');
+  if(all && all.length > 1){
+    for(var d=1; d<all.length; d++){ all[d].remove(); }
+  }
+
+  var STORAGE_KEY_STATE = 'travelay_global_support_open';
+  var STORAGE_KEY_HIDE  = 'travelay_global_support_hide_until';
+
+  function isHidden(){
+    try{
+      var until = parseInt(localStorage.getItem(STORAGE_KEY_HIDE) || '0', 10);
+      return Date.now() < until;
+    }catch(e){ return false; }
+  }
+  function setHidden24h(){
+    try{
+      localStorage.setItem(STORAGE_KEY_HIDE, String(Date.now() + 24*60*60*1000));
+    }catch(e){}
+  }
+
+  if(isHidden()){
+    banner.style.display = 'none';
+    return;
+  }
+
+  function setOpen(open){
+    if(open){
+      drawer.classList.add('tgn-open');
+      expanded.setAttribute('aria-hidden','false');
+      arrow.textContent = '⬇️';
+    }else{
+      drawer.classList.remove('tgn-open');
+      expanded.setAttribute('aria-hidden','true');
+      arrow.textContent = '⬆️';
+    }
+    try{ localStorage.setItem(STORAGE_KEY_STATE, open ? '1' : '0'); }catch(e){}
+  }
+
+  function getInitialOpen(){
+    try{ return localStorage.getItem(STORAGE_KEY_STATE) === '1'; }catch(e){ return false; }
+  }
+
+  setOpen(getInitialOpen());
+
+  function onToggle(){
+    var open = drawer.classList.contains('tgn-open');
+    setOpen(!open);
+    setTimeout(fitRotatorText, 20);
+  }
+
+  toggle.addEventListener('click', function(e){
+    e.preventDefault();
+    onToggle();
+  });
+
+  toggle.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      onToggle();
+    }
+  });
+
+  if(collapseBtn){
+    collapseBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen(false);
+    });
+  }
+
+  if(hideBtn){
+    hideBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      banner.style.display = 'none';
+      setHidden24h();
+    });
+  }
+
+  var CLAIMS = {
+    govt: false,
+    iata: false,
+    atol: false
+  };
+
+  var baseLines = [
+    "📞 TAP TO CALL YOUR LOCAL TFN",
+    "💸 CALL FOR A BETTER PRICE",
+    "☎️ TOLL-FREE • NO CHARGES",
+    "⚡ LIVE FARES ON CALL",
+    "🧑‍✈️ TALK TO A FLIGHT EXPERT",
+    "✅ 24/7 HUMAN SUPPORT",
+    "🔥 LIMITED SEATS • CALL NOW",
+    "💳 SECURE PAYMENTS",
+    "🧾 INSTANT CONFIRMATION"
+  ];
+
+  var claimLines = [];
+  if (CLAIMS.govt) claimLines.push("🏛️ GOVT ENDORSED AGENCY");
+  if (CLAIMS.iata) claimLines.push("🛡️ IATA AFFILIATED / ACCREDITED");
+  if (CLAIMS.atol) claimLines.push("🛡️ ATOL CERTIFIED PROTECTION");
+
+  var lines = baseLines.concat(claimLines);
+  var i = Math.floor(Math.random() * lines.length);
+  rotatorEl.textContent = lines[i];
+
+  function getMaxRotatorWidth(){
+    var center = banner.querySelector('.tgn-center');
+    if(!center) return null;
+    var w = center.getBoundingClientRect().width;
+    return Math.max(180, w);
+  }
+
+  function setRootVar(name, value){
+    try{ document.documentElement.style.setProperty(name, value); }catch(e){}
+  }
+
+  function fitRotatorText(){
+    var maxW = getMaxRotatorWidth();
+    if(!maxW) return;
+    var rot = rotatorEl;
+    if(!rot) return;
+    var min = 12;
+    var safety = 20;
+    var n = 15;
+    setRootVar('--rotator-font', n + 'px');
+    while(n > min && rot.scrollWidth > (rot.clientWidth + safety)){
+      n -= 1;
+      setRootVar('--rotator-font', n + 'px');
+    }
+  }
+
+  fitRotatorText();
+  window.addEventListener('resize', function(){
+    fitRotatorText();
+  }, {passive:true});
+
+  setInterval(function(){
+    i = (i + 1) % lines.length;
+    rotatorEl.textContent = lines[i];
+    fitRotatorText();
+  }, 1700);
+
+})();
+</script>

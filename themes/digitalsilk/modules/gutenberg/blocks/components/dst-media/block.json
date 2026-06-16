@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "ds-blocks/c-media",
+	"title": "DST Media Component",
+	"category": "ds-components",
+	"icon": "admin-media",
+	"description": "Advanced media block with an options to select videos, images, different styles, etc'",
+	"example": {},
+	"attributes": {
+		"anchor": {
+			"type": "string",
+			"default": ""
+		},
+		"media": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"dsClassList" : [
+			{
+				"name": "alex-is-awesome",
+				"label": "Custom class 1"
+			},
+			{
+				"name": "danny-change-me",
+				"label": "Custom class 2"
+			}
+		]
+	},
+	"textdomain": "dstheme",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./markup.php"
+}

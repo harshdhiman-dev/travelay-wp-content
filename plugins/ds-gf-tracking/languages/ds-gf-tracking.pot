@@ -1,0 +1,84 @@
+# Copyright (C) 2024 Digital Silk
+# This file is distributed under the same license as the DS Gravity Forms Tracking Addon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: DS Gravity Forms Tracking Addon 1.0.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ds-gf-tracking\n"
+"POT-Creation-Date: 2024-10-28 14:07:18+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n 1.0.3\n"
+
+#: includes/class-ds-gf-tracking.php:157
+msgid ""
+"DS Gravity Forms Tracking Addon requires Gravity Forms plugin to be active. "
+"Please activate Gravity Forms to enable tracking features."
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:183 includes/class-ds-gf-tracking.php:211
+#: includes/class-ds-gf-tracking.php:286
+msgid "Direct"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:320
+msgid "UTM Source"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:321
+msgid "UTM Medium"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:322
+msgid "UTM Campaign"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:323
+msgid "UTM Term"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:324
+msgid "UTM Content"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:325
+msgid "UTM ID"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:326
+msgid "Referer"
+msgstr ""
+
+#: includes/class-ds-gf-tracking.php:380
+msgid "DS Tracking Data"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "DS Gravity Forms Tracking Addon"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.digitalsilk.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Capture UTM parameters and pass them with Gravity Forms submissions."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Digital Silk"
+msgstr ""
