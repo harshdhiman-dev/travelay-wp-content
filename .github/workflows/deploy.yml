@@ -11,14 +11,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Deploy via SFTP
-        uses: pressidium/lftp-mirror-action@v1
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_USER }}
-          pass: ${{ secrets.FTP_PASS }}
-          remoteDir: ${{ secrets.FTP_REMOTE_PATH }}
-          localDir: './'
-          options: '--verbose --no-perms'
-          settings: 'sftp:auto-confirm yes; set ssl:verify-certificate false; set net:timeout 30; set ftp:ssl-protect-data true;'
-          port: 65002
-          protocol: sftp
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          port: ${{ secrets.SSH_PORT }}
+          local_path: './*'
+          remote_path: ${{ secrets.FTP_REMOTE_PATH }}
+          sftp_only: true
