@@ -627,6 +627,10 @@ class Amadex_Tabbed_Search
                     margin-top: 8px !important;
                 }
 
+                div.ats-container {
+                    opacity: unset !important;
+                }
+
                 .ats-datepicker-wrap {
                     min-width: 320px !important;
                     flex-direction: column !important;

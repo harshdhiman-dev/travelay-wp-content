@@ -1694,7 +1694,7 @@ class Amadex_Shortcodes
                                 <div class="amadex-trip-option">
                                     <input type="radio" class="radio-input" id="<?php echo esc_attr($trip_round_id); ?>" name="tripType" value="round"
                                         checked>
-                                    <label for="<?php echo esc_attr($trip_round_id); ?>" class="amadex-trip-label">Round Trip</label>
+                                    <label for="<?php echo esc_attr($trip_round_id); ?>" class="amadex-trip-label">Round Tripaaaaa</label>
                                 </div>
                                 <div class="amadex-trip-option">
                                     <input type="radio" class="radio-input" id="<?php echo esc_attr($trip_oneway_id); ?>" name="tripType" value="oneway">
