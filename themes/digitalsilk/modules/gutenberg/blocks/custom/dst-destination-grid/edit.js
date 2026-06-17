@@ -106,6 +106,7 @@ export const BlockEdit = (props) => {
 								value={item.media}
 								onChange={(newMedia) => updateItem(index, 'media', newMedia)}
 								panelOpened={false}
+								showInspectorControls={false}
 							/>
 						</div>
 
