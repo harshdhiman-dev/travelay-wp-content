@@ -13,13 +13,10 @@ import {
 	Button,
 	PanelBody,
 	PanelRow,
-	ToggleGroupControl,
-	ToggleGroupControlOption,
 	SelectControl,
 	ToggleControl,
 	RangeControl,
 	ColorPicker,
-	Dropdown,
 } from '@wordpress/components';
 import { plus, trash, upload, image as imageIcon } from '@wordpress/icons';
 import classNames from 'classnames';
@@ -167,17 +164,17 @@ export const BlockEdit = (props) => {
 			<InspectorControls>
 				<PanelBody title={__('Background', 'dstheme')} initialOpen={false}>
 					<PanelRow>
-						<ToggleGroupControl
+						<SelectControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							isBlock
 							label={__('Background Type', 'dstheme')}
 							value={background?.type || 'none'}
+							options={[
+								{ label: __('None', 'dstheme'), value: 'none' },
+								{ label: __('Image', 'dstheme'), value: 'image' },
+							]}
 							onChange={(value) => updateBackground('type', value)}
-						>
-							<ToggleGroupControlOption value="none" label={__('None', 'dstheme')} />
-							<ToggleGroupControlOption value="image" label={__('Image', 'dstheme')} />
-						</ToggleGroupControl>
+						/>
 					</PanelRow>
 
 					{background?.type === 'image' && (
@@ -318,24 +315,10 @@ export const BlockEdit = (props) => {
 									<p className="c-destination-grid__panel-label">
 										{__('Overlay Color', 'dstheme')}
 									</p>
-									<Dropdown
-										contentClassName="c-destination-grid__color-popover"
-										renderToggle={({ isOpen, onToggle }) => (
-											<Button variant="secondary" onClick={onToggle} aria-expanded={isOpen}>
-												<span
-													className="c-destination-grid__color-swatch"
-													style={{ backgroundColor: background?.overlayColor || '#000000' }}
-												/>
-												{__('Select Color', 'dstheme')}
-											</Button>
-										)}
-										renderContent={() => (
-											<ColorPicker
-												color={background?.overlayColor || '#000000'}
-												onChange={(value) => updateBackground('overlayColor', value)}
-												enableAlpha
-											/>
-										)}
+									<ColorPicker
+										color={background?.overlayColor || '#000000'}
+										onChange={(value) => updateBackground('overlayColor', value)}
+										enableAlpha
 									/>
 								</div>
 							</PanelRow>
