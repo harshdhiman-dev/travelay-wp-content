@@ -101,6 +101,19 @@
 				"overlayOpacity": 0,
 				"overlayColor": "#000000"
 			}
+		},
+		"spacing": {
+			"type": "object",
+			"default": {
+				"paddingTop": "",
+				"paddingRight": "",
+				"paddingBottom": "",
+				"paddingLeft": "",
+				"marginTop": "",
+				"marginRight": "",
+				"marginBottom": "",
+				"marginLeft": ""
+			}
 		}
 	},
 	"supports": {

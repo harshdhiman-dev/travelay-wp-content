@@ -137,3 +137,10 @@
 .c-destination-grid__color-popover {
 	padding: 16px;
 }
+
+.c-destination-grid__spacing-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 8px;
+	margin-bottom: 16px;
+}

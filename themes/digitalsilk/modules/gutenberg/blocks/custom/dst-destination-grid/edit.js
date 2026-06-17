@@ -17,6 +17,7 @@ import {
 	ToggleControl,
 	RangeControl,
 	ColorPicker,
+	TextControl,
 } from '@wordpress/components';
 import { plus, trash, upload, image as imageIcon } from '@wordpress/icons';
 import classNames from 'classnames';
@@ -40,7 +41,7 @@ const MEDIA_POSITION_OPTIONS = [
 
 export const BlockEdit = (props) => {
 	const { attributes, setAttributes, wrapperProps } = props;
-	const { heading, items, background } = attributes;
+	const { heading, items, background, spacing } = attributes;
 
 	/**
 	 * Build the live preview inline style for the background, mirrored on the frontend in render.php.
@@ -55,10 +56,20 @@ export const BlockEdit = (props) => {
 		backgroundStyle.backgroundRepeat = 'no-repeat';
 	}
 
+	const spacingStyle = {};
+	if (spacing?.paddingTop) spacingStyle.paddingTop = spacing.paddingTop;
+	if (spacing?.paddingRight) spacingStyle.paddingRight = spacing.paddingRight;
+	if (spacing?.paddingBottom) spacingStyle.paddingBottom = spacing.paddingBottom;
+	if (spacing?.paddingLeft) spacingStyle.paddingLeft = spacing.paddingLeft;
+	if (spacing?.marginTop) spacingStyle.marginTop = spacing.marginTop;
+	if (spacing?.marginRight) spacingStyle.marginRight = spacing.marginRight;
+	if (spacing?.marginBottom) spacingStyle.marginBottom = spacing.marginBottom;
+	if (spacing?.marginLeft) spacingStyle.marginLeft = spacing.marginLeft;
+
 	const blockProps = useBlockProps({
 		...wrapperProps,
 		className: classNames(wrapperProps?.className, 'c-destination-grid'),
-		style: { ...wrapperProps?.style, ...backgroundStyle },
+		style: { ...wrapperProps?.style, ...backgroundStyle, ...spacingStyle },
 	});
 
 	/**
@@ -159,6 +170,16 @@ export const BlockEdit = (props) => {
 	 */
 	const removeBackgroundImage = (key) => {
 		updateBackground(key, { id: '', url: '', alt: '' });
+	};
+
+	/**
+	 * Update a single field of the spacing settings.
+	 *
+	 * @param {string} key   Spacing attribute key.
+	 * @param {*}      value New value.
+	 */
+	const updateSpacing = (key, value) => {
+		setAttributes({ spacing: { ...spacing, [key]: value } });
 	};
 
 	return (
@@ -342,6 +363,80 @@ export const BlockEdit = (props) => {
 							</PanelRow>
 						</>
 					)}
+				</PanelBody>
+
+				<PanelBody title={__('Spacing', 'dstheme')} initialOpen={false}>
+					<p className="c-destination-grid__panel-label">{__('Padding', 'dstheme')}</p>
+					<div className="c-destination-grid__spacing-grid">
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Top', 'dstheme')}
+							value={spacing?.paddingTop || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('paddingTop', value)}
+						/>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Right', 'dstheme')}
+							value={spacing?.paddingRight || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('paddingRight', value)}
+						/>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Bottom', 'dstheme')}
+							value={spacing?.paddingBottom || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('paddingBottom', value)}
+						/>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Left', 'dstheme')}
+							value={spacing?.paddingLeft || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('paddingLeft', value)}
+						/>
+					</div>
+
+					<p className="c-destination-grid__panel-label">{__('Margin', 'dstheme')}</p>
+					<div className="c-destination-grid__spacing-grid">
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Top', 'dstheme')}
+							value={spacing?.marginTop || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('marginTop', value)}
+						/>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Right', 'dstheme')}
+							value={spacing?.marginRight || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('marginRight', value)}
+						/>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Bottom', 'dstheme')}
+							value={spacing?.marginBottom || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('marginBottom', value)}
+						/>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={__('Left', 'dstheme')}
+							value={spacing?.marginLeft || ''}
+							placeholder="0px"
+							onChange={(value) => updateSpacing('marginLeft', value)}
+						/>
+					</div>
 				</PanelBody>
 
 				<PanelBody title={__('Media Content', 'dstheme')} initialOpen={true}>

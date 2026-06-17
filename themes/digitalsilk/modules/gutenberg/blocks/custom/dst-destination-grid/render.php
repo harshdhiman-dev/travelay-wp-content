@@ -56,6 +56,50 @@ if ( $has_background_color ) {
 
 	$extra_attributes['style'] = ( isset( $extra_attributes['style'] ) ? $extra_attributes['style'] . '; ' : '' ) . implode( '; ', $bg_style );
 }
+
+$spacing = wp_parse_args(
+	$attributes['spacing'] ?? [],
+	[
+		'paddingTop'    => '',
+		'paddingRight'  => '',
+		'paddingBottom' => '',
+		'paddingLeft'   => '',
+		'marginTop'     => '',
+		'marginRight'   => '',
+		'marginBottom'  => '',
+		'marginLeft'    => '',
+	]
+);
+
+$spacing_style = [];
+if ( ! empty( $spacing['paddingTop'] ) ) {
+	$spacing_style[] = 'padding-top: ' . esc_attr( $spacing['paddingTop'] );
+}
+if ( ! empty( $spacing['paddingRight'] ) ) {
+	$spacing_style[] = 'padding-right: ' . esc_attr( $spacing['paddingRight'] );
+}
+if ( ! empty( $spacing['paddingBottom'] ) ) {
+	$spacing_style[] = 'padding-bottom: ' . esc_attr( $spacing['paddingBottom'] );
+}
+if ( ! empty( $spacing['paddingLeft'] ) ) {
+	$spacing_style[] = 'padding-left: ' . esc_attr( $spacing['paddingLeft'] );
+}
+if ( ! empty( $spacing['marginTop'] ) ) {
+	$spacing_style[] = 'margin-top: ' . esc_attr( $spacing['marginTop'] );
+}
+if ( ! empty( $spacing['marginRight'] ) ) {
+	$spacing_style[] = 'margin-right: ' . esc_attr( $spacing['marginRight'] );
+}
+if ( ! empty( $spacing['marginBottom'] ) ) {
+	$spacing_style[] = 'margin-bottom: ' . esc_attr( $spacing['marginBottom'] );
+}
+if ( ! empty( $spacing['marginLeft'] ) ) {
+	$spacing_style[] = 'margin-left: ' . esc_attr( $spacing['marginLeft'] );
+}
+
+if ( ! empty( $spacing_style ) ) {
+	$extra_attributes['style'] = ( isset( $extra_attributes['style'] ) ? $extra_attributes['style'] . '; ' : '' ) . implode( '; ', $spacing_style );
+}
 ?>
 
 <div <?php ds_theme_generate_anchor( $attributes ); ?> <?php echo get_block_wrapper_attributes( $extra_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
