@@ -18,6 +18,7 @@
 		z-index: 1;
 		text-align: center;
 		margin-bottom: 32px;
+		padding: 0 16px;
 	}
 
 	&__decoration {
@@ -48,6 +49,7 @@
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: repeat(2, 1fr);
 		gap: 20px;
+		padding: 0 16px;
 	}
 
 	&__item {
@@ -110,6 +112,7 @@
 	&__label {
 		position: absolute;
 		left: 20px;
+		right: 20px;
 		bottom: 16px;
 		z-index: 2;
 		color: #fff;
@@ -149,9 +152,14 @@
 
 	@media (max-width: 991px) {
 
+		&__title {
+			font-size: 2.2rem;
+		}
+
 		&__items {
 			grid-template-columns: repeat(2, 1fr);
 			grid-template-rows: auto;
+			gap: 16px;
 		}
 
 		&__item.-item-3 {
@@ -163,8 +171,24 @@
 
 	@media (max-width: 599px) {
 
+		&__heading {
+			margin-bottom: 24px;
+			padding: 0 12px;
+		}
+
+		&__decoration img {
+			max-width: 120px;
+		}
+
+		&__title {
+			font-size: 1.9rem;
+			line-height: 1.35;
+		}
+
 		&__items {
 			grid-template-columns: 1fr;
+			gap: 14px;
+			padding: 0 12px;
 		}
 
 		&__item,
@@ -172,6 +196,26 @@
 			grid-column: auto;
 			grid-row: auto;
 			min-height: 200px;
+			border-radius: 12px;
+		}
+
+		&__label {
+			left: 16px;
+			right: 16px;
+			bottom: 12px;
+			font-size: 1.4rem;
+		}
+	}
+
+	@media (max-width: 380px) {
+
+		&__title {
+			font-size: 1.7rem;
+		}
+
+		&__item,
+		&__item.-item-3 {
+			min-height: 180px;
 		}
 	}
 
