@@ -6,8 +6,8 @@
 .c-explore {
 	position: relative;
 	overflow: hidden;
-	padding: 60px 0;
-	background-color: var(--dst--explore-bg, #1f7a4d);
+	padding: 56px clamp(24px, 8vw, 110px) 70px;
+	background-color: var(--dst--explore-bg, #137c43);
 	color: #fff;
 
 	&__bg-overlay {
@@ -22,143 +22,146 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		height: 120px;
-		opacity: .12;
-		color: #fff;
+		width: 100%;
+		height: 90px;
 		pointer-events: none;
 		z-index: 0;
-
-		svg {
-			width: 100%;
-			height: 100%;
-			display: block;
-		}
 	}
 
 	&__inner {
 		position: relative;
 		z-index: 1;
-		display: grid;
-		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-		gap: 60px;
-		align-items: stretch;
+		max-width: 1280px;
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		gap: clamp(32px, 7vw, 90px);
 	}
 
 	&__content {
-		position: relative;
-		padding-right: 40px;
-
-		&::after {
-			content: "";
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			right: 0;
-			width: 1px;
-			background: rgba(255, 255, 255, .25);
-		}
+		flex: 1 1 420px;
+		max-width: 600px;
 	}
 
 	&__title {
-		margin: 0 0 12px;
-		font-size: 2.8rem;
 		font-weight: 700;
-		line-height: 1.25;
+		font-size: clamp(22px, 2.1vw, 28px);
+		line-height: 1.3;
 		color: #fff;
+		margin: 0 0 10px;
 	}
 
 	&__subtitle {
-		margin: 0 0 24px;
-		font-size: 1.4rem;
+		font-size: 15px;
 		line-height: 1.5;
-		color: rgba(255, 255, 255, .85);
+		color: rgba(255, 255, 255, .88);
+		margin: 0 0 28px;
+		max-width: 480px;
 	}
 
 	&__card {
-		background: rgba(255, 255, 255, .9);
-		border-radius: 16px;
-		padding: 28px 32px;
+		background: var(--dst--explore-card-bg, #d6f0e3);
+		border-radius: 18px;
+		padding: 26px 32px;
 	}
 
 	&__feature {
 		padding: 16px 0;
-		border-bottom: 1px solid rgba(0, 0, 0, .08);
+		border-bottom: 1px solid rgba(36, 61, 49, .18);
 
 		&:first-child {
-			padding-top: 0;
+			padding-top: 2px;
 		}
 
 		&:last-child {
-			padding-bottom: 0;
 			border-bottom: 0;
+			padding-bottom: 2px;
 		}
 	}
 
 	&__feature-title {
-		margin: 0 0 6px;
-		font-size: 1.6rem;
-		font-weight: 700;
-		color: var(--dst--base-heading-color, #1a1a1a);
+		font-weight: 600;
+		font-size: 16px;
+		color: var(--dst--explore-card-text, #243d31);
+		margin: 0 0 8px;
 	}
 
 	&__feature-description {
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--dst--explore-card-text-light, #4d655a);
 		margin: 0;
-		font-size: 1.3rem;
-		line-height: 1.5;
-		color: var(--dst--base-text-color, #4a4a4a);
 	}
 
-	&__media {
-		position: relative;
-		height: 100%;
+	&__gallery {
+		flex: 0 1 380px;
+		min-width: 240px;
+		display: flex;
+		gap: 16px;
 	}
 
-	&__image {
-		position: relative;
-		border-radius: 16px;
-		overflow: hidden;
-		height: 100%;
-		min-height: 320px;
+	&__gallery-col {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
 
-		img,
-		video {
-			position: absolute;
-			inset: 0;
-			display: block;
-			height: 100%;
-			object-fit: cover;
-			margin: 0;
+		&.-offset {
+			margin-top: -28px;
 		}
 	}
 
-	@media (max-width: 991px) {
+	&__gallery-img {
+		position: relative;
+		aspect-ratio: 197 / 146;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, .10);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+
+		span {
+			font-size: 12px;
+			font-weight: 500;
+			color: rgba(255, 255, 255, .65);
+			letter-spacing: .02em;
+		}
+	}
+
+	@media (max-width: 880px) {
 
 		&__inner {
-			grid-template-columns: 1fr;
-			gap: 40px;
+			flex-direction: column;
 		}
 
 		&__content {
-			padding-right: 0;
-
-			&::after {
-				display: none;
-			}
+			max-width: none;
 		}
 
-		&__image {
-			min-height: 280px;
+		&__gallery {
+			flex: 1 1 auto;
+			width: 100%;
+			max-width: 420px;
 		}
 	}
 
-	@media (max-width: 599px) {
+	@media (max-width: 480px) {
 
-		&__card {
-			padding: 20px;
+		&__gallery-col.-offset {
+			margin-top: 0;
 		}
 
-		&__image {
-			min-height: 220px;
+		&__card {
+			padding: 22px 20px;
 		}
 	}
 

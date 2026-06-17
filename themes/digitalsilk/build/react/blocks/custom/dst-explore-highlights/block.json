@@ -36,15 +36,20 @@
       "type": "array",
       "default": [
         {
-          "media": {
-            "primaryType": "image",
-            "imagePrimary": {
-              "id": "",
-              "url": "https://travelaystagging.com/wp-content/uploads/2026/06/Group-827.png",
-              "alt": "Explore India",
-              "size": "full"
-            }
-          }
+          "media": {},
+          "label": "Image 1"
+        },
+        {
+          "media": {},
+          "label": "Image 2"
+        },
+        {
+          "media": {},
+          "label": "Image 3"
+        },
+        {
+          "media": {},
+          "label": "Image 4"
         }
       ]
     },

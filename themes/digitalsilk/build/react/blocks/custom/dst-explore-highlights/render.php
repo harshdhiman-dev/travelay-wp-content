@@ -38,9 +38,8 @@ $background = wp_parse_args(
 	]
 );
 
-$has_background_color = ( 'color' === $background['type'] && ! empty( $background['color'] ) );
+$has_background_color  = ( 'color' === $background['type'] && ! empty( $background['color'] ) );
 $has_background_image  = ( 'image' === $background['type'] && ! empty( $background['image']['url'] ) );
-
 $has_mobile_background = ( $has_background_image && ! empty( $background['imageMobile']['url'] ) );
 
 if ( $has_background_color ) {
@@ -74,33 +73,49 @@ $spacing = wp_parse_args(
 );
 
 $spacing_style = [];
-if ( ! empty( $spacing['paddingTop'] ) ) {
-	$spacing_style[] = 'padding-top: ' . esc_attr( $spacing['paddingTop'] );
-}
-if ( ! empty( $spacing['paddingRight'] ) ) {
-	$spacing_style[] = 'padding-right: ' . esc_attr( $spacing['paddingRight'] );
-}
-if ( ! empty( $spacing['paddingBottom'] ) ) {
-	$spacing_style[] = 'padding-bottom: ' . esc_attr( $spacing['paddingBottom'] );
-}
-if ( ! empty( $spacing['paddingLeft'] ) ) {
-	$spacing_style[] = 'padding-left: ' . esc_attr( $spacing['paddingLeft'] );
-}
-if ( ! empty( $spacing['marginTop'] ) ) {
-	$spacing_style[] = 'margin-top: ' . esc_attr( $spacing['marginTop'] );
-}
-if ( ! empty( $spacing['marginRight'] ) ) {
-	$spacing_style[] = 'margin-right: ' . esc_attr( $spacing['marginRight'] );
-}
-if ( ! empty( $spacing['marginBottom'] ) ) {
-	$spacing_style[] = 'margin-bottom: ' . esc_attr( $spacing['marginBottom'] );
-}
-if ( ! empty( $spacing['marginLeft'] ) ) {
-	$spacing_style[] = 'margin-left: ' . esc_attr( $spacing['marginLeft'] );
+foreach (
+	[
+		'paddingTop'    => 'padding-top',
+		'paddingRight'  => 'padding-right',
+		'paddingBottom' => 'padding-bottom',
+		'paddingLeft'   => 'padding-left',
+		'marginTop'     => 'margin-top',
+		'marginRight'   => 'margin-right',
+		'marginBottom'  => 'margin-bottom',
+		'marginLeft'    => 'margin-left',
+	] as $key => $css_prop
+) {
+	if ( ! empty( $spacing[ $key ] ) ) {
+		$spacing_style[] = $css_prop . ': ' . esc_attr( $spacing[ $key ] );
+	}
 }
 
 if ( ! empty( $spacing_style ) ) {
 	$extra_attributes['style'] = ( isset( $extra_attributes['style'] ) ? $extra_attributes['style'] . '; ' : '' ) . implode( '; ', $spacing_style );
+}
+
+$loading = ! empty( $background['disableLazyLoad'] ) ? 'eager' : 'lazy';
+
+/**
+ * Render a single gallery image cell.
+ *
+ * @param array $item    Image item with 'media' and 'label'.
+ * @param int   $index   Image index, for fallback label.
+ * @param string $loading Loading attribute value.
+ */
+function dst_explore_render_gallery_img( $item, $index, $loading ) {
+	$url   = $item['media']['imagePrimary']['url'] ?? '';
+	$alt   = $item['media']['imagePrimary']['alt'] ?? '';
+	$label = $item['label'] ?? ( 'Image ' . ( $index + 1 ) );
+	?>
+	<div class="c-explore__gallery-img">
+		<?php if ( ! empty( $url ) ) : ?>
+			<img src="<?php echo esc_url( $url ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="<?php echo esc_attr( $loading ); ?>" />
+		<?php else : ?>
+			<span><?php echo esc_html( $label ); ?></span>
+		<?php endif; ?>
+	</div>
+	<?php
 }
 ?>
 
@@ -113,7 +128,26 @@ if ( ! empty( $spacing_style ) ) {
 			style="background-color: <?php echo esc_attr( $background['overlayColor'] ); ?>; opacity: <?php echo esc_attr( (float) $background['overlayOpacity'] / 100 ); ?>;"
 		></span>
 	<?php endif; ?>
-	
+
+	<?php if ( $show_decoration ) : ?>
+		<svg class="c-explore__decoration" preserveAspectRatio="none" viewBox="0 0 1400 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+			<defs>
+				<pattern id="dst-explore-skyline" width="140" height="90" patternUnits="userSpaceOnUse">
+					<rect x="6" y="40" width="10" height="50" fill="#ffffff" />
+					<rect x="22" y="20" width="8" height="70" fill="#ffffff" />
+					<rect x="36" y="50" width="14" height="40" fill="#ffffff" />
+					<rect x="56" y="14" width="8" height="76" fill="#ffffff" />
+					<circle cx="60" cy="14" r="6" fill="#ffffff" />
+					<rect x="74" y="35" width="10" height="55" fill="#ffffff" />
+					<rect x="92" y="55" width="18" height="35" fill="#ffffff" />
+					<rect x="116" y="25" width="8" height="65" fill="#ffffff" />
+					<rect x="130" y="45" width="10" height="45" fill="#ffffff" />
+				</pattern>
+			</defs>
+			<rect width="1400" height="90" fill="url(#dst-explore-skyline)" opacity="0.08" />
+		</svg>
+	<?php endif; ?>
+
 	<div class="c-explore__inner">
 		<div class="c-explore__content">
 			<?php if ( ! empty( $heading['title'] ) ) : ?>
@@ -140,15 +174,19 @@ if ( ! empty( $spacing_style ) ) {
 			<?php endif; ?>
 		</div>
 
-		<?php
-		$primary_image_url = $images[0]['media']['imagePrimary']['url'] ?? '';
-		$primary_image_alt = $images[0]['media']['imagePrimary']['alt'] ?? '';
-		$loading            = ! empty( $background['disableLazyLoad'] ) ? 'eager' : 'lazy';
-		?>
-		<?php if ( ! empty( $primary_image_url ) ) : ?>
-			<div class="c-explore__media">
-				<div class="c-explore__image -only">
-					<img src="<?php echo esc_url( $primary_image_url ); ?>" alt="<?php echo esc_attr( $primary_image_alt ); ?>" loading="<?php echo esc_attr( $loading ); ?>" />
+		<?php if ( ! empty( $images ) ) : ?>
+			<div class="c-explore__gallery">
+				<div class="c-explore__gallery-col">
+					<?php
+					dst_explore_render_gallery_img( $images[0] ?? [], 0, $loading );
+					dst_explore_render_gallery_img( $images[2] ?? [], 2, $loading );
+					?>
+				</div>
+				<div class="c-explore__gallery-col -offset">
+					<?php
+					dst_explore_render_gallery_img( $images[1] ?? [], 1, $loading );
+					dst_explore_render_gallery_img( $images[3] ?? [], 3, $loading );
+					?>
 				</div>
 			</div>
 		<?php endif; ?>

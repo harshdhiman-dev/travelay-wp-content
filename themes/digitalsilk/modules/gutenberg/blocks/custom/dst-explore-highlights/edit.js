@@ -115,33 +115,39 @@ export const BlockEdit = (props) => {
 	};
 
 	/**
-	 * Update the primary image from a selected attachment.
+	 * Update one gallery image from a selected attachment.
 	 *
+	 * @param {number} index Image index (0-3).
 	 * @param {Object} media Selected media object from MediaUpload.
 	 */
-	const updateImage = (media) => {
-		setAttributes({
-			images: [
-				{
-					media: {
-						primaryType: 'image',
-						imagePrimary: {
-							id: media?.id || '',
-							url: media?.url || '',
-							alt: media?.alt || '',
-							size: 'full',
+	const updateImage = (index, media) => {
+		const newImages = images.map((item, i) =>
+			i === index
+				? {
+						...item,
+						media: {
+							primaryType: 'image',
+							imagePrimary: {
+								id: media?.id || '',
+								url: media?.url || '',
+								alt: media?.alt || '',
+								size: 'full',
+							},
 						},
-					},
-				},
-			],
-		});
+				  }
+				: item
+		);
+		setAttributes({ images: newImages });
 	};
 
 	/**
-	 * Remove the primary image.
+	 * Remove one gallery image.
+	 *
+	 * @param {number} index Image index (0-3).
 	 */
-	const removeImage = () => {
-		setAttributes({ images: [{ media: {} }] });
+	const removeImage = (index) => {
+		const newImages = images.map((item, i) => (i === index ? { ...item, media: {} } : item));
+		setAttributes({ images: newImages });
 	};
 
 	/**
@@ -186,9 +192,6 @@ export const BlockEdit = (props) => {
 	const updateSpacing = (key, value) => {
 		setAttributes({ spacing: { ...spacing, [key]: value } });
 	};
-
-	const imageUrl = images?.[0]?.media?.imagePrimary?.url || '';
-	const imageId = images?.[0]?.media?.imagePrimary?.id || undefined;
 
 	return (
 		<>
@@ -446,39 +449,52 @@ export const BlockEdit = (props) => {
 				</PanelBody>
 
 				<PanelBody title={__('Media Content', 'dstheme')} initialOpen={true}>
-					<PanelRow>
-						<div className="c-explore__panel-item">
-							<p className="c-explore__panel-label">{__('Image', 'dstheme')}</p>
-							<div className="c-explore__panel-controls">
-								{imageUrl && (
-									<img className="c-explore__panel-preview" src={imageUrl} alt="" />
-								)}
-								<MediaUploadCheck>
-									<MediaUpload
-										onSelect={(media) => updateImage(media)}
-										allowedTypes={['image']}
-										value={imageId}
-										render={({ open }) => (
+					{images.map((item, index) => {
+						const imageUrl = item?.media?.imagePrimary?.url || '';
+						const imageId = item?.media?.imagePrimary?.id || undefined;
+
+						return (
+							<PanelRow key={index} className="c-explore__panel-row">
+								<div className="c-explore__panel-item">
+									<p className="c-explore__panel-label">
+										{item.label || `${__('Image', 'dstheme')} ${index + 1}`}
+									</p>
+									<div className="c-explore__panel-controls">
+										{imageUrl && (
+											<img className="c-explore__panel-preview" src={imageUrl} alt="" />
+										)}
+										<MediaUploadCheck>
+											<MediaUpload
+												onSelect={(media) => updateImage(index, media)}
+												allowedTypes={['image']}
+												value={imageId}
+												render={({ open }) => (
+													<Button
+														variant="secondary"
+														icon={imageUrl ? upload : imageIcon}
+														onClick={open}
+													>
+														{imageUrl
+															? __('Replace Image', 'dstheme')
+															: __('Add Image', 'dstheme')}
+													</Button>
+												)}
+											/>
+										</MediaUploadCheck>
+										{imageUrl && (
 											<Button
-												variant="secondary"
-												icon={imageUrl ? upload : imageIcon}
-												onClick={open}
+												variant="tertiary"
+												isDestructive
+												onClick={() => removeImage(index)}
 											>
-												{imageUrl
-													? __('Replace Image', 'dstheme')
-													: __('Add Image', 'dstheme')}
+												{__('Remove', 'dstheme')}
 											</Button>
 										)}
-									/>
-								</MediaUploadCheck>
-								{imageUrl && (
-									<Button variant="tertiary" isDestructive onClick={removeImage}>
-										{__('Remove', 'dstheme')}
-									</Button>
-								)}
-							</div>
-						</div>
-					</PanelRow>
+									</div>
+								</div>
+							</PanelRow>
+						);
+					})}
 				</PanelBody>
 			</InspectorControls>
 
@@ -555,15 +571,36 @@ export const BlockEdit = (props) => {
 						</div>
 					</div>
 
-					<div className="c-explore__media">
-						<div className="c-explore__image -only">
-							{imageUrl ? (
-								<img src={imageUrl} alt={images?.[0]?.media?.imagePrimary?.alt || ''} />
-							) : (
-								<div className="c-explore__empty">
-									{__('No image selected — use the Media Content panel', 'dstheme')}
-								</div>
-							)}
+					<div className="c-explore__gallery">
+						<div className="c-explore__gallery-col">
+							{[0, 2].map((index) => {
+								const item = images[index] || {};
+								const imageUrl = item?.media?.imagePrimary?.url || '';
+								return (
+									<div className="c-explore__gallery-img" key={index}>
+										{imageUrl ? (
+											<img src={imageUrl} alt={item?.media?.imagePrimary?.alt || ''} />
+										) : (
+											<span>{item.label || `${__('Image', 'dstheme')} ${index + 1}`}</span>
+										)}
+									</div>
+								);
+							})}
+						</div>
+						<div className="c-explore__gallery-col -offset">
+							{[1, 3].map((index) => {
+								const item = images[index] || {};
+								const imageUrl = item?.media?.imagePrimary?.url || '';
+								return (
+									<div className="c-explore__gallery-img" key={index}>
+										{imageUrl ? (
+											<img src={imageUrl} alt={item?.media?.imagePrimary?.alt || ''} />
+										) : (
+											<span>{item.label || `${__('Image', 'dstheme')} ${index + 1}`}</span>
+										)}
+									</div>
+								);
+							})}
 						</div>
 					</div>
 				</div>
