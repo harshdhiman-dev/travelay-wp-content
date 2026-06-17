@@ -95,28 +95,6 @@ if ( ! empty( $spacing_style ) ) {
 }
 
 $loading = ! empty( $background['disableLazyLoad'] ) ? 'eager' : 'lazy';
-
-/**
- * Render a single gallery image cell.
- *
- * @param array $item    Image item with 'media' and 'label'.
- * @param int   $index   Image index, for fallback label.
- * @param string $loading Loading attribute value.
- */
-function dst_explore_render_gallery_img( $item, $index, $loading ) {
-	$url   = $item['media']['imagePrimary']['url'] ?? '';
-	$alt   = $item['media']['imagePrimary']['alt'] ?? '';
-	$label = $item['label'] ?? ( 'Image ' . ( $index + 1 ) );
-	?>
-	<div class="c-explore__gallery-img">
-		<?php if ( ! empty( $url ) ) : ?>
-			<img src="<?php echo esc_url( $url ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="<?php echo esc_attr( $loading ); ?>" />
-		<?php else : ?>
-			<span><?php echo esc_html( $label ); ?></span>
-		<?php endif; ?>
-	</div>
-	<?php
-}
 ?>
 
 <div <?php ds_theme_generate_anchor( $attributes ); ?> <?php echo get_block_wrapper_attributes( $extra_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
@@ -176,18 +154,31 @@ function dst_explore_render_gallery_img( $item, $index, $loading ) {
 
 		<?php if ( ! empty( $images ) ) : ?>
 			<div class="c-explore__gallery">
-				<div class="c-explore__gallery-col">
-					<?php
-					dst_explore_render_gallery_img( $images[0] ?? [], 0, $loading );
-					dst_explore_render_gallery_img( $images[2] ?? [], 2, $loading );
-					?>
-				</div>
-				<div class="c-explore__gallery-col -offset">
-					<?php
-					dst_explore_render_gallery_img( $images[1] ?? [], 1, $loading );
-					dst_explore_render_gallery_img( $images[3] ?? [], 3, $loading );
-					?>
-				</div>
+				<?php
+				$gallery_columns = [
+					[ 0, 2 ],
+					[ 1, 3 ],
+				];
+				?>
+				<?php foreach ( $gallery_columns as $col_index => $img_indexes ) : ?>
+					<div class="c-explore__gallery-col<?php echo ( 1 === $col_index ) ? ' -offset' : ''; ?>">
+						<?php foreach ( $img_indexes as $img_index ) : ?>
+							<?php
+							$item  = $images[ $img_index ] ?? [];
+							$url   = $item['media']['imagePrimary']['url'] ?? '';
+							$alt   = $item['media']['imagePrimary']['alt'] ?? '';
+							$label = $item['label'] ?? ( 'Image ' . ( $img_index + 1 ) );
+							?>
+							<div class="c-explore__gallery-img">
+								<?php if ( ! empty( $url ) ) : ?>
+									<img src="<?php echo esc_url( $url ); ?>" alt="<?php echo esc_attr( $alt ); ?>" loading="<?php echo esc_attr( $loading ); ?>" />
+								<?php else : ?>
+									<span><?php echo esc_html( $label ); ?></span>
+								<?php endif; ?>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
 	</div>
