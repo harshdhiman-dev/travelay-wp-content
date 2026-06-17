@@ -79,6 +79,27 @@
           "label": "Flights from Delhi"
         }
       ]
+    },
+    "background": {
+      "type": "object",
+      "default": {
+        "type": "none",
+        "image": {
+          "id": "",
+          "url": "",
+          "alt": ""
+        },
+        "imageMobile": {
+          "id": "",
+          "url": "",
+          "alt": ""
+        },
+        "mediaFit": "cover",
+        "mediaPosition": "center center",
+        "disableLazyLoad": false,
+        "overlayOpacity": 0,
+        "overlayColor": "#000000"
+      }
     }
   },
   "supports": {
