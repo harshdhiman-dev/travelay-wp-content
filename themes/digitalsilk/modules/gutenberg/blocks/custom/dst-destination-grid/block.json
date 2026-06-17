@@ -19,23 +19,63 @@
 			"type": "array",
 			"default": [
 				{
-					"media": {},
+					"media": {
+						"primaryType": "image",
+						"imagePrimary": {
+							"id": "",
+							"url": "https://travelaystagging.com/wp-content/uploads/2026/06/Group-550.png",
+							"alt": "Flights from Leh",
+							"size": "full"
+						}
+					},
 					"label": "Flights from Leh"
 				},
 				{
-					"media": {},
+					"media": {
+						"primaryType": "image",
+						"imagePrimary": {
+							"id": "",
+							"url": "https://travelaystagging.com/wp-content/uploads/2026/06/Group-549.png",
+							"alt": "Flights from Jaipur",
+							"size": "full"
+						}
+					},
 					"label": "Flights from Jaipur"
 				},
 				{
-					"media": {},
+					"media": {
+						"primaryType": "image",
+						"imagePrimary": {
+							"id": "",
+							"url": "https://travelaystagging.com/wp-content/uploads/2026/06/Group-548.png",
+							"alt": "Flights from Mumbai",
+							"size": "full"
+						}
+					},
 					"label": "Flights from Mumbai"
 				},
 				{
-					"media": {},
+					"media": {
+						"primaryType": "image",
+						"imagePrimary": {
+							"id": "",
+							"url": "https://travelaystagging.com/wp-content/uploads/2026/06/Group-547.png",
+							"alt": "Flights from Goa",
+							"size": "full"
+						}
+					},
 					"label": "Flights from Goa"
 				},
 				{
-					"media": {},
+					"media": {
+						"primaryType": "image",
+						"imagePrimary": {
+							"id": "",
+							"url": "https://travelaystagging.com/wp-content/uploads/2026/06/Group-546.png",
+							"alt": "Flights from Delhi",
+							"size": "full"
+						}
+					},
 					"label": "Flights from Delhi"
 				}
 			]
