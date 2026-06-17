@@ -1,0 +1,173 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ */
+
+.c-explore {
+	position: relative;
+	overflow: hidden;
+	padding: 60px 0;
+	background-color: var(--dst--explore-bg, #1f7a4d);
+	color: #fff;
+
+	&__bg-overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		pointer-events: none;
+	}
+
+	&__decoration {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 120px;
+		opacity: .12;
+		color: #fff;
+		pointer-events: none;
+		z-index: 0;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+	}
+
+	&__inner {
+		position: relative;
+		z-index: 1;
+		display: grid;
+		grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+		gap: 60px;
+		align-items: stretch;
+	}
+
+	&__content {
+		position: relative;
+		padding-right: 40px;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			width: 1px;
+			background: rgba(255, 255, 255, .25);
+		}
+	}
+
+	&__title {
+		margin: 0 0 12px;
+		font-size: 2.8rem;
+		font-weight: 700;
+		line-height: 1.25;
+		color: #fff;
+	}
+
+	&__subtitle {
+		margin: 0 0 24px;
+		font-size: 1.4rem;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, .85);
+	}
+
+	&__card {
+		background: rgba(255, 255, 255, .9);
+		border-radius: 16px;
+		padding: 28px 32px;
+	}
+
+	&__feature {
+		padding: 16px 0;
+		border-bottom: 1px solid rgba(0, 0, 0, .08);
+
+		&:first-child {
+			padding-top: 0;
+		}
+
+		&:last-child {
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+	}
+
+	&__feature-title {
+		margin: 0 0 6px;
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: var(--dst--base-heading-color, #1a1a1a);
+	}
+
+	&__feature-description {
+		margin: 0;
+		font-size: 1.3rem;
+		line-height: 1.5;
+		color: var(--dst--base-text-color, #4a4a4a);
+	}
+
+	&__media {
+		position: relative;
+		height: 100%;
+	}
+
+	&__image {
+		position: relative;
+		border-radius: 16px;
+		overflow: hidden;
+		background-color: rgba(255, 255, 255, .08);
+		height: 100%;
+		min-height: 320px;
+
+		img,
+		video {
+			position: absolute;
+			inset: 0;
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			margin: 0;
+		}
+	}
+
+	@media (max-width: 991px) {
+
+		&__inner {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		&__content {
+			padding-right: 0;
+
+			&::after {
+				display: none;
+			}
+		}
+
+		&__image {
+			min-height: 280px;
+		}
+	}
+
+	@media (max-width: 599px) {
+
+		&__card {
+			padding: 20px;
+		}
+
+		&__image {
+			min-height: 220px;
+		}
+	}
+
+	@media (max-width: 768px) {
+
+		&[style*="--dst-bg-mobile"] {
+			background-image: var(--dst-bg-mobile) !important;
+		}
+	}
+}
