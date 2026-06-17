@@ -113,39 +113,7 @@ if ( ! empty( $spacing_style ) ) {
 			style="background-color: <?php echo esc_attr( $background['overlayColor'] ); ?>; opacity: <?php echo esc_attr( (float) $background['overlayOpacity'] / 100 ); ?>;"
 		></span>
 	<?php endif; ?>
-
-	<?php if ( $show_decoration ) : ?>
-		<div class="c-explore__decoration" aria-hidden="true">
-			<svg viewBox="0 0 1200 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
-				<g fill="currentColor">
-					<rect x="0" y="80" width="60" height="80" />
-					<rect x="70" y="50" width="40" height="110" />
-					<rect x="120" y="90" width="70" height="70" />
-					<path d="M210 90a30 30 0 0 1 60 0v10h-60z" />
-					<rect x="215" y="100" width="50" height="60" />
-					<rect x="290" y="60" width="50" height="100" />
-					<polygon points="345,60 370,30 395,60" />
-					<rect x="345" y="60" width="50" height="100" />
-					<rect x="410" y="85" width="80" height="75" />
-					<rect x="500" y="55" width="35" height="105" />
-					<rect x="545" y="95" width="60" height="65" />
-					<path d="M615 95a35 35 0 0 1 70 0v5h-70z" />
-					<rect x="620" y="100" width="60" height="60" />
-					<rect x="700" y="70" width="45" height="90" />
-					<rect x="755" y="100" width="70" height="60" />
-					<rect x="835" y="50" width="40" height="110" />
-					<polygon points="855,50 880,20 905,50" />
-					<rect x="855" y="50" width="50" height="110" />
-					<rect x="920" y="90" width="65" height="70" />
-					<path d="M995 92a32 32 0 0 1 64 0v8h-64z" />
-					<rect x="998" y="100" width="58" height="60" />
-					<rect x="1070" y="65" width="45" height="95" />
-					<rect x="1125" y="95" width="75" height="65" />
-				</g>
-			</svg>
-		</div>
-	<?php endif; ?>
-
+	
 	<div class="c-explore__inner">
 		<div class="c-explore__content">
 			<?php if ( ! empty( $heading['title'] ) ) : ?>
