@@ -84,6 +84,7 @@
 			"type": "object",
 			"default": {
 				"type": "none",
+				"color": "#1f7a4d",
 				"image": {
 					"id": "",
 					"url": "",

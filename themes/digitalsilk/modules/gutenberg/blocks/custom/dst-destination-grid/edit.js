@@ -46,7 +46,9 @@ export const BlockEdit = (props) => {
 	 * Build the live preview inline style for the background, mirrored on the frontend in render.php.
 	 */
 	const backgroundStyle = {};
-	if (background?.type === 'image' && background?.image?.url) {
+	if (background?.type === 'color' && background?.color) {
+		backgroundStyle.backgroundColor = background.color;
+	} else if (background?.type === 'image' && background?.image?.url) {
 		backgroundStyle.backgroundImage = `url(${background.image.url})`;
 		backgroundStyle.backgroundSize = background.mediaFit === 'contain' ? 'contain' : 'cover';
 		backgroundStyle.backgroundPosition = background.mediaPosition || 'center center';
@@ -171,11 +173,27 @@ export const BlockEdit = (props) => {
 							value={background?.type || 'none'}
 							options={[
 								{ label: __('None', 'dstheme'), value: 'none' },
+								{ label: __('Color', 'dstheme'), value: 'color' },
 								{ label: __('Image', 'dstheme'), value: 'image' },
 							]}
 							onChange={(value) => updateBackground('type', value)}
 						/>
 					</PanelRow>
+
+					{background?.type === 'color' && (
+						<PanelRow>
+							<div className="c-destination-grid__panel-item">
+								<p className="c-destination-grid__panel-label">
+									{__('Background Color', 'dstheme')}
+								</p>
+								<ColorPicker
+									color={background?.color || '#1f7a4d'}
+									onChange={(value) => updateBackground('color', value)}
+									enableAlpha
+								/>
+							</div>
+						</PanelRow>
+					)}
 
 					{background?.type === 'image' && (
 						<>

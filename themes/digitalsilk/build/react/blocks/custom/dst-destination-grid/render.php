@@ -10,7 +10,7 @@
  */
 
 $extra_attributes = ds_theme_generate_extra_atts( $attributes, $block );
-
+// Parse heading attributes
 $heading = wp_parse_args(
 	$attributes['heading'] ?? [],
 	[
@@ -25,6 +25,7 @@ $background = wp_parse_args(
 	$attributes['background'] ?? [],
 	[
 		'type'            => 'none',
+		'color'           => '#1f7a4d',
 		'image'           => [],
 		'imageMobile'     => [],
 		'mediaFit'        => 'cover',
@@ -35,11 +36,14 @@ $background = wp_parse_args(
 	]
 );
 
-$has_background_image = ( 'image' === $background['type'] && ! empty( $background['image']['url'] ) );
+$has_background_color = ( 'color' === $background['type'] && ! empty( $background['color'] ) );
+$has_background_image  = ( 'image' === $background['type'] && ! empty( $background['image']['url'] ) );
 
 $has_mobile_background = ( $has_background_image && ! empty( $background['imageMobile']['url'] ) );
 
-if ( $has_background_image ) {
+if ( $has_background_color ) {
+	$extra_attributes['style'] = ( isset( $extra_attributes['style'] ) ? $extra_attributes['style'] . '; ' : '' ) . 'background-color: ' . esc_attr( $background['color'] );
+} elseif ( $has_background_image ) {
 	$bg_style   = [];
 	$bg_style[] = 'background-image: url(' . esc_url( $background['image']['url'] ) . ')';
 	$bg_style[] = 'background-size: ' . ( 'contain' === $background['mediaFit'] ? 'contain' : 'cover' );
