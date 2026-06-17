@@ -10,7 +10,7 @@
  */
 
 $extra_attributes = ds_theme_generate_extra_atts( $attributes, $block );
-// Parse heading attributes
+
 $heading = wp_parse_args(
 	$attributes['heading'] ?? [],
 	[
