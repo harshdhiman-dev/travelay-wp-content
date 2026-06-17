@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ds-blocks/destination-grid",
+	"title": "DST Destination Grid",
+	"category": "ds-layouts",
+	"icon": "screenoptions",
+	"description": "A bento-style image grid with bottom overlay labels and a decorated section heading. Great for 'Popular Cities', categories, or destination listings.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "object",
+			"default": {
+				"title": "Popular Cities in the India",
+				"showDecoration": true
+			}
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"media": {},
+					"label": "Flights from Leh"
+				},
+				{
+					"media": {},
+					"label": "Flights from Jaipur"
+				},
+				{
+					"media": {},
+					"label": "Flights from Mumbai"
+				},
+				{
+					"media": {},
+					"label": "Flights from Goa"
+				},
+				{
+					"media": {},
+					"label": "Flights from Delhi"
+				}
+			]
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"dsContainers": true,
+		"dsGapControl": true
+	},
+	"textdomain": "dstheme",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

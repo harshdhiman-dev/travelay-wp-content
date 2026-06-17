@@ -1,0 +1,118 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ */
+
+.c-destination-grid {
+
+	&__heading {
+		position: relative;
+		text-align: center;
+		margin-bottom: 32px;
+	}
+
+	&__decoration {
+		display: block;
+		width: 160px;
+		max-width: 100%;
+		height: 32px;
+		margin: 0 auto 12px;
+		color: var(--dst--base-heading-color, currentColor);
+		opacity: .6;
+
+		svg {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+	}
+
+	&__title {
+		margin: 0;
+		font-size: 2.6rem;
+		font-weight: 700;
+		line-height: 1.3;
+		color: var(--dst--base-heading-color);
+	}
+
+	&__items {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(2, 1fr);
+		gap: 20px;
+	}
+
+	&__item {
+		position: relative;
+		overflow: hidden;
+		border-radius: 16px;
+		min-height: 220px;
+		background-color: var(--dst--neutral-color3, #e9eef0);
+
+		.dst-media,
+		.dst-media__primary,
+		img,
+		video {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			margin: 0;
+		}
+
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			background: linear-gradient(to top, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, 0) 55%);
+			pointer-events: none;
+			z-index: 1;
+		}
+
+		&.-item-3 {
+			grid-column: 2;
+			grid-row: 1 / span 2;
+			min-height: 100%;
+		}
+	}
+
+	&__label {
+		position: absolute;
+		left: 20px;
+		bottom: 16px;
+		z-index: 2;
+		color: #fff;
+		font-size: 1.6rem;
+		font-weight: 600;
+		line-height: 1.3;
+	}
+
+	@media (max-width: 991px) {
+
+		&__items {
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: auto;
+		}
+
+		&__item.-item-3 {
+			grid-column: span 2;
+			grid-row: auto;
+			min-height: 280px;
+		}
+	}
+
+	@media (max-width: 599px) {
+
+		&__items {
+			grid-template-columns: 1fr;
+		}
+
+		&__item,
+		&__item.-item-3 {
+			grid-column: auto;
+			grid-row: auto;
+			min-height: 200px;
+		}
+	}
+}
