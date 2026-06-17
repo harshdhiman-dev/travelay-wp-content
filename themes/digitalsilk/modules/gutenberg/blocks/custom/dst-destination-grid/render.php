@@ -28,15 +28,7 @@ $items = ( ! empty( $attributes['items'] ) && is_array( $attributes['items'] ) )
 		<div class="c-destination-grid__heading">
 			<?php if ( ! empty( $heading['showDecoration'] ) ) : ?>
 				<span class="c-destination-grid__decoration" aria-hidden="true">
-					<svg viewBox="0 0 200 40" xmlns="http://www.w3.org/2000/svg" focusable="false">
-						<path d="M2 20 H80" stroke="currentColor" stroke-width="1" fill="none" />
-						<path d="M120 20 H198" stroke="currentColor" stroke-width="1" fill="none" />
-						<g fill="currentColor">
-							<path d="M100 6c-6 6-16 8-22 8 8 4 16 4 22 0 6 4 14 4 22 0-6 0-16-2-22-8z" />
-							<circle cx="100" cy="22" r="2.5" />
-							<path d="M100 24v8M94 30l6-4 6 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
-						</g>
-					</svg>
+					<img src="https://www.flytravelay.com/wp-content/uploads/2026/06/Group-219.png" alt="" loading="lazy" />
 				</span>
 			<?php endif; ?>
 
