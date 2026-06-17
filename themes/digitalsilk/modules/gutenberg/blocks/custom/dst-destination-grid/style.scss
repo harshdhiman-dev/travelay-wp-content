@@ -13,17 +13,14 @@
 
 	&__decoration {
 		display: block;
-		width: 160px;
-		max-width: 100%;
-		height: 32px;
 		margin: 0 auto 12px;
-		color: var(--dst--base-heading-color, currentColor);
-		opacity: .6;
+		text-align: center;
 
-		svg {
-			width: 100%;
-			height: 100%;
-			display: block;
+		img {
+			display: inline-block;
+			max-width: 160px;
+			height: auto;
+			margin: 0 auto;
 		}
 	}
 
