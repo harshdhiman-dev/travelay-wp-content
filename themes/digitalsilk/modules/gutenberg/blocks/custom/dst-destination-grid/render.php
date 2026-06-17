@@ -40,8 +40,12 @@ $items = ( ! empty( $attributes['items'] ) && is_array( $attributes['items'] ) )
 		<div class="c-destination-grid__items">
 			<?php foreach ( $items as $index => $item ) : ?>
 				<div class="c-destination-grid__item -item-<?php echo esc_attr( $index + 1 ); ?>">
-					<?php if ( ! empty( $item['media'] ) ) : ?>
-						<?php get_template_part( 'templates/components-shared/media/dst', 'media', $item['media'] ); ?>
+					<?php
+					$image_url = $item['media']['imagePrimary']['url'] ?? '';
+					$image_alt = $item['media']['imagePrimary']['alt'] ?? '';
+					?>
+					<?php if ( ! empty( $image_url ) ) : ?>
+						<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" />
 					<?php endif; ?>
 
 					<?php if ( ! empty( $item['label'] ) ) : ?>
