@@ -31,7 +31,7 @@
 	&__inner {
 		position: relative;
 		z-index: 1;
-		max-width: 1280px;
+		max-width: 1520px;
 		margin: 0 auto;
 		display: flex;
 		flex-wrap: wrap;
@@ -41,7 +41,7 @@
 
 	&__content {
 		flex: 1 1 420px;
-		max-width: 600px;
+		max-width: 100%;
 	}
 
 	&__title {
@@ -95,7 +95,7 @@
 	}
 
 	&__gallery {
-		flex: 0 1 380px;
+		// flex: 0 1 380px;
 		min-width: 240px;
 		display: flex;
 		gap: 16px;
