@@ -6,7 +6,7 @@
 .c-explore {
 	position: relative;
 	overflow: hidden;
-	padding: 56px clamp(24px, 8vw, 110px) 70px;
+	padding: 50px 242px;
 	background-color: var(--dst--explore-bg, #137c43);
 	color: #fff;
 
@@ -136,7 +136,12 @@
 		}
 	}
 
+	@media (max-width: 1200px) {
+		padding: 50px 80px;
+	}
+
 	@media (max-width: 880px) {
+		padding: 40px 40px;
 
 		&__inner {
 			flex-direction: column;
@@ -154,6 +159,7 @@
 	}
 
 	@media (max-width: 480px) {
+		padding: 32px 20px;
 
 		&__gallery-col.-offset {
 			margin-top: 0;
