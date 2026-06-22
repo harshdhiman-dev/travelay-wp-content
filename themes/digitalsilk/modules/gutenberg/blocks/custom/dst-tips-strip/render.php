@@ -9,8 +9,6 @@
  * @var WP_Block $block      Block instance.
  */
 
-$extra_attributes = ds_theme_generate_extra_atts( $attributes, $block );
-
 $heading = wp_parse_args(
 	$attributes['heading'] ?? [],
 	[
@@ -43,7 +41,14 @@ $spacing = wp_parse_args(
 	]
 );
 
-$spacing_style = [];
+$bg_image_url    = $background['image']['url'] ?? '';
+$bg_image_alt    = $background['image']['alt'] ?? '';
+$overlay_color   = $background['overlayColor'] ?? '#137c43';
+$overlay_opacity = (float) ( $background['overlayOpacity'] ?? 65 ) / 100;
+
+// Build inline style only for THIS block's wrapper — never touches parent containers.
+$inline_styles = [];
+
 foreach (
 	[
 		'paddingTop'    => 'padding-top',
@@ -57,24 +62,28 @@ foreach (
 	] as $key => $css_prop
 ) {
 	if ( ! empty( $spacing[ $key ] ) ) {
-		$spacing_style[] = $css_prop . ': ' . esc_attr( $spacing[ $key ] );
+		$inline_styles[] = $css_prop . ': ' . esc_attr( $spacing[ $key ] );
 	}
 }
 
-if ( ! empty( $spacing_style ) ) {
-	$extra_attributes['style'] = ( isset( $extra_attributes['style'] ) ? $extra_attributes['style'] . '; ' : '' ) . implode( '; ', $spacing_style );
-}
+$wrapper_style = ! empty( $inline_styles ) ? ' style="' . implode( '; ', $inline_styles ) . '"' : '';
 
-$bg_image_url    = $background['image']['url'] ?? '';
-$bg_image_alt    = $background['image']['alt'] ?? '';
-$overlay_color   = $background['overlayColor'] ?? '#137c43';
-$overlay_opacity = (float) ( $background['overlayOpacity'] ?? 65 ) / 100;
+// Generate a unique ID for this specific block instance.
+$unique_id      = 'tips-' . substr( md5( serialize( $attributes ) ), 0, 8 );
+$anchor         = ! empty( $attributes['anchor'] ) ? $attributes['anchor'] : $unique_id;
+$wrapper_class  = 'c-tips-strip wp-block-ds-blocks-tips-strip';
 ?>
 
-<div <?php ds_theme_generate_anchor( $attributes ); ?> <?php echo get_block_wrapper_attributes( $extra_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+<div id="<?php echo esc_attr( $anchor ); ?>" class="<?php echo esc_attr( $wrapper_class ); ?>"<?php echo $wrapper_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 
 	<?php if ( ! empty( $bg_image_url ) ) : ?>
-		<img class="c-tips-strip__bg" src="<?php echo esc_url( $bg_image_url ); ?>" alt="<?php echo esc_attr( $bg_image_alt ); ?>" aria-hidden="true" loading="lazy" />
+		<img
+			class="c-tips-strip__bg"
+			src="<?php echo esc_url( $bg_image_url ); ?>"
+			alt="<?php echo esc_attr( $bg_image_alt ); ?>"
+			aria-hidden="true"
+			loading="lazy"
+		/>
 	<?php endif; ?>
 
 	<span
