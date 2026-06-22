@@ -1,0 +1,74 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ds-blocks/tips-strip",
+	"title": "DST Tips Strip",
+	"category": "ds-layouts",
+	"icon": "lightbulb",
+	"description": "A full-width strip with a background image + green overlay on the left (heading + subtitle) and staggered floating tip cards on the right, each with an illustration, title and description.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "object",
+			"default": {
+				"title": "How to Find the Best Flight Deals to India",
+				"subtitle": "Top insiders from Travelay™ to make your trip to the USA completely unforgettable!"
+			}
+		},
+		"background": {
+			"type": "object",
+			"default": {
+				"image": {
+					"id": "",
+					"url": "",
+					"alt": ""
+				},
+				"overlayColor": "#137c43",
+				"overlayOpacity": 65
+			}
+		},
+		"tips": {
+			"type": "array",
+			"default": [
+				{
+					"icon": { "id": "", "url": "", "alt": "" },
+					"title": "Fly into Alternative Airports",
+					"description": "Fly into Oakland, Baltimore or similar hubs to save more"
+				},
+				{
+					"icon": { "id": "", "url": "", "alt": "" },
+					"title": "Time Your Visit Wisely",
+					"description": "Choose destinations based on weather and region"
+				},
+				{
+					"icon": { "id": "", "url": "", "alt": "" },
+					"title": "Book Early for Holidays",
+					"description": "Thanksgiving, Christmas, and July 4th see higher fares"
+				}
+			]
+		},
+		"spacing": {
+			"type": "object",
+			"default": {
+				"paddingTop": "",
+				"paddingRight": "",
+				"paddingBottom": "",
+				"paddingLeft": "",
+				"marginTop": "",
+				"marginRight": "",
+				"marginBottom": "",
+				"marginLeft": ""
+			}
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"dsContainers": false,
+		"dsGapControl": false
+	},
+	"textdomain": "dstheme",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

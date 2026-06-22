@@ -1,0 +1,76 @@
+/**
+ * Editor-only styles for the Tips Strip block.
+ */
+
+.c-tips-strip {
+
+	&__title,
+	&__subtitle,
+	&__card-title,
+	&__card-description {
+
+		&[contenteditable="true"] {
+			outline: 1px dashed transparent;
+
+			&:hover,
+			&:focus {
+				outline-color: rgba(255, 255, 255, .5);
+			}
+		}
+	}
+
+	&__card {
+		position: relative;
+
+		&-title[contenteditable="true"],
+		&-description[contenteditable="true"] {
+
+			&:hover,
+			&:focus {
+				outline-color: var(--wp-admin-theme-color, #007cba);
+			}
+		}
+	}
+
+	&__panel-row {
+		display: block;
+		padding: 12px 0;
+		border-bottom: 1px solid #e0e0e0;
+
+		&:last-child {
+			border-bottom: 0;
+		}
+	}
+
+	&__panel-item {
+		width: 100%;
+	}
+
+	&__panel-label {
+		margin: 0 0 8px;
+		font-weight: 600;
+		font-size: 1.2rem;
+	}
+
+	&__panel-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	&__panel-preview {
+		width: 48px;
+		height: 48px;
+		object-fit: cover;
+		border-radius: 4px;
+		flex-shrink: 0;
+	}
+
+	&__spacing-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 8px;
+		margin-bottom: 16px;
+	}
+}
