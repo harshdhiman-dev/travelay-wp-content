@@ -6,7 +6,7 @@
 .c-tips-strip {
 	position: relative;
 	overflow: hidden;
-	min-height: 220px;
+	min-height: 400px;
 
 	&__bg {
 		position: absolute;
@@ -14,8 +14,10 @@
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: center center;
 		display: block;
 		z-index: 0;
+		margin: 0;
 	}
 
 	&__overlay {
@@ -34,6 +36,7 @@
 		padding: 48px clamp(24px, 6vw, 100px);
 		max-width: 1520px;
 		margin: 0 auto;
+		min-height: 400px;
 	}
 
 	&__content {
@@ -110,6 +113,7 @@
 			align-items: flex-start;
 			gap: 32px;
 			padding: 40px clamp(20px, 5vw, 60px);
+			min-height: auto;
 		}
 
 		&__content {
