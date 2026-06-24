@@ -239,70 +239,69 @@ export const BlockEdit = ( props ) => {
 					</PanelRow>
 
 					{ cities.map( ( city, index ) => (
-						<PanelRow key={ index } className="c-city-directory__panel-row">
-							<div className="c-city-directory__panel-item">
-								<p className="c-city-directory__panel-label">
-									{ city.name || `${ __( 'City', 'dstheme' ) } ${ index + 1 }` }
-								</p>
-
-								<div className="c-city-directory__panel-controls">
-									{ city.media?.url && (
-										<img
-											className="c-city-directory__panel-preview"
-											src={ city.media.url }
-											alt=""
-										/>
-									) }
-									<MediaUploadCheck>
-										<MediaUpload
-											onSelect={ ( media ) => updateCityMedia( index, media ) }
-											allowedTypes={ [ 'image' ] }
-											value={ city.media?.id }
-											render={ ( { open } ) => (
-												<Button
-													variant="secondary"
-													icon={ city.media?.url ? upload : imageIcon }
-													onClick={ open }
-												>
-													{ city.media?.url
-														? __( 'Replace', 'dstheme' )
-														: __( 'Add Image', 'dstheme' ) }
-												</Button>
-											) }
-										/>
-									</MediaUploadCheck>
-									{ city.media?.url && (
+					<PanelBody
+						key={ index }
+						title={ city.name || `${ __( 'City', 'dstheme' ) } ${ index + 1 }` }
+						initialOpen={ false }
+						className="c-city-directory__city-panel"
+					>
+						<div className="c-city-directory__panel-controls">
+							{ city.media?.url && (
+								<img
+									className="c-city-directory__panel-preview"
+									src={ city.media.url }
+									alt=""
+								/>
+							) }
+							<MediaUploadCheck>
+								<MediaUpload
+									onSelect={ ( media ) => updateCityMedia( index, media ) }
+									allowedTypes={ [ 'image' ] }
+									value={ city.media?.id }
+									render={ ( { open } ) => (
 										<Button
-											variant="tertiary"
-											isDestructive
-											onClick={ () => removeCityMedia( index ) }
+											variant="secondary"
+											icon={ city.media?.url ? upload : imageIcon }
+											onClick={ open }
 										>
-											{ __( 'Remove', 'dstheme' ) }
+											{ city.media?.url
+												? __( 'Replace', 'dstheme' )
+												: __( 'Add Image', 'dstheme' ) }
 										</Button>
 									) }
-								</div>
-
-								<TextControl
-									__next40pxDefaultSize
-									__nextHasNoMarginBottom
-									label={ __( 'Link URL', 'dstheme' ) }
-									value={ city.link || '' }
-									onChange={ ( value ) => updateCity( index, 'link', value ) }
-									style={ { marginTop: '8px' } }
 								/>
-
+							</MediaUploadCheck>
+							{ city.media?.url && (
 								<Button
 									variant="tertiary"
 									isDestructive
-									icon={ trash }
-									onClick={ () => removeCity( index ) }
-									style={ { marginTop: '8px' } }
+									onClick={ () => removeCityMedia( index ) }
 								>
-									{ __( 'Remove city', 'dstheme' ) }
+									{ __( 'Remove', 'dstheme' ) }
 								</Button>
-							</div>
-						</PanelRow>
-					) ) }
+							) }
+						</div>
+
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Link URL', 'dstheme' ) }
+							value={ city.link || '' }
+							onChange={ ( value ) => updateCity( index, 'link', value ) }
+							style={ { marginTop: '8px' } }
+						/>
+
+						<Button
+							variant="tertiary"
+							isDestructive
+							icon={ trash }
+							onClick={ () => removeCity( index ) }
+							style={ { marginTop: '8px' } }
+						>
+							{ __( 'Remove city', 'dstheme' ) }
+						</Button>
+					</PanelBody>
+				) ) }
 
 					<PanelRow>
 						<Button variant="primary" icon={ plus } onClick={ addCity }>
