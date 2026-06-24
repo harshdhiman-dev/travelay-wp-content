@@ -12,6 +12,7 @@
 		font-weight: 700;
 		color: var(--dst--base-heading-color, #1a1a1a);
 		margin: 0 0 28px;
+		max-width: 1435px;
 	}
 
 	&__wrapper {
@@ -19,6 +20,7 @@
 		border-radius: 20px;
 		padding: 28px;
 		box-shadow: 0 2px 20px rgba(0, 0, 0, .06);
+		max-width: 1435px;
 	}
 
 	&__toolbar {
