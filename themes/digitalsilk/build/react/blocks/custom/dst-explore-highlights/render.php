@@ -107,25 +107,6 @@ $loading = ! empty( $background['disableLazyLoad'] ) ? 'eager' : 'lazy';
 		></span>
 	<?php endif; ?>
 
-	<?php if ( $show_decoration ) : ?>
-		<svg class="c-explore__decoration" preserveAspectRatio="none" viewBox="0 0 1400 90" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-			<defs>
-				<pattern id="dst-explore-skyline" width="140" height="90" patternUnits="userSpaceOnUse">
-					<rect x="6" y="40" width="10" height="50" fill="#ffffff" />
-					<rect x="22" y="20" width="8" height="70" fill="#ffffff" />
-					<rect x="36" y="50" width="14" height="40" fill="#ffffff" />
-					<rect x="56" y="14" width="8" height="76" fill="#ffffff" />
-					<circle cx="60" cy="14" r="6" fill="#ffffff" />
-					<rect x="74" y="35" width="10" height="55" fill="#ffffff" />
-					<rect x="92" y="55" width="18" height="35" fill="#ffffff" />
-					<rect x="116" y="25" width="8" height="65" fill="#ffffff" />
-					<rect x="130" y="45" width="10" height="45" fill="#ffffff" />
-				</pattern>
-			</defs>
-			<rect width="1400" height="90" fill="url(#dst-explore-skyline)" opacity="0.08" />
-		</svg>
-	<?php endif; ?>
-
 	<div class="c-explore__inner">
 		<div class="c-explore__content">
 			<?php if ( ! empty( $heading['title'] ) ) : ?>
