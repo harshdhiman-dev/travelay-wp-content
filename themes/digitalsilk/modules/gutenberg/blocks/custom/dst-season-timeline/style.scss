@@ -130,7 +130,12 @@
 		}
 	}
 
+	@media (max-width: 1200px) {
+		padding: 50px 80px;
+	}
+
 	@media (max-width: 768px) {
+		padding: 40px 40px;
 
 		&__track {
 			grid-template-columns: repeat(2, 1fr);
@@ -143,18 +148,19 @@
 	}
 
 	@media (max-width: 480px) {
+			padding: 32px 20px;
 
-		&__track {
-			grid-template-columns: 1fr;
-			gap: 28px;
-		}
+			&__track {
+				grid-template-columns: 1fr;
+				gap: 28px;
+			}
 
-		&__season {
-			padding: 0;
-		}
+			&__season {
+				padding: 0;
+			}
 
-		&__season-image {
-			max-width: 320px;
+			&__season-image {
+				max-width: 320px;
+			}
 		}
 	}
-}
