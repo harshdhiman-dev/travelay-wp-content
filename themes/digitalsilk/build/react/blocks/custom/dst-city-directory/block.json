@@ -1,0 +1,102 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/city-directory",
+  "title": "DST City Directory",
+  "category": "ds-layouts",
+  "icon": "location-alt",
+  "description": "A searchable, alphabet-filterable city directory with oval city images, descriptions, links, and a View More button.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "List of All Cities"
+    },
+    "cities": {
+      "type": "array",
+      "default": [
+        {
+          "name": "Amsterdam",
+          "description": "Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.",
+          "link": "#",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Auckland",
+          "description": "Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.",
+          "link": "#",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Abu Dhabi",
+          "description": "Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.",
+          "link": "#",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Atlanta",
+          "description": "Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.",
+          "link": "#",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Adelaide",
+          "description": "Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.",
+          "link": "#",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Agra",
+          "description": "Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.",
+          "link": "#",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        }
+      ]
+    },
+    "itemsPerPage": {
+      "type": "number",
+      "default": 9
+    },
+    "discoverMoreText": {
+      "type": "string",
+      "default": "Discover More"
+    },
+    "viewMoreText": {
+      "type": "string",
+      "default": "View More"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}
