@@ -14,7 +14,6 @@ import {
 	PanelBody,
 	PanelRow,
 	TextControl,
-	NumberControl,
 } from '@wordpress/components';
 import { plus, trash, upload, image as imageIcon } from '@wordpress/icons';
 import classNames from 'classnames';
@@ -90,11 +89,12 @@ export const BlockEdit = ( props ) => {
 						/>
 					</PanelRow>
 					<PanelRow>
-						<NumberControl
+						<TextControl
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
 							label={ __( 'Cities per page', 'dstheme' ) }
-							value={ itemsPerPage }
+							value={ String( itemsPerPage ) }
+							type="number"
 							min={ 3 }
 							max={ 30 }
 							onChange={ ( value ) => setAttributes( { itemsPerPage: parseInt( value ) || 9 } ) }
