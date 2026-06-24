@@ -1,7 +1,8 @@
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n';
+import { __, } from '@wordpress/i18n';
+import * as React from 'react';
 import {
 	useBlockProps,
 	RichText,
@@ -20,14 +21,96 @@ import classNames from 'classnames';
 
 const ALPHABET = [ 'All', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split( '' ) ];
 
+// Known slug lists per category — used to filter pages on import.
+const COUNTRY_SLUGS = [
+	'usa','canada','mexico','united-kingdom','spain','france','brazil',
+	'russia','australia','japan','greece','italy','saudi-arabia',
+	'switzerland','netherlands','india',
+];
+
+const CITY_SLUGS = [
+	'atlanta','orlando','new-york','london','paris','miami','san-diego',
+	'los-angeles','chicago','boston','austin','seattle','charlotte',
+	'houston','phoenix','fort-lauderdale','san-francisco','raleigh',
+	'long-beach','santa-ana','newark','sacramento','dallas','columbus',
+	'portland','philadelphia','san-antonio','st-louis','oklahoma','porto',
+];
+
+const AIRLINE_SLUGS = [
+	'delta','american-airlines','lufthansa-airlines','emirates-airlines',
+	'delta-airlines',
+];
+
 export const BlockEdit = ( props ) => {
 	const { attributes, setAttributes, wrapperProps } = props;
 	const { heading, cities, itemsPerPage, discoverMoreText, viewMoreText } = attributes;
+	const [ importing, setImporting ] = React.useState( false );
+	const [ importMsg, setImportMsg ] = React.useState( '' );
 
 	const blockProps = useBlockProps( {
 		...wrapperProps,
 		className: classNames( wrapperProps?.className, 'c-city-directory' ),
 	} );
+
+	/**
+	 * Fetch all pages and filter by a list of slugs, then import as cities.
+	 *
+	 * @param {string[]} slugList   List of slugs to match against.
+	 * @param {string}   label      Label shown in the loading/success message.
+	 */
+	const importFromPages = async ( slugList, label ) => {
+		setImporting( true );
+		setImportMsg( `Fetching ${ label }…` );
+
+		try {
+			// Fetch up to 100 pages — covers all your current pages comfortably.
+			const res = await fetch(
+				`/wp-json/wp/v2/pages?per_page=100&_fields=id,title,slug,link,featured_media`,
+				{
+					headers: {
+						'X-WP-Nonce': window.wpApiSettings?.nonce || '',
+					},
+				}
+			);
+
+			if ( ! res.ok ) {
+				throw new Error( `HTTP ${ res.status }` );
+			}
+
+			const pages = await res.json();
+
+			// Filter pages whose slug is in our known slug list.
+			const matched = pages.filter( ( page ) =>
+				slugList.includes( page.slug )
+			);
+
+			if ( matched.length === 0 ) {
+				setImportMsg( `No ${ label } found.` );
+				setImporting( false );
+				return;
+			}
+
+			// Map to city block format — no image since featured_media is 0 on all.
+			const imported = matched.map( ( page ) => ( {
+				name: page.title?.rendered || page.slug,
+				description: '',
+				link: page.link || '#',
+				media: { id: '', url: '', alt: '' },
+			} ) );
+
+			// Merge with existing cities (avoid duplicates by link).
+			const existingLinks = cities.map( ( c ) => c.link );
+			const newOnes = imported.filter( ( c ) => ! existingLinks.includes( c.link ) );
+			const merged = [ ...cities, ...newOnes ];
+
+			setAttributes( { cities: merged } );
+			setImportMsg( `✓ Imported ${ newOnes.length } ${ label } (${ merged.length } total)` );
+		} catch ( err ) {
+			setImportMsg( `Error: ${ err.message }` );
+		}
+
+		setImporting( false );
+	};
 
 	const updateCity = ( index, key, value ) => {
 		const newCities = cities.map( ( city, i ) =>
@@ -103,6 +186,62 @@ export const BlockEdit = ( props ) => {
 				</PanelBody>
 
 				<PanelBody title={ __( 'Cities', 'dstheme' ) } initialOpen={ false }>
+					<PanelRow>
+						<div style={ { width: '100%' } }>
+							<p style={ { margin: '0 0 8px', fontWeight: 600, fontSize: '12px' } }>
+								{ __( 'Import from site pages', 'dstheme' ) }
+							</p>
+							<div style={ { display: 'flex', gap: '8px', flexWrap: 'wrap' } }>
+								<Button
+									variant="secondary"
+									size="small"
+									isBusy={ importing }
+									disabled={ importing }
+									onClick={ () => importFromPages( COUNTRY_SLUGS, 'Countries' ) }
+								>
+									{ __( '🌍 Import Countries', 'dstheme' ) }
+								</Button>
+								<Button
+									variant="secondary"
+									size="small"
+									isBusy={ importing }
+									disabled={ importing }
+									onClick={ () => importFromPages( CITY_SLUGS, 'Cities' ) }
+								>
+									{ __( '🏙️ Import Cities', 'dstheme' ) }
+								</Button>
+								<Button
+									variant="secondary"
+									size="small"
+									isBusy={ importing }
+									disabled={ importing }
+									onClick={ () => importFromPages( AIRLINE_SLUGS, 'Airlines' ) }
+								>
+									{ __( '✈️ Import Airlines', 'dstheme' ) }
+								</Button>
+							</div>
+							{ importMsg && (
+								<p style={ { margin: '8px 0 0', fontSize: '12px', color: importMsg.startsWith( '✓' ) ? '#1f7a4d' : '#cc0000' } }>
+									{ importMsg }
+								</p>
+							) }
+							<Button
+								variant="tertiary"
+								isDestructive
+								size="small"
+								style={ { marginTop: '8px' } }
+								onClick={ () => {
+									if ( window.confirm( __( 'Clear all cities?', 'dstheme' ) ) ) {
+										setAttributes( { cities: [] } );
+										setImportMsg( '' );
+									}
+								} }
+							>
+								{ __( 'Clear all', 'dstheme' ) }
+							</Button>
+						</div>
+					</PanelRow>
+
 					{ cities.map( ( city, index ) => (
 						<PanelRow key={ index } className="c-city-directory__panel-row">
 							<div className="c-city-directory__panel-item">
