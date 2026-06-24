@@ -46,6 +46,7 @@ export const BlockEdit = ( props ) => {
 	const { heading, cities, itemsPerPage, discoverMoreText, viewMoreText } = attributes;
 	const [ importing, setImporting ] = React.useState( false );
 	const [ importMsg, setImportMsg ] = React.useState( '' );
+	const [ importType, setImportType ] = React.useState( '' );
 
 	const blockProps = useBlockProps( {
 		...wrapperProps,
@@ -101,6 +102,7 @@ export const BlockEdit = ( props ) => {
 			// Replace all existing cities with the newly imported set.
 			setAttributes( { cities: imported } );
 			setImportMsg( `✓ Imported ${ imported.length } ${ label }` );
+			setImportType( label );
 		} catch ( err ) {
 			setImportMsg( `Error: ${ err.message }` );
 		}
@@ -181,7 +183,7 @@ export const BlockEdit = ( props ) => {
 					</PanelRow>
 				</PanelBody>
 
-				<PanelBody title={ __( 'Cities', 'dstheme' ) } initialOpen={ false }>
+				<PanelBody title={ importType ? `${ importType } (${ cities.length })` : __( 'Cities', 'dstheme' ) } initialOpen={ false }>
 					<PanelRow>
 						<div style={ { width: '100%' } }>
 							<p style={ { margin: '0 0 8px', fontWeight: 600, fontSize: '12px' } }>
