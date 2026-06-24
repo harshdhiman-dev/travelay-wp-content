@@ -98,13 +98,9 @@ export const BlockEdit = ( props ) => {
 				media: { id: '', url: '', alt: '' },
 			} ) );
 
-			// Merge with existing cities (avoid duplicates by link).
-			const existingLinks = cities.map( ( c ) => c.link );
-			const newOnes = imported.filter( ( c ) => ! existingLinks.includes( c.link ) );
-			const merged = [ ...cities, ...newOnes ];
-
-			setAttributes( { cities: merged } );
-			setImportMsg( `✓ Imported ${ newOnes.length } ${ label } (${ merged.length } total)` );
+			// Replace all existing cities with the newly imported set.
+			setAttributes( { cities: imported } );
+			setImportMsg( `✓ Imported ${ imported.length } ${ label }` );
 		} catch ( err ) {
 			setImportMsg( `Error: ${ err.message }` );
 		}
