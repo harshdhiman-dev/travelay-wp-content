@@ -1,6 +1,0 @@
-*.min.js
-*.min.css
-.husky
-node_modules
-_dist
-assets/vendors

@@ -13082,7 +13082,7 @@ a#amadex-back-to-results-confirmation {
 } */
 button#amadex-modify-search-btn {
     background: #0E7D3F !important;
-    height: 10rem;
+    height: 8.5rem;
     border-radius: 10px;
 }
 
@@ -13127,7 +13127,7 @@ h4.amadex-itinerary-label {
 .visit-main-nav {
     background: #fff;
     width: fit-content;
-    padding: 10px 15px;
+    padding: 6px 15px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }

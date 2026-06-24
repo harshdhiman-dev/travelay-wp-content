@@ -1,1 +1,0 @@
-const d=(t,c,e)=>{let n;return(...o)=>{const u=t.bind(void 0,...o);clearTimeout(n),e&&!n&&u(),n=setTimeout(e?()=>{n=null}:u,c)}},r=(t,c,e)=>{let n;return(...o)=>{const u=t.bind(void 0,...o);n||(e&&!n&&u(),n=setTimeout(()=>{e||u(),n=null},c))}};export{d as a,r as u};

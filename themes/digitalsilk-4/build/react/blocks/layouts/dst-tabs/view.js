@@ -1,1 +1,0 @@
-document.querySelectorAll(".wp-block-ds-theme-ds-tabs").forEach(function(e){});

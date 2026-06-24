@@ -1,1 +1,0 @@
-const n=()=>{const r=document.querySelectorAll(".js-gridder");r&&r.forEach(d=>{const e=Number(d.dataset.gridderColumns)||3,t=Number(d.dataset.gridderGap)||15;new GridderJS(d,{columns:e,gap:t})})};document.addEventListener("DOMContentLoaded",()=>{n()});
