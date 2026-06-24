@@ -5,8 +5,8 @@
 
 .c-season-timeline {
 	position: relative;
-	padding: 56px clamp(20px, 6vw, 100px) 60px;
-	background-color: var(--dst--season-bg, #eaf5ee);
+	padding: 50px 234px;
+	background-color: #EEF9F2;
 	overflow: hidden;
 
 	&__decoration {
@@ -116,7 +116,7 @@
 	}
 
 	&__season-image {
-		width: 100%;
+		width: 70%;
 		aspect-ratio: 4 / 3;
 		border-radius: 16px;
 		overflow: hidden;
