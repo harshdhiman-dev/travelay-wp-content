@@ -1,0 +1,85 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/season-timeline",
+  "title": "DST Season Timeline",
+  "category": "ds-layouts",
+  "icon": "calendar-alt",
+  "description": "A horizontal seasonal timeline with a decorated heading, dashed connector line with dot markers, season labels above, and images below — with an India landmark silhouette background.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "object",
+      "default": {
+        "title": "Best Time to Visit the India",
+        "showDecoration": true
+      }
+    },
+    "seasons": {
+      "type": "array",
+      "default": [
+        {
+          "name": "Spring",
+          "subtitle": "Blooming parks & mild weather",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Summer",
+          "subtitle": "Festivals, beaches & road trips",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Fall",
+          "subtitle": "Colorful foliage, harvest season",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        },
+        {
+          "name": "Winter",
+          "subtitle": "Snow sports, holiday celebrations",
+          "media": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          }
+        }
+      ]
+    },
+    "decorationUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "spacing": {
+      "type": "object",
+      "default": {
+        "paddingTop": "",
+        "paddingRight": "",
+        "paddingBottom": "",
+        "paddingLeft": "",
+        "marginTop": "",
+        "marginRight": "",
+        "marginBottom": "",
+        "marginLeft": ""
+      }
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}
