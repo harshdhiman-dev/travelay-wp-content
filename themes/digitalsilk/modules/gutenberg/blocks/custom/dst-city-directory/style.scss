@@ -118,7 +118,6 @@
 		margin-bottom: 24px;
 
 		@media (max-width: 599px) {
-			flex-wrap: nowrap;
 			overflow-x: auto;
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: none;
@@ -275,8 +274,7 @@
 		}
 
 		&__toolbar {
-			flex-direction: column;
-			align-items: stretch;
+			align-items: center;
 			gap: 10px;
 		}
 

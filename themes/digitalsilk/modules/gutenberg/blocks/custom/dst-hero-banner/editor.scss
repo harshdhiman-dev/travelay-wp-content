@@ -1,0 +1,67 @@
+/**
+ * Editor-only styles for the Hero Banner block.
+ */
+
+.c-hero-banner {
+
+	&__tag,
+	&__title,
+	&__subtitle {
+
+		&[contenteditable="true"] {
+			outline: 1px dashed transparent;
+
+			&:hover,
+			&:focus {
+				outline-color: rgba(255, 255, 255, .5);
+			}
+		}
+	}
+
+	&__search-preview {
+		background: rgba(255, 255, 255, .15);
+		border: 2px dashed rgba(255, 255, 255, .4);
+		border-radius: 12px;
+		padding: 20px 24px;
+		text-align: center;
+		backdrop-filter: blur(4px);
+
+		p {
+			margin: 0 0 4px;
+			font-size: 1.4rem;
+			font-weight: 600;
+			color: #fff;
+			font-family: monospace;
+		}
+
+		small {
+			font-size: 1.2rem;
+			color: rgba(255, 255, 255, .7);
+		}
+	}
+
+	&__panel-item {
+		width: 100%;
+	}
+
+	&__panel-label {
+		margin: 0 0 8px;
+		font-weight: 600;
+		font-size: 1.2rem;
+	}
+
+	&__panel-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		flex-wrap: wrap;
+	}
+
+	&__panel-preview {
+		width: 48px;
+		height: 48px;
+		object-fit: cover;
+		border-radius: 4px;
+		flex-shrink: 0;
+	}
+}
