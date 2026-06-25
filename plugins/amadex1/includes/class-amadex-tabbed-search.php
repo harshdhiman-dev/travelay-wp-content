@@ -128,7 +128,7 @@ class Amadex_Tabbed_Search
             }
 
             div.destination-stay {
-                min-width: 45% !important;
+                min-width: 34% !important;
                 border-top-left-radius: 5px;
                 border-bottom-left-radius: 5px;
             }
