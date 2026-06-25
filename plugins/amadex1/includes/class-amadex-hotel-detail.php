@@ -862,6 +862,12 @@ class Amadex_Hotel_Detail
                 display: flex;
                 border-bottom: 2px solid #e2e8f0;
                 margin-bottom: 0;
+                position: sticky;
+                top: 0;
+                background: #fff;
+                z-index: 99;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+                margin-bottom: 20px;
             }
 
             .ahd-tab {
@@ -1745,13 +1751,13 @@ class Amadex_Hotel_Detail
                     '</div>' +
                     '<div class="ahd-rating-row">' + ratingHtml + '</div>' +
                     photosHtml +
-                    '<div class="ahd-tabs">' +
+                    '</div>' +
+                    '<div class="ahd-tabs" id="ahd-tabs">' +
                     '<button class="ahd-tab active" onclick="ahdTab(this,\'overview\')">Overview</button>' +
                     '<button class="ahd-tab" onclick="ahdTab(this,\'rooms\')">Rooms</button>' +
                     '<button class="ahd-tab" onclick="ahdTab(this,\'location\')">Location</button>' +
                     '<button class="ahd-tab" onclick="ahdTab(this,\'amenities\')">Amenities & Facilities</button>' +
                     '<button class="ahd-tab" onclick="ahdTab(this,\'about\')">About</button>' +
-                    '</div>' +
                     '</div>';
 
                 window.ahdTab = function(btn, section) {

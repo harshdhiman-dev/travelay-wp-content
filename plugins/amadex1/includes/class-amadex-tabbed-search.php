@@ -182,7 +182,7 @@ class Amadex_Tabbed_Search
 
             .ats-field {
                 flex: 1 !important;
-                padding: 12px 16px !important;
+                padding: 8px 16px !important;
                 border: 1.5px solid #e2e8f0 !important;
                 cursor: pointer !important;
                 position: relative !important;
@@ -201,7 +201,6 @@ class Amadex_Tabbed_Search
                 text-transform: uppercase !important;
                 letter-spacing: 0.5px !important;
                 display: block !important;
-                margin-bottom: 4px !important;
             }
 
             .ats-field-value {
@@ -218,7 +217,6 @@ class Amadex_Tabbed_Search
                 font-size: 12px !important;
                 color: #94a3b8 !important;
                 display: block !important;
-                margin-top: 2px !important;
                 white-space: nowrap !important;
                 overflow: hidden !important;
                 text-overflow: ellipsis !important;
