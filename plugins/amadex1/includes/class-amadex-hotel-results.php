@@ -112,15 +112,15 @@ class Amadex_Hotel_Results
             }
 
             .ahr-sf-date {
-                border: none;
+                border: none !important;
                 outline: none;
-                font-size: 15px;
-                font-weight: 700;
-                color: #0f172a;
+                font-size: 15px !important;
+                font-weight: 700 !important;
+                color: #0f172a !important;
                 font-family: inherit;
-                background: transparent;
-                padding: 0;
-                width: 100%;
+                background: transparent !important;
+                padding: 0 !important;
+                width: 100% !important;
                 cursor: pointer;
             }
 
