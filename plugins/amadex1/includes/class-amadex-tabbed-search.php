@@ -47,6 +47,10 @@ class Amadex_Tabbed_Search
                 opacity: 1 !important;
             }
 
+            #<?php echo esc_attr($uid); ?>.ats-ready .ats-tabs {
+                opacity: 1 !important;
+            }
+
             div.room-selection {
                 border-top-right-radius: 5px;
                 border-bottom-right-radius: 5px;
@@ -103,6 +107,8 @@ class Amadex_Tabbed_Search
                 border-top-left-radius: 12px;
                 padding-bottom: 0 !important;
                 z-index: 9999;
+                opacity: 0;
+                transition: opacity 0.3s ease;
             }
 
             .ats-tab {
