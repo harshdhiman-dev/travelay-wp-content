@@ -762,13 +762,20 @@ class Amadex_Tabbed_Search
             </div>
         </div>
 
-        <script data-cfasync="false" data-nowprocket id="ats-script-<?php echo esc_attr($uid); ?>">
+        <?php
+        $ats_uid       = $uid;
+        $ats_ajaxurl   = admin_url('admin-ajax.php');
+        $ats_nonce     = wp_create_nonce('amadex_nonce');
+        $ats_hotel_url = $atts['hotel_results'];
+        add_action('wp_footer', function() use ($ats_uid, $ats_ajaxurl, $ats_nonce, $ats_hotel_url) {
+?>
+        <script data-cfasync="false" data-nowprocket id="ats-script-<?php echo esc_attr($ats_uid); ?>">
             (function() {
-                var UID = <?php echo json_encode($uid); ?>;
+                var UID = <?php echo json_encode($ats_uid); ?>;
                 var FN = UID.replace(/-/g, '_');
-                var AJAXURL = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
-                var NONCE = <?php echo json_encode(wp_create_nonce('amadex_nonce')); ?>;
-                var HOTEL_URL = <?php echo json_encode($atts['hotel_results']); ?>;
+                var AJAXURL = <?php echo json_encode($ats_ajaxurl); ?>;
+                var NONCE = <?php echo json_encode($ats_nonce); ?>;
+                var HOTEL_URL = <?php echo json_encode($ats_hotel_url); ?>;
 
                 // State
                 var checkIn = null;
@@ -1326,7 +1333,7 @@ class Amadex_Tabbed_Search
                         sessionStorage.setItem('amadex_hotel_search', JSON.stringify(searchData));
                     } catch (e) {}
 
-                    window.location.href = <?php echo json_encode($atts['hotel_results']); ?>;
+                    window.location.href = <?php echo json_encode($ats_hotel_url); ?>;
                     return;
 
                     var resultsEl = document.getElementById(UID + '-hotel-results');
@@ -1406,6 +1413,7 @@ class Amadex_Tabbed_Search
             })();
         </script>
 <?php
+        }, 99);
         return ob_get_clean();
     }
 
