@@ -844,7 +844,17 @@ class Amadex_Hotel_Booking
             </div>
         </div>
 
-        <script>
+        <?php
+        $ahb_ajax_url = admin_url('admin-ajax.php');
+        $ahb_nonce    = wp_create_nonce('amadex_nonce');
+        $ps           = get_option('amadex_payment_settings', []);
+        $ahb_tok_key  = isset($ps['nmi_tokenization_key']) ? trim($ps['nmi_tokenization_key']) : '';
+        $ahb_gateway  = isset($ps['default_card_gateway']) ? strtolower(trim($ps['default_card_gateway'])) : 'nmi';
+        $ahb_bypass   = !empty($ps['nmi_bypass_for_testing']);
+        $ahb_home_url = home_url('/booking-confirmation/');
+        add_action('wp_footer', function() use ($ahb_ajax_url, $ahb_nonce, $ahb_tok_key, $ahb_gateway, $ahb_bypass, $ahb_home_url) {
+?>
+        <script data-cfasync="false" data-nowprocket>
             (function() {
                 var hotelData = null;
                 var roomData = null;
@@ -1327,14 +1337,8 @@ class Amadex_Hotel_Booking
                     }
                 });
 
-                var AHB_AJAX = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
-                var AHB_NONCE = <?php echo json_encode(wp_create_nonce('amadex_nonce')); ?>;
-                <?php
-                $ps = get_option('amadex_payment_settings', []);
-                $ahb_tok_key = isset($ps['nmi_tokenization_key']) ? trim($ps['nmi_tokenization_key']) : '';
-                $ahb_gateway = isset($ps['default_card_gateway']) ? strtolower(trim($ps['default_card_gateway'])) : 'nmi';
-                $ahb_bypass  = !empty($ps['nmi_bypass_for_testing']);
-                ?>
+                var AHB_AJAX = <?php echo json_encode($ahb_ajax_url); ?>;
+                var AHB_NONCE = <?php echo json_encode($ahb_nonce); ?>;
                 var AHB_GATEWAY = <?php echo json_encode($ahb_gateway); ?>;
                 var AHB_TOK_KEY = <?php echo json_encode($ahb_tok_key); ?>;
                 var AHB_BYPASS = <?php echo json_encode($ahb_bypass); ?>;
@@ -1409,7 +1413,7 @@ class Amadex_Hotel_Booking
                         .then(function(data) {
                             if (btn) { btn.disabled = false; btn.textContent = 'Confirm & Book'; }
                             if (data && data.success && data.data && data.data.reference) {
-                                var confirmUrl = <?php echo json_encode(home_url('/booking-confirmation/')); ?>;
+                                var confirmUrl = <?php echo json_encode($ahb_home_url); ?>;
                                 window.location.href = confirmUrl + '?reference=' + encodeURIComponent(data.data.reference);
                             } else {
                                 var msg = (data && data.data && data.data.message) ? data.data.message : 'Payment failed. Please check your card details.';
@@ -1453,6 +1457,7 @@ class Amadex_Hotel_Booking
             })();
         </script>
 <?php
+        }, 99);
         return ob_get_clean();
     }
 }
