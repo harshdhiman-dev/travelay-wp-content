@@ -13201,6 +13201,10 @@ button.vsb-search-btn {
     border: 0 !important;
 }
 
+div.ats-container {
+    opacity: 1 !important;
+}
+
 /* ---------- Individual field ---------- */
 .vsb-field {
     display: flex;
