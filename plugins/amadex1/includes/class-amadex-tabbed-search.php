@@ -762,7 +762,7 @@ class Amadex_Tabbed_Search
             </div>
         </div>
 
-        <script>
+        <script data-cfasync="false" data-nowprocket id="ats-script-<?php echo esc_attr($uid); ?>">
             (function() {
                 var UID = <?php echo json_encode($uid); ?>;
                 var FN = UID.replace(/-/g, '_');
