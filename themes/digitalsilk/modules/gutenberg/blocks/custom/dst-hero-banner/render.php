@@ -17,6 +17,7 @@ $title_color    = $attributes['titleColor'] ?? '#ffffff';
 $tag_color      = $attributes['tagColor'] ?? '#ffffff';
 $subtitle_color = $attributes['subtitleColor'] ?? '#ffffff';
 $min_height     = $attributes['minHeight'] ?? '520px';
+$content_width  = $attributes['contentWidth'] ?? '900px';
 
 $background      = wp_parse_args(
 	$attributes['background'] ?? [],
@@ -89,7 +90,7 @@ $unique_id = 'dst-hero-' . substr( md5( $title . $font_url ), 0, 8 );
 		style="background-color: <?php echo esc_attr( $overlay_color ); ?>; opacity: <?php echo esc_attr( $overlay_opacity ); ?>;"
 	></span>
 
-	<div class="c-hero-banner__inner">
+	<div class="c-hero-banner__inner" style="max-width: <?php echo esc_attr( $content_width ); ?>;">
 		<div class="c-hero-banner__content">
 			<?php if ( ! empty( $tag ) ) : ?>
 				<p class="c-hero-banner__tag" style="color: <?php echo esc_attr( $tag_color ); ?>;">

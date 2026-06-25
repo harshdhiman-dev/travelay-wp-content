@@ -54,6 +54,10 @@
 		"minHeight": {
 			"type": "string",
 			"default": "520px"
+		},
+		"contentWidth": {
+			"type": "string",
+			"default": "900px"
 		}
 	},
 	"supports": {

@@ -33,6 +33,7 @@ export const BlockEdit = ( props ) => {
 		tagColor,
 		subtitleColor,
 		minHeight,
+		contentWidth,
 	} = attributes;
 
 	const bgImageUrl    = background?.image?.url || '';
@@ -141,6 +142,17 @@ export const BlockEdit = ( props ) => {
 							value={ minHeight }
 							placeholder="520px"
 							onChange={ ( value ) => setAttributes( { minHeight: value } ) }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'Content Max Width', 'dstheme' ) }
+							value={ contentWidth }
+							placeholder="900px"
+							help={ __( 'Max width of the text + search content area', 'dstheme' ) }
+							onChange={ ( value ) => setAttributes( { contentWidth: value } ) }
 						/>
 					</PanelRow>
 				</PanelBody>
@@ -263,7 +275,10 @@ export const BlockEdit = ( props ) => {
 					} }
 				/>
 
-				<div className="c-hero-banner__inner">
+				<div
+					className="c-hero-banner__inner"
+					style={ { maxWidth: contentWidth || '900px' } }
+				>
 					<div className="c-hero-banner__content">
 						<RichText
 							tagName="p"
