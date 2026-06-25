@@ -8926,7 +8926,7 @@ ${passportSection}
                     }
 
                     // GA4 purchase: fire before clearing booking flight data
-                    pushAmadexPurchaseEvent(flight, bookingRef);
+                    storeAmadexPendingPurchaseEvent(flight, bookingRef);
 
                     // CRITICAL: Clear all booking-specific sessionStorage data BEFORE redirect
                     // This prevents duplicate bookings when user clicks back button
@@ -9586,7 +9586,7 @@ ${passportSection}
                         }
 
                         // GA4 purchase: fire before clearing booking flight data
-                        pushAmadexPurchaseEvent(flight, bookingRef);
+                        storeAmadexPendingPurchaseEvent(flight, bookingRef);
 
                         // CRITICAL: Clear all booking-specific sessionStorage data BEFORE redirect
                         // This prevents duplicate bookings when user clicks back button
@@ -10044,7 +10044,7 @@ ${passportSection}
         function setPaxCookie(name, value, days) {
             var d = new Date();
             d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-            document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+            document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax; Secure`;
         }
 
         function getPaxCookie(name) {

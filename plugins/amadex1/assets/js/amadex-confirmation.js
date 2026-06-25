@@ -369,6 +369,24 @@ function clearBookingSessionData() {
                     }
 
                     sessionStorage.removeItem('amadex_pending_purchase');
+
+                    // ── Delayed detailed log so it's easy to see in DevTools ──
+                    setTimeout(function() {
+                        var e = pendingPurchaseEvent;
+                        var ec = e.ecommerce || {};
+                        var item = (ec.items && ec.items[0]) || {};
+                        console.groupCollapsed('%c[Amadex GA4] ✅ purchase event fired', 'color:#0e7d3f;font-weight:bold;font-size:13px;');
+                        console.log('%cevent',          'font-weight:bold;color:#334155', e.event);
+                        console.log('%ctransaction_id', 'font-weight:bold;color:#334155', ec.transaction_id);
+                        console.log('%ccurrency',       'font-weight:bold;color:#334155', ec.currency);
+                        console.log('%cvalue',          'font-weight:bold;color:#334155', ec.value);
+                        console.log('%citems[0]:', 'font-weight:bold;color:#334155');
+                        console.table(item);
+                        console.log('%cfull ecommerce payload:', 'font-weight:bold;color:#334155');
+                        console.log(JSON.stringify(ec, null, 2));
+                        console.groupEnd();
+                    }, 2000);
+                    // ─────────────────────────────────────────────────────────
                 }
             } catch (purchaseErr) {
                 if (typeof console !== 'undefined' && console.warn) {

@@ -59,7 +59,7 @@
             d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
             expires = '; expires=' + d.toUTCString();
         }
-        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/; SameSite=Lax';
+        document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/; SameSite=Lax; Secure';
     }
 
     function getCookie(name) {
