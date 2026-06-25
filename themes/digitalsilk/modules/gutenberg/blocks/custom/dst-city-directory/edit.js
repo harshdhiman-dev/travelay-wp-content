@@ -94,7 +94,7 @@ export const BlockEdit = ( props ) => {
 			// Map to city block format — no image since featured_media is 0 on all.
 			const imported = matched.map( ( page ) => ( {
 				name: page.title?.rendered || page.slug,
-				description: '',
+				description: 'Global powerhouse of culture, fashion and finance. NYC is a hub for Broadway shows, flavorful dishes and amazing nightlife.',
 				link: page.link || '#',
 				media: { id: '', url: '', alt: '' },
 			} ) );
