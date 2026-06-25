@@ -122,6 +122,7 @@ class Amadex_Hotel_Results
                 padding: 0 !important;
                 width: 100% !important;
                 cursor: pointer;
+                min-height: 10px !important;
             }
 
             .ahr-guests-drop {
@@ -452,12 +453,12 @@ class Amadex_Hotel_Results
             }
 
             .ahr-filter-option {
-                display: flex;
+                display: flex !important;
                 align-items: center;
                 justify-content: space-between;
                 margin-bottom: 9px;
                 cursor: pointer;
-                font-size: 13px;
+                font-size: 13px !important;
                 color: #334155;
             }
 
@@ -496,7 +497,7 @@ class Amadex_Hotel_Results
 
             .ahr-toggle {
                 position: relative;
-                width: 40px;
+                width: 40px !important;
                 height: 22px;
                 flex-shrink: 0;
             }
