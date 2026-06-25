@@ -501,7 +501,7 @@
         //     } catch(e) {}
         // }
         // if (!tripType) tripType = returnDate ? 'roundtrip' : 'oneway';
-        // const isRound = tripType !== 'oneway' && tripType !== 'one_way' && tripType !== 'multi-city';
+        const isRound = tripType !== 'oneway' && tripType !== 'one_way' && tripType !== 'multi-city';
         // const resultsPage = typeof AmadexConfig !== 'undefined' ? (AmadexConfig.resultsPage || AmadexConfig.results_page || '') : '';
 
         const resultsPage = typeof AmadexConfig !== 'undefined' ? (AmadexConfig.resultsPage || AmadexConfig.results_page || '') : '';

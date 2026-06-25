@@ -680,7 +680,7 @@ class Amadex_Hotel_Results
                 padding: 5px 10px;
                 display: flex;
                 justify-content: center;
-                width: 8rem;
+                width: 12rem;
                 border-top-right-radius: 5px;
                 border-bottom-right-radius: 5px;
                 gap: 5px;
