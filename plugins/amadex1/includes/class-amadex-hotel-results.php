@@ -123,7 +123,7 @@ class Amadex_Hotel_Results
                 overflow: hidden;
                 position: sticky;
                 top: 0;
-                z-index: 999;
+                z-index: 9;
             }
 
             .ahr-sf {
@@ -180,16 +180,17 @@ class Amadex_Hotel_Results
             }
 
             .ahr-sf-date {
-                border: none;
+                border: none !important;
                 outline: none;
-                font-size: 15px;
-                font-weight: 700;
-                color: #0f172a;
+                font-size: 15px !important;
+                font-weight: 700 !important;
+                color: #0f172a !important;
                 font-family: inherit;
-                background: transparent;
-                padding: 0;
-                width: 100%;
+                background: transparent !important;
+                padding: 0 !important;
+                width: 100% !important;
                 cursor: pointer;
+                min-height: 10px !important;
             }
 
             .ahr-guests-drop {
@@ -402,6 +403,7 @@ class Amadex_Hotel_Results
                 white-space: nowrap;
                 flex-shrink: 0;
             }
+
             .ahr-modify-btn:hover {
                 background: #0a6232;
             }
@@ -415,8 +417,16 @@ class Amadex_Hotel_Results
             }
 
             @media (max-width: 768px) {
+                div#ahr-filters {
+                    display: none !important;
+                }
+
                 .ahr-layout {
                     grid-template-columns: 1fr;
+                }
+
+                .ahr-card-bottom-row {
+                    flex-wrap: unset !important;
                 }
 
                 .ahr-summary {
@@ -1016,14 +1026,19 @@ class Amadex_Hotel_Results
             <!-- Mobile pill summary bar -->
             <div class="ahr-mobile-pill" id="ahr-mobile-pill" style="display:none;">
                 <button class="ahr-pill-back" onclick="history.back()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M19 12H5M5 12l7-7M5 12l7 7" />
+                    </svg>
                 </button>
                 <div class="ahr-pill-info">
                     <span class="ahr-pill-dest" id="ahr-pill-dest">—</span>
                     <span class="ahr-pill-meta" id="ahr-pill-meta">—</span>
                 </div>
                 <button class="ahr-pill-edit" onclick="ahrToggleDesktopBar()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                    </svg>
                 </button>
             </div>
 
@@ -1204,7 +1219,7 @@ class Amadex_Hotel_Results
                 document.getElementById('ahr-checkout').value = searchData.checkOut || '';
                 renderRoomsList();
                 updateGuestsLabel();
-               // Populate mobile pill
+                // Populate mobile pill
                 (function() {
                     var pillDest = document.getElementById('ahr-pill-dest');
                     var pillMeta = document.getElementById('ahr-pill-meta');
@@ -1215,13 +1230,15 @@ class Amadex_Hotel_Results
                     var cin = searchData.checkIn || '';
                     var cout = searchData.checkOut || '';
                     var rooms = searchData.rooms || 1;
-                    var adults = (searchData.roomData || []).reduce(function(s, r) { return s + (r.adults || 1); }, 0) || searchData.adults || 1;
+                    var adults = (searchData.roomData || []).reduce(function(s, r) {
+                        return s + (r.adults || 1);
+                    }, 0) || searchData.adults || 1;
 
                     function fmtPill(d) {
                         if (!d) return '';
                         var parts = d.split('-');
                         if (parts.length < 3) return d;
-                        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                         return parseInt(parts[2]) + ' ' + months[parseInt(parts[1]) - 1] + ',\'' + parts[0].slice(2);
                     }
 
@@ -1848,7 +1865,9 @@ class Amadex_Hotel_Results
                     mutations.forEach(function(m) {
                         if (m.attributeName === 'class') updateMargin();
                     });
-                }).observe(siteHeader, { attributes: true });
+                }).observe(siteHeader, {
+                    attributes: true
+                });
 
                 updateMargin();
             })();
