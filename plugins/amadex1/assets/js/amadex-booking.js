@@ -10419,11 +10419,14 @@ ${passportSection}
     function validateAllFields() {
         let isValid = true;
 
+        // ── Bypass mode: skip all card + billing field validation ────
+        const bypassPayment = typeof AmadexConfig !== 'undefined' && AmadexConfig.bypassPayment === true;
+
         // Check gateway to determine if we should skip card validation (Stripe has separate payment page)
         const gateway = typeof AmadexConfig !== 'undefined' && AmadexConfig.defaultCardGateway
             ? AmadexConfig.defaultCardGateway
             : 'nmi';
-        const skipCardValidation = gateway === 'stripe';
+        const skipCardValidation = gateway === 'stripe' || bypassPayment;
 
         // Contact fields
         if (!validateField('#contact-email', 'email', $('#contact-email').val())) {
@@ -10486,9 +10489,9 @@ ${passportSection}
             }
         });
 
-        // Billing fields – skip for PayPal, Crypto.com, MoonPay (flight booking, no billing required for these)
+        // Billing fields – skip for PayPal, Crypto.com, MoonPay, and bypass mode
         const paymentMethod = ($('.amadex-payment-tab.is-active').attr('data-method') || $('#payment-method').val() || $('#payment-method-moonpay').val() || $('#payment-method-moonpay-onramp').val() || $('#payment-method-crypto-com').val() || '').trim();
-        const skipBillingValidation = paymentMethod === 'paypal' || paymentMethod === 'crypto_com' || paymentMethod === 'moonpay' || paymentMethod === 'moonpay_onramp';
+        const skipBillingValidation = bypassPayment || paymentMethod === 'paypal' || paymentMethod === 'crypto_com' || paymentMethod === 'moonpay' || paymentMethod === 'moonpay_onramp';
         if (!skipBillingValidation) {
             if (!validateField('#billing-country', 'select', $('#billing-country').val())) {
                 isValid = false;
