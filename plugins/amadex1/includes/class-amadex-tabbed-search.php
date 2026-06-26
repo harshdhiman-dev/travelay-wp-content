@@ -610,6 +610,10 @@ class Amadex_Tabbed_Search
             }
 
             @media (max-width: 768px) {
+                .ats-tabs {
+                    margin-bottom: 16px;
+                }
+
                 .ats-box {
                     padding: 16px !important;
                 }
@@ -617,18 +621,22 @@ class Amadex_Tabbed_Search
                 .ats-hotel-form {
                     flex-direction: column !important;
                     border-radius: 12px !important;
+                    border: 1px solid #E6E6E6;
                 }
 
                 .ats-field {
                     border-right: none !important;
                     border-bottom: 1.5px solid #e2e8f0 !important;
+                    border: 1px solid #E6E6E6 !important;
+                    margin-bottom: 0.5rem !important;
+                    border-radius: 10px !important;
                 }
 
                 .ats-search-btn {
                     border-radius: 10px !important;
                     padding: 14px !important;
                     justify-content: center !important;
-                    margin-top: 8px !important;
+                    margin: 0 !important;
                 }
 
                 div.ats-container {
@@ -776,480 +784,592 @@ class Amadex_Tabbed_Search
         $ats_ajaxurl   = admin_url('admin-ajax.php');
         $ats_nonce     = wp_create_nonce('amadex_nonce');
         $ats_hotel_url = $atts['hotel_results'];
-        add_action('wp_footer', function() use ($ats_uid, $ats_ajaxurl, $ats_nonce, $ats_hotel_url) {
-?>
-        <script data-cfasync="false" data-nowprocket id="ats-script-<?php echo esc_attr($ats_uid); ?>">
-            (function() {
-                var UID = <?php echo json_encode($ats_uid); ?>;
-                var FN = UID.replace(/-/g, '_');
-                var AJAXURL = <?php echo json_encode($ats_ajaxurl); ?>;
-                var NONCE = <?php echo json_encode($ats_nonce); ?>;
-                var HOTEL_URL = <?php echo json_encode($ats_hotel_url); ?>;
+        add_action('wp_footer', function () use ($ats_uid, $ats_ajaxurl, $ats_nonce, $ats_hotel_url) {
+        ?>
+            <script data-cfasync="false" data-nowprocket id="ats-script-<?php echo esc_attr($ats_uid); ?>">
+                (function() {
+                    var UID = <?php echo json_encode($ats_uid); ?>;
+                    var FN = UID.replace(/-/g, '_');
+                    var AJAXURL = <?php echo json_encode($ats_ajaxurl); ?>;
+                    var NONCE = <?php echo json_encode($ats_nonce); ?>;
+                    var HOTEL_URL = <?php echo json_encode($ats_hotel_url); ?>;
 
-                // State
-                var checkIn = null;
-                var checkOut = null;
-                var selecting = 'checkin'; // 'checkin' | 'checkout'
-                var calOffset = 0; // months offset from today
-                var roomData = [{
-                    adults: 1,
-                    children: 0
-                }];
-                var destHotelId = '';
+                    // State
+                    var checkIn = null;
+                    var checkOut = null;
+                    var selecting = 'checkin'; // 'checkin' | 'checkout'
+                    var calOffset = 0; // months offset from today
+                    var roomData = [{
+                        adults: 1,
+                        children: 0
+                    }];
+                    var destHotelId = '';
 
-                var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'
-                ];
-                var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                        'July', 'August', 'September', 'October', 'November', 'December'
+                    ];
+                    var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-                // ── Tab switching ───────────────────────────
-                window['atsTab_' + FN] = function(tab) {
-                    document.querySelectorAll('#' + UID + ' .ats-tab').forEach(function(t) {
-                        t.classList.toggle('active', t.dataset.tab === tab);
-                    });
-                    document.querySelectorAll('#' + UID + ' .ats-panel').forEach(function(p) {
-                        p.classList.remove('active');
-                    });
-                    var panel = document.getElementById(UID + '-' + tab);
-                    if (panel) panel.classList.add('active');
-                };
+                    // ── Tab switching ───────────────────────────
+                    window['atsTab_' + FN] = function(tab) {
+                        document.querySelectorAll('#' + UID + ' .ats-tab').forEach(function(t) {
+                            t.classList.toggle('active', t.dataset.tab === tab);
+                        });
+                        document.querySelectorAll('#' + UID + ' .ats-panel').forEach(function(p) {
+                            p.classList.remove('active');
+                        });
+                        var panel = document.getElementById(UID + '-' + tab);
+                        if (panel) panel.classList.add('active');
+                    };
 
-                // ── Date picker ─────────────────────────────
-                window['atsOpenDates_' + FN] = function() {
-                    closeRooms();
-                    var dp = document.getElementById(UID + '-datepicker');
-                    dp.classList.toggle('open');
-                    if (dp.classList.contains('open')) renderCals();
-                    document.addEventListener('click', outsideClickDates, {
-                        once: false
-                    });
-                };
+                    // ── Date picker ─────────────────────────────
+                    window['atsOpenDates_' + FN] = function() {
+                        closeRooms();
+                        var dp = document.getElementById(UID + '-datepicker');
+                        dp.classList.toggle('open');
+                        if (dp.classList.contains('open')) renderCals();
+                        document.addEventListener('click', outsideClickDates, {
+                            once: false
+                        });
+                    };
 
-                function outsideClickDates(e) {
-                    var dp = document.getElementById(UID + '-datepicker');
-                    var hf = document.getElementById(UID + '-hform');
-                    if (dp && !dp.contains(e.target) && !hf.contains(e.target)) {
-                        if (!checkIn || checkOut) {
-                            dp.classList.remove('open');
-                            document.removeEventListener('click', outsideClickDates);
-                        }
-                    }
-                }
-
-                function renderCals() {
-                    var now = new Date();
-                    var left = new Date(now.getFullYear(), now.getMonth() + calOffset, 1);
-                    var right = new Date(now.getFullYear(), now.getMonth() + calOffset + 1, 1);
-                    document.getElementById(UID + '-cal-left').innerHTML = buildCal(left);
-                    document.getElementById(UID + '-cal-right').innerHTML = buildCal(right);
-                }
-
-                function buildCal(firstDay) {
-                    var today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    var month = firstDay.getMonth();
-                    var year = firstDay.getFullYear();
-                    var daysInMonth = new Date(year, month + 1, 0).getDate();
-                    var startDow = firstDay.getDay();
-
-                    var html = '<div class="ats-cal-header">';
-                    html += '<button class="ats-cal-nav" onclick="atsCalNav_' + FN + '(-1)">&#8249;</button>';
-                    html += '<span class="ats-cal-title">' + MONTHS[month] + ' ' + year + '</span>';
-                    html += '<button class="ats-cal-nav" onclick="atsCalNav_' + FN + '(1)">&#8250;</button>';
-                    html += '</div><div class="ats-cal-grid">';
-
-                    DAYS.forEach(function(d) {
-                        html += '<div class="ats-cal-day-name">' + d + '</div>';
-                    });
-
-                    for (var i = 0; i < startDow; i++) html += '<div class="ats-cal-day empty"></div>';
-
-                    for (var d = 1; d <= daysInMonth; d++) {
-                        var date = new Date(year, month, d);
-                        date.setHours(0, 0, 0, 0);
-                        var isPast = date < today;
-                        var ts = date.getTime();
-                        var cls = 'ats-cal-day';
-                        if (isPast) {
-                            cls += ' past';
-                        } else {
-                            if (checkIn && checkOut) {
-                                var cin = checkIn.getTime(),
-                                    cout = checkOut.getTime();
-                                if (ts === cin && ts === cout) cls += ' selected';
-                                else if (ts === cin) cls += ' range-start';
-                                else if (ts === cout) cls += ' range-end';
-                                else if (ts > cin && ts < cout) cls += ' in-range';
-                            } else if (checkIn && ts === checkIn.getTime()) {
-                                cls += ' selected';
+                    function outsideClickDates(e) {
+                        var dp = document.getElementById(UID + '-datepicker');
+                        var hf = document.getElementById(UID + '-hform');
+                        if (dp && !dp.contains(e.target) && !hf.contains(e.target)) {
+                            if (!checkIn || checkOut) {
+                                dp.classList.remove('open');
+                                document.removeEventListener('click', outsideClickDates);
                             }
                         }
-                        var onclick = isPast ? '' : 'onclick="atsPickDay_' + FN + '(' + year + ',' + month + ',' + d + ')"';
-                        html += '<div class="' + cls + '" ' + onclick + '>' + d + '</div>';
                     }
-                    html += '</div>';
-                    return html;
-                }
 
-                window['atsCalNav_' + FN] = function(dir) {
-                    calOffset += dir;
-                    if (calOffset < 0) calOffset = 0;
-                    renderCals();
-                };
+                    function renderCals() {
+                        var now = new Date();
+                        var left = new Date(now.getFullYear(), now.getMonth() + calOffset, 1);
+                        var right = new Date(now.getFullYear(), now.getMonth() + calOffset + 1, 1);
+                        document.getElementById(UID + '-cal-left').innerHTML = buildCal(left);
+                        document.getElementById(UID + '-cal-right').innerHTML = buildCal(right);
+                    }
 
-                window['atsPickDay_' + FN] = function(y, m, d) {
-                    var picked = new Date(y, m, d);
-                    picked.setHours(0, 0, 0, 0);
+                    function buildCal(firstDay) {
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        var month = firstDay.getMonth();
+                        var year = firstDay.getFullYear();
+                        var daysInMonth = new Date(year, month + 1, 0).getDate();
+                        var startDow = firstDay.getDay();
 
-                    if (!checkIn || (checkIn && checkOut)) {
-                        // Start fresh selection
-                        checkIn = picked;
-                        checkOut = null;
-                        selecting = 'checkout';
-                    } else {
-                        // Second pick
-                        if (picked <= checkIn) {
+                        var html = '<div class="ats-cal-header">';
+                        html += '<button class="ats-cal-nav" onclick="atsCalNav_' + FN + '(-1)">&#8249;</button>';
+                        html += '<span class="ats-cal-title">' + MONTHS[month] + ' ' + year + '</span>';
+                        html += '<button class="ats-cal-nav" onclick="atsCalNav_' + FN + '(1)">&#8250;</button>';
+                        html += '</div><div class="ats-cal-grid">';
+
+                        DAYS.forEach(function(d) {
+                            html += '<div class="ats-cal-day-name">' + d + '</div>';
+                        });
+
+                        for (var i = 0; i < startDow; i++) html += '<div class="ats-cal-day empty"></div>';
+
+                        for (var d = 1; d <= daysInMonth; d++) {
+                            var date = new Date(year, month, d);
+                            date.setHours(0, 0, 0, 0);
+                            var isPast = date < today;
+                            var ts = date.getTime();
+                            var cls = 'ats-cal-day';
+                            if (isPast) {
+                                cls += ' past';
+                            } else {
+                                if (checkIn && checkOut) {
+                                    var cin = checkIn.getTime(),
+                                        cout = checkOut.getTime();
+                                    if (ts === cin && ts === cout) cls += ' selected';
+                                    else if (ts === cin) cls += ' range-start';
+                                    else if (ts === cout) cls += ' range-end';
+                                    else if (ts > cin && ts < cout) cls += ' in-range';
+                                } else if (checkIn && ts === checkIn.getTime()) {
+                                    cls += ' selected';
+                                }
+                            }
+                            var onclick = isPast ? '' : 'onclick="atsPickDay_' + FN + '(' + year + ',' + month + ',' + d + ')"';
+                            html += '<div class="' + cls + '" ' + onclick + '>' + d + '</div>';
+                        }
+                        html += '</div>';
+                        return html;
+                    }
+
+                    window['atsCalNav_' + FN] = function(dir) {
+                        calOffset += dir;
+                        if (calOffset < 0) calOffset = 0;
+                        renderCals();
+                    };
+
+                    window['atsPickDay_' + FN] = function(y, m, d) {
+                        var picked = new Date(y, m, d);
+                        picked.setHours(0, 0, 0, 0);
+
+                        if (!checkIn || (checkIn && checkOut)) {
+                            // Start fresh selection
                             checkIn = picked;
                             checkOut = null;
                             selecting = 'checkout';
                         } else {
-                            checkOut = picked;
-                            selecting = 'checkin';
-                            setTimeout(function() {
-                                document.getElementById(UID + '-datepicker').classList.remove('open');
-                            }, 300);
+                            // Second pick
+                            if (picked <= checkIn) {
+                                checkIn = picked;
+                                checkOut = null;
+                                selecting = 'checkout';
+                            } else {
+                                checkOut = picked;
+                                selecting = 'checkin';
+                                setTimeout(function() {
+                                    document.getElementById(UID + '-datepicker').classList.remove('open');
+                                }, 300);
+                            }
+                        }
+                        updateDateDisplay();
+                        renderCals();
+                    };
+
+                    function updateDateDisplay() {
+                        var cinVal = document.getElementById(UID + '-checkin-val');
+                        var cinDay = document.getElementById(UID + '-checkin-day');
+                        var coutVal = document.getElementById(UID + '-checkout-val');
+                        var coutDay = document.getElementById(UID + '-checkout-day');
+
+                        if (checkIn) {
+                            cinVal.textContent = fmtShort(checkIn);
+                            cinDay.textContent = fmtDay(checkIn);
+                        } else {
+                            cinVal.textContent = 'Select date';
+                            cinDay.textContent = '';
+                        }
+                        if (checkOut) {
+                            coutVal.textContent = fmtShort(checkOut);
+                            coutDay.textContent = fmtDay(checkOut);
+                        } else {
+                            coutVal.textContent = 'Select date';
+                            coutDay.textContent = '';
                         }
                     }
-                    updateDateDisplay();
-                    renderCals();
-                };
 
-                function updateDateDisplay() {
-                    var cinVal = document.getElementById(UID + '-checkin-val');
-                    var cinDay = document.getElementById(UID + '-checkin-day');
-                    var coutVal = document.getElementById(UID + '-checkout-val');
-                    var coutDay = document.getElementById(UID + '-checkout-day');
-
-                    if (checkIn) {
-                        cinVal.textContent = fmtShort(checkIn);
-                        cinDay.textContent = fmtDay(checkIn);
-                    } else {
-                        cinVal.textContent = 'Select date';
-                        cinDay.textContent = '';
+                    function fmtShort(d) {
+                        return d.getDate() + ' ' + MONTHS[d.getMonth()].slice(0, 3) + ', ' + String(d.getFullYear()).slice(2);
                     }
-                    if (checkOut) {
-                        coutVal.textContent = fmtShort(checkOut);
-                        coutDay.textContent = fmtDay(checkOut);
-                    } else {
-                        coutVal.textContent = 'Select date';
-                        coutDay.textContent = '';
+
+                    function fmtDay(d) {
+                        return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d.getDay()];
                     }
-                }
 
-                function fmtShort(d) {
-                    return d.getDate() + ' ' + MONTHS[d.getMonth()].slice(0, 3) + ', ' + String(d.getFullYear()).slice(2);
-                }
-
-                function fmtDay(d) {
-                    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][d.getDay()];
-                }
-
-                function fmtISO(d) {
-                    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-                }
-
-                // ── Rooms & Guests ──────────────────────────
-                window['atsOpenRooms_' + FN] = function() {
-                    event.stopPropagation();
-                    var dp = document.getElementById(UID + '-datepicker');
-                    if (dp) dp.classList.remove('open');
-                    var drop = document.getElementById(UID + '-rooms-drop');
-                    drop.classList.toggle('open');
-                    if (drop.classList.contains('open')) {
-                        setTimeout(function() {
-                            document.addEventListener('click', outsideClickRooms, {
-                                once: false
-                            });
-                        }, 10);
+                    function fmtISO(d) {
+                        return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
                     }
-                };
-                window['atsCloseRooms_' + FN] = function(e) {
-                    if (e) e.stopPropagation();
-                    closeRooms();
-                    document.removeEventListener('click', outsideClickRooms);
-                };
 
-                function closeRooms() {
-                    var drop = document.getElementById(UID + '-rooms-drop');
-                    if (drop) drop.classList.remove('open');
-                }
-
-                function outsideClickRooms(e) {
-                    var drop = document.getElementById(UID + '-rooms-drop');
-                    var field = document.getElementById(UID + '-rooms-field');
-                    if (drop && !drop.contains(e.target) && !field.contains(e.target)) {
+                    // ── Rooms & Guests ──────────────────────────
+                    window['atsOpenRooms_' + FN] = function() {
+                        event.stopPropagation();
+                        var dp = document.getElementById(UID + '-datepicker');
+                        if (dp) dp.classList.remove('open');
+                        var drop = document.getElementById(UID + '-rooms-drop');
+                        drop.classList.toggle('open');
+                        if (drop.classList.contains('open')) {
+                            setTimeout(function() {
+                                document.addEventListener('click', outsideClickRooms, {
+                                    once: false
+                                });
+                            }, 10);
+                        }
+                    };
+                    window['atsCloseRooms_' + FN] = function(e) {
+                        if (e) e.stopPropagation();
                         closeRooms();
                         document.removeEventListener('click', outsideClickRooms);
+                    };
+
+                    function closeRooms() {
+                        var drop = document.getElementById(UID + '-rooms-drop');
+                        if (drop) drop.classList.remove('open');
                     }
-                }
 
-                function atsRenderRooms() {
-                    var list = document.getElementById(UID + '-rooms-list');
-                    if (!list) return;
-                    list.innerHTML = roomData.map(function(r, i) {
-                        return '<div style="border-bottom:1px solid #f1f5f9;padding:10px 0;">' +
-                            '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
-                            '<span style="font-size:13px;font-weight:700;background:#f1f5f9;padding:3px 8px;border-radius:4px;">Room ' + (i + 1) + '</span>' +
-                            (roomData.length > 1 ? '<button onclick="atsRemoveRoom_' + FN + '(event,' + i + ')" style="font-size:12px;font-weight:700;color:#dc2626;cursor:pointer;background:none;border:none;font-family:inherit;">REMOVE</button>' : '') +
-                            '</div>' +
-                            '<div class="ats-counter-row">' +
-                            '<div><div class="ats-counter-label">Adults</div><div class="ats-counter-sub">Age 18+</div></div>' +
-                            '<div class="ats-counter-ctrl">' +
-                            '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'adults\',-1)">−</button>' +
-                            '<span class="ats-counter-val">' + r.adults + '</span>' +
-                            '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'adults\',1)">+</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="ats-counter-row">' +
-                            '<div><div class="ats-counter-label">Children</div><div class="ats-counter-sub">Under 18</div></div>' +
-                            '<div class="ats-counter-ctrl">' +
-                            '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'children\',-1)">−</button>' +
-                            '<span class="ats-counter-val">' + r.children + '</span>' +
-                            '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'children\',1)">+</button>' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>';
-                    }).join('');
-                    // Update label
-                    var ta = roomData.reduce(function(s, r) {
-                        return s + r.adults;
-                    }, 0);
-                    var tc = roomData.reduce(function(s, r) {
-                        return s + r.children;
-                    }, 0);
-                    document.getElementById(UID + '-rooms-val').textContent = roomData.length + ' room' + (roomData.length > 1 ? 's' : '') + ', ' + ta + ' adult' + (ta > 1 ? 's' : '');
-                    document.getElementById(UID + '-children-val').textContent = tc + ' child' + (tc !== 1 ? 'ren' : '');
-                }
-                atsRenderRooms();
+                    function outsideClickRooms(e) {
+                        var drop = document.getElementById(UID + '-rooms-drop');
+                        var field = document.getElementById(UID + '-rooms-field');
+                        if (drop && !drop.contains(e.target) && !field.contains(e.target)) {
+                            closeRooms();
+                            document.removeEventListener('click', outsideClickRooms);
+                        }
+                    }
 
-                window['atsRoomCtr_' + FN] = function(e, idx, type, delta) {
-                    if (e && e.stopPropagation) e.stopPropagation();
-                    if (type === 'adults') roomData[idx].adults = Math.min(16, Math.max(1, roomData[idx].adults + delta));
-                    if (type === 'children') roomData[idx].children = Math.min(10, Math.max(0, roomData[idx].children + delta));
-                    atsRenderRooms();
-                };
-                window['atsAddRoom_' + FN] = function(e) {
-                    if (e && e.stopPropagation) e.stopPropagation();
-                    if (roomData.length >= 8) return;
-                    roomData.push({
-                        adults: 1,
-                        children: 0
-                    });
-                    atsRenderRooms();
-                };
-                window['atsRemoveRoom_' + FN] = function(e, idx) {
-                    if (e && e.stopPropagation) e.stopPropagation();
-                    if (roomData.length <= 1) return;
-                    roomData.splice(idx, 1);
-                    atsRenderRooms();
-                };
-
-                // ── Autocomplete ────────────────────────────
-                // ── Autocomplete (reuses amadex_search_airports) ─
-                var acTimer = null;
-
-                // Popular destinations shown on click/focus before typing
-                var popularDests = [{
-                        code: 'JFK',
-                        city: 'New York',
-                        name: 'John F. Kennedy International, United States'
-                    },
-                    {
-                        code: 'LHR',
-                        city: 'London',
-                        name: 'Heathrow Airport, United Kingdom'
-                    },
-                    {
-                        code: 'DXB',
-                        city: 'Dubai',
-                        name: 'Dubai International, United Arab Emirates'
-                    },
-                    {
-                        code: 'CDG',
-                        city: 'Paris',
-                        name: 'Charles de Gaulle, France'
-                    },
-                    {
-                        code: 'LAX',
-                        city: 'Los Angeles',
-                        name: 'Los Angeles International, United States'
-                    },
-                    {
-                        code: 'SIN',
-                        city: 'Singapore',
-                        name: 'Singapore Changi, Singapore'
-                    },
-                    {
-                        code: 'BKK',
-                        city: 'Bangkok',
-                        name: 'Suvarnabhumi Airport, Thailand'
-                    },
-                    {
-                        code: 'DEL',
-                        city: 'Delhi',
-                        name: 'Indira Gandhi International, India'
-                    },
-                ];
-
-                function showPopularDests() {
-                    var ac = document.getElementById(UID + '-autocomplete');
-                    ac.innerHTML = '<div style="padding:8px 14px;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Popular Destinations</div>' +
-                        popularDests.map(function(a) {
-                            return '<div class="ats-autocomplete-item" onclick="atsPickHotel_' + FN + '(\'' + a.code + '\',\'' + a.city + '\',\'' + a.name + '\')">' +
-                                '<div style="width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
-                                '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e7d3f" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>' +
+                    function atsRenderRooms() {
+                        var list = document.getElementById(UID + '-rooms-list');
+                        if (!list) return;
+                        list.innerHTML = roomData.map(function(r, i) {
+                            return '<div style="border-bottom:1px solid #f1f5f9;padding:10px 0;">' +
+                                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+                                '<span style="font-size:13px;font-weight:700;background:#f1f5f9;padding:3px 8px;border-radius:4px;">Room ' + (i + 1) + '</span>' +
+                                (roomData.length > 1 ? '<button onclick="atsRemoveRoom_' + FN + '(event,' + i + ')" style="font-size:12px;font-weight:700;color:#dc2626;cursor:pointer;background:none;border:none;font-family:inherit;">REMOVE</button>' : '') +
                                 '</div>' +
-                                '<div style="min-width:0;">' +
-                                '<div class="ats-autocomplete-name">' + a.city + ' <span style="color:#94a3b8;font-weight:500;font-size:12px;">(' + a.code + ')</span></div>' +
-                                '<div class="ats-autocomplete-sub">' + a.name + '</div>' +
+                                '<div class="ats-counter-row">' +
+                                '<div><div class="ats-counter-label">Adults</div><div class="ats-counter-sub">Age 18+</div></div>' +
+                                '<div class="ats-counter-ctrl">' +
+                                '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'adults\',-1)">−</button>' +
+                                '<span class="ats-counter-val">' + r.adults + '</span>' +
+                                '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'adults\',1)">+</button>' +
+                                '</div>' +
+                                '</div>' +
+                                '<div class="ats-counter-row">' +
+                                '<div><div class="ats-counter-label">Children</div><div class="ats-counter-sub">Under 18</div></div>' +
+                                '<div class="ats-counter-ctrl">' +
+                                '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'children\',-1)">−</button>' +
+                                '<span class="ats-counter-val">' + r.children + '</span>' +
+                                '<button class="ats-counter-btn" onclick="atsRoomCtr_' + FN + '(event,' + i + ',\'children\',1)">+</button>' +
+                                '</div>' +
                                 '</div>' +
                                 '</div>';
                         }).join('');
-                    ac.classList.add('open');
-                }
-                // Prefill destination from cookie or flight search sessionStorage
-                function getCookieAts(name) {
-                    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-                    return match ? decodeURIComponent(match[2]) : '';
-                }
-                // Auto-fill Check In with today, Check Out with tomorrow
-                // Auto-fill Check In with today, Check Out with today + 7
-                (function prefillDates() {
-                    var today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    var checkout = new Date();
-                    checkout.setHours(0, 0, 0, 0);
-                    checkout.setDate(today.getDate() + 7);
-                    checkIn = today;
-                    checkOut = checkout;
-                    updateDateDisplay();
-                })();
-                (function prefillDest() {
-                    var input = document.getElementById(UID + '-dest-input');
-                    var codeEl = document.getElementById(UID + '-dest-id');
-                    if (input && !input.value.trim()) {
-                        // 1. Try hotel dest cookie
-                        var city = getCookieAts('amadex_hotel_dest_city');
-                        var code = getCookieAts('amadex_hotel_dest_code');
-                        // 2. Fallback to flight search sessionStorage destination
-                        // 2. Fallback to flight search sessionStorage destination
-                        if (!city) {
-                            try {
-                                var fs = sessionStorage.getItem('amadex_search_data');
-                                if (fs) {
-                                    var fsd = JSON.parse(fs);
-                                    if (fsd.destination) {
-                                        city = fsd.destination;
-                                        code = fsd.destination;
-                                        // Try to get full name from booking flight data
-                                        var bf = sessionStorage.getItem('amadex_booking_flight');
-                                        if (bf) {
-                                            var bfd = JSON.parse(bf);
-                                            var seg = bfd.itineraries && bfd.itineraries[0] && bfd.itineraries[0].segments;
-                                            if (seg && seg.length) {
-                                                var arr = seg[seg.length - 1].arrival;
-                                                if (arr && arr.iataCode) {
-                                                    code = arr.iataCode;
-                                                    city = arr.cityName || arr.iataCode;
+                        // Update label
+                        var ta = roomData.reduce(function(s, r) {
+                            return s + r.adults;
+                        }, 0);
+                        var tc = roomData.reduce(function(s, r) {
+                            return s + r.children;
+                        }, 0);
+                        document.getElementById(UID + '-rooms-val').textContent = roomData.length + ' room' + (roomData.length > 1 ? 's' : '') + ', ' + ta + ' adult' + (ta > 1 ? 's' : '');
+                        document.getElementById(UID + '-children-val').textContent = tc + ' child' + (tc !== 1 ? 'ren' : '');
+                    }
+                    atsRenderRooms();
+
+                    window['atsRoomCtr_' + FN] = function(e, idx, type, delta) {
+                        if (e && e.stopPropagation) e.stopPropagation();
+                        if (type === 'adults') roomData[idx].adults = Math.min(16, Math.max(1, roomData[idx].adults + delta));
+                        if (type === 'children') roomData[idx].children = Math.min(10, Math.max(0, roomData[idx].children + delta));
+                        atsRenderRooms();
+                    };
+                    window['atsAddRoom_' + FN] = function(e) {
+                        if (e && e.stopPropagation) e.stopPropagation();
+                        if (roomData.length >= 8) return;
+                        roomData.push({
+                            adults: 1,
+                            children: 0
+                        });
+                        atsRenderRooms();
+                    };
+                    window['atsRemoveRoom_' + FN] = function(e, idx) {
+                        if (e && e.stopPropagation) e.stopPropagation();
+                        if (roomData.length <= 1) return;
+                        roomData.splice(idx, 1);
+                        atsRenderRooms();
+                    };
+
+                    // ── Autocomplete ────────────────────────────
+                    // ── Autocomplete (reuses amadex_search_airports) ─
+                    var acTimer = null;
+
+                    // Popular destinations shown on click/focus before typing
+                    var popularDests = [{
+                            code: 'JFK',
+                            city: 'New York',
+                            name: 'John F. Kennedy International, United States'
+                        },
+                        {
+                            code: 'LHR',
+                            city: 'London',
+                            name: 'Heathrow Airport, United Kingdom'
+                        },
+                        {
+                            code: 'DXB',
+                            city: 'Dubai',
+                            name: 'Dubai International, United Arab Emirates'
+                        },
+                        {
+                            code: 'CDG',
+                            city: 'Paris',
+                            name: 'Charles de Gaulle, France'
+                        },
+                        {
+                            code: 'LAX',
+                            city: 'Los Angeles',
+                            name: 'Los Angeles International, United States'
+                        },
+                        {
+                            code: 'SIN',
+                            city: 'Singapore',
+                            name: 'Singapore Changi, Singapore'
+                        },
+                        {
+                            code: 'BKK',
+                            city: 'Bangkok',
+                            name: 'Suvarnabhumi Airport, Thailand'
+                        },
+                        {
+                            code: 'DEL',
+                            city: 'Delhi',
+                            name: 'Indira Gandhi International, India'
+                        },
+                    ];
+
+                    function showPopularDests() {
+                        var ac = document.getElementById(UID + '-autocomplete');
+                        ac.innerHTML = '<div style="padding:8px 14px;font-size:11px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;">Popular Destinations</div>' +
+                            popularDests.map(function(a) {
+                                return '<div class="ats-autocomplete-item" onclick="atsPickHotel_' + FN + '(\'' + a.code + '\',\'' + a.city + '\',\'' + a.name + '\')">' +
+                                    '<div style="width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+                                    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e7d3f" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>' +
+                                    '</div>' +
+                                    '<div style="min-width:0;">' +
+                                    '<div class="ats-autocomplete-name">' + a.city + ' <span style="color:#94a3b8;font-weight:500;font-size:12px;">(' + a.code + ')</span></div>' +
+                                    '<div class="ats-autocomplete-sub">' + a.name + '</div>' +
+                                    '</div>' +
+                                    '</div>';
+                            }).join('');
+                        ac.classList.add('open');
+                    }
+                    // Prefill destination from cookie or flight search sessionStorage
+                    function getCookieAts(name) {
+                        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+                        return match ? decodeURIComponent(match[2]) : '';
+                    }
+                    // Auto-fill Check In with today, Check Out with tomorrow
+                    // Auto-fill Check In with today, Check Out with today + 7
+                    (function prefillDates() {
+                        var today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        var checkout = new Date();
+                        checkout.setHours(0, 0, 0, 0);
+                        checkout.setDate(today.getDate() + 7);
+                        checkIn = today;
+                        checkOut = checkout;
+                        updateDateDisplay();
+                    })();
+                    (function prefillDest() {
+                        var input = document.getElementById(UID + '-dest-input');
+                        var codeEl = document.getElementById(UID + '-dest-id');
+                        if (input && !input.value.trim()) {
+                            // 1. Try hotel dest cookie
+                            var city = getCookieAts('amadex_hotel_dest_city');
+                            var code = getCookieAts('amadex_hotel_dest_code');
+                            // 2. Fallback to flight search sessionStorage destination
+                            // 2. Fallback to flight search sessionStorage destination
+                            if (!city) {
+                                try {
+                                    var fs = sessionStorage.getItem('amadex_search_data');
+                                    if (fs) {
+                                        var fsd = JSON.parse(fs);
+                                        if (fsd.destination) {
+                                            city = fsd.destination;
+                                            code = fsd.destination;
+                                            // Try to get full name from booking flight data
+                                            var bf = sessionStorage.getItem('amadex_booking_flight');
+                                            if (bf) {
+                                                var bfd = JSON.parse(bf);
+                                                var seg = bfd.itineraries && bfd.itineraries[0] && bfd.itineraries[0].segments;
+                                                if (seg && seg.length) {
+                                                    var arr = seg[seg.length - 1].arrival;
+                                                    if (arr && arr.iataCode) {
+                                                        code = arr.iataCode;
+                                                        city = arr.cityName || arr.iataCode;
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
-                            } catch (e) {}
-                        }
-                        if (city) {
-                            // If city is just an IATA code, look up the full name
-                            var knownCities = {
-                                'LAX': 'Los Angeles',
-                                'JFK': 'New York',
-                                'LHR': 'London',
-                                'DXB': 'Dubai',
-                                'CDG': 'Paris',
-                                'SIN': 'Singapore',
-                                'BKK': 'Bangkok',
-                                'DEL': 'Delhi',
-                                'BOM': 'Mumbai',
-                                'ORD': 'Chicago',
-                                'DFW': 'Dallas',
-                                'MIA': 'Miami',
-                                'ATL': 'Atlanta',
-                                'SEA': 'Seattle',
-                                'DEN': 'Denver',
-                                'LAS': 'Las Vegas',
-                                'SFO': 'San Francisco',
-                                'NRT': 'Tokyo',
-                                'HKG': 'Hong Kong',
-                                'KUL': 'Kuala Lumpur',
-                                'SYD': 'Sydney',
-                                'FCO': 'Rome',
-                                'MAD': 'Madrid',
-                                'BCN': 'Barcelona',
-                                'AMS': 'Amsterdam',
-                                'FRA': 'Frankfurt',
-                                'NYC': 'New York',
-                                'LON': 'London',
-                                'PAR': 'Paris',
-                                'CHI': 'Chicago',
-                            };
-                            var subText = getCookieAts('amadex_hotel_dest_sub');
-                            var cityName = knownCities[city.toUpperCase()] || city;
-                            var fullSub = subText || (cityName !== city ? cityName + ' (' + city + ')' : '');
-
-                            input.value = cityName;
-                            if (codeEl) {
-                                codeEl.value = code;
-                                codeEl.dataset.cityCode = code;
-                                codeEl.dataset.cityName = cityName;
+                                } catch (e) {}
                             }
-                            destHotelId = code;
-                            var subEl = document.getElementById(UID + '-dest-sub');
-                            if (subEl && fullSub) subEl.textContent = fullSub;
+                            if (city) {
+                                // If city is just an IATA code, look up the full name
+                                var knownCities = {
+                                    'LAX': 'Los Angeles',
+                                    'JFK': 'New York',
+                                    'LHR': 'London',
+                                    'DXB': 'Dubai',
+                                    'CDG': 'Paris',
+                                    'SIN': 'Singapore',
+                                    'BKK': 'Bangkok',
+                                    'DEL': 'Delhi',
+                                    'BOM': 'Mumbai',
+                                    'ORD': 'Chicago',
+                                    'DFW': 'Dallas',
+                                    'MIA': 'Miami',
+                                    'ATL': 'Atlanta',
+                                    'SEA': 'Seattle',
+                                    'DEN': 'Denver',
+                                    'LAS': 'Las Vegas',
+                                    'SFO': 'San Francisco',
+                                    'NRT': 'Tokyo',
+                                    'HKG': 'Hong Kong',
+                                    'KUL': 'Kuala Lumpur',
+                                    'SYD': 'Sydney',
+                                    'FCO': 'Rome',
+                                    'MAD': 'Madrid',
+                                    'BCN': 'Barcelona',
+                                    'AMS': 'Amsterdam',
+                                    'FRA': 'Frankfurt',
+                                    'NYC': 'New York',
+                                    'LON': 'London',
+                                    'PAR': 'Paris',
+                                    'CHI': 'Chicago',
+                                };
+                                var subText = getCookieAts('amadex_hotel_dest_sub');
+                                var cityName = knownCities[city.toUpperCase()] || city;
+                                var fullSub = subText || (cityName !== city ? cityName + ' (' + city + ')' : '');
+
+                                input.value = cityName;
+                                if (codeEl) {
+                                    codeEl.value = code;
+                                    codeEl.dataset.cityCode = code;
+                                    codeEl.dataset.cityName = cityName;
+                                }
+                                destHotelId = code;
+                                var subEl = document.getElementById(UID + '-dest-sub');
+                                if (subEl && fullSub) subEl.textContent = fullSub;
+                            }
                         }
-                    }
-                })();
-                document.getElementById(UID + '-dest-input').addEventListener('focus', function() {
-                    showPopularDests();
-                });
-
-                document.getElementById(UID + '-dest-input').addEventListener('click', function() {
-                    showPopularDests();
-                });
-
-                // Also open when clicking anywhere on the destination field
-                document.getElementById(UID + '-dest-wrap').addEventListener('click', function(e) {
-                    document.getElementById(UID + '-dest-input').focus();
-                    showPopularDests();
-                });
-
-                document.getElementById(UID + '-dest-input').addEventListener('input', function() {
-                    var val = this.value.trim();
-                    clearTimeout(acTimer);
-                    var ac = document.getElementById(UID + '-autocomplete');
-                    if (val.length < 1) {
+                    })();
+                    document.getElementById(UID + '-dest-input').addEventListener('focus', function() {
                         showPopularDests();
+                    });
+
+                    document.getElementById(UID + '-dest-input').addEventListener('click', function() {
+                        showPopularDests();
+                    });
+
+                    // Also open when clicking anywhere on the destination field
+                    document.getElementById(UID + '-dest-wrap').addEventListener('click', function(e) {
+                        document.getElementById(UID + '-dest-input').focus();
+                        showPopularDests();
+                    });
+
+                    document.getElementById(UID + '-dest-input').addEventListener('input', function() {
+                        var val = this.value.trim();
+                        clearTimeout(acTimer);
+                        var ac = document.getElementById(UID + '-autocomplete');
+                        if (val.length < 1) {
+                            showPopularDests();
+                            return;
+                        }
+                        acTimer = setTimeout(function() {
+                            fetch(AJAXURL, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/x-www-form-urlencoded'
+                                    },
+                                    body: new URLSearchParams({
+                                        action: 'amadex_search_airports',
+                                        nonce: NONCE,
+                                        keyword: val
+                                    })
+                                })
+                                .then(function(r) {
+                                    return r.json();
+                                })
+                                .then(function(data) {
+                                    if (!data.success || !data.data || !data.data.length) {
+                                        ac.classList.remove('open');
+                                        return;
+                                    }
+                                    ac.innerHTML = data.data.map(function(a) {
+                                        var safeName = (a.name || '').replace(/'/g, '&#39;');
+                                        var safeCity = (a.city || '').replace(/'/g, '&#39;');
+                                        var safeCountry = (a.country || '').replace(/'/g, '&#39;');
+                                        var safeCode = (a.code || '').replace(/'/g, '&#39;');
+                                        return '<div class="ats-autocomplete-item" onclick="atsPickHotel_' + FN + '(\'' + safeCode + '\',\'' + safeCity + '\',\'' + safeName + ', ' + safeCity + ', ' + safeCountry + '\')">' +
+                                            '<div style="width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+                                            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e7d3f" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>' +
+                                            '</div>' +
+                                            '<div style="min-width:0;">' +
+                                            '<div class="ats-autocomplete-name">' + safeCity + ' <span style="color:#94a3b8;font-weight:500;font-size:12px;">(' + safeCode + ')</span></div>' +
+                                            '<div class="ats-autocomplete-sub">' + safeName + ', ' + safeCountry + '</div>' +
+                                            '</div>' +
+                                            '</div>';
+                                    }).join('');
+                                    ac.classList.add('open');
+                                })
+                                .catch(function() {
+                                    ac.classList.remove('open');
+                                });
+                        }, 200);
+                    });
+
+                    window['atsPickHotel_' + FN] = function(code, city, fullName) {
+                        destHotelId = code;
+                        document.getElementById(UID + '-dest-input').value = city;
+                        document.getElementById(UID + '-dest-sub').textContent = fullName;
+                        var destIdEl = document.getElementById(UID + '-dest-id');
+                        destIdEl.value = code;
+                        destIdEl.dataset.cityCode = code;
+                        destIdEl.dataset.cityName = city;
+                        document.getElementById(UID + '-autocomplete').classList.remove('open');
+                        // Save to cookie for 30 days
+                        var exp = new Date();
+                        exp.setDate(exp.getDate() + 30);
+                        document.cookie = 'amadex_hotel_dest_city=' + encodeURIComponent(city) + '; expires=' + exp.toUTCString() + '; path=/';
+                        document.cookie = 'amadex_hotel_dest_code=' + encodeURIComponent(code) + '; expires=' + exp.toUTCString() + '; path=/';
+                        document.cookie = 'amadex_hotel_dest_sub=' + encodeURIComponent(fullName) + '; expires=' + exp.toUTCString() + '; path=/';
+                    };
+                    // ── Hotel Search ────────────────────────────
+                    window['atsHotelSearch_' + FN] = function() {
+                        var dest = document.getElementById(UID + '-dest-input').value.trim();
+                        var hotelId = document.getElementById(UID + '-dest-id').value;
+
+                        if (!dest) {
+                            document.getElementById(UID + '-dest-input').focus();
+                            return;
+                        }
+                        if (!checkIn || !checkOut) {
+                            document.getElementById(UID + '-datepicker').classList.add('open');
+                            renderCals();
+                            return;
+                        }
+
+                        // Store search data in sessionStorage and redirect
+                        var destEl = document.getElementById(UID + '-dest-id');
+                        var cityCode = (destEl && destEl.dataset.cityCode) ? destEl.dataset.cityCode : hotelId;
+                        var cityName = (destEl && destEl.dataset.cityName) ? destEl.dataset.cityName : dest;
+                        var totalAdults = roomData.reduce(function(s, r) {
+                            return s + r.adults;
+                        }, 0);
+                        var totalChildren = roomData.reduce(function(s, r) {
+                            return s + r.children;
+                        }, 0);
+                        var searchData = {
+                            destination: cityName,
+                            hotelId: cityCode,
+                            cityCode: cityCode,
+                            checkIn: fmtISO(checkIn),
+                            checkOut: fmtISO(checkOut),
+                            rooms: roomData.length,
+                            adults: Math.round(totalAdults / roomData.length),
+                            children: totalChildren,
+                            roomData: roomData,
+                        };
+
+                        try {
+                            // Force clear old data first then set fresh
+                            sessionStorage.removeItem('amadex_hotel_search');
+                            sessionStorage.setItem('amadex_hotel_search', JSON.stringify(searchData));
+                        } catch (e) {}
+
+                        window.location.href = <?php echo json_encode($ats_hotel_url); ?>;
                         return;
-                    }
-                    acTimer = setTimeout(function() {
+
+                        var resultsEl = document.getElementById(UID + '-hotel-results');
+                        resultsEl.innerHTML = '<div style="text-align:center;padding:30px;"><div style="width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#0e7d3f;border-radius:50%;animation:atsSpin 0.8s linear infinite;margin:0 auto 12px;"></div><p style="color:#64748b;font-size:14px;">Searching hotels...</p></div><style>@keyframes atsSpin{to{transform:rotate(360deg)}}</style>';
+
                         fetch(AJAXURL, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/x-www-form-urlencoded'
                                 },
                                 body: new URLSearchParams({
-                                    action: 'amadex_search_airports',
+                                    action: 'amadex_hotel_search',
                                     nonce: NONCE,
-                                    keyword: val
+                                    keyword: dest,
+                                    hotel_id: hotelId,
+                                    check_in: fmtISO(checkIn),
+                                    check_out: fmtISO(checkOut),
+                                    adults: adults,
+                                    rooms: rooms
                                 })
                             })
                             .then(function(r) {
@@ -1257,170 +1377,58 @@ class Amadex_Tabbed_Search
                             })
                             .then(function(data) {
                                 if (!data.success || !data.data || !data.data.length) {
-                                    ac.classList.remove('open');
+                                    resultsEl.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:30px;">No hotels found. Try a different destination or dates.</p>';
                                     return;
                                 }
-                                ac.innerHTML = data.data.map(function(a) {
-                                    var safeName = (a.name || '').replace(/'/g, '&#39;');
-                                    var safeCity = (a.city || '').replace(/'/g, '&#39;');
-                                    var safeCountry = (a.country || '').replace(/'/g, '&#39;');
-                                    var safeCode = (a.code || '').replace(/'/g, '&#39;');
-                                    return '<div class="ats-autocomplete-item" onclick="atsPickHotel_' + FN + '(\'' + safeCode + '\',\'' + safeCity + '\',\'' + safeName + ', ' + safeCity + ', ' + safeCountry + '\')">' +
-                                        '<div style="width:36px;height:36px;background:#f0fdf4;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
-                                        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0e7d3f" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>' +
-                                        '</div>' +
-                                        '<div style="min-width:0;">' +
-                                        '<div class="ats-autocomplete-name">' + safeCity + ' <span style="color:#94a3b8;font-weight:500;font-size:12px;">(' + safeCode + ')</span></div>' +
-                                        '<div class="ats-autocomplete-sub">' + safeName + ', ' + safeCountry + '</div>' +
-                                        '</div>' +
-                                        '</div>';
-                                }).join('');
-                                ac.classList.add('open');
+                                resultsEl.innerHTML = renderHotelResults(data.data);
                             })
                             .catch(function() {
-                                ac.classList.remove('open');
+                                resultsEl.innerHTML = '<p style="text-align:center;color:#ef4444;padding:20px;">Something went wrong. Please try again.</p>';
                             });
-                    }, 200);
-                });
-
-                window['atsPickHotel_' + FN] = function(code, city, fullName) {
-                    destHotelId = code;
-                    document.getElementById(UID + '-dest-input').value = city;
-                    document.getElementById(UID + '-dest-sub').textContent = fullName;
-                    var destIdEl = document.getElementById(UID + '-dest-id');
-                    destIdEl.value = code;
-                    destIdEl.dataset.cityCode = code;
-                    destIdEl.dataset.cityName = city;
-                    document.getElementById(UID + '-autocomplete').classList.remove('open');
-                    // Save to cookie for 30 days
-                    var exp = new Date();
-                    exp.setDate(exp.getDate() + 30);
-                    document.cookie = 'amadex_hotel_dest_city=' + encodeURIComponent(city) + '; expires=' + exp.toUTCString() + '; path=/';
-                    document.cookie = 'amadex_hotel_dest_code=' + encodeURIComponent(code) + '; expires=' + exp.toUTCString() + '; path=/';
-                    document.cookie = 'amadex_hotel_dest_sub=' + encodeURIComponent(fullName) + '; expires=' + exp.toUTCString() + '; path=/';
-                };
-                // ── Hotel Search ────────────────────────────
-                window['atsHotelSearch_' + FN] = function() {
-                    var dest = document.getElementById(UID + '-dest-input').value.trim();
-                    var hotelId = document.getElementById(UID + '-dest-id').value;
-
-                    if (!dest) {
-                        document.getElementById(UID + '-dest-input').focus();
-                        return;
-                    }
-                    if (!checkIn || !checkOut) {
-                        document.getElementById(UID + '-datepicker').classList.add('open');
-                        renderCals();
-                        return;
-                    }
-
-                    // Store search data in sessionStorage and redirect
-                    var destEl = document.getElementById(UID + '-dest-id');
-                    var cityCode = (destEl && destEl.dataset.cityCode) ? destEl.dataset.cityCode : hotelId;
-                    var cityName = (destEl && destEl.dataset.cityName) ? destEl.dataset.cityName : dest;
-                    var totalAdults = roomData.reduce(function(s, r) {
-                        return s + r.adults;
-                    }, 0);
-                    var totalChildren = roomData.reduce(function(s, r) {
-                        return s + r.children;
-                    }, 0);
-                    var searchData = {
-                        destination: cityName,
-                        hotelId: cityCode,
-                        cityCode: cityCode,
-                        checkIn: fmtISO(checkIn),
-                        checkOut: fmtISO(checkOut),
-                        rooms: roomData.length,
-                        adults: Math.round(totalAdults / roomData.length),
-                        children: totalChildren,
-                        roomData: roomData,
                     };
 
-                    try {
-                        // Force clear old data first then set fresh
-                        sessionStorage.removeItem('amadex_hotel_search');
-                        sessionStorage.setItem('amadex_hotel_search', JSON.stringify(searchData));
-                    } catch (e) {}
-
-                    window.location.href = <?php echo json_encode($ats_hotel_url); ?>;
-                    return;
-
-                    var resultsEl = document.getElementById(UID + '-hotel-results');
-                    resultsEl.innerHTML = '<div style="text-align:center;padding:30px;"><div style="width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#0e7d3f;border-radius:50%;animation:atsSpin 0.8s linear infinite;margin:0 auto 12px;"></div><p style="color:#64748b;font-size:14px;">Searching hotels...</p></div><style>@keyframes atsSpin{to{transform:rotate(360deg)}}</style>';
-
-                    fetch(AJAXURL, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                action: 'amadex_hotel_search',
-                                nonce: NONCE,
-                                keyword: dest,
-                                hotel_id: hotelId,
-                                check_in: fmtISO(checkIn),
-                                check_out: fmtISO(checkOut),
-                                adults: adults,
-                                rooms: rooms
-                            })
-                        })
-                        .then(function(r) {
-                            return r.json();
-                        })
-                        .then(function(data) {
-                            if (!data.success || !data.data || !data.data.length) {
-                                resultsEl.innerHTML = '<p style="text-align:center;color:#94a3b8;padding:30px;">No hotels found. Try a different destination or dates.</p>';
-                                return;
-                            }
-                            resultsEl.innerHTML = renderHotelResults(data.data);
-                        })
-                        .catch(function() {
-                            resultsEl.innerHTML = '<p style="text-align:center;color:#ef4444;padding:20px;">Something went wrong. Please try again.</p>';
+                    function renderHotelResults(hotels) {
+                        var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px;">';
+                        hotels.forEach(function(h) {
+                            var rating = h.rating ? '⭐ ' + h.rating : '';
+                            var price = h.price ? '<strong style="font-size:18px;color:#0f172a;">' + h.price + '</strong><span style="font-size:12px;color:#94a3b8;"> / night</span>' : '';
+                            var cancel = h.cancellable ? '<span style="font-size:11px;color:#15803d;font-weight:600;">✓ Free cancellation</span>' : '';
+                            html += '<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px;cursor:pointer;transition:box-shadow .15s;" onmouseover="this.style.boxShadow=\'0 4px 20px rgba(14,125,63,.12)\'" onmouseout="this.style.boxShadow=\'none\'">' +
+                                '<div style="font-weight:700;font-size:15px;color:#0f172a;margin-bottom:4px;">' + h.name + '</div>' +
+                                '<div style="font-size:12px;color:#64748b;margin-bottom:8px;">' + h.address + '</div>' +
+                                (rating ? '<div style="font-size:12px;margin-bottom:8px;">' + rating + '</div>' : '') +
+                                (cancel ? '<div style="margin-bottom:8px;">' + cancel + '</div>' : '') +
+                                (price ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">' + price + '</div>' : '') +
+                                '</div>';
                         });
-                };
+                        html += '</div>';
+                        return html;
+                    }
 
-                function renderHotelResults(hotels) {
-                    var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:8px;">';
-                    hotels.forEach(function(h) {
-                        var rating = h.rating ? '⭐ ' + h.rating : '';
-                        var price = h.price ? '<strong style="font-size:18px;color:#0f172a;">' + h.price + '</strong><span style="font-size:12px;color:#94a3b8;"> / night</span>' : '';
-                        var cancel = h.cancellable ? '<span style="font-size:11px;color:#15803d;font-weight:600;">✓ Free cancellation</span>' : '';
-                        html += '<div style="background:#fff;border:1.5px solid #e2e8f0;border-radius:12px;padding:16px;cursor:pointer;transition:box-shadow .15s;" onmouseover="this.style.boxShadow=\'0 4px 20px rgba(14,125,63,.12)\'" onmouseout="this.style.boxShadow=\'none\'">' +
-                            '<div style="font-weight:700;font-size:15px;color:#0f172a;margin-bottom:4px;">' + h.name + '</div>' +
-                            '<div style="font-size:12px;color:#64748b;margin-bottom:8px;">' + h.address + '</div>' +
-                            (rating ? '<div style="font-size:12px;margin-bottom:8px;">' + rating + '</div>' : '') +
-                            (cancel ? '<div style="margin-bottom:8px;">' + cancel + '</div>' : '') +
-                            (price ? '<div style="margin-top:10px;padding-top:10px;border-top:1px solid #f1f5f9;">' + price + '</div>' : '') +
-                            '</div>';
+                    // Close dropdowns on outside click
+                    document.addEventListener('click', function(e) {
+                        var ac = document.getElementById(UID + '-autocomplete');
+                        var destWrap = document.getElementById(UID + '-dest-wrap');
+                        if (ac && destWrap && !destWrap.contains(e.target)) {
+                            ac.classList.remove('open');
+                        }
                     });
-                    html += '</div>';
-                    return html;
-                }
-
-                // Close dropdowns on outside click
-                document.addEventListener('click', function(e) {
-                    var ac = document.getElementById(UID + '-autocomplete');
-                    var destWrap = document.getElementById(UID + '-dest-wrap');
-                    if (ac && destWrap && !destWrap.contains(e.target)) {
-                        ac.classList.remove('open');
+                    // Show tabbed widget only after flight search form is ready
+                    function atsWaitForSearchBar() {
+                        var searchBar = document.querySelector(
+                            '.amadex-search-modern, .amadex-modern-search-wrapper, ' +
+                            '.amadex-search-form, #amadex-search-form, ' +
+                            '.amadex-search, .vsb-wrap'
+                        );
+                        if (searchBar && searchBar.offsetHeight > 0) {
+                            document.getElementById(UID).classList.add('ats-ready');
+                        } else {
+                            setTimeout(atsWaitForSearchBar, 100);
+                        }
                     }
-                });
-                // Show tabbed widget only after flight search form is ready
-                function atsWaitForSearchBar() {
-                    var searchBar = document.querySelector(
-                        '.amadex-search-modern, .amadex-modern-search-wrapper, ' +
-                        '.amadex-search-form, #amadex-search-form, ' +
-                        '.amadex-search, .vsb-wrap'
-                    );
-                    if (searchBar && searchBar.offsetHeight > 0) {
-                        document.getElementById(UID).classList.add('ats-ready');
-                    } else {
-                        setTimeout(atsWaitForSearchBar, 100);
-                    }
-                }
-                atsWaitForSearchBar();
-            })();
-        </script>
+                    atsWaitForSearchBar();
+                })();
+            </script>
 <?php
         }, 99);
         return ob_get_clean();
