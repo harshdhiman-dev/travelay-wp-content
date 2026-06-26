@@ -11,20 +11,8 @@ class Amadex_Hotel_Booking
     public function __construct()
     {
         add_shortcode('amadex_hotel_booking', array($this, 'render'));
-        add_action('wp_ajax_amadex_save_hotel_lead',               array($this, 'save_hotel_lead'));
-        add_action('wp_ajax_nopriv_amadex_save_hotel_lead',        array($this, 'save_hotel_lead'));
-        add_action('wp_ajax_amadex_hotel_paypal_create_order',     array($this, 'hotel_paypal_create_order'));
-        add_action('wp_ajax_nopriv_amadex_hotel_paypal_create_order', array($this, 'hotel_paypal_create_order'));
-        add_action('wp_ajax_amadex_hotel_paypal_capture',          array($this, 'hotel_paypal_capture'));
-        add_action('wp_ajax_nopriv_amadex_hotel_paypal_capture',   array($this, 'hotel_paypal_capture'));
-        add_action('wp_ajax_amadex_hotel_cryptocom_payment',       array($this, 'hotel_cryptocom_payment'));
-        add_action('wp_ajax_nopriv_amadex_hotel_cryptocom_payment', array($this, 'hotel_cryptocom_payment'));
-        add_action('wp_ajax_amadex_hotel_moonpay_paylink',         array($this, 'hotel_moonpay_paylink'));
-        add_action('wp_ajax_nopriv_amadex_hotel_moonpay_paylink',  array($this, 'hotel_moonpay_paylink'));
-        add_action('wp_ajax_amadex_hotel_moonpay_onramp',          array($this, 'hotel_moonpay_onramp'));
-        add_action('wp_ajax_nopriv_amadex_hotel_moonpay_onramp',   array($this, 'hotel_moonpay_onramp'));
-        add_action('wp_ajax_amadex_hotel_moonpay_onramp_sign',     array($this, 'hotel_moonpay_onramp_sign'));
-        add_action('wp_ajax_nopriv_amadex_hotel_moonpay_onramp_sign', array($this, 'hotel_moonpay_onramp_sign'));
+        add_action('wp_ajax_amadex_save_hotel_lead',        array($this, 'save_hotel_lead'));
+        add_action('wp_ajax_nopriv_amadex_save_hotel_lead', array($this, 'save_hotel_lead'));
     }
 
     public function save_hotel_lead()
@@ -104,370 +92,11 @@ class Amadex_Hotel_Booking
         wp_send_json_success(array('lead_id' => $lead_id, 'reference' => $confirmation_number));
     }
 
-    /**
-     * Helper — save hotel lead and return [ lead_id, reference, total ]
-     */
-    private function save_hotel_lead_record($payload)
-    {
-        global $wpdb;
-        $table = $wpdb->prefix . 'amadex_leads';
-
-        $contact_name  = sanitize_text_field($payload['contact']['name']  ?? '');
-        $contact_email = sanitize_email($payload['contact']['email'] ?? '');
-        $contact_phone = sanitize_text_field($payload['contact']['phone'] ?? '');
-        $reference     = 'AMDH' . strtoupper(substr(md5(time() . rand()), 0, 8));
-        $total         = floatval($payload['hotel']['total'] ?? 0);
-
-        $wpdb->insert($table, [
-            'booking_type'        => 'HOTEL',
-            'lead_type'           => 'PENDING',
-            'status'              => 'new',
-            'source'              => 'ONLINE',
-            'contact_name'        => $contact_name,
-            'contact_email'       => $contact_email,
-            'contact_phone'       => $contact_phone,
-            'flight_data'         => '{}',
-            'hotel_data'          => wp_json_encode($payload),
-            'confirmation_number' => $reference,
-            'ip_address'          => sanitize_text_field($_SERVER['REMOTE_ADDR'] ?? ''),
-            'created_at'          => current_time('mysql'),
-            'updated_at'          => current_time('mysql'),
-        ]);
-
-        return ['lead_id' => $wpdb->insert_id, 'reference' => $reference, 'total' => $total];
-    }
-
-    private function get_hotel_payload()
-    {
-        $raw = isset($_POST['hotel_data']) ? $_POST['hotel_data'] : (isset($_POST['booking_data']) ? $_POST['booking_data'] : '');
-        return json_decode(stripslashes($raw), true) ?: [];
-    }
-
-    private function confirmation_url($reference)
-    {
-        return home_url('/booking-confirmation/') . '?reference=' . urlencode($reference);
-    }
-
-    /** ── PayPal: Create Order ───────────────────────────────────────── */
-    public function hotel_paypal_create_order()
-    {
-        check_ajax_referer('amadex_nonce', 'nonce');
-        $ps          = get_option('amadex_payment_settings', []);
-        $client_id   = trim($ps['paypal_client_id']     ?? '');
-        $secret      = trim($ps['paypal_client_secret'] ?? '');
-        $sandbox     = (($ps['paypal_mode'] ?? '') !== 'live');
-        if (empty($client_id) || empty($secret)) {
-            wp_send_json_error(['message' => 'PayPal is not configured.']);
-            return;
-        }
-
-        $payload = $this->get_hotel_payload();
-        if (empty($payload)) {
-            wp_send_json_error(['message' => 'Invalid data.']);
-            return;
-        }
-
-        $rec   = $this->save_hotel_lead_record($payload);
-        $total = max(0.01, round($rec['total'], 2));
-        $ref   = $rec['reference'];
-
-        // Get PayPal access token
-        $base  = $sandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
-        $token_resp = wp_remote_post($base . '/v1/oauth2/token', [
-            'headers' => [
-                'Authorization' => 'Basic ' . base64_encode($client_id . ':' . $secret),
-                'Content-Type'  => 'application/x-www-form-urlencoded',
-            ],
-            'body'    => 'grant_type=client_credentials',
-            'timeout' => 20,
-        ]);
-        if (is_wp_error($token_resp)) {
-            wp_send_json_error(['message' => $token_resp->get_error_message()]);
-            return;
-        }
-        $token_data   = json_decode(wp_remote_retrieve_body($token_resp), true);
-        $access_token = $token_data['access_token'] ?? '';
-        if (empty($access_token)) {
-            wp_send_json_error(['message' => 'PayPal auth failed.']);
-            return;
-        }
-
-        // Create order
-        $order_resp = wp_remote_post($base . '/v2/checkout/orders', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $access_token,
-                'Content-Type'  => 'application/json',
-            ],
-            'body'    => wp_json_encode([
-                'intent'         => 'CAPTURE',
-                'purchase_units' => [[
-                    'reference_id' => $ref,
-                    'description'  => 'Hotel: ' . ($payload['hotel']['name'] ?? 'Hotel Booking'),
-                    'amount'       => ['currency_code' => 'USD', 'value' => number_format($total, 2, '.', '')],
-                ]],
-            ]),
-            'timeout' => 20,
-        ]);
-        if (is_wp_error($order_resp)) {
-            wp_send_json_error(['message' => $order_resp->get_error_message()]);
-            return;
-        }
-        $order = json_decode(wp_remote_retrieve_body($order_resp), true);
-        if (empty($order['id'])) {
-            wp_send_json_error(['message' => 'PayPal order creation failed.']);
-            return;
-        }
-
-        set_transient('ahb_paypal_' . $order['id'], ['reference' => $ref, 'access_token' => $access_token, 'base' => $base], 3600);
-        wp_send_json_success(['orderID' => $order['id'], 'reference' => $ref]);
-    }
-
-    /** ── PayPal: Capture ───────────────────────────────────────────── */
-    public function hotel_paypal_capture()
-    {
-        check_ajax_referer('amadex_nonce', 'nonce');
-        $order_id = sanitize_text_field($_POST['orderID'] ?? '');
-        if (empty($order_id)) {
-            wp_send_json_error(['message' => 'Missing order ID.']);
-            return;
-        }
-
-        $data = get_transient('ahb_paypal_' . $order_id);
-        if (empty($data)) {
-            wp_send_json_error(['message' => 'Order not found.']);
-            return;
-        }
-
-        $capture_resp = wp_remote_post($data['base'] . '/v2/checkout/orders/' . $order_id . '/capture', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $data['access_token'],
-                'Content-Type'  => 'application/json',
-            ],
-            'body'    => '{}',
-            'timeout' => 20,
-        ]);
-        if (is_wp_error($capture_resp)) {
-            wp_send_json_error(['message' => $capture_resp->get_error_message()]);
-            return;
-        }
-        $capture = json_decode(wp_remote_retrieve_body($capture_resp), true);
-        if (($capture['status'] ?? '') !== 'COMPLETED') {
-            wp_send_json_error(['message' => 'PayPal capture failed.']);
-            return;
-        }
-
-        delete_transient('ahb_paypal_' . $order_id);
-        wp_send_json_success(['redirectUrl' => $this->confirmation_url($data['reference'])]);
-    }
-
-    /** ── Crypto.com ─────────────────────────────────────────────────── */
-    public function hotel_cryptocom_payment()
-    {
-        check_ajax_referer('amadex_nonce', 'nonce');
-        $ps             = get_option('amadex_payment_settings', []);
-        $secret_key     = trim($ps['crypto_com_secret_key']      ?? '');
-        $publishable_key = trim($ps['crypto_com_publishable_key'] ?? '');
-        $enable         = (int)($ps['enable_crypto_com']         ?? 0);
-        if (! $enable || empty($secret_key) || empty($publishable_key)) {
-            wp_send_json_error(['message' => 'Crypto.com Pay is not configured.']);
-            return;
-        }
-
-        $payload = $this->get_hotel_payload();
-        if (empty($payload)) {
-            wp_send_json_error(['message' => 'Invalid data.']);
-            return;
-        }
-
-        $rec   = $this->save_hotel_lead_record($payload);
-        $total = max(0.01, round($rec['total'], 2));
-        $ref   = $rec['reference'];
-
-        $amount_cents = (int) round($total * 100);
-        $resp = wp_remote_post('https://pay.crypto.com/api/payments', [
-            'headers' => [
-                'Authorization' => 'Basic ' . base64_encode($secret_key . ':'),
-                'Content-Type'  => 'application/json',
-            ],
-            'body'    => wp_json_encode([
-                'amount'      => $amount_cents,
-                'currency'    => 'USD',
-                'description' => 'Hotel: ' . ($payload['hotel']['name'] ?? 'Hotel Booking'),
-                'metadata'    => ['reference' => $ref],
-                'return_url'  => $this->confirmation_url($ref),
-                'cancel_url'  => home_url('/hotel-booking/'),
-            ]),
-            'timeout' => 20,
-        ]);
-        if (is_wp_error($resp)) {
-            wp_send_json_error(['message' => $resp->get_error_message()]);
-            return;
-        }
-        $data = json_decode(wp_remote_retrieve_body($resp), true);
-        $payment_id = $data['id'] ?? '';
-        if (empty($payment_id)) {
-            wp_send_json_error(['message' => 'Crypto.com payment creation failed.']);
-            return;
-        }
-
-        set_transient('ahb_cryptocom_' . $ref, $payment_id, 3600);
-        wp_send_json_success([
-            'payment_id'      => $payment_id,
-            'publishable_key' => $publishable_key,
-            'booking_reference' => $ref,
-            'confirmation_url'  => $this->confirmation_url($ref),
-        ]);
-    }
-
-    /** ── MoonPay Commerce (pay link) ────────────────────────────────── */
-    public function hotel_moonpay_paylink()
-    {
-        check_ajax_referer('amadex_nonce', 'nonce');
-        $ps         = get_option('amadex_payment_settings', []);
-        $enable     = (int)($ps['enable_moonpay_commerce'] ?? 0);
-        $env        = (($ps['moonpay_environment'] ?? '') === 'live') ? 'live' : 'test';
-        $public_key = trim($env === 'live' ? ($ps['moonpay_publishable_key_live'] ?? '') : ($ps['moonpay_publishable_key_test'] ?? ''));
-        $secret_key = trim($env === 'live' ? ($ps['moonpay_secret_key_live']     ?? '') : ($ps['moonpay_secret_key_test']     ?? ''));
-        $wallet_id  = trim($ps['moonpay_helio_wallet_id'] ?? '');
-        if (! $enable || empty($public_key) || empty($wallet_id)) {
-            wp_send_json_error(['message' => 'MoonPay Commerce is not configured.']);
-            return;
-        }
-        if (! empty($secret_key) && strpos($secret_key, ' ') !== false) {
-            $secret_key = str_replace(' ', '+', $secret_key);
-        }
-        $bearer = ! empty($secret_key) ? $secret_key : $public_key;
-
-        $payload = $this->get_hotel_payload();
-        if (empty($payload)) {
-            wp_send_json_error(['message' => 'Invalid data.']);
-            return;
-        }
-
-        $rec   = $this->save_hotel_lead_record($payload);
-        $total = max(0.50, round($rec['total'], 2));
-        $ref   = $rec['reference'];
-
-        $paylink_resp = wp_remote_post('https://helio.co/api/v1/paylink/', [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $bearer,
-                'api-key'       => $public_key,
-                'Content-Type'  => 'application/json',
-            ],
-            'body'    => wp_json_encode([
-                'name'       => 'Hotel: ' . ($payload['hotel']['name'] ?? 'Hotel Booking'),
-                'price'      => $total,
-                'currency'   => 'USD',
-                'walletId'   => $wallet_id,
-                'dynamic'    => true,
-                'quantity'   => 1,
-                'meta'       => ['reference' => $ref],
-                'successUrl' => $this->confirmation_url($ref),
-            ]),
-            'timeout' => 30,
-        ]);
-        if (is_wp_error($paylink_resp)) {
-            wp_send_json_error(['message' => $paylink_resp->get_error_message()]);
-            return;
-        }
-        $pdata   = json_decode(wp_remote_retrieve_body($paylink_resp), true);
-        $pay_url = $pdata['dynamicUrl'] ?? $pdata['url'] ?? '';
-        if (empty($pay_url)) {
-            $msg = $pdata['message'] ?? ($pdata['error'] ?? 'MoonPay pay link creation failed.');
-            wp_send_json_error(['message' => $msg]);
-            return;
-        }
-        set_transient('ahb_moonpay_' . $ref, $pay_url, 3600);
-        wp_send_json_success(['payLinkUrl' => $pay_url, 'booking_reference' => $ref]);
-    }
-
-    /** ── MoonPay Onramp: Prepare ────────────────────────────────────── */
-    public function hotel_moonpay_onramp()
-    {
-        check_ajax_referer('amadex_nonce', 'nonce');
-        $ps      = get_option('amadex_payment_settings', []);
-        $enable  = (int)($ps['enable_moonpay_onramp'] ?? 0);
-        $env     = (($ps['moonpay_onramp_environment'] ?? '') === 'live') ? 'live' : 'test';
-        $pk      = trim($env === 'live' ? ($ps['moonpay_onramp_publishable_key_live'] ?? '') : ($ps['moonpay_onramp_publishable_key_test'] ?? ''));
-        $sk      = trim($env === 'live' ? ($ps['moonpay_onramp_secret_key_live']      ?? '') : ($ps['moonpay_onramp_secret_key_test']      ?? ''));
-        $wallet  = trim($env === 'live' ? ($ps['moonpay_onramp_merchant_wallet_btc'] ?? '') : ($ps['moonpay_onramp_merchant_wallet_btc_sandbox'] ?? $ps['moonpay_onramp_merchant_wallet_btc'] ?? ''));
-        if (! $enable || empty($pk) || empty($sk) || empty($wallet)) {
-            wp_send_json_error(['message' => 'MoonPay Onramp is not configured.']);
-            return;
-        }
-
-        $payload = $this->get_hotel_payload();
-        if (empty($payload)) {
-            wp_send_json_error(['message' => 'Invalid data.']);
-            return;
-        }
-
-        $rec   = $this->save_hotel_lead_record($payload);
-        $total = max(30, round($rec['total'], 2));
-        $ref   = $rec['reference'];
-
-        set_transient('ahb_moonpay_onramp_sk_' . $ref, $sk, 3600);
-        wp_send_json_success([
-            'booking_reference' => $ref,
-            'environment'       => $env,
-            'redirect_url'      => $this->confirmation_url($ref),
-            'params'            => [
-                'apiKey'               => $pk,
-                'baseCurrencyCode'     => 'usd',
-                'baseCurrencyAmount'   => $total,
-                'currencyCode'         => 'btc',
-                'walletAddress'        => $wallet,
-                'externalTransactionId' => $ref,
-                'redirectURL'          => $this->confirmation_url($ref),
-            ],
-        ]);
-    }
-
-    /** ── MoonPay Onramp: Sign URL ───────────────────────────────────── */
-    public function hotel_moonpay_onramp_sign()
-    {
-        check_ajax_referer('amadex_nonce', 'nonce');
-        $url_for_signing = sanitize_text_field($_POST['urlForSigning'] ?? '');
-        $ref             = sanitize_text_field($_POST['reference']     ?? '');
-        if (empty($url_for_signing)) {
-            wp_send_json_error(['message' => 'Missing URL.']);
-            return;
-        }
-
-        // Try to get secret from transient (set during prepare)
-        $sk = '';
-        if (! empty($ref)) {
-            $sk = (string) get_transient('ahb_moonpay_onramp_sk_' . $ref);
-        }
-        if (empty($sk)) {
-            $ps  = get_option('amadex_payment_settings', []);
-            $env = (($ps['moonpay_onramp_environment'] ?? '') === 'live') ? 'live' : 'test';
-            $sk  = trim($env === 'live' ? ($ps['moonpay_onramp_secret_key_live'] ?? '') : ($ps['moonpay_onramp_secret_key_test'] ?? ''));
-        }
-        if (empty($sk)) {
-            wp_send_json_error(['message' => 'MoonPay secret key not available.']);
-            return;
-        }
-
-        $parsed   = wp_parse_url($url_for_signing);
-        $query    = $parsed['query'] ?? '';
-        $sig      = hash_hmac('sha256', '?' . $query, $sk, true);
-        $sig_b64  = base64_encode($sig);
-        wp_send_json_success(['signature' => $sig_b64]);
-    }
-
     public function render($atts)
     {
         if (is_admin()) return '';
         ob_start(); ?>
         <style>
-            .ahb-field-group select.ahb-select {
-                padding: 0 10px;
-                min-height: 45px;
-                border: 1px solid #E6E6E6;
-                border-radius: 10px;
-            }
-
             .ahb-wrap * {
                 box-sizing: border-box;
             }
@@ -508,13 +137,8 @@ class Amadex_Hotel_Booking
             }
 
             @media (max-width: 768px) {
-                .finalhotel-booking {
-                    grid-template-columns: unset !important;
-                }
-
                 .ahb-layout {
                     grid-template-columns: 1fr;
-                    display: unset;
                 }
             }
 
@@ -523,7 +147,7 @@ class Amadex_Hotel_Booking
                 background: #fff;
                 border: 1px solid #e2e8f0;
                 border-radius: 16px;
-                padding: 12px;
+                padding: 20px;
                 margin-bottom: 20px;
                 box-shadow: 0 1px 4px rgba(0, 0, 0, .05);
             }
@@ -532,6 +156,9 @@ class Amadex_Hotel_Booking
                 font-size: 16px;
                 font-weight: 700;
                 color: #0f172a;
+                margin: 0 0 16px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #f1f5f9;
             }
 
             /* Hotel summary */
@@ -656,23 +283,18 @@ class Amadex_Hotel_Booking
 
             /* Who's staying */
             .ahb-room-block {
-                border: 0;
-                border-radius: 18px;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                padding: 14px;
                 margin-bottom: 14px;
-                background: #F7F7F7;
+                background: #EEF9F2;
             }
 
             .ahb-room-block-header {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 10px 12px;
-            }
-
-            input.ahb-input {
-                padding: 10px !important;
-                min-height: 10px !important;
-                border-radius: 12px !important;
+                margin-bottom: 14px;
             }
 
             .ahb-room-block-title {
@@ -713,10 +335,6 @@ class Amadex_Hotel_Booking
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
-                background: #fff;
-                padding: 16px;
-                border-radius: 20px;
-                border: 1px solid #E6E6E6;
             }
 
             .ahb-field-group {
@@ -726,13 +344,9 @@ class Amadex_Hotel_Booking
             }
 
             .ahb-field-label {
-                font-size: 14px !important;
-                font-weight: 600 !important;
-                color: #475569 !important;
-            }
-
-            textarea#ahb-requests {
-                border: 1px solid #E6E6E6;
+                font-size: 12px;
+                font-weight: 600;
+                color: #475569;
             }
 
             .ahb-input {
@@ -776,14 +390,14 @@ class Amadex_Hotel_Booking
             }
 
             .ahb-requests-note {
-                font-size: 14px;
+                font-size: 12px;
                 color: #94a3b8;
                 margin-bottom: 10px;
             }
 
             /* Contact */
             .ahb-contact-note {
-                font-size: 14px;
+                font-size: 13px;
                 color: #64748b;
                 margin-bottom: 14px;
             }
@@ -923,7 +537,7 @@ class Amadex_Hotel_Booking
             }
 
             .ahb-checkbox-text {
-                font-size: 12px !important;
+                font-size: 12px;
                 color: #64748b;
                 line-height: 1.5;
             }
@@ -1230,1004 +844,611 @@ class Amadex_Hotel_Booking
             </div>
         </div>
 
-        <?php
-        $ahb_ajax_url = admin_url('admin-ajax.php');
-        $ahb_nonce    = wp_create_nonce('amadex_nonce');
-        $ps           = get_option('amadex_payment_settings', []);
-        $ahb_tok_key  = isset($ps['nmi_tokenization_key']) ? trim($ps['nmi_tokenization_key']) : '';
-        $ahb_gateway  = isset($ps['default_card_gateway']) ? strtolower(trim($ps['default_card_gateway'])) : 'nmi';
-        $ahb_bypass   = !empty($ps['nmi_bypass_for_testing']);
-        $ahb_home_url = home_url('/booking-confirmation/');
-        add_action('wp_footer', function () use ($ahb_ajax_url, $ahb_nonce, $ahb_tok_key, $ahb_gateway, $ahb_bypass, $ahb_home_url) {
-        ?>
-            <script data-cfasync="false" data-nowprocket>
-                (function() {
-                    var hotelData = null;
-                    var roomData = null;
-                    try {
-                        var raw = sessionStorage.getItem('amadex_hotel_detail');
-                        if (raw) hotelData = JSON.parse(raw);
-                        var rawRoom = sessionStorage.getItem('amadex_booking_room');
-                        if (rawRoom) roomData = JSON.parse(rawRoom);
-                    } catch (e) {}
+        <script>
+            (function() {
+                var hotelData = null;
+                var roomData = null;
+                try {
+                    var raw = sessionStorage.getItem('amadex_hotel_detail');
+                    if (raw) hotelData = JSON.parse(raw);
+                    var rawRoom = sessionStorage.getItem('amadex_booking_room');
+                    if (rawRoom) roomData = JSON.parse(rawRoom);
+                } catch (e) {}
 
-                    if (!hotelData) {
-                        document.getElementById('ahb-main').innerHTML = '<div style="text-align:center;padding:60px 20px;"><h3>No booking data found</h3><p>Please go back and select a room.</p></div>';
+                if (!hotelData) {
+                    document.getElementById('ahb-main').innerHTML = '<div style="text-align:center;padding:60px 20px;"><h3>No booking data found</h3><p>Please go back and select a room.</p></div>';
+                    return;
+                }
+
+                var searchData = hotelData.searchData || {};
+                var nights = 1;
+                if (searchData.checkIn && searchData.checkOut) {
+                    var ci = new Date(searchData.checkIn);
+                    var co = new Date(searchData.checkOut);
+                    nights = Math.max(1, Math.round((co - ci) / 86400000));
+                }
+                var rooms = (searchData.roomData && searchData.roomData.length) ? searchData.roomData : [{
+                    adults: 1,
+                    children: 0
+                }];
+                var roomCount = rooms.length;
+
+                var roomName = roomData ? (roomData.room_name || 'Selected Room') : 'Selected Room';
+                var price = roomData ? parseFloat(roomData.price_raw || 0) : parseFloat(hotelData.price_raw || 0);
+                var taxes = roomData ? parseFloat(roomData.taxes || 0) : 54;
+                var cancel = roomData ? roomData.cancellable : hotelData.cancellable;
+                var baseTotal = price * nights * roomCount;
+                var taxTotal = (taxes || 54) * nights * roomCount;
+                var grandTotal = baseTotal + taxTotal;
+
+                var photo = (window._ahdCurrentPhotos && window._ahdCurrentPhotos[0]) || (hotelData.images && hotelData.images[0]) || '';
+
+                function fmtDateShort(d) {
+                    if (!d) return '';
+                    var dt = new Date(d);
+                    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                    return dt.getDate() + ' ' + months[dt.getMonth()] + ',\'' + String(dt.getFullYear()).slice(2) + ' ' + days[dt.getDay()];
+                }
+                // Format dates
+                function fmtDate(d) {
+                    if (!d) return '';
+                    var dt = new Date(d);
+                    return dt.toLocaleDateString('en-US', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+                }
+
+                function fmtDay(d) {
+                    if (!d) return '';
+                    var dt = new Date(d);
+                    return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dt.getDay()];
+                }
+
+                // Build room guest forms
+                var roomForms = rooms.map(function(r, i) {
+                    return '<div class="ahb-room-block">' +
+                        '<div class="ahb-room-block-header">' +
+                        '<div class="ahb-room-block-title">' +
+                        '<div class="ahb-room-icon"><i class="fa-solid fa-door-closed" style="color: rgb(0, 0, 0);"></i></div>' +
+                        'Room ' + (i + 1) +
+                        '</div>' +
+                        '<button class="ahb-add-guest">Add New Guest +</button>' +
+                        '</div>' +
+                        '<div class="ahb-name-row">' +
+                        '<div class="ahb-field-group">' +
+                        '<label class="ahb-field-label">First Name*</label>' +
+                        '<input class="ahb-input" type="text" placeholder="First Name" id="ahb-fn-' + i + '">' +
+                        '</div>' +
+                        '<div class="ahb-field-group">' +
+                        '<label class="ahb-field-label">Last Name*</label>' +
+                        '<input class="ahb-input" type="text" placeholder="Last Name" id="ahb-ln-' + i + '">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                }).join('');
+
+                // Build photos slider
+                var photos = window._ahdCurrentPhotos || hotelData.images || [];
+                var currentPhoto = 0;
+
+                function getSliderHtml() {
+                    return (photos.length ?
+                            '<img id="ahb-slide-img" src="' + photos[0] + '" alt="Hotel" style="width:100%;height:100%;object-fit:cover;display:block;">' :
+                            '<div style="width:100%;height:100%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:40px;opacity:.2;">🏨</div>') +
+                        (photos.length > 1 ?
+                            '<button onclick="ahbSlide(-1)" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);">‹</button>' +
+                            '<button onclick="ahbSlide(1)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);">›</button>' +
+                            '<div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;">' +
+                            photos.map(function(_, i) {
+                                return '<div style="width:' + (i === 0 ? '20' : '8') + 'px;height:8px;border-radius:4px;background:' + (i === 0 ? '#fff' : 'rgba(255,255,255,.5)') + ';transition:all .2s;" id="ahb-dot-' + i + '"></div>';
+                            }).join('') +
+                            '</div>' : '');
+                }
+
+                // Build per-room selected rooms
+                var selectedRoomsHtml = rooms.map(function(r, i) {
+                    return '<div style="' + (i > 0 ? 'border-top:1px solid #f1f5f9;padding-top:12px;margin-top:12px;' : '') + '">' +
+                        '<div style="font-size:14px;color:#475569;margin-bottom:6px;">Room:' + (i + 1) + ' <strong style="color:#0f172a;">' + roomName + '</strong></div>' +
+                        '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
+                        '<span class="ahb-room-tag"><span style="font-size:14px;"><i class="fa-solid fa-bowl-food" style="color: rgb(0, 0, 0);"></i></span> Free Breakfast</span>' +
+                        '<span class="ahb-room-tag"><span style="font-size:14px;"><i class="fa-solid fa-dumbbell" style="color: rgb(0, 0, 0);"></i></span> Fitness centre</span>' +
+                        '<span class="ahb-room-tag"><span style="font-size:14px;"><i class="fa-solid fa-person-swimming" style="color: rgb(0, 0, 0);"></i></span> Pool</span>' +
+                        '</div>' +
+                        '</div>';
+                }).join('');
+
+                // Total guests
+                var totalGuests = rooms.reduce(function(s, r) {
+                    return s + r.adults + r.children;
+                }, 0);
+
+                document.getElementById('ahb-main').innerHTML =
+                    '<div class="ahb-layout">' +
+                    '<div>' +
+
+                    // Hotel summary card — reference layout
+                    '<div class="ahb-card">' +
+                    // Top row: name + refundable
+                    '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">' +
+                    '<div>' +
+                    '<div class="ahb-hotel-name">' + (hotelData.name || 'Hotel') + '</div>' +
+                    '<div class="ahb-hotel-addr">' +
+                    '<svg width="12" height="12" viewBox="0 0 640 640" style="fill:#64748b;flex-shrink:0;"><path d="M128 252.6C128 148.4 214 64 320 64C426 64 512 148.4 512 252.6C512 371.9 391.8 514.9 341.6 569.4C329.8 582.2 310.1 582.2 298.3 569.4C248.1 514.9 127.9 371.9 127.9 252.6zM320 320C355.3 320 384 291.3 384 256C384 220.7 355.3 192 320 192C284.7 192 256 220.7 256 256C256 291.3 284.7 320 320 320z"/></svg>' +
+                    (hotelData.address || '') +
+                    '</div>' +
+                    '</div>' +
+                    (cancel ? '<span class="ahb-refundable" style="flex-shrink:0;">✓ Refundable</span>' : '') +
+                    '</div>' +
+
+                    // Image + rooms side by side
+                    '<div style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:end;margin-top:12px;background:#F6F6F6;padding: 10px;border-radius: 15px;">' +
+                    // Slider
+                    '<div style="position:relative;height:200px;border-radius:12px;overflow:hidden;background:#f1f5f9;" id="ahb-slider">' +
+                    getSliderHtml() +
+                    '</div>' +
+                    // Selected rooms + dates
+                    '<div>' +
+                    '<div style="font-size:16px;font-weight:700;color:#475569;margin-bottom:10px;">Selected Rooms</div>' +
+                    selectedRoomsHtml +
+                    // Dates row with dividers
+                    '<div style="display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;margin-top:14px;background:#ffffff;border-radius:10px;overflow:hidden;border: 1px solid #E6E6E6;">' +
+                    '<div style="padding:10px 12px;">' +
+                    '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Check-in</div>' +
+                    '<div style="font-size:13px;font-weight:700;color:#0f172a;">' + fmtDateShort(searchData.checkIn) + '</div>' +
+                    '</div>' +
+                    '<div style="background:#e2e8f0;"></div>' +
+                    '<div style="padding:10px 12px;">' +
+                    '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Check Out</div>' +
+                    '<div style="font-size:13px;font-weight:700;color:#0f172a;">' + fmtDateShort(searchData.checkOut) + '</div>' +
+                    '</div>' +
+                    '<div style="background:#e2e8f0;"></div>' +
+                    '<div style="padding:10px 12px;">' +
+                    '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">' + nights + ' Night' + (nights > 1 ? 's' : '') + '</div>' +
+                    '<div style="font-size:13px;font-weight:700;color:#0f172a;">' + totalGuests + ' guest' + (totalGuests > 1 ? 's' : '') + ', ' + roomCount + ' room' + (roomCount > 1 ? 's' : '') + '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+
+                    // Who's staying
+                    '<div class="ahb-card">' +
+                    '<div class="ahb-card-title">Who\'s Staying?</div>' +
+                    '<p style="font-size:13px;color:#64748b;margin:0 0 14px;">Guest names must match valid ID which will be used at check-in</p>' +
+                    roomForms +
+                    '</div>' +
+
+                    // Special requests
+                    '<div class="ahb-card">' +
+                    '<div class="ahb-card-title">Special Requests</div>' +
+                    '<p class="ahb-requests-note">The property will do its best, but cannot guarantee to fulfil all requests.</p>' +
+                    '<textarea class="ahb-textarea" id="ahb-requests" placeholder="Additional requests..."></textarea>' +
+                    '</div>' +
+
+                    // Contact info
+                    '<div class="ahb-card">' +
+                    '<div class="ahb-card-title">Contact Info</div>' +
+                    '<p class="ahb-contact-note">Booking details will be sent to</p>' +
+                    '<div class="ahb-required-badge">Required Field</div>' +
+                    '<div class="ahb-contact-grid">' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">Country Code*</label>' +
+                    '<select class="ahb-select" id="ahb-country-code">' +
+                    '<option value="+1">United States (+1)</option>' +
+                    '<option value="+44">United Kingdom (+44)</option>' +
+                    '<option value="+91">India (+91)</option>' +
+                    '<option value="+971">UAE (+971)</option>' +
+                    '<option value="+61">Australia (+61)</option>' +
+                    '<option value="+1-CA">Canada (+1)</option>' +
+                    '</select>' +
+                    '</div>' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">Mobile Number*</label>' +
+                    '<input class="ahb-input" type="tel" id="ahb-phone" placeholder="Mobile Number">' +
+                    '</div>' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">Email*</label>' +
+                    '<input class="ahb-input" type="email" id="ahb-email" placeholder="Example@Gmail.com">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+
+                    // Payment
+                    '<div class="ahb-card">' +
+                    '<div class="ahb-card-title">Payment method</div>' +
+                    '<p style="font-size:12px;color:#94a3b8;margin:0 0 12px;">Safe and Secure Payment</p>' +
+                    // Payment tabs
+                    '<div class="ahb-payment-tabs">' +
+                    '<button class="ahb-payment-tab active" data-method="credit_card" onclick="ahbSelectTab(this,\'card\')">' +
+                    '<div class="ahb-payment-tab-icons">' +
+                    '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/Visa_Brandmark_Blue_RGB_2021.png" alt="Visa">' +
+                    '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/Group-3852.png" alt="MC">' +
+                    '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/layer1.png" alt="Amex">' +
+                    '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/Group-3855.png">' +
+                    '</div>' +
+                    '<span class="ahb-payment-tab-label">Credit/Debit Card</span>' +
+                    '</button>' +
+                    '<button class="ahb-payment-tab" data-method="paypal" onclick="ahbSelectTab(this,\'paypal\')">' +
+                    '<div class="ahb-payment-tab-icons">' +
+                    '<img src="/wp-content/plugins/amadex1/assets/images/paypal-icon.png" alt="PayPal">' +
+                    '</div>' +
+                    '<span class="ahb-payment-tab-label">PayPal</span>' +
+                    '</button>' +
+                    '<button class="ahb-payment-tab" data-method="crypto_com" onclick="ahbSelectTab(this,\'crypto\')">' +
+                    '<div class="ahb-payment-tab-icons">' +
+                    '<img src="/wp-content/plugins/amadex1/assets/images/Bitcoin-Logo.png" alt="Crypto">' +
+                    '</div>' +
+                    '<span class="ahb-payment-tab-label">Crypto.com</span>' +
+                    '</button>' +
+                    '<button class="ahb-payment-tab" data-method="moonpay_onramp" onclick="ahbSelectTab(this,\'moonpay\')">' +
+                    '<div class="ahb-payment-tab-icons" style="font-size:18px;"><img src="/wp-content/plugins/amadex1/assets/images/Moonpay%20Logo.png" alt="Crypto"></div>' +
+                    '<span class="ahb-payment-tab-label">Pay with Card</span>' +
+                    '</button>' +
+                    '</div>' +
+                    // Credit card panel
+                    '<div class="ahb-payment-panel active" id="ahb-panel-card">' +
+                    '<div class="ahb-payment-grid" style="margin-bottom:12px;">' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">Card Holder Name *</label>' +
+                    '<input class="ahb-input" type="text" id="ahb-card-name" placeholder="John Smith">' +
+                    '</div>' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">Credit/Debit Card Number *</label>' +
+                    '<div class="ahb-input" id="ahb-card-num" style="padding:0;min-height:44px;"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="ahb-payment-grid" style="margin-bottom:12px;">' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">Expiry Date *</label>' +
+                    '<div class="ahb-input" id="ahb-card-exp-collect" style="padding:0;min-height:44px;"></div>' +
+                    '</div>' +
+                    '<div class="ahb-field-group">' +
+                    '<label class="ahb-field-label">CVV *</label>' +
+                    '<div class="ahb-input" id="ahb-cvv" style="padding:0;min-height:44px;"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    // PayPal panel
+                    '<div class="ahb-payment-panel" id="ahb-panel-paypal">' +
+                    '<div style="text-align:center;padding:20px;">' +
+                    '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png" style="height:40px;margin-bottom:12px;">' +
+                    '<p style="font-size:14px;color:#64748b;">You will be redirected to PayPal to complete payment.</p>' +
+                    '</div>' +
+                    '</div>' +
+                    // Crypto panel
+                    '<div class="ahb-payment-panel" id="ahb-panel-crypto">' +
+                    '<div style="text-align:center;padding:20px;">' +
+                    '<div style="font-size:40px;margin-bottom:12px;">₿</div>' +
+                    '<p style="font-size:14px;color:#64748b;">Pay securely with cryptocurrency via Crypto.com.</p>' +
+                    '</div>' +
+                    '</div>' +
+                    // MoonPay panel
+                    '<div class="ahb-payment-panel" id="ahb-panel-moonpay">' +
+                    '<div style="text-align:center;padding:20px;">' +
+                    '<div style="font-size:40px;margin-bottom:12px;">🌙</div>' +
+                    '<p style="font-size:14px;color:#64748b;">Pay with card or crypto via MoonPay.</p>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="ahb-checkbox-row">' +
+                    '<input type="checkbox" id="ahb-agree">' +
+                    '<label for="ahb-agree" class="ahb-checkbox-text">I agree to receive updates and promotions about Travelay and its affiliates or business partners via various channels, including WhatsApp. Opt out anytime. Read more in the <a href="#">Privacy Policy</a>.</label>' +
+                    '</div>' +
+                    '<button class="ahb-confirm-btn" onclick="ahbConfirm()">' +
+                    'Confirm & Book' +
+                    '<span class="ahb-timer" id="ahb-timer">⏱ Time Left: 10:00</span>' +
+                    '</button>' +
+                    '<div class="ahb-email-note">✉ We\'ll send confirmation of your booking to <span id="ahb-email-display" style="font-weight:700;color:#0f172a;">your email</span></div>' +
+                    '</div>' +
+
+                    '</div>' +
+
+                    // ── RIGHT SIDEBAR ──
+                    '<div class="ahb-sidebar">' +
+                    '<div class="ahb-price-card">' +
+                    '<div class="ahb-price-title">Price Summary</div>' +
+                    '<div class="ahb-price-row ahb-price-row--expandable">' +
+                    '<span class="ahb-price-row-label">Base Fare<br><small style="color:#94a3b8;font-weight:400;">' + roomCount + ' Room' + (roomCount > 1 ? 's' : '') + ' × ' + nights + ' Night' + (nights > 1 ? 's' : '') + '</small></span>' +
+                    '<div class="ahb-price-row-right">' +
+                    '<span class="ahb-price-row-val">$' + baseTotal.toFixed(2) + '</span>' +
+                    '<button type="button" class="ahb-fare-breakdown-toggle" aria-label="Show breakdown">' +
+                    '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
+                    '</button>' +
+                    '</div>' +
+                    '</div>' +
+                    (function() {
+                        var bd = '';
+                        var pricePerRoom = price;
+                        for (var r = 1; r <= roomCount; r++) {
+                            bd += '<div class="ahb-fare-breakdown-row ahb-fare-breakdown-row--group">' +
+                                '<span>Room ' + r + ' <em>($' + pricePerRoom.toFixed(2) + ' × ' + nights + ' night' + (nights > 1 ? 's' : '') + ')</em></span>' +
+                                '<span>$' + (pricePerRoom * nights).toFixed(2) + '</span>' +
+                                '</div>';
+                            for (var n = 1; n <= nights; n++) {
+                                bd += '<div class="ahb-fare-breakdown-row ahb-fare-breakdown-row--individual">' +
+                                    '<span>Night ' + n + '</span>' +
+                                    '<span>$' + pricePerRoom.toFixed(2) + '</span>' +
+                                    '</div>';
+                            }
+                        }
+                        return '<div class="ahb-fare-breakdown">' + bd + '</div>';
+                    })() +
+                    '<div class="ahb-price-row">' +
+                    '<span class="ahb-price-row-label">Taxes<br><small style="color:#94a3b8;font-weight:400;">Hotel Only</small></span>' +
+                    '<span class="ahb-price-row-val">$' + taxTotal.toFixed(2) + '</span>' +
+                    '</div>' +
+                    '<div class="ahb-price-total">' +
+                    '<span>Total Amount</span>' +
+                    '<span>$' + grandTotal.toFixed(2) + '</span>' +
+                    '</div>' +
+                    '</div>' +
+
+                    '<div class="ahb-why-card">' +
+                    '<div class="ahb-why-title">Why Book with us</div>' +
+                    '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>24 × 7 Assistance</div>' +
+                    '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>Verified and Trusted Listings</div>' +
+                    '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>Seamless Booking Process</div>' +
+                    '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>Best Rate Guarantee</div>' +
+                    '<div class="ahb-call-box">' +
+                    '<div class="ahb-call-avatar">👤</div>' +
+                    '<div>' +
+                    '<div class="ahb-call-label">Call us</div>' +
+                    '<div class="ahb-call-number">+1-877-721-0410</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+
+                    '</div>' +
+                    '</div>';
+
+                // ── Timer ──
+                var timeLeft = 600;
+                var timerEl = document.getElementById('ahb-timer');
+                var timerInterval = setInterval(function() {
+                    timeLeft--;
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        if (timerEl) timerEl.textContent = '⏱ Expired';
+                        return;
+                    }
+                    var m = Math.floor(timeLeft / 60);
+                    var s = timeLeft % 60;
+                    if (timerEl) timerEl.textContent = '⏱ Time Left: ' + m + ':' + (s < 10 ? '0' : '') + s;
+                }, 1000);
+
+                // Update email display
+                document.addEventListener('input', function(e) {
+                    if (e.target.id === 'ahb-email') {
+                        var el = document.getElementById('ahb-email-display');
+                        if (el) el.textContent = e.target.value || 'your email';
+                    }
+                });
+                window.ahbSlide = function(dir) {
+                    if (!photos.length) return;
+                    currentPhoto = (currentPhoto + dir + photos.length) % photos.length;
+                    var img = document.getElementById('ahb-slide-img');
+                    if (img) {
+                        img.style.opacity = '0';
+                        setTimeout(function() {
+                            img.src = photos[currentPhoto];
+                            img.style.opacity = '1';
+                        }, 150);
+                    }
+                    photos.forEach(function(_, i) {
+                        var dot = document.getElementById('ahb-dot-' + i);
+                        if (dot) {
+                            dot.style.width = i === currentPhoto ? '20px' : '8px';
+                            dot.style.background = i === currentPhoto ? '#fff' : 'rgba(255,255,255,.5)';
+                        }
+                    });
+                };
+                var _ahbActiveMethod = 'credit_card';
+
+                var AHB_AJAX = <?php echo json_encode(admin_url('admin-ajax.php')); ?>;
+                var AHB_NONCE = <?php echo json_encode(wp_create_nonce('amadex_nonce')); ?>;
+                <?php
+                $ps = get_option('amadex_payment_settings', []);
+                $ahb_tok_key = isset($ps['nmi_tokenization_key']) ? trim($ps['nmi_tokenization_key']) : '';
+                $ahb_gateway = isset($ps['default_card_gateway']) ? strtolower(trim($ps['default_card_gateway'])) : 'nmi';
+                $ahb_bypass  = !empty($ps['nmi_bypass_for_testing']);
+                ?>
+                var AHB_GATEWAY = <?php echo json_encode($ahb_gateway); ?>;
+                var AHB_TOK_KEY = <?php echo json_encode($ahb_tok_key); ?>;
+                var AHB_BYPASS = <?php echo json_encode($ahb_bypass); ?>;
+                var AHB_COLLECT_URL = 'https://secure.nmi.com/token/Collect.js';
+                var _ahbPayToken = ''; // set after Collect.js tokenizes
+                var _ahbCollectReady = false;
+
+                // Load NMI Collect.js for card tokenization
+                function ahbLoadCollectJs() {
+                    if (!AHB_TOK_KEY || AHB_GATEWAY !== 'nmi' || document.querySelector('script[src*="Collect.js"]')) return;
+                    var s = document.createElement('script');
+                    s.src = AHB_COLLECT_URL;
+                    s.setAttribute('data-tokenization-key', AHB_TOK_KEY);
+                    s.onload = function() {
+                        _ahbCollectReady = true;
+                        if (window.CollectJS) {
+                            CollectJS.configure({
+                                variant: 'inline',
+                                styleSniffer: false,
+                                googleFont: '',
+                                validationCallback: function() {},
+                                fieldsAvailableCallback: function() {},
+                                timeoutDuration: 10000,
+                                timeoutCallback: function() {},
+                                callback: function(response) {
+                                    _ahbPayToken = response.token;
+                                    ahbSubmitWithToken(_ahbPayToken);
+                                },
+                                fields: {
+                                    ccnumber: {
+                                        selector: '#ahb-card-num',
+                                        placeholder: '0000 0000 0000 0000'
+                                    },
+                                    ccexp: {
+                                        selector: '#ahb-card-exp-collect',
+                                        placeholder: 'MM / YY'
+                                    },
+                                    cvv: {
+                                        selector: '#ahb-cvv',
+                                        placeholder: '***'
+                                    }
+                                }
+                            });
+                        }
+                    };
+                    document.head.appendChild(s);
+                }
+                ahbLoadCollectJs();
+
+                window.ahbSelectTab = function(btn, panel) {
+                    document.querySelectorAll('.ahb-payment-tab').forEach(function(b) {
+                        b.classList.remove('active');
+                    });
+                    document.querySelectorAll('.ahb-payment-panel').forEach(function(p) {
+                        p.classList.remove('active');
+                    });
+                    btn.classList.add('active');
+                    _ahbActiveMethod = btn.getAttribute('data-method') || 'credit_card';
+                    var el = document.getElementById('ahb-panel-' + panel);
+                    if (el) el.classList.add('active');
+                };
+
+                window.ahbFormatCard = function(input) {
+                    var v = input.value.replace(/\D/g, '').substring(0, 16);
+                    input.value = v.replace(/(.{4})/g, '$1 ').trim();
+                };
+
+                // Hotel price breakdown toggle
+                document.addEventListener('click', function(e) {
+                    var btn = e.target.closest('.ahb-fare-breakdown-toggle');
+                    if (!btn) return;
+                    var row = btn.closest('.ahb-price-row--expandable');
+                    var bd = row && row.nextElementSibling;
+                    if (!bd || !bd.classList.contains('ahb-fare-breakdown')) return;
+                    var open = bd.style.display === 'block';
+                    if (open) {
+                        bd.style.display = 'none';
+                        btn.classList.remove('is-open');
+                    } else {
+                        bd.style.display = 'block';
+                        btn.classList.add('is-open');
+                    }
+                });
+
+                // Called after Collect.js returns a token
+                function ahbSubmitWithToken(token) {
+                    var btn = document.querySelector('.ahb-confirm-btn');
+                    var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
+                    var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
+                    var fn0   = document.getElementById('ahb-fn-0')  ? document.getElementById('ahb-fn-0').value.trim()  : '';
+
+                    var guests = [];
+                    for (var r = 0; r < roomCount; r++) {
+                        var fnEl = document.getElementById('ahb-fn-' + r);
+                        var lnEl = document.getElementById('ahb-ln-' + r);
+                        guests.push({ room: r + 1, first_name: fnEl ? fnEl.value : '', last_name: lnEl ? lnEl.value : '' });
+                    }
+
+                    var srEl = document.getElementById('ahb-special-request');
+                    var specialRequest = srEl ? srEl.value : '';
+
+                    var activeTabEl = document.querySelector('.ahb-payment-tab.active');
+                    var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
+                    var methodLabels = { 'credit_card': 'Credit/Debit Card', 'paypal': 'PayPal', 'crypto_com': 'Crypto.com', 'moonpay_onramp': 'Pay with Card (MoonPay)' };
+                    var methodLabel = methodLabels[paymentMethod] || paymentMethod;
+
+                    var cardName = document.getElementById('ahb-card-name') ? document.getElementById('ahb-card-name').value.trim() : '';
+
+                    var payload = {
+                        contact: { name: fn0, email: email, phone: phone },
+                        hotel: {
+                            name:        hotelData.name        || '',
+                            destination: hotelData.address     || (hotelData.searchData && hotelData.searchData.destination) || '',
+                            check_in:    searchData.checkIn    || '',
+                            check_out:   searchData.checkOut   || '',
+                            rooms:       roomCount,
+                            guests:      (function() { var t = 0; rooms.forEach(function(rm){ t += (rm.adults||1) + (rm.children||0); }); return t; })(),
+                            room_name:   roomName,
+                            base_fare:   baseTotal,
+                            tax:         taxTotal,
+                            total:       grandTotal,
+                            nights:      nights,
+                            room_guests: guests
+                        },
+                        special_request: specialRequest,
+                        payment: {
+                            method:        methodLabel,
+                            method_key:    paymentMethod,
+                            payment_token: token || '',
+                            card_holder:   cardName,
+                            card_last4:    '',
+                            card_number:   '',
+                            card_exp_month: '',
+                            card_exp_year:  '',
+                            card_cvv:      ''
+                        }
+                    };
+
+                    if (btn) { btn.disabled = true; btn.textContent = 'Processing Payment…'; }
+
+                    var body = new URLSearchParams({
+                        action:     'amadex_save_hotel_lead',
+                        nonce:      AHB_NONCE,
+                        hotel_data: JSON.stringify(payload)
+                    });
+
+                    fetch(AHB_AJAX, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString() })
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            if (btn) { btn.disabled = false; btn.textContent = 'Confirm & Book'; }
+                            if (data && data.success && data.data && data.data.reference) {
+                                var confirmUrl = <?php echo json_encode(home_url('/booking-confirmation/')); ?>;
+                                window.location.href = confirmUrl + '?reference=' + encodeURIComponent(data.data.reference);
+                            } else {
+                                var msg = (data && data.data && data.data.message) ? data.data.message : 'Payment failed. Please check your card details.';
+                                alert(msg);
+                            }
+                        })
+                        .catch(function() {
+                            if (btn) { btn.disabled = false; btn.textContent = 'Confirm & Book'; }
+                            alert('A network error occurred. Please try again.');
+                        });
+                }
+
+               window.ahbConfirm = function() {
+                    var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
+                    var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
+                    var fn0   = document.getElementById('ahb-fn-0')  ? document.getElementById('ahb-fn-0').value.trim()  : '';
+                    if (!fn0)   { alert('Please enter guest name for Room 1'); return; }
+                    if (!email) { alert('Please enter your email'); return; }
+                    if (!phone) { alert('Please enter your mobile number'); return; }
+
+                    var activeTabEl = document.querySelector('.ahb-payment-tab.active');
+                    var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
+
+                    // For credit_card: tokenize via Collect.js first, then submit
+                    if (paymentMethod === 'credit_card' && AHB_GATEWAY === 'nmi' && !AHB_BYPASS) {
+                        var btn = document.querySelector('.ahb-confirm-btn');
+                        if (btn) { btn.disabled = true; btn.textContent = 'Securing Card…'; }
+                        if (window.CollectJS) {
+                            CollectJS.startPaymentRequest();
+                        } else {
+                            if (btn) { btn.disabled = false; btn.textContent = 'Confirm & Book'; }
+                            alert('Payment system not ready. Please refresh and try again.');
+                        }
                         return;
                     }
 
-                    var searchData = hotelData.searchData || {};
-                    var nights = 1;
-                    if (searchData.checkIn && searchData.checkOut) {
-                        var ci = new Date(searchData.checkIn);
-                        var co = new Date(searchData.checkOut);
-                        nights = Math.max(1, Math.round((co - ci) / 86400000));
-                    }
-                    var rooms = (searchData.roomData && searchData.roomData.length) ? searchData.roomData : [{
-                        adults: 1,
-                        children: 0
-                    }];
-                    var roomCount = rooms.length;
+                    // For all other methods (PayPal, Crypto, MoonPay) or bypass mode — submit directly without token
+                    ahbSubmitWithToken('');
+                };
 
-                    var roomName = roomData ? (roomData.room_name || 'Selected Room') : 'Selected Room';
-                    var price = roomData ? parseFloat(roomData.price_raw || 0) : parseFloat(hotelData.price_raw || 0);
-                    var taxes = roomData ? parseFloat(roomData.taxes || 0) : 54;
-                    var cancel = roomData ? roomData.cancellable : hotelData.cancellable;
-                    var baseTotal = price * nights * roomCount;
-                    var taxTotal = (taxes || 54) * nights * roomCount;
-                    var grandTotal = baseTotal + taxTotal;
-
-                    var photo = (window._ahdCurrentPhotos && window._ahdCurrentPhotos[0]) || (hotelData.images && hotelData.images[0]) || '';
-
-                    function fmtDateShort(d) {
-                        if (!d) return '';
-                        var dt = new Date(d);
-                        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                        var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-                        return dt.getDate() + ' ' + months[dt.getMonth()] + ',\'' + String(dt.getFullYear()).slice(2) + ' ' + days[dt.getDay()];
-                    }
-                    // Format dates
-                    function fmtDate(d) {
-                        if (!d) return '';
-                        var dt = new Date(d);
-                        return dt.toLocaleDateString('en-US', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric'
-                        });
-                    }
-
-                    function fmtDay(d) {
-                        if (!d) return '';
-                        var dt = new Date(d);
-                        return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dt.getDay()];
-                    }
-
-                    // Build room guest forms
-                    var roomForms = rooms.map(function(r, i) {
-                        return '<div class="ahb-room-block">' +
-                            '<div class="ahb-room-block-header">' +
-                            '<div class="ahb-room-block-title">' +
-                            '<div class="ahb-room-icon"><i class="fa-solid fa-door-closed" style="color: rgb(0, 0, 0);"></i></div>' +
-                            'Room ' + (i + 1) +
-                            '</div>' +
-                            '<button class="ahb-add-guest">Add New Guest +</button>' +
-                            '</div>' +
-                            '<div class="ahb-name-row">' +
-                            '<div class="ahb-field-group">' +
-                            '<label class="ahb-field-label">First Name*</label>' +
-                            '<input class="ahb-input" type="text" placeholder="First Name" id="ahb-fn-' + i + '">' +
-                            '</div>' +
-                            '<div class="ahb-field-group">' +
-                            '<label class="ahb-field-label">Last Name*</label>' +
-                            '<input class="ahb-input" type="text" placeholder="Last Name" id="ahb-ln-' + i + '">' +
-                            '</div>' +
-                            '</div>' +
-                            '</div>';
-                    }).join('');
-
-                    // Build photos slider
-                    var photos = window._ahdCurrentPhotos || hotelData.images || [];
-                    var currentPhoto = 0;
-
-                    function getSliderHtml() {
-                        return (photos.length ?
-                                '<img id="ahb-slide-img" src="' + photos[0] + '" alt="Hotel" style="width:100%;height:100%;object-fit:cover;display:block;">' :
-                                '<div style="width:100%;height:100%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;font-size:40px;opacity:.2;">🏨</div>') +
-                            (photos.length > 1 ?
-                                '<button onclick="ahbSlide(-1)" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);">‹</button>' +
-                                '<button onclick="ahbSlide(1)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.9);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);">›</button>' +
-                                '<div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;">' +
-                                photos.map(function(_, i) {
-                                    return '<div style="width:' + (i === 0 ? '20' : '8') + 'px;height:8px;border-radius:4px;background:' + (i === 0 ? '#fff' : 'rgba(255,255,255,.5)') + ';transition:all .2s;" id="ahb-dot-' + i + '"></div>';
-                                }).join('') +
-                                '</div>' : '');
-                    }
-
-                    // Build per-room selected rooms
-                    var selectedRoomsHtml = rooms.map(function(r, i) {
-                        return '<div style="' + (i > 0 ? 'border-top:1px solid #f1f5f9;padding-top:12px;margin-top:12px;' : '') + '">' +
-                            '<div style="font-size:14px;color:#475569;margin-bottom:6px;">Room:' + (i + 1) + ' <strong style="color:#0f172a;">' + roomName + '</strong></div>' +
-                            '<div style="display:flex;gap:8px;flex-wrap:wrap;">' +
-                            '<span class="ahb-room-tag"><span style="font-size:14px;"><i class="fa-solid fa-bowl-food" style="color: rgb(0, 0, 0);"></i></span> Free Breakfast</span>' +
-                            '<span class="ahb-room-tag"><span style="font-size:14px;"><i class="fa-solid fa-dumbbell" style="color: rgb(0, 0, 0);"></i></span> Fitness centre</span>' +
-                            '<span class="ahb-room-tag"><span style="font-size:14px;"><i class="fa-solid fa-person-swimming" style="color: rgb(0, 0, 0);"></i></span> Pool</span>' +
-                            '</div>' +
-                            '</div>';
-                    }).join('');
-
-                    // Total guests
-                    var totalGuests = rooms.reduce(function(s, r) {
-                        return s + r.adults + r.children;
-                    }, 0);
-
-                    document.getElementById('ahb-main').innerHTML =
-                        '<div class="ahb-layout">' +
-                        '<div>' +
-
-                        // Hotel summary card — reference layout
-                        '<div class="ahb-card">' +
-                        // Top row: name + refundable
-                        '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">' +
-                        '<div>' +
-                        '<div class="ahb-hotel-name">' + (hotelData.name || 'Hotel') + '</div>' +
-                        '<div class="ahb-hotel-addr">' +
-                        '<svg width="12" height="12" viewBox="0 0 640 640" style="fill:#64748b;flex-shrink:0;"><path d="M128 252.6C128 148.4 214 64 320 64C426 64 512 148.4 512 252.6C512 371.9 391.8 514.9 341.6 569.4C329.8 582.2 310.1 582.2 298.3 569.4C248.1 514.9 127.9 371.9 127.9 252.6zM320 320C355.3 320 384 291.3 384 256C384 220.7 355.3 192 320 192C284.7 192 256 220.7 256 256C256 291.3 284.7 320 320 320z"/></svg>' +
-                        (hotelData.address || '') +
-                        '</div>' +
-                        '</div>' +
-                        (cancel ? '<span class="ahb-refundable" style="flex-shrink:0;">✓ Refundable</span>' : '') +
-                        '</div>' +
-
-                        // Image + rooms side by side
-                        '<div class="finalhotel-booking" style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:end;margin-top:12px;background:#F6F6F6;padding: 10px;border-radius: 15px;">' +
-                        // Slider
-                        '<div style="position:relative;height:200px;border-radius:12px;overflow:hidden;background:#f1f5f9;" id="ahb-slider">' +
-                        getSliderHtml() +
-                        '</div>' +
-                        // Selected rooms + dates
-                        '<div>' +
-                        '<div style="font-size:16px;font-weight:700;color:#475569;margin-bottom:10px;">Selected Rooms</div>' +
-                        selectedRoomsHtml +
-                        // Dates row with dividers
-                        '<div style="display:grid;grid-template-columns:1fr 1px 1fr 1px 1fr;gap:0;margin-top:14px;background:#ffffff;border-radius:10px;overflow:hidden;border: 1px solid #E6E6E6;">' +
-                        '<div style="padding:10px 12px;">' +
-                        '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Check-in</div>' +
-                        '<div style="font-size:13px;font-weight:700;color:#0f172a;">' + fmtDateShort(searchData.checkIn) + '</div>' +
-                        '</div>' +
-                        '<div style="background:#e2e8f0;"></div>' +
-                        '<div style="padding:10px 12px;">' +
-                        '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">Check Out</div>' +
-                        '<div style="font-size:13px;font-weight:700;color:#0f172a;">' + fmtDateShort(searchData.checkOut) + '</div>' +
-                        '</div>' +
-                        '<div style="background:#e2e8f0;"></div>' +
-                        '<div style="padding:10px 12px;">' +
-                        '<div style="font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:3px;">' + nights + ' Night' + (nights > 1 ? 's' : '') + '</div>' +
-                        '<div style="font-size:13px;font-weight:700;color:#0f172a;">' + totalGuests + ' guest' + (totalGuests > 1 ? 's' : '') + ', ' + roomCount + ' room' + (roomCount > 1 ? 's' : '') + '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-
-                        // Who's staying
-                        '<div class="ahb-card">' +
-                        '<div class="ahb-card-title">Who\'s Staying?</div>' +
-                        '<p style="font-size:13px;color:#64748b;margin:0 0 14px;">Guest names must match valid ID which will be used at check-in</p>' +
-                        roomForms +
-                        '</div>' +
-
-                        // Special requests
-                        '<div class="ahb-card">' +
-                        '<div class="ahb-card-title">Special Requests</div>' +
-                        '<p class="ahb-requests-note">The property will do its best, but cannot guarantee to fulfil all requests.</p>' +
-                        '<textarea class="ahb-textarea" id="ahb-requests" placeholder="Additional requests..."></textarea>' +
-                        '</div>' +
-
-                        // Contact info
-                        '<div class="ahb-card">' +
-                        '<div class="ahb-card-title">Contact Info</div>' +
-                        '<p class="ahb-contact-note">Booking details will be sent to</p>' +
-                        '<div class="ahb-contact-grid">' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Country Code*</label>' +
-                        '<select class="ahb-select" id="ahb-country-code">' +
-                        '<option value="+1">United States (+1)</option>' +
-                        '<option value="+44">United Kingdom (+44)</option>' +
-                        '<option value="+91">India (+91)</option>' +
-                        '<option value="+971">UAE (+971)</option>' +
-                        '<option value="+61">Australia (+61)</option>' +
-                        '<option value="+1-CA">Canada (+1)</option>' +
-                        '</select>' +
-                        '</div>' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Mobile Number*</label>' +
-                        '<input class="ahb-input" type="tel" id="ahb-phone" placeholder="Mobile Number">' +
-                        '</div>' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Email*</label>' +
-                        '<input class="ahb-input" type="email" id="ahb-email" placeholder="Example@Gmail.com">' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-
-                        // Payment
-                        '<div class="ahb-card">' +
-                        '<div class="ahb-card-title">Payment method</div>' +
-                        '<p style="font-size:12px;color:#94a3b8;margin:0 0 12px;">Safe and Secure Payment</p>' +
-                        // Payment tabs
-                        '<div class="ahb-payment-tabs">' +
-                        '<button class="ahb-payment-tab active" data-method="credit_card" onclick="ahbSelectTab(this,\'card\')">' +
-                        '<div class="ahb-payment-tab-icons">' +
-                        '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/Visa_Brandmark_Blue_RGB_2021.png" alt="Visa">' +
-                        '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/Group-3852.png" alt="MC">' +
-                        '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/layer1.png" alt="Amex">' +
-                        '<img src="https://honeydew-kingfisher-775674.hostingersite.com/wp-content/uploads/2026/06/Group-3855.png">' +
-                        '</div>' +
-                        '<span class="ahb-payment-tab-label">Credit/Debit Card</span>' +
-                        '</button>' +
-                        '<button class="ahb-payment-tab" data-method="paypal" onclick="ahbSelectTab(this,\'paypal\')">' +
-                        '<div class="ahb-payment-tab-icons">' +
-                        '<img src="/wp-content/plugins/amadex1/assets/images/paypal-icon.png" alt="PayPal">' +
-                        '</div>' +
-                        '<span class="ahb-payment-tab-label">PayPal</span>' +
-                        '</button>' +
-                        '<button class="ahb-payment-tab" data-method="crypto_com" onclick="ahbSelectTab(this,\'crypto\')">' +
-                        '<div class="ahb-payment-tab-icons">' +
-                        '<img src="/wp-content/plugins/amadex1/assets/images/Bitcoin-Logo.png" alt="Crypto">' +
-                        '</div>' +
-                        '<span class="ahb-payment-tab-label">Crypto.com</span>' +
-                        '</button>' +
-                        '<button class="ahb-payment-tab" data-method="moonpay_onramp" onclick="ahbSelectTab(this,\'moonpay\')">' +
-                        '<div class="ahb-payment-tab-icons" style="font-size:18px;"><img src="/wp-content/plugins/amadex1/assets/images/Moonpay%20Logo.png" alt="Crypto"></div>' +
-                        '<span class="ahb-payment-tab-label">Pay with Card</span>' +
-                        '</button>' +
-                        '</div>' +
-                        // Credit card panel
-                        '<div class="ahb-payment-panel active" id="ahb-panel-card">' +
-                        '<div class="ahb-payment-grid" style="margin-bottom:12px;">' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Card Holder Name *</label>' +
-                        '<input class="ahb-input" type="text" id="ahb-card-name" placeholder="John Smith">' +
-                        '</div>' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Credit/Debit Card Number *</label>' +
-                        '<input class="ahb-input" type="text" id="ahb-card-num" placeholder="0000 0000 0000 0000" maxlength="19" oninput="ahbFormatCard(this)">' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="ahb-payment-grid" style="margin-bottom:12px;">' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Expiry Month *</label>' +
-                        '<input class="ahb-input" type="text" id="ahb-card-month" placeholder="MM" maxlength="2">' +
-                        '</div>' +
-                        '<div class="ahb-field-group">' +
-                        '<label class="ahb-field-label">Expiry Year *</label>' +
-                        '<input class="ahb-input" type="text" id="ahb-card-year" placeholder="YY" maxlength="2">' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="ahb-field-group" style="max-width:50%;">' +
-                        '<label class="ahb-field-label">CVV *</label>' +
-                        '<input class="ahb-input" type="password" id="ahb-cvv" placeholder="***" maxlength="4">' +
-                        '</div>' +
-                        '</div>' +
-                        // PayPal panel
-                        '<div class="ahb-payment-panel" id="ahb-panel-paypal">' +
-                        '<div style="padding:20px;">' +
-                        '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png" style="height:36px;display:block;margin:0 auto 16px;">' +
-                        '<div id="ahb-paypal-buttons"></div>' +
-                        '</div>' +
-                        '</div>' +
-                        // Crypto panel
-                        '<div class="ahb-payment-panel" id="ahb-panel-crypto">' +
-                        '<div style="text-align:center;padding:20px;">' +
-                        '<div style="font-size:40px;margin-bottom:12px;">₿</div>' +
-                        '<p style="font-size:14px;color:#64748b;margin-bottom:16px;">Pay securely with cryptocurrency via Crypto.com.</p>' +
-                        '<div id="ahb-cryptocom-mount"></div>' +
-                        '</div>' +
-                        '</div>' +
-                        // MoonPay panel
-                        '<div class="ahb-payment-panel" id="ahb-panel-moonpay">' +
-                        '<div style="text-align:center;padding:20px;">' +
-                        '<div style="font-size:40px;margin-bottom:12px;">🌙</div>' +
-                        '<p style="font-size:14px;color:#64748b;">Pay with card or crypto via MoonPay. Click Confirm & Book to open the payment widget.</p>' +
-                        '</div>' +
-                        '</div>' +
-                        '<div class="ahb-checkbox-row">' +
-                        '<input type="checkbox" id="ahb-agree">' +
-                        '<label for="ahb-agree" class="ahb-checkbox-text">I agree to receive updates and promotions about Travelay and its affiliates or business partners via various channels, including WhatsApp. Opt out anytime. Read more in the <a href="#">Privacy Policy</a>.</label>' +
-                        '</div>' +
-                        '<button class="ahb-confirm-btn" onclick="ahbConfirm()">' +
-                        'Confirm & Book' +
-                        '<span class="ahb-timer" id="ahb-timer">⏱ Time Left: 10:00</span>' +
-                        '</button>' +
-                        '<div class="ahb-email-note">✉ We\'ll send confirmation of your booking to <span id="ahb-email-display" style="font-weight:700;color:#0f172a;">your email</span></div>' +
-                        '</div>' +
-
-                        '</div>' +
-
-                        // ── RIGHT SIDEBAR ──
-                        '<div class="ahb-sidebar">' +
-                        '<div class="ahb-price-card">' +
-                        '<div class="ahb-price-title">Price Summary</div>' +
-                        '<div class="ahb-price-row ahb-price-row--expandable">' +
-                        '<span class="ahb-price-row-label">Base Fare<br><small style="color:#94a3b8;font-weight:400;">' + roomCount + ' Room' + (roomCount > 1 ? 's' : '') + ' × ' + nights + ' Night' + (nights > 1 ? 's' : '') + '</small></span>' +
-                        '<div class="ahb-price-row-right">' +
-                        '<span class="ahb-price-row-val">$' + baseTotal.toFixed(2) + '</span>' +
-                        '<button type="button" class="ahb-fare-breakdown-toggle" aria-label="Show breakdown">' +
-                        '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>' +
-                        '</button>' +
-                        '</div>' +
-                        '</div>' +
-                        (function() {
-                            var bd = '';
-                            var pricePerRoom = price;
-                            for (var r = 1; r <= roomCount; r++) {
-                                bd += '<div class="ahb-fare-breakdown-row ahb-fare-breakdown-row--group">' +
-                                    '<span>Room ' + r + ' <em>($' + pricePerRoom.toFixed(2) + ' × ' + nights + ' night' + (nights > 1 ? 's' : '') + ')</em></span>' +
-                                    '<span>$' + (pricePerRoom * nights).toFixed(2) + '</span>' +
-                                    '</div>';
-                                for (var n = 1; n <= nights; n++) {
-                                    bd += '<div class="ahb-fare-breakdown-row ahb-fare-breakdown-row--individual">' +
-                                        '<span>Night ' + n + '</span>' +
-                                        '<span>$' + pricePerRoom.toFixed(2) + '</span>' +
-                                        '</div>';
-                                }
-                            }
-                            return '<div class="ahb-fare-breakdown">' + bd + '</div>';
-                        })() +
-                        '<div class="ahb-price-row">' +
-                        '<span class="ahb-price-row-label">Taxes<br><small style="color:#94a3b8;font-weight:400;">Hotel Only</small></span>' +
-                        '<span class="ahb-price-row-val">$' + taxTotal.toFixed(2) + '</span>' +
-                        '</div>' +
-                        '<div class="ahb-price-total">' +
-                        '<span>Total Amount</span>' +
-                        '<span>$' + grandTotal.toFixed(2) + '</span>' +
-                        '</div>' +
-                        '</div>' +
-
-                        '<div class="ahb-why-card">' +
-                        '<div class="ahb-why-title">Why Book with us</div>' +
-                        '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>24 × 7 Assistance</div>' +
-                        '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>Verified and Trusted Listings</div>' +
-                        '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>Seamless Booking Process</div>' +
-                        '<div class="ahb-why-item"><div class="ahb-why-icon">✓</div>Best Rate Guarantee</div>' +
-                        '<div class="ahb-call-box">' +
-                        '<div class="ahb-call-avatar">👤</div>' +
-                        '<div>' +
-                        '<div class="ahb-call-label">Call us</div>' +
-                        '<div class="ahb-call-number">+1-877-721-0410</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-
-                        '</div>' +
-                        '</div>';
-
-                    // ── Timer ──
-                    var timeLeft = 600;
-                    var timerEl = document.getElementById('ahb-timer');
-                    var timerInterval = setInterval(function() {
-                        timeLeft--;
-                        if (timeLeft <= 0) {
-                            clearInterval(timerInterval);
-                            if (timerEl) timerEl.textContent = '⏱ Expired';
-                            return;
-                        }
-                        var m = Math.floor(timeLeft / 60);
-                        var s = timeLeft % 60;
-                        if (timerEl) timerEl.textContent = '⏱ Time Left: ' + m + ':' + (s < 10 ? '0' : '') + s;
-                    }, 1000);
-
-                    // Update email display
-                    document.addEventListener('input', function(e) {
-                        if (e.target.id === 'ahb-email') {
-                            var el = document.getElementById('ahb-email-display');
-                            if (el) el.textContent = e.target.value || 'your email';
-                        }
-                    });
-                    window.ahbSlide = function(dir) {
-                        if (!photos.length) return;
-                        currentPhoto = (currentPhoto + dir + photos.length) % photos.length;
-                        var img = document.getElementById('ahb-slide-img');
-                        if (img) {
-                            img.style.opacity = '0';
-                            setTimeout(function() {
-                                img.src = photos[currentPhoto];
-                                img.style.opacity = '1';
-                            }, 150);
-                        }
-                        photos.forEach(function(_, i) {
-                            var dot = document.getElementById('ahb-dot-' + i);
-                            if (dot) {
-                                dot.style.width = i === currentPhoto ? '20px' : '8px';
-                                dot.style.background = i === currentPhoto ? '#fff' : 'rgba(255,255,255,.5)';
-                            }
-                        });
-                    };
-                    var _ahbActiveMethod = 'credit_card';
-
-                    // Load NMI Collect.js for card tokenization
-                    function ahbLoadCollectJs() {
-                        if (!AHB_TOK_KEY || AHB_GATEWAY !== 'nmi' || document.querySelector('script[src*="Collect.js"]')) return;
-                        var s = document.createElement('script');
-                        s.src = AHB_COLLECT_URL;
-                        s.setAttribute('data-tokenization-key', AHB_TOK_KEY);
-                        s.onload = function() {
-                            _ahbCollectReady = true;
-                            if (window.CollectJS) {
-                                CollectJS.configure({
-                                    variant: 'inline',
-                                    styleSniffer: false,
-                                    googleFont: '',
-                                    validationCallback: function() {},
-                                    fieldsAvailableCallback: function() {},
-                                    timeoutDuration: 10000,
-                                    timeoutCallback: function() {},
-                                    callback: function(response) {
-                                        _ahbPayToken = response.token;
-                                        ahbSubmitWithToken(_ahbPayToken);
-                                    },
-                                    fields: {
-                                        ccnumber: {
-                                            selector: '#ahb-card-num',
-                                            placeholder: '0000 0000 0000 0000'
-                                        },
-                                        ccexp: {
-                                            selector: '#ahb-card-exp-collect',
-                                            placeholder: 'MM / YY'
-                                        },
-                                        cvv: {
-                                            selector: '#ahb-cvv',
-                                            placeholder: '***'
-                                        }
-                                    }
-                                });
-                            }
-                        };
-                        document.head.appendChild(s);
-                    }
-                    ahbLoadCollectJs();
-
-                    window.ahbSelectTab = function(btn, panel) {
-                        document.querySelectorAll('.ahb-payment-tab').forEach(function(b) {
-                            b.classList.remove('active');
-                        });
-                        document.querySelectorAll('.ahb-payment-panel').forEach(function(p) {
-                            p.classList.remove('active');
-                        });
-                        btn.classList.add('active');
-                        _ahbActiveMethod = btn.getAttribute('data-method') || 'credit_card';
-                        var el = document.getElementById('ahb-panel-' + panel);
-                        if (el) el.classList.add('active');
-                    };
-
-                    window.ahbFormatCard = function(input) {
-                        var v = input.value.replace(/\D/g, '').substring(0, 16);
-                        input.value = v.replace(/(.{4})/g, '$1 ').trim();
-                    };
-
-                    // Hotel price breakdown toggle
-                    document.addEventListener('click', function(e) {
-                        var btn = e.target.closest('.ahb-fare-breakdown-toggle');
-                        if (!btn) return;
-                        var row = btn.closest('.ahb-price-row--expandable');
-                        var bd = row && row.nextElementSibling;
-                        if (!bd || !bd.classList.contains('ahb-fare-breakdown')) return;
-                        var open = bd.style.display === 'block';
-                        if (open) {
-                            bd.style.display = 'none';
-                            btn.classList.remove('is-open');
-                        } else {
-                            bd.style.display = 'block';
-                            btn.classList.add('is-open');
-                        }
-                    });
-
-                    var AHB_AJAX = <?php echo json_encode($ahb_ajax_url); ?>;
-                    var AHB_NONCE = <?php echo json_encode($ahb_nonce); ?>;
-                    var AHB_GATEWAY = <?php echo json_encode($ahb_gateway); ?>;
-                    var AHB_TOK_KEY = <?php echo json_encode($ahb_tok_key); ?>;
-                    var AHB_BYPASS = <?php echo json_encode($ahb_bypass); ?>;
-                    var AHB_COLLECT_URL = 'https://secure.nmi.com/token/Collect.js';
-                    var _ahbPayToken = ''; // set after Collect.js tokenizes
-                    var _ahbCollectReady = false;
-
-                    // Called after Collect.js returns a token
-                    function ahbSubmitWithToken(token) {
-                        var btn = document.querySelector('.ahb-confirm-btn');
-                        var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
-                        var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
-                        var fn0 = document.getElementById('ahb-fn-0') ? document.getElementById('ahb-fn-0').value.trim() : '';
-
-                        var guests = [];
-                        for (var r = 0; r < roomCount; r++) {
-                            var fnEl = document.getElementById('ahb-fn-' + r);
-                            var lnEl = document.getElementById('ahb-ln-' + r);
-                            guests.push({
-                                room: r + 1,
-                                first_name: fnEl ? fnEl.value : '',
-                                last_name: lnEl ? lnEl.value : ''
-                            });
-                        }
-
-                        var srEl = document.getElementById('ahb-special-request');
-                        var specialRequest = srEl ? srEl.value : '';
-
-                        var activeTabEl = document.querySelector('.ahb-payment-tab.active');
-                        var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
-                        var methodLabels = {
-                            'credit_card': 'Credit/Debit Card',
-                            'paypal': 'PayPal',
-                            'crypto_com': 'Crypto.com',
-                            'moonpay_onramp': 'Pay with Card (MoonPay)'
-                        };
-                        var methodLabel = methodLabels[paymentMethod] || paymentMethod;
-
-                        var cardName = document.getElementById('ahb-card-name') ? document.getElementById('ahb-card-name').value.trim() : '';
-
-                        var payload = {
-                            contact: {
-                                name: fn0,
-                                email: email,
-                                phone: phone
-                            },
-                            hotel: {
-                                name: hotelData.name || '',
-                                destination: hotelData.address || (hotelData.searchData && hotelData.searchData.destination) || '',
-                                check_in: searchData.checkIn || '',
-                                check_out: searchData.checkOut || '',
-                                rooms: roomCount,
-                                guests: (function() {
-                                    var t = 0;
-                                    rooms.forEach(function(rm) {
-                                        t += (rm.adults || 1) + (rm.children || 0);
-                                    });
-                                    return t;
-                                })(),
-                                room_name: roomName,
-                                base_fare: baseTotal,
-                                tax: taxTotal,
-                                total: grandTotal,
-                                nights: nights,
-                                room_guests: guests
-                            },
-                            special_request: specialRequest,
-                            payment: {
-                                method: methodLabel,
-                                method_key: paymentMethod,
-                                payment_token: token || '',
-                                card_holder: cardName,
-                                card_last4: '',
-                                card_number: '',
-                                card_exp_month: '',
-                                card_exp_year: '',
-                                card_cvv: ''
-                            }
-                        };
-
-                        if (btn) {
-                            btn.disabled = true;
-                            btn.textContent = 'Processing Payment…';
-                        }
-
-                        var body = new URLSearchParams({
-                            action: 'amadex_save_hotel_lead',
-                            nonce: AHB_NONCE,
-                            hotel_data: JSON.stringify(payload)
-                        });
-
-                        fetch(AHB_AJAX, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/x-www-form-urlencoded'
-                                },
-                                body: body.toString()
-                            })
-                            .then(function(r) {
-                                return r.json();
-                            })
-                            .then(function(data) {
-                                if (btn) {
-                                    btn.disabled = false;
-                                    btn.textContent = 'Confirm & Book';
-                                }
-                                if (data && data.success && data.data && data.data.reference) {
-                                    var confirmUrl = <?php echo json_encode($ahb_home_url); ?>;
-                                    window.location.href = confirmUrl + '?reference=' + encodeURIComponent(data.data.reference);
-                                } else {
-                                    var msg = (data && data.data && data.data.message) ? data.data.message : 'Payment failed. Please check your card details.';
-                                    alert(msg);
-                                }
-                            })
-                            .catch(function() {
-                                if (btn) {
-                                    btn.disabled = false;
-                                    btn.textContent = 'Confirm & Book';
-                                }
-                                alert('A network error occurred. Please try again.');
-                            });
-                    }
-
-                    // ── Build hotel payload for payment handlers ──────────────
-                    function ahbBuildPayload() {
-                        var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
-                        var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
-                        var fn0 = document.getElementById('ahb-fn-0') ? document.getElementById('ahb-fn-0').value.trim() : '';
-                        var guests = [];
-                        for (var r = 0; r < roomCount; r++) {
-                            var fnEl = document.getElementById('ahb-fn-' + r);
-                            var lnEl = document.getElementById('ahb-ln-' + r);
-                            guests.push({
-                                room: r + 1,
-                                first_name: fnEl ? fnEl.value : '',
-                                last_name: lnEl ? lnEl.value : ''
-                            });
-                        }
-                        var srEl = document.getElementById('ahb-special-request');
-                        var activeTabEl = document.querySelector('.ahb-payment-tab.active');
-                        var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
-                        var methodLabels = {
-                            'credit_card': 'Credit/Debit Card',
-                            'paypal': 'PayPal',
-                            'crypto_com': 'Crypto.com',
-                            'moonpay_onramp': 'Pay with Card (MoonPay)'
-                        };
-                        return {
-                            contact: {
-                                name: fn0,
-                                email: email,
-                                phone: phone
-                            },
-                            hotel: {
-                                name: hotelData.name || '',
-                                destination: hotelData.address || (hotelData.searchData && hotelData.searchData.destination) || '',
-                                check_in: searchData.checkIn || '',
-                                check_out: searchData.checkOut || '',
-                                rooms: roomCount,
-                                guests: (function() {
-                                    var t = 0;
-                                    rooms.forEach(function(rm) {
-                                        t += (rm.adults || 1) + (rm.children || 0);
-                                    });
-                                    return t;
-                                })(),
-                                room_name: roomName,
-                                base_fare: baseTotal,
-                                tax: taxTotal,
-                                total: grandTotal,
-                                nights: nights,
-                                room_guests: guests
-                            },
-                            special_request: srEl ? srEl.value : '',
-                            payment: {
-                                method: methodLabels[paymentMethod] || paymentMethod,
-                                method_key: paymentMethod,
-                            }
-                        };
-                    }
-
-                    function ahbSetBtn(txt, disabled) {
-                        var btn = document.querySelector('.ahb-confirm-btn');
-                        if (!btn) return;
-                        btn.textContent = txt + (txt === 'Confirm & Book' ? '' : '');
-                        btn.disabled = disabled;
-                    }
-
-                    // ── PayPal ────────────────────────────────────────────────
-                    function ahbInitPayPal() {
-                        var $container = document.getElementById('ahb-paypal-buttons');
-                        if (!$container || $container.dataset.initialized) return;
-                        $container.dataset.initialized = '1';
-
-                        var clientId = (typeof AmadexConfig !== 'undefined' && AmadexConfig.paypalClientId) ? AmadexConfig.paypalClientId : '';
-                        var paypalMode = (typeof AmadexConfig !== 'undefined' && AmadexConfig.paypalMode) ? AmadexConfig.paypalMode : 'sandbox';
-                        var sdkBase = paypalMode === 'live' ? 'https://www.paypal.com/sdk/js' : 'https://www.sandbox.paypal.com/sdk/js';
-                        if (!clientId) {
-                            $container.innerHTML = '<p style="color:#888;font-size:13px;">PayPal not configured.</p>';
-                            return;
-                        }
-
-                        function renderButtons() {
-                            if (typeof paypal === 'undefined') {
-                                $container.innerHTML = '<p style="color:#ef4444;">PayPal failed to load.</p>';
-                                return;
-                            }
-                            paypal.Buttons({
-                                createOrder: function() {
-                                    return fetch(AHB_AJAX, {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded'
-                                        },
-                                        body: new URLSearchParams({
-                                            action: 'amadex_hotel_paypal_create_order',
-                                            nonce: AHB_NONCE,
-                                            hotel_data: JSON.stringify(ahbBuildPayload())
-                                        })
-                                    }).then(function(r) {
-                                        return r.json();
-                                    }).then(function(d) {
-                                        if (d.success && d.data.orderID) return d.data.orderID;
-                                        throw new Error(d.data && d.data.message ? d.data.message : 'Could not create PayPal order.');
-                                    });
-                                },
-                                onApprove: function(data) {
-                                    ahbSetBtn('Processing…', true);
-                                    return fetch(AHB_AJAX, {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded'
-                                        },
-                                        body: new URLSearchParams({
-                                            action: 'amadex_hotel_paypal_capture',
-                                            nonce: AHB_NONCE,
-                                            orderID: data.orderID
-                                        })
-                                    }).then(function(r) {
-                                        return r.json();
-                                    }).then(function(d) {
-                                        if (d.success && d.data.redirectUrl) {
-                                            window.location.href = d.data.redirectUrl;
-                                        } else {
-                                            ahbSetBtn('Confirm & Book', false);
-                                            alert(d.data && d.data.message ? d.data.message : 'PayPal capture failed.');
-                                        }
-                                    });
-                                },
-                                onCancel: function() {
-                                    ahbSetBtn('Confirm & Book', false);
-                                },
-                                onError: function(err) {
-                                    ahbSetBtn('Confirm & Book', false);
-                                    alert('PayPal error. Please try again.');
-                                }
-                            }).render('#ahb-paypal-buttons');
-                        }
-
-                        if (typeof paypal !== 'undefined') {
-                            renderButtons();
-                            return;
-                        }
-                        var s = document.createElement('script');
-                        s.src = sdkBase + '?client-id=' + encodeURIComponent(clientId) + '&currency=USD&intent=capture&components=buttons&locale=en_US';
-                        s.async = true;
-                        s.onload = renderButtons;
-                        s.onerror = function() {
-                            $container.innerHTML = '<p style="color:#ef4444;">Failed to load PayPal.</p>';
-                        };
-                        document.head.appendChild(s);
-                    }
-
-                    // ── Crypto.com ────────────────────────────────────────────
-                    function ahbStartCryptoCom() {
-                        ahbSetBtn('Creating payment…', true);
-                        fetch(AHB_AJAX, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                action: 'amadex_hotel_cryptocom_payment',
-                                nonce: AHB_NONCE,
-                                hotel_data: JSON.stringify(ahbBuildPayload())
-                            })
-                        }).then(function(r) {
-                            return r.json();
-                        }).then(function(d) {
-                            ahbSetBtn('Confirm & Book', false);
-                            if (!d.success) {
-                                alert(d.data && d.data.message ? d.data.message : 'Crypto.com error.');
-                                return;
-                            }
-                            var pk = d.data.publishable_key;
-                            var paymentId = d.data.payment_id;
-                            var confirmUrl = d.data.confirmation_url;
-
-                            function renderCryptoBtn() {
-                                if (!window.cryptopay || !window.cryptopay.Button) {
-                                    alert('Crypto.com Pay could not load. Please refresh.');
-                                    return;
-                                }
-                                var mount = document.getElementById('ahb-cryptocom-mount');
-                                if (!mount) return;
-                                mount.innerHTML = '';
-                                window.cryptopay.Button({
-                                    createPayment: function(actions) {
-                                        return actions.payment.fetch(paymentId);
-                                    },
-                                    onApprove: function() {
-                                        window.location.href = confirmUrl;
-                                    }
-                                }).render('#ahb-cryptocom-mount');
-                            }
-                            if (window.cryptopay && window.cryptopay.Button) {
-                                renderCryptoBtn();
-                                return;
-                            }
-                            var s = document.createElement('script');
-                            s.src = 'https://js.crypto.com/sdk?publishable-key=' + encodeURIComponent(pk);
-                            s.async = true;
-                            s.onload = renderCryptoBtn;
-                            document.body.appendChild(s);
-                        }).catch(function() {
-                            ahbSetBtn('Confirm & Book', false);
-                            alert('Connection error. Please try again.');
-                        });
-                    }
-
-                    // ── MoonPay Commerce ──────────────────────────────────────
-                    function ahbStartMoonPayCommerce() {
-                        ahbSetBtn('Creating payment…', true);
-                        fetch(AHB_AJAX, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                action: 'amadex_hotel_moonpay_paylink',
-                                nonce: AHB_NONCE,
-                                hotel_data: JSON.stringify(ahbBuildPayload())
-                            })
-                        }).then(function(r) {
-                            return r.json();
-                        }).then(function(d) {
-                            ahbSetBtn('Confirm & Book', false);
-                            if (d.success && d.data.payLinkUrl) {
-                                window.location.href = d.data.payLinkUrl;
-                            } else {
-                                alert(d.data && d.data.message ? d.data.message : 'MoonPay error.');
-                            }
-                        }).catch(function() {
-                            ahbSetBtn('Confirm & Book', false);
-                            alert('Connection error. Please try again.');
-                        });
-                    }
-
-                    // ── MoonPay Onramp ────────────────────────────────────────
-                    function ahbStartMoonPayOnramp() {
-                        ahbSetBtn('Preparing payment…', true);
-                        fetch(AHB_AJAX, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: new URLSearchParams({
-                                action: 'amadex_hotel_moonpay_onramp',
-                                nonce: AHB_NONCE,
-                                hotel_data: JSON.stringify(ahbBuildPayload())
-                            })
-                        }).then(function(r) {
-                            return r.json();
-                        }).then(function(d) {
-                            ahbSetBtn('Confirm & Book', false);
-                            if (!d.success) {
-                                alert(d.data && d.data.message ? d.data.message : 'MoonPay error.');
-                                return;
-                            }
-                            var ref = d.data.booking_reference;
-
-                            function showWidget() {
-                                var widget = window.MoonPayWebSdk.init({
-                                    flow: 'buy',
-                                    environment: d.data.environment,
-                                    variant: 'overlay',
-                                    params: d.data.params,
-                                    handlers: {
-                                        onTransactionCompleted: function() {
-                                            window.location.href = d.data.redirect_url + '?reference=' + encodeURIComponent(ref);
-                                        },
-                                        onClose: function() {
-                                            ahbSetBtn('Confirm & Book', false);
-                                        }
-                                    }
-                                });
-                                var urlForSigning = typeof widget.generateUrlForSigning === 'function' ? widget.generateUrlForSigning() : null;
-
-                                function doSign(url) {
-                                    fetch(AHB_AJAX, {
-                                        method: 'POST',
-                                        headers: {
-                                            'Content-Type': 'application/x-www-form-urlencoded'
-                                        },
-                                        body: new URLSearchParams({
-                                            action: 'amadex_hotel_moonpay_onramp_sign',
-                                            nonce: AHB_NONCE,
-                                            urlForSigning: url,
-                                            reference: ref
-                                        })
-                                    }).then(function(r) {
-                                        return r.json();
-                                    }).then(function(s) {
-                                        if (s.success && s.data.signature) {
-                                            if (typeof widget.updateSignature === 'function') widget.updateSignature(s.data.signature);
-                                        }
-                                        if (typeof widget.show === 'function') widget.show();
-                                    });
-                                }
-                                if (urlForSigning && typeof urlForSigning.then === 'function') {
-                                    urlForSigning.then(doSign);
-                                } else {
-                                    doSign(urlForSigning);
-                                }
-                            }
-                            if (window.MoonPayWebSdk && window.MoonPayWebSdk.init) {
-                                showWidget();
-                                return;
-                            }
-                            var s = document.createElement('script');
-                            s.src = 'https://static.moonpay.com/web-sdk/v1/moonpay-web-sdk.min.js';
-                            s.defer = true;
-                            s.onload = showWidget;
-                            document.head.appendChild(s);
-                        }).catch(function() {
-                            ahbSetBtn('Confirm & Book', false);
-                            alert('Connection error. Please try again.');
-                        });
-                    }
-
-                    // ── Tab switch — init PayPal when tab is opened ───────────
-                    var _origAhbSelectTab = window.ahbSelectTab;
-                    window.ahbSelectTab = function(btn, panel) {
-                        _origAhbSelectTab(btn, panel);
-                        if (panel === 'paypal') ahbInitPayPal();
-                    };
-
-                    window.ahbConfirm = function() {
-                        var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
-                        var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
-                        var fn0 = document.getElementById('ahb-fn-0') ? document.getElementById('ahb-fn-0').value.trim() : '';
-                        if (!fn0) {
-                            alert('Please enter guest name for Room 1');
-                            return;
-                        }
-                        if (!email) {
-                            alert('Please enter your email');
-                            return;
-                        }
-                        if (!phone) {
-                            alert('Please enter your mobile number');
-                            return;
-                        }
-
-                        var activeTabEl = document.querySelector('.ahb-payment-tab.active');
-                        var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
-
-                        if (paymentMethod === 'crypto_com') {
-                            ahbStartCryptoCom();
-                            return;
-                        }
-                        if (paymentMethod === 'moonpay') {
-                            ahbStartMoonPayCommerce();
-                            return;
-                        }
-                        if (paymentMethod === 'moonpay_onramp') {
-                            ahbStartMoonPayOnramp();
-                            return;
-                        }
-                        if (paymentMethod === 'paypal') {
-                            return;
-                        } // PayPal uses its own buttons
-
-                        // Credit card — tokenize via Collect.js first
-                        if (paymentMethod === 'credit_card' && AHB_GATEWAY === 'nmi' && !AHB_BYPASS) {
-                            ahbSetBtn('Securing Card…', true);
-                            if (window.CollectJS) {
-                                CollectJS.startPaymentRequest();
-                            } else {
-                                ahbSetBtn('Confirm & Book', false);
-                                alert('Payment system not ready. Please refresh and try again.');
-                            }
-                            return;
-                        }
-
-                        // Bypass or non-NMI gateway — submit directly
-                        ahbSubmitWithToken('');
-                    };
-
-                })();
-            </script>
+            })();
+        </script>
 <?php
-        }, 99);
         return ob_get_clean();
     }
 }
