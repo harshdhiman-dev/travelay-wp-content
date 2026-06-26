@@ -2680,7 +2680,6 @@ class Amadex_Hotel_Detail
                     var insertAfter = amenEl || locationEl || roomsWrap;
                     if (insertAfter) insertAfter.insertAdjacentHTML('afterend', html);
                 }
-                // ── Lightbox ────────────────────────────
                 var lbPhotos = [];
                 var lbIndex = 0;
 
