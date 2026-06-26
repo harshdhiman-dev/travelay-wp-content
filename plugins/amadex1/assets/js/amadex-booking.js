@@ -6182,6 +6182,59 @@ ${passportSection}
         // Mark that user is attempting payment - allow errors to be shown now
         window.amadexPaymentAttempted = true;
 
+        // ── Bypass mode: skip payment entirely, submit directly ──────
+        if (bypassActive) {
+            console.log('[Amadex] Bypass mode — submitting booking directly without payment.');
+            let bookingData = collectBookingData(flight);
+            if (window.AmadexSeatSelection && typeof window.AmadexSeatSelection.includeInBooking === 'function') {
+                bookingData = window.AmadexSeatSelection.includeInBooking(bookingData);
+            }
+            let requestHash;
+            try {
+                requestHash = generateRequestHash(flight, bookingData);
+                if (!requestHash || requestHash.trim() === '') throw new Error('empty hash');
+            } catch (e) {
+                requestHash = 'bypass_' + Math.floor(Date.now() / 10000) * 10;
+            }
+            $.ajax({
+                url: AmadexConfig.ajaxUrl,
+                type: 'POST',
+                data: {
+                    action: 'amadex_process_booking',
+                    nonce: AmadexConfig.nonce,
+                    booking_data: bookingData,
+                    request_hash: requestHash,
+                    bypass_payment: true
+                },
+                timeout: 60000,
+                success: function(response) {
+                    window.amadexBookingSubmissionInProgress = false;
+                    if (response && response.success) {
+                        const bookingRef = response.data?.booking_reference || '';
+                        showBookingSuccessModal(bookingRef, response.data?.message || 'Booking confirmed!');
+                        sessionStorage.setItem('amadex_booking_reference', bookingRef);
+                        storeAmadexPendingPurchaseEvent(flight, bookingRef);
+                        setTimeout(function() {
+                            window.location.href = AmadexConfig.confirmationUrl || '/booking-confirmation/';
+                        }, 2000);
+                    } else {
+                        window.amadexBookingSubmissionInProgress = false;
+                        hideBookingProcessingModal();
+                        if (submitBtn.length) updateSubmitButtons({ disabled: false, text: 'Confirm & Book' });
+                        showPaymentError(response?.data?.message || 'Booking failed. Please try again.');
+                    }
+                },
+                error: function() {
+                    window.amadexBookingSubmissionInProgress = false;
+                    hideBookingProcessingModal();
+                    if (submitBtn.length) updateSubmitButtons({ disabled: false, text: 'Confirm & Book' });
+                    showPaymentError('Connection error. Please try again.');
+                }
+            });
+            return;
+        }
+        // ─────────────────────────────────────────────────────────────
+
         // Ensure payment system is initialized before proceeding
         if (!window.amadexPaymentInitialized) {
             initializePayment(flight);
