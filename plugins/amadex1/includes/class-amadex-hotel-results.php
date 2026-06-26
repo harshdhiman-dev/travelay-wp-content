@@ -47,12 +47,12 @@ class Amadex_Hotel_Results
             .ahr-summary {
                 background: #fff;
                 border: 1px solid #e2e8f0;
-                border-radius: 14px;
+                border-radius: 16px;
                 margin-bottom: 24px;
                 box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
                 display: flex;
                 align-items: stretch;
-                overflow: visible;
+                overflow: hidden;
                 position: sticky;
                 top: 0;
                 z-index: 999;
@@ -60,19 +60,22 @@ class Amadex_Hotel_Results
 
             .ahr-sf {
                 display: flex;
-                align-items: stretch;
+                flex-direction: column;
                 flex: 1;
-                flex-wrap: wrap;
+                padding: 0;
             }
 
             .ahr-sf-field {
                 flex: 1;
-                min-width: 140px;
-                padding: 12px 18px;
-                border-right: 1px solid #e2e8f0;
+                padding: 14px 20px;
+                border-bottom: 1px solid #f0f0f0;
                 cursor: pointer;
                 position: relative;
                 transition: background .12s;
+            }
+
+            .ahr-sf-field:last-child {
+                border-bottom: none;
             }
 
             .ahr-sf-field:hover {
@@ -86,7 +89,7 @@ class Amadex_Hotel_Results
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
                 display: block;
-                margin-bottom: 3px;
+                margin-bottom: 4px;
             }
 
             .ahr-sf-val {
@@ -112,17 +115,16 @@ class Amadex_Hotel_Results
             }
 
             .ahr-sf-date {
-                border: none !important;
+                border: none;
                 outline: none;
-                font-size: 15px !important;
-                font-weight: 700 !important;
-                color: #0f172a !important;
+                font-size: 15px;
+                font-weight: 700;
+                color: #0f172a;
                 font-family: inherit;
-                background: transparent !important;
-                padding: 0 !important;
-                width: 100% !important;
+                background: transparent;
+                padding: 0;
+                width: 100%;
                 cursor: pointer;
-                min-height: 10px !important;
             }
 
             .ahr-guests-drop {
@@ -320,13 +322,15 @@ class Amadex_Hotel_Results
 
             .ahr-modify-btn {
                 display: flex;
+                flex-direction: column;
                 align-items: center;
+                justify-content: center;
                 gap: 8px;
                 padding: 0 28px;
                 background: #0e7d3f;
                 color: #fff;
                 border: none;
-                border-radius: 0 13px 13px 0;
+                border-radius: 0;
                 font-size: 15px;
                 font-weight: 700;
                 cursor: pointer;
@@ -334,6 +338,7 @@ class Amadex_Hotel_Results
                 transition: background .15s;
                 white-space: nowrap;
                 flex-shrink: 0;
+                min-width: 100px;
             }
 
             .ahr-modify-btn:hover {
@@ -348,9 +353,21 @@ class Amadex_Hotel_Results
                 padding-top: 4px;
             }
 
-            @media (max-width:768px) {
+            @media (max-width: 768px) {
                 .ahr-layout {
                     grid-template-columns: 1fr;
+                }
+
+                .ahr-summary {
+                    border-radius: 14px;
+                    position: relative;
+                    top: auto;
+                }
+
+                .ahr-modify-btn {
+                    min-width: 80px;
+                    padding: 0 18px;
+                    font-size: 14px;
                 }
             }
 
