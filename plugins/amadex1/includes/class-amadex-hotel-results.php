@@ -115,7 +115,7 @@ class Amadex_Hotel_Results
             .ahr-summary {
                 background: #fff;
                 border: 1px solid #e2e8f0;
-                border-radius: 16px;
+                border-radius: 14px;
                 margin-bottom: 24px;
                 box-shadow: 0 2px 12px rgba(0, 0, 0, .08);
                 display: flex;
@@ -128,22 +128,19 @@ class Amadex_Hotel_Results
 
             .ahr-sf {
                 display: flex;
-                flex-direction: column;
+                align-items: stretch;
                 flex: 1;
-                padding: 0;
+                flex-wrap: wrap;
             }
 
             .ahr-sf-field {
                 flex: 1;
-                padding: 14px 20px;
-                border-bottom: 1px solid #f0f0f0;
+                min-width: 140px;
+                padding: 12px 18px;
+                border-right: 1px solid #e2e8f0;
                 cursor: pointer;
                 position: relative;
                 transition: background .12s;
-            }
-
-            .ahr-sf-field:last-child {
-                border-bottom: none;
             }
 
             .ahr-sf-field:hover {
@@ -390,15 +387,13 @@ class Amadex_Hotel_Results
 
             .ahr-modify-btn {
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                justify-content: center;
                 gap: 8px;
                 padding: 0 28px;
                 background: #0e7d3f;
                 color: #fff;
                 border: none;
-                border-radius: 0;
+                border-radius: 0 13px 13px 0;
                 font-size: 15px;
                 font-weight: 700;
                 cursor: pointer;
@@ -406,9 +401,7 @@ class Amadex_Hotel_Results
                 transition: background .15s;
                 white-space: nowrap;
                 flex-shrink: 0;
-                min-width: 100px;
             }
-
             .ahr-modify-btn:hover {
                 background: #0a6232;
             }
