@@ -5817,6 +5817,118 @@ ${passportSection}
     }
 
     /**
+     * GA4 purchase: fires once when a booking is successfully confirmed.
+     * Mirrors the begin_checkout / add_payment_info ecommerce item structure.
+     * Must be called BEFORE 'amadex_booking_flight' is cleared from sessionStorage.
+     */
+    function storeAmadexPendingPurchaseEvent(flight, bookingRef) {
+        try {
+            var fl = flight;
+            if (!fl) {
+                var flightRawP = sessionStorage.getItem('amadex_booking_flight');
+                if (flightRawP) fl = JSON.parse(flightRawP);
+            }
+            if (!fl) return;
+
+            var sd = window.amadexSearchData || {};
+
+            var offerId = (fl.rawOffer && fl.rawOffer.id) || fl.id || fl.offerId || '';
+            var airlineCode = (fl.validatingAirlineCodes && fl.validatingAirlineCodes[0]) ||
+                (fl.validating_airline_codes && fl.validating_airline_codes[0]) || '';
+            var airlineName = (typeof getAirlineName === 'function') ? getAirlineName(airlineCode) : airlineCode;
+
+            var origin = '', destination = '', depDate = '', retDate = '', stopsCount = 0;
+            if (fl.itineraries && fl.itineraries[0] && fl.itineraries[0].segments) {
+                var segs = fl.itineraries[0].segments;
+                var firstSeg = segs[0];
+                var lastSeg = segs[segs.length - 1];
+                origin = (firstSeg.departure && (firstSeg.departure.iataCode || firstSeg.departure.iata_code || firstSeg.departure.code)) || '';
+                destination = (lastSeg.arrival && (lastSeg.arrival.iataCode || lastSeg.arrival.iata_code || lastSeg.arrival.code)) || '';
+                stopsCount = segs.length - 1;
+                if (firstSeg.departure && firstSeg.departure.at) depDate = firstSeg.departure.at.split('T')[0];
+            }
+            if (!origin) origin = sd.origin || sd.from || '';
+            if (!destination) destination = sd.destination || sd.to || '';
+            if (!depDate) depDate = sd.departure_date || sd.departureDate || '';
+
+            if (fl.itineraries && fl.itineraries[1] && fl.itineraries[1].segments) {
+                var retFirstSeg = fl.itineraries[1].segments[0];
+                if (retFirstSeg && retFirstSeg.departure && retFirstSeg.departure.at) {
+                    retDate = retFirstSeg.departure.at.split('T')[0];
+                }
+            }
+            if (!retDate) retDate = sd.return_date || sd.returnDate || '';
+
+            var cabinRaw = sd.cabin || sd.travel_class || 'ECONOMY';
+            var cabinName = (typeof getCabinClassName === 'function') ? getCabinClassName(cabinRaw) : cabinRaw;
+            var tripType = (sd.trip_type || sd.tripType || 'round_trip').toLowerCase().replace(/\s+/g, '_').replace(/^round$/, 'round_trip').replace(/^oneway$/, 'one_way');
+
+            var adults = parseInt(sd.adults || fl.originalAdults || 1);
+            var children = parseInt(sd.children || fl.originalChildren || 0);
+            var infants = parseInt(sd.infants || fl.originalInfants || 0);
+            var travelerCount = adults + children + infants;
+
+            var rawPrice = parseFloat(
+                (fl.price && fl.price.pricing_charge_total) ||
+                (fl.price && fl.price.total) ||
+                (fl.price && fl.price.grandTotal) ||
+                fl.totalPrice || 0
+            ) || 0;
+            var totalValue = parseFloat(rawPrice.toFixed(2));
+            var perPaxPrice = travelerCount > 0 ? parseFloat((rawPrice / travelerCount).toFixed(2)) : totalValue;
+
+            var currency = ((fl.price && (fl.price.selected_currency || fl.price.currency)) || sd.currency || 'USD').toUpperCase();
+            var itemId = airlineCode + '_' + origin + '_' + destination;
+            var itemName = origin + ' \u2192 ' + destination + (airlineName ? ' (' + airlineName + ')' : '');
+
+            var purchaseEvent = {
+                event: 'purchase',
+                ecommerce: {
+                    transaction_id: bookingRef || '',
+                    currency: currency,
+                    value: totalValue,
+                    items: [{
+                        item_id: itemId,
+                        item_name: itemName,
+                        item_category: 'Flights',
+                        item_brand: airlineCode,
+                        item_variant: cabinName,
+                        price: perPaxPrice,
+                        quantity: travelerCount,
+                        origin: origin,
+                        destination: destination,
+                        start_date: depDate,
+                        end_date: retDate,
+                        trip_type: tripType,
+                        cabin_class: cabinRaw.toLowerCase(),
+                        stops_count: stopsCount,
+                        traveler_count: travelerCount,
+                        adults: adults,
+                        children: children,
+                        infants: infants,
+                        itinerary_id: offerId
+                    }]
+                }
+            };
+
+            // Store for the booking-confirmation page to push to dataLayer.
+            // Do NOT push to dataLayer here — purchase should fire on the
+            // confirmation page so it's easy to see/verify per booking.
+            try {
+                sessionStorage.setItem('amadex_pending_purchase', JSON.stringify(purchaseEvent));
+            } catch (storageErr) {
+                if (typeof console !== 'undefined' && console.warn) {
+                    console.warn('[Amadex GA4] could not store pending purchase event:', storageErr);
+                }
+            }
+        } catch (err) {
+            if (typeof console !== 'undefined' && console.warn) {
+                console.warn('[Amadex GA4] purchase prep failed:', err);
+            }
+        }
+    }
+
+    /**
      * Build confirmation URL
      */
     function buildConfirmationUrl(bookingRef, apiUrl) {
