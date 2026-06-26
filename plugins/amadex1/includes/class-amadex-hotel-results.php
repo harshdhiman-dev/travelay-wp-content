@@ -1694,6 +1694,32 @@ class Amadex_Hotel_Results
                     window.location.href = '/hotel-detail/';
                 };
             })();
+
+            // Adjust ahr-wrap margin when header becomes sticky scrolling-up
+            (function() {
+                var ahrWrap = document.querySelector('.ahr-wrap');
+                var siteHeader = document.querySelector('.site-header');
+                if (!ahrWrap || !siteHeader) return;
+
+                function updateMargin() {
+                    if (
+                        siteHeader.classList.contains('is-sticky') &&
+                        siteHeader.classList.contains('scrolling-up')
+                    ) {
+                        ahrWrap.style.marginTop = '16rem';
+                    } else {
+                        ahrWrap.style.marginTop = '';
+                    }
+                }
+
+                new MutationObserver(function(mutations) {
+                    mutations.forEach(function(m) {
+                        if (m.attributeName === 'class') updateMargin();
+                    });
+                }).observe(siteHeader, { attributes: true });
+
+                updateMargin();
+            })();
         </script>
 <?php
         return ob_get_clean();
