@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('AMADEX_VERSION', '43.0.7');
+define('AMADEX_VERSION', '43.0.8');
 define('AMADEX_PATH', plugin_dir_path(__FILE__));
 define('AMADEX_URL', plugin_dir_url(__FILE__));
 define('AMADEX_BASENAME', plugin_basename(__FILE__));
