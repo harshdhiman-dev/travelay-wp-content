@@ -880,7 +880,7 @@ class Amadex_Hotel_Detail
 
             .ahd-tabs.is-sticky {
                 position: fixed;
-                top: 0;
+                top: 94px;
                 left: 0;
                 right: 0;
                 box-shadow: 0 2px 12px rgba(0, 0, 0, .10);
@@ -1804,7 +1804,7 @@ class Amadex_Hotel_Detail
 
                     function getHeaderHeight() {
                         var header = document.querySelector('.site-header');
-                        if (!header) return 70;
+                        if (!header) return 94;
                         return header.offsetHeight;
                     }
 
@@ -1840,20 +1840,19 @@ class Amadex_Hotel_Detail
                         }
                     }
 
-                    // Use MutationObserver to detect header class changes
                     if (siteHeader) {
                         var headerObserver = new MutationObserver(function(mutations) {
                             mutations.forEach(function(mutation) {
                                 if (mutation.attributeName === 'class') {
                                     updateAhrMargin();
-                                    onScroll(); // recalculate tabs top too
+                                    recalc();
+                                    onScroll();
                                 }
                             });
                         });
                         headerObserver.observe(siteHeader, { attributes: true });
                     }
 
-                    // Wait for layout to settle then measure
                     setTimeout(recalc, 300);
                     window.addEventListener('scroll', onScroll, { passive: true });
                     window.addEventListener('resize', function() {
