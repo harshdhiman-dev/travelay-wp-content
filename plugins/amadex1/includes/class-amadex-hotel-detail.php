@@ -858,7 +858,7 @@ class Amadex_Hotel_Detail
                 gap: 5px;
             }
 
-            .ahd-tabs {
+            /* .ahd-tabs {
                 display: flex;
                 border-bottom: 2px solid #e2e8f0;
                 margin-bottom: 0;
@@ -868,8 +868,33 @@ class Amadex_Hotel_Detail
                 z-index: 99;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
                 margin-bottom: 20px;
+            } */
+.ahd-tabs {
+                display: flex;
+                border-bottom: 2px solid #e2e8f0;
+                margin-bottom: 0;
+                background: #fff;
+                z-index: 9999;
+                transition: box-shadow .2s;
             }
 
+            .ahd-tabs.is-sticky {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, .10);
+                border-bottom: 2px solid #e2e8f0;
+            }
+
+            .ahd-tabs-spacer {
+                display: none;
+                height: 0;
+            }
+
+            .ahd-tabs-spacer.is-active {
+                display: block;
+            }
             .ahd-tab {
                 padding: 12px 20px;
                 font-size: 14px;
@@ -1752,6 +1777,7 @@ class Amadex_Hotel_Detail
                     '<div class="ahd-rating-row">' + ratingHtml + '</div>' +
                     photosHtml +
                     '</div>' +
+                    '<div class="ahd-tabs-spacer" id="ahd-tabs-spacer"></div>' +
                     '<div class="ahd-tabs" id="ahd-tabs">' +
                     '<button class="ahd-tab active" onclick="ahdTab(this,\'overview\')">Overview</button>' +
                     '<button class="ahd-tab" onclick="ahdTab(this,\'rooms\')">Rooms</button>' +
@@ -1759,6 +1785,41 @@ class Amadex_Hotel_Detail
                     '<button class="ahd-tab" onclick="ahdTab(this,\'amenities\')">Amenities & Facilities</button>' +
                     '<button class="ahd-tab" onclick="ahdTab(this,\'about\')">About</button>' +
                     '</div>';
+
+                // Sticky tabs scroll logic
+                (function() {
+                    var tabs = document.getElementById('ahd-tabs');
+                    var spacer = document.getElementById('ahd-tabs-spacer');
+                    if (!tabs) return;
+
+                    var tabsTop = 0;
+                    var tabsHeight = 0;
+
+                    function recalc() {
+                        if (!tabs.classList.contains('is-sticky')) {
+                            tabsTop = tabs.getBoundingClientRect().top + window.scrollY;
+                            tabsHeight = tabs.offsetHeight;
+                        }
+                    }
+
+                    function onScroll() {
+                        if (!tabsTop) recalc();
+                        if (window.scrollY >= tabsTop) {
+                            tabs.classList.add('is-sticky');
+                            spacer.style.height = tabsHeight + 'px';
+                            spacer.classList.add('is-active');
+                        } else {
+                            tabs.classList.remove('is-sticky');
+                            spacer.classList.remove('is-active');
+                            spacer.style.height = '0';
+                        }
+                    }
+
+                    // Wait for layout to settle then measure
+                    setTimeout(recalc, 300);
+                    window.addEventListener('scroll', onScroll, { passive: true });
+                    window.addEventListener('resize', recalc);
+                })();
 
                 window.ahdTab = function(btn, section) {
                     document.querySelectorAll('.ahd-tab').forEach(function(t) {
