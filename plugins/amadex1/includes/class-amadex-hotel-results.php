@@ -62,7 +62,7 @@ class Amadex_Hotel_Results
                 }
 
                 .ahr-summary {
-                    display: none;
+                    display: none !important;
                 }
 
                 .ahr-summary.ahr-summary--open {
