@@ -508,6 +508,33 @@ class Amadex_Hotel_Booking
             }
 
             @media (max-width: 768px) {
+                .ahb-payment-tabs {
+                    display: flex;
+                    gap: 0;
+                    margin-bottom: 20px;
+                    background: #f8fafc;
+                    border-radius: 12px;
+                    padding: 12px;
+                    border: 1px solid #e2e8f0;
+
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    white-space: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                    scrollbar-width: none;
+                    /* Firefox */
+                }
+
+                .ahb-payment-tabs::-webkit-scrollbar {
+                    display: none;
+                    /* Chrome, Safari */
+                }
+
+                .ahb-payment-tabs>* {
+                    flex: 0 0 auto;
+                    /* Prevent items from shrinking */
+                }
+
                 .finalhotel-booking {
                     grid-template-columns: unset !important;
                 }
@@ -1865,21 +1892,35 @@ class Amadex_Hotel_Booking
                         for (var r = 0; r < roomCount; r++) {
                             var fnEl = document.getElementById('ahb-fn-' + r);
                             var lnEl = document.getElementById('ahb-ln-' + r);
-                            guests.push({ room: r + 1, first_name: fnEl ? fnEl.value : '', last_name: lnEl ? lnEl.value : '' });
+                            guests.push({
+                                room: r + 1,
+                                first_name: fnEl ? fnEl.value : '',
+                                last_name: lnEl ? lnEl.value : ''
+                            });
                         }
                         var srEl = document.getElementById('ahb-special-request');
                         var specialRequest = srEl ? srEl.value : '';
                         var cardName = document.getElementById('ahb-card-name') ? document.getElementById('ahb-card-name').value.trim() : '';
 
                         var payload = {
-                            contact: { name: fn0, email: email, phone: phone },
+                            contact: {
+                                name: fn0,
+                                email: email,
+                                phone: phone
+                            },
                             hotel: {
                                 name: hotelData.name || '',
                                 destination: hotelData.address || (hotelData.searchData && hotelData.searchData.destination) || '',
                                 check_in: searchData.checkIn || '',
                                 check_out: searchData.checkOut || '',
                                 rooms: roomCount,
-                                guests: (function() { var t = 0; rooms.forEach(function(rm) { t += (rm.adults || 1) + (rm.children || 0); }); return t; })(),
+                                guests: (function() {
+                                    var t = 0;
+                                    rooms.forEach(function(rm) {
+                                        t += (rm.adults || 1) + (rm.children || 0);
+                                    });
+                                    return t;
+                                })(),
                                 room_name: roomName,
                                 base_fare: baseTotal,
                                 tax: taxTotal,
@@ -1888,60 +1929,77 @@ class Amadex_Hotel_Booking
                                 room_guests: guests
                             },
                             special_request: specialRequest,
-                            payment: { method: 'Credit/Debit Card (Stripe)', method_key: 'stripe', payment_token: '', card_holder: cardName }
+                            payment: {
+                                method: 'Credit/Debit Card (Stripe)',
+                                method_key: 'stripe',
+                                payment_token: '',
+                                card_holder: cardName
+                            }
                         };
 
                         // Step 1: Save hotel lead to get a booking reference
                         fetch(AHB_AJAX, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            body: new URLSearchParams({ action: 'amadex_save_hotel_lead', nonce: AHB_NONCE, hotel_data: JSON.stringify(payload) }).toString()
-                        })
-                        .then(function(r) { return r.json(); })
-                        .then(function(data) {
-                            if (!data || !data.success || !data.data || !data.data.reference) {
-                                ahbSetBtn('Confirm & Book', false);
-                                var msg = (data && data.data && data.data.message) ? data.data.message : 'Could not save booking. Please try again.';
-                                alert(msg);
-                                return;
-                            }
-
-                            var bookingRef = data.data.reference;
-
-                            // Step 2: Create Stripe Checkout Session (same AJAX as flight booking)
-                            return fetch(AHB_AJAX, {
                                 method: 'POST',
-                                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                                headers: {
+                                    'Content-Type': 'application/x-www-form-urlencoded'
+                                },
                                 body: new URLSearchParams({
-                                    action: 'amadex_create_elements_session',
+                                    action: 'amadex_save_hotel_lead',
                                     nonce: AHB_NONCE,
-                                    amount: grandTotal,
-                                    currency: 'usd',
-                                    booking_reference: bookingRef,
-                                    flight_data: JSON.stringify({
-                                        passenger_name: fn0,
-                                        departure_airport: hotelData.name || 'Hotel',
-                                        arrival_airport: hotelData.address || '',
-                                        carrier_name: 'Hotel Booking'
-                                    })
+                                    hotel_data: JSON.stringify(payload)
                                 }).toString()
                             })
-                            .then(function(r) { return r.json(); })
-                            .then(function(sessionData) {
-                                if (!sessionData || !sessionData.success || !sessionData.data || !sessionData.data.url) {
+                            .then(function(r) {
+                                return r.json();
+                            })
+                            .then(function(data) {
+                                if (!data || !data.success || !data.data || !data.data.reference) {
                                     ahbSetBtn('Confirm & Book', false);
-                                    var msg = (sessionData && sessionData.data && sessionData.data.message) ? sessionData.data.message : 'Could not create Stripe session. Please try again.';
+                                    var msg = (data && data.data && data.data.message) ? data.data.message : 'Could not save booking. Please try again.';
                                     alert(msg);
                                     return;
                                 }
-                                // Step 3: Redirect to Stripe Checkout
-                                window.location.href = sessionData.data.url;
+
+                                var bookingRef = data.data.reference;
+
+                                // Step 2: Create Stripe Checkout Session (same AJAX as flight booking)
+                                return fetch(AHB_AJAX, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: new URLSearchParams({
+                                            action: 'amadex_create_elements_session',
+                                            nonce: AHB_NONCE,
+                                            amount: grandTotal,
+                                            currency: 'usd',
+                                            booking_reference: bookingRef,
+                                            flight_data: JSON.stringify({
+                                                passenger_name: fn0,
+                                                departure_airport: hotelData.name || 'Hotel',
+                                                arrival_airport: hotelData.address || '',
+                                                carrier_name: 'Hotel Booking'
+                                            })
+                                        }).toString()
+                                    })
+                                    .then(function(r) {
+                                        return r.json();
+                                    })
+                                    .then(function(sessionData) {
+                                        if (!sessionData || !sessionData.success || !sessionData.data || !sessionData.data.url) {
+                                            ahbSetBtn('Confirm & Book', false);
+                                            var msg = (sessionData && sessionData.data && sessionData.data.message) ? sessionData.data.message : 'Could not create Stripe session. Please try again.';
+                                            alert(msg);
+                                            return;
+                                        }
+                                        // Step 3: Redirect to Stripe Checkout
+                                        window.location.href = sessionData.data.url;
+                                    });
+                            })
+                            .catch(function() {
+                                ahbSetBtn('Confirm & Book', false);
+                                alert('A network error occurred. Please try again.');
                             });
-                        })
-                        .catch(function() {
-                            ahbSetBtn('Confirm & Book', false);
-                            alert('A network error occurred. Please try again.');
-                        });
                     }
 
                     // ── Build hotel payload for payment handlers ──────────────
