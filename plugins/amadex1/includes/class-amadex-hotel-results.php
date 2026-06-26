@@ -62,6 +62,25 @@ class Amadex_Hotel_Results
                 }
 
                 .ahr-summary {
+                    display: none;
+                }
+
+                .ahr-summary.ahr-summary--open {
+                    display: flex !important;
+                    flex-direction: column;
+                    border-radius: 0;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 9999;
+                    margin-bottom: 0;
+                    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+                    max-height: 90vh;
+                    overflow-y: auto;
+                }
+
+                .ahr-mobile-pill.ahr-pill--hidden {
                     display: none !important;
                 }
             }
@@ -1038,7 +1057,7 @@ class Amadex_Hotel_Results
         <div class="ahr-wrap">
             <!-- Mobile pill summary bar -->
             <div class="ahr-mobile-pill" id="ahr-mobile-pill" style="display:none;">
-                <button class="ahr-pill-back" onclick="history.back()">
+                <button class="ahr-pill-back" onclick="ahrGoBack()">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M19 12H5M5 12l7-7M5 12l7 7" />
                     </svg>
@@ -1398,17 +1417,41 @@ class Amadex_Hotel_Results
                     if (drop && field && !field.contains(e.target)) drop.classList.remove('open');
                 });
 
+                // ── Mobile pill back button ────────────────
+                window.ahrGoBack = function() {
+                    var summary = document.getElementById('ahr-summary');
+                    if (summary && summary.classList.contains('ahr-summary--open')) {
+                        ahrToggleDesktopBar();
+                        return;
+                    }
+                    if (document.referrer && document.referrer !== window.location.href) {
+                        history.back();
+                    } else {
+                        var hotelSearchUrl = sessionStorage.getItem('amadex_hotel_search_url') || '/hotel-search/';
+                        window.location.href = hotelSearchUrl;
+                    }
+                };
+
                 // ── Mobile pill edit toggle ─────────────────
                 window.ahrToggleDesktopBar = function() {
                     var summary = document.getElementById('ahr-summary');
                     var pill = document.getElementById('ahr-mobile-pill');
                     if (!summary) return;
-                    if (summary.style.display === 'none' || summary.style.display === '') {
+                    var isOpen = summary.classList.contains('ahr-summary--open');
+                    if (!isOpen) {
+                        summary.classList.add('ahr-summary--open');
                         summary.style.display = 'flex';
-                        if (pill) pill.style.display = 'none';
+                        if (pill) {
+                            pill.classList.add('ahr-pill--hidden');
+                            pill.style.display = 'none';
+                        }
                     } else {
-                        summary.style.display = 'none';
-                        if (pill) pill.style.display = '';
+                        summary.classList.remove('ahr-summary--open');
+                        summary.style.display = '';
+                        if (pill) {
+                            pill.classList.remove('ahr-pill--hidden');
+                            pill.style.display = '';
+                        }
                     }
                 };
 
