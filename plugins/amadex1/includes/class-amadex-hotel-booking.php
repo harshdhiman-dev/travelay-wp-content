@@ -97,6 +97,13 @@ class Amadex_Hotel_Booking
         if (is_admin()) return '';
         ob_start(); ?>
         <style>
+            .ahb-field-group select.ahb-select {
+                padding: 0 10px;
+                min-height: 45px;
+                border: 1px solid #E6E6E6;
+                border-radius: 10px;
+            }
+
             .ahb-wrap * {
                 box-sizing: border-box;
             }
@@ -547,7 +554,7 @@ class Amadex_Hotel_Booking
             }
 
             .ahb-checkbox-text {
-                font-size: 12px;
+                font-size: 12px !important;
                 color: #64748b;
                 line-height: 1.5;
             }
@@ -1052,7 +1059,6 @@ class Amadex_Hotel_Booking
                         '<div class="ahb-card">' +
                         '<div class="ahb-card-title">Contact Info</div>' +
                         '<p class="ahb-contact-note">Booking details will be sent to</p>' +
-                        '<div class="ahb-required-badge">Required Field</div>' +
                         '<div class="ahb-contact-grid">' +
                         '<div class="ahb-field-group">' +
                         '<label class="ahb-field-label">Country Code*</label>' +
