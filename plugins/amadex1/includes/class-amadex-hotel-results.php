@@ -429,6 +429,10 @@ class Amadex_Hotel_Results
                     flex-wrap: unset !important;
                 }
 
+                div#ahr-sort-bar {
+                    display: none !important;
+                }
+
                 .ahr-summary {
                     border-radius: 14px;
                     position: relative;
