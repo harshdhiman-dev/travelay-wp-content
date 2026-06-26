@@ -144,6 +144,10 @@ class Amadex_Hotel_Booking
             }
 
             @media (max-width: 768px) {
+                .finalhotel-booking {
+                    grid-template-columns: unset !important;
+                }
+
                 .ahb-layout {
                     grid-template-columns: 1fr;
                     display: unset;
