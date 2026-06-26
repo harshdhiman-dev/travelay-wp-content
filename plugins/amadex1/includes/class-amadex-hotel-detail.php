@@ -876,6 +876,18 @@ class Amadex_Hotel_Detail
                 background: #fff;
                 z-index: 9999;
                 transition: box-shadow .2s;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                flex-wrap: nowrap;
+            }
+
+            .ahd-tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .ahd-tab {
+                flex-shrink: 0;
             }
 
             .ahd-tabs.is-sticky {
@@ -942,7 +954,18 @@ class Amadex_Hotel_Detail
                 align-items: center;
                 gap: 8px;
                 margin-bottom: 20px;
-                flex-wrap: wrap;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+
+            .ahd-rooms-filter-bar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .ahd-rooms-filter-bar>* {
+                flex-shrink: 0;
             }
 
             .ahd-rfbtn {
@@ -1006,6 +1029,23 @@ class Amadex_Hotel_Detail
             }
 
             @media (max-width:900px) {
+                div.ahd-tabs {
+                    margin-bottom: 14px;
+                    border-bottom: 0;
+                }
+
+                .ahd-location-section {
+                    padding: 10px 15px;
+                }
+
+                .ahd-about-section {
+                    padding: 10px 15px;
+                }
+
+                .ahd-amenities-section {
+                    padding: 10px 15px;
+                }
+
                 .ahd-photos-top {
                     height: 150px !important;
                 }
@@ -1020,6 +1060,18 @@ class Amadex_Hotel_Detail
 
                 .ahd-rating-row {
                     justify-content: space-between;
+                }
+
+                div#ahr-sort-bar {
+                    display: none !important;
+                }
+
+                .ahd-rooms-section {
+                    padding: 10px;
+                }
+
+                .ahd-rooms-section {
+                    padding: 10px;
                 }
 
                 div#ahd-section-overview {
