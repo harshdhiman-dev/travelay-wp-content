@@ -2631,8 +2631,7 @@ class Amadex_Hotel_Detail
 
                         '<div class="ahd-policy-block">' +
                         '<div class="ahd-policy-block-title">Reservation Requirements</div>' +
-                        '<div class="ahd-policy-block-text">Guests are required to present a valid government-issued photo ID and a valid payment method at check-in. The primary guest must meet the hotel'
-                    s minimum age requirement. < /div>' +
+                        '<div class="ahd-policy-block-text">Guests are required to present a valid government-issued photo ID and a valid payment method at check-in. The primary guest must meet the hotels minimum age requirement. < /div>' +
                     '</div>' +
 
                     '<div class="ahd-policy-block">' +
