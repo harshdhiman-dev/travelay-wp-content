@@ -869,7 +869,7 @@ class Amadex_Hotel_Detail
                 box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
                 margin-bottom: 20px;
             } */
-.ahd-tabs {
+            .ahd-tabs {
                 display: flex;
                 border-bottom: 2px solid #e2e8f0;
                 margin-bottom: 0;
@@ -895,6 +895,7 @@ class Amadex_Hotel_Detail
             .ahd-tabs-spacer.is-active {
                 display: block;
             }
+
             .ahd-tab {
                 padding: 12px 20px;
                 font-size: 14px;
@@ -1005,6 +1006,32 @@ class Amadex_Hotel_Detail
             }
 
             @media (max-width:900px) {
+                .ahd-photos-top {
+                    height: 150px !important;
+                }
+
+                .ahd-photos-bottom {
+                    height: 135px !important;
+                }
+
+                button.ahd-select-btn {
+                    display: none !important;
+                }
+
+                .ahd-rating-row {
+                    justify-content: space-between;
+                }
+
+                div#ahd-section-overview {
+                    padding: 0 !important;
+                    border: 0 !important;
+                    box-shadow: none !important;
+                }
+
+                .ahd-photos-see-all {
+                    display: none !important;
+                }
+
                 .ahd-rooms-grid {
                     grid-template-columns: repeat(2, 1fr);
                 }
@@ -1850,11 +1877,15 @@ class Amadex_Hotel_Detail
                                 }
                             });
                         });
-                        headerObserver.observe(siteHeader, { attributes: true });
+                        headerObserver.observe(siteHeader, {
+                            attributes: true
+                        });
                     }
 
                     setTimeout(recalc, 300);
-                    window.addEventListener('scroll', onScroll, { passive: true });
+                    window.addEventListener('scroll', onScroll, {
+                        passive: true
+                    });
                     window.addEventListener('resize', function() {
                         recalc();
                         updateAhrMargin();

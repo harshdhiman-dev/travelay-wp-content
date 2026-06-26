@@ -6155,7 +6155,6 @@ class Amadex_Shortcodes
                 }
 
                 });
-                });
             </script>
         <?php
     }
