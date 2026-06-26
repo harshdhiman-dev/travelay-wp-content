@@ -1035,15 +1035,15 @@ class Amadex_Hotel_Detail
                 }
 
                 .ahd-location-section {
-                    padding: 10px 15px;
+                    padding: 10px 15px !important;
                 }
 
                 .ahd-about-section {
-                    padding: 10px 15px;
+                    padding: 10px 15px !important;
                 }
 
                 .ahd-amenities-section {
-                    padding: 10px 15px;
+                    padding: 10px 15px !important;
                 }
 
                 .ahd-photos-top {
@@ -1068,6 +1068,11 @@ class Amadex_Hotel_Detail
 
                 .ahd-rooms-section {
                     padding: 10px;
+                }
+
+                .ahd-rp-footer {
+                    flex-direction: row-reverse !important;
+                    justify-content: space-between !important;
                 }
 
                 .ahd-rooms-section {
