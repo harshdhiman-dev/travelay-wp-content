@@ -1703,8 +1703,7 @@ class Amadex_Hotel_Results
 
                 function updateMargin() {
                     if (
-                        siteHeader.classList.contains('is-sticky') &&
-                        siteHeader.classList.contains('scrolling-up')
+                        siteHeader.classList.contains('is-sticky')
                     ) {
                         ahrWrap.style.marginTop = '16rem';
                     } else {
