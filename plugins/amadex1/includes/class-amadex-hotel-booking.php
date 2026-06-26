@@ -11,8 +11,20 @@ class Amadex_Hotel_Booking
     public function __construct()
     {
         add_shortcode('amadex_hotel_booking', array($this, 'render'));
-        add_action('wp_ajax_amadex_save_hotel_lead',        array($this, 'save_hotel_lead'));
-        add_action('wp_ajax_nopriv_amadex_save_hotel_lead', array($this, 'save_hotel_lead'));
+        add_action('wp_ajax_amadex_save_hotel_lead',               array($this, 'save_hotel_lead'));
+        add_action('wp_ajax_nopriv_amadex_save_hotel_lead',        array($this, 'save_hotel_lead'));
+        add_action('wp_ajax_amadex_hotel_paypal_create_order',     array($this, 'hotel_paypal_create_order'));
+        add_action('wp_ajax_nopriv_amadex_hotel_paypal_create_order', array($this, 'hotel_paypal_create_order'));
+        add_action('wp_ajax_amadex_hotel_paypal_capture',          array($this, 'hotel_paypal_capture'));
+        add_action('wp_ajax_nopriv_amadex_hotel_paypal_capture',   array($this, 'hotel_paypal_capture'));
+        add_action('wp_ajax_amadex_hotel_cryptocom_payment',       array($this, 'hotel_cryptocom_payment'));
+        add_action('wp_ajax_nopriv_amadex_hotel_cryptocom_payment', array($this, 'hotel_cryptocom_payment'));
+        add_action('wp_ajax_amadex_hotel_moonpay_paylink',         array($this, 'hotel_moonpay_paylink'));
+        add_action('wp_ajax_nopriv_amadex_hotel_moonpay_paylink',  array($this, 'hotel_moonpay_paylink'));
+        add_action('wp_ajax_amadex_hotel_moonpay_onramp',          array($this, 'hotel_moonpay_onramp'));
+        add_action('wp_ajax_nopriv_amadex_hotel_moonpay_onramp',   array($this, 'hotel_moonpay_onramp'));
+        add_action('wp_ajax_amadex_hotel_moonpay_onramp_sign',     array($this, 'hotel_moonpay_onramp_sign'));
+        add_action('wp_ajax_nopriv_amadex_hotel_moonpay_onramp_sign', array($this, 'hotel_moonpay_onramp_sign'));
     }
 
     public function save_hotel_lead()
@@ -90,6 +102,358 @@ class Amadex_Hotel_Booking
 
         $lead_id = $wpdb->insert_id;
         wp_send_json_success(array('lead_id' => $lead_id, 'reference' => $confirmation_number));
+    }
+
+    /**
+     * Helper — save hotel lead and return [ lead_id, reference, total ]
+     */
+    private function save_hotel_lead_record($payload)
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'amadex_leads';
+
+        $contact_name  = sanitize_text_field($payload['contact']['name']  ?? '');
+        $contact_email = sanitize_email($payload['contact']['email'] ?? '');
+        $contact_phone = sanitize_text_field($payload['contact']['phone'] ?? '');
+        $reference     = 'AMDH' . strtoupper(substr(md5(time() . rand()), 0, 8));
+        $total         = floatval($payload['hotel']['total'] ?? 0);
+
+        $wpdb->insert($table, [
+            'booking_type'        => 'HOTEL',
+            'lead_type'           => 'PENDING',
+            'status'              => 'new',
+            'source'              => 'ONLINE',
+            'contact_name'        => $contact_name,
+            'contact_email'       => $contact_email,
+            'contact_phone'       => $contact_phone,
+            'flight_data'         => '{}',
+            'hotel_data'          => wp_json_encode($payload),
+            'confirmation_number' => $reference,
+            'ip_address'          => sanitize_text_field($_SERVER['REMOTE_ADDR'] ?? ''),
+            'created_at'          => current_time('mysql'),
+            'updated_at'          => current_time('mysql'),
+        ]);
+
+        return ['lead_id' => $wpdb->insert_id, 'reference' => $reference, 'total' => $total];
+    }
+
+    private function get_hotel_payload()
+    {
+        $raw = isset($_POST['hotel_data']) ? $_POST['hotel_data'] : (isset($_POST['booking_data']) ? $_POST['booking_data'] : '');
+        return json_decode(stripslashes($raw), true) ?: [];
+    }
+
+    private function confirmation_url($reference)
+    {
+        return home_url('/booking-confirmation/') . '?reference=' . urlencode($reference);
+    }
+
+    /** ── PayPal: Create Order ───────────────────────────────────────── */
+    public function hotel_paypal_create_order()
+    {
+        check_ajax_referer('amadex_nonce', 'nonce');
+        $ps          = get_option('amadex_payment_settings', []);
+        $client_id   = trim($ps['paypal_client_id']     ?? '');
+        $secret      = trim($ps['paypal_client_secret'] ?? '');
+        $sandbox     = (($ps['paypal_mode'] ?? '') !== 'live');
+        if (empty($client_id) || empty($secret)) {
+            wp_send_json_error(['message' => 'PayPal is not configured.']);
+            return;
+        }
+
+        $payload = $this->get_hotel_payload();
+        if (empty($payload)) {
+            wp_send_json_error(['message' => 'Invalid data.']);
+            return;
+        }
+
+        $rec   = $this->save_hotel_lead_record($payload);
+        $total = max(0.01, round($rec['total'], 2));
+        $ref   = $rec['reference'];
+
+        // Get PayPal access token
+        $base  = $sandbox ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
+        $token_resp = wp_remote_post($base . '/v1/oauth2/token', [
+            'headers' => [
+                'Authorization' => 'Basic ' . base64_encode($client_id . ':' . $secret),
+                'Content-Type'  => 'application/x-www-form-urlencoded',
+            ],
+            'body'    => 'grant_type=client_credentials',
+            'timeout' => 20,
+        ]);
+        if (is_wp_error($token_resp)) {
+            wp_send_json_error(['message' => $token_resp->get_error_message()]);
+            return;
+        }
+        $token_data   = json_decode(wp_remote_retrieve_body($token_resp), true);
+        $access_token = $token_data['access_token'] ?? '';
+        if (empty($access_token)) {
+            wp_send_json_error(['message' => 'PayPal auth failed.']);
+            return;
+        }
+
+        // Create order
+        $order_resp = wp_remote_post($base . '/v2/checkout/orders', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $access_token,
+                'Content-Type'  => 'application/json',
+            ],
+            'body'    => wp_json_encode([
+                'intent'         => 'CAPTURE',
+                'purchase_units' => [[
+                    'reference_id' => $ref,
+                    'description'  => 'Hotel: ' . ($payload['hotel']['name'] ?? 'Hotel Booking'),
+                    'amount'       => ['currency_code' => 'USD', 'value' => number_format($total, 2, '.', '')],
+                ]],
+            ]),
+            'timeout' => 20,
+        ]);
+        if (is_wp_error($order_resp)) {
+            wp_send_json_error(['message' => $order_resp->get_error_message()]);
+            return;
+        }
+        $order = json_decode(wp_remote_retrieve_body($order_resp), true);
+        if (empty($order['id'])) {
+            wp_send_json_error(['message' => 'PayPal order creation failed.']);
+            return;
+        }
+
+        set_transient('ahb_paypal_' . $order['id'], ['reference' => $ref, 'access_token' => $access_token, 'base' => $base], 3600);
+        wp_send_json_success(['orderID' => $order['id'], 'reference' => $ref]);
+    }
+
+    /** ── PayPal: Capture ───────────────────────────────────────────── */
+    public function hotel_paypal_capture()
+    {
+        check_ajax_referer('amadex_nonce', 'nonce');
+        $order_id = sanitize_text_field($_POST['orderID'] ?? '');
+        if (empty($order_id)) {
+            wp_send_json_error(['message' => 'Missing order ID.']);
+            return;
+        }
+
+        $data = get_transient('ahb_paypal_' . $order_id);
+        if (empty($data)) {
+            wp_send_json_error(['message' => 'Order not found.']);
+            return;
+        }
+
+        $capture_resp = wp_remote_post($data['base'] . '/v2/checkout/orders/' . $order_id . '/capture', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $data['access_token'],
+                'Content-Type'  => 'application/json',
+            ],
+            'body'    => '{}',
+            'timeout' => 20,
+        ]);
+        if (is_wp_error($capture_resp)) {
+            wp_send_json_error(['message' => $capture_resp->get_error_message()]);
+            return;
+        }
+        $capture = json_decode(wp_remote_retrieve_body($capture_resp), true);
+        if (($capture['status'] ?? '') !== 'COMPLETED') {
+            wp_send_json_error(['message' => 'PayPal capture failed.']);
+            return;
+        }
+
+        delete_transient('ahb_paypal_' . $order_id);
+        wp_send_json_success(['redirectUrl' => $this->confirmation_url($data['reference'])]);
+    }
+
+    /** ── Crypto.com ─────────────────────────────────────────────────── */
+    public function hotel_cryptocom_payment()
+    {
+        check_ajax_referer('amadex_nonce', 'nonce');
+        $ps             = get_option('amadex_payment_settings', []);
+        $secret_key     = trim($ps['crypto_com_secret_key']      ?? '');
+        $publishable_key = trim($ps['crypto_com_publishable_key'] ?? '');
+        $enable         = (int)($ps['enable_crypto_com']         ?? 0);
+        if (! $enable || empty($secret_key) || empty($publishable_key)) {
+            wp_send_json_error(['message' => 'Crypto.com Pay is not configured.']);
+            return;
+        }
+
+        $payload = $this->get_hotel_payload();
+        if (empty($payload)) {
+            wp_send_json_error(['message' => 'Invalid data.']);
+            return;
+        }
+
+        $rec   = $this->save_hotel_lead_record($payload);
+        $total = max(0.01, round($rec['total'], 2));
+        $ref   = $rec['reference'];
+
+        $amount_cents = (int) round($total * 100);
+        $resp = wp_remote_post('https://pay.crypto.com/api/payments', [
+            'headers' => [
+                'Authorization' => 'Basic ' . base64_encode($secret_key . ':'),
+                'Content-Type'  => 'application/json',
+            ],
+            'body'    => wp_json_encode([
+                'amount'      => $amount_cents,
+                'currency'    => 'USD',
+                'description' => 'Hotel: ' . ($payload['hotel']['name'] ?? 'Hotel Booking'),
+                'metadata'    => ['reference' => $ref],
+                'return_url'  => $this->confirmation_url($ref),
+                'cancel_url'  => home_url('/hotel-booking/'),
+            ]),
+            'timeout' => 20,
+        ]);
+        if (is_wp_error($resp)) {
+            wp_send_json_error(['message' => $resp->get_error_message()]);
+            return;
+        }
+        $data = json_decode(wp_remote_retrieve_body($resp), true);
+        $payment_id = $data['id'] ?? '';
+        if (empty($payment_id)) {
+            wp_send_json_error(['message' => 'Crypto.com payment creation failed.']);
+            return;
+        }
+
+        set_transient('ahb_cryptocom_' . $ref, $payment_id, 3600);
+        wp_send_json_success([
+            'payment_id'      => $payment_id,
+            'publishable_key' => $publishable_key,
+            'booking_reference' => $ref,
+            'confirmation_url'  => $this->confirmation_url($ref),
+        ]);
+    }
+
+    /** ── MoonPay Commerce (pay link) ────────────────────────────────── */
+    public function hotel_moonpay_paylink()
+    {
+        check_ajax_referer('amadex_nonce', 'nonce');
+        $ps         = get_option('amadex_payment_settings', []);
+        $enable     = (int)($ps['enable_moonpay_commerce'] ?? 0);
+        $env        = (($ps['moonpay_environment'] ?? '') === 'live') ? 'live' : 'test';
+        $public_key = trim($env === 'live' ? ($ps['moonpay_publishable_key_live'] ?? '') : ($ps['moonpay_publishable_key_test'] ?? ''));
+        $secret_key = trim($env === 'live' ? ($ps['moonpay_secret_key_live']     ?? '') : ($ps['moonpay_secret_key_test']     ?? ''));
+        $wallet_id  = trim($ps['moonpay_helio_wallet_id'] ?? '');
+        if (! $enable || empty($public_key) || empty($wallet_id)) {
+            wp_send_json_error(['message' => 'MoonPay Commerce is not configured.']);
+            return;
+        }
+        if (! empty($secret_key) && strpos($secret_key, ' ') !== false) {
+            $secret_key = str_replace(' ', '+', $secret_key);
+        }
+        $bearer = ! empty($secret_key) ? $secret_key : $public_key;
+
+        $payload = $this->get_hotel_payload();
+        if (empty($payload)) {
+            wp_send_json_error(['message' => 'Invalid data.']);
+            return;
+        }
+
+        $rec   = $this->save_hotel_lead_record($payload);
+        $total = max(0.50, round($rec['total'], 2));
+        $ref   = $rec['reference'];
+
+        $paylink_resp = wp_remote_post('https://helio.co/api/v1/paylink/', [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $bearer,
+                'api-key'       => $public_key,
+                'Content-Type'  => 'application/json',
+            ],
+            'body'    => wp_json_encode([
+                'name'       => 'Hotel: ' . ($payload['hotel']['name'] ?? 'Hotel Booking'),
+                'price'      => $total,
+                'currency'   => 'USD',
+                'walletId'   => $wallet_id,
+                'dynamic'    => true,
+                'quantity'   => 1,
+                'meta'       => ['reference' => $ref],
+                'successUrl' => $this->confirmation_url($ref),
+            ]),
+            'timeout' => 30,
+        ]);
+        if (is_wp_error($paylink_resp)) {
+            wp_send_json_error(['message' => $paylink_resp->get_error_message()]);
+            return;
+        }
+        $pdata   = json_decode(wp_remote_retrieve_body($paylink_resp), true);
+        $pay_url = $pdata['dynamicUrl'] ?? $pdata['url'] ?? '';
+        if (empty($pay_url)) {
+            $msg = $pdata['message'] ?? ($pdata['error'] ?? 'MoonPay pay link creation failed.');
+            wp_send_json_error(['message' => $msg]);
+            return;
+        }
+        set_transient('ahb_moonpay_' . $ref, $pay_url, 3600);
+        wp_send_json_success(['payLinkUrl' => $pay_url, 'booking_reference' => $ref]);
+    }
+
+    /** ── MoonPay Onramp: Prepare ────────────────────────────────────── */
+    public function hotel_moonpay_onramp()
+    {
+        check_ajax_referer('amadex_nonce', 'nonce');
+        $ps      = get_option('amadex_payment_settings', []);
+        $enable  = (int)($ps['enable_moonpay_onramp'] ?? 0);
+        $env     = (($ps['moonpay_onramp_environment'] ?? '') === 'live') ? 'live' : 'test';
+        $pk      = trim($env === 'live' ? ($ps['moonpay_onramp_publishable_key_live'] ?? '') : ($ps['moonpay_onramp_publishable_key_test'] ?? ''));
+        $sk      = trim($env === 'live' ? ($ps['moonpay_onramp_secret_key_live']      ?? '') : ($ps['moonpay_onramp_secret_key_test']      ?? ''));
+        $wallet  = trim($env === 'live' ? ($ps['moonpay_onramp_merchant_wallet_btc'] ?? '') : ($ps['moonpay_onramp_merchant_wallet_btc_sandbox'] ?? $ps['moonpay_onramp_merchant_wallet_btc'] ?? ''));
+        if (! $enable || empty($pk) || empty($sk) || empty($wallet)) {
+            wp_send_json_error(['message' => 'MoonPay Onramp is not configured.']);
+            return;
+        }
+
+        $payload = $this->get_hotel_payload();
+        if (empty($payload)) {
+            wp_send_json_error(['message' => 'Invalid data.']);
+            return;
+        }
+
+        $rec   = $this->save_hotel_lead_record($payload);
+        $total = max(30, round($rec['total'], 2));
+        $ref   = $rec['reference'];
+
+        set_transient('ahb_moonpay_onramp_sk_' . $ref, $sk, 3600);
+        wp_send_json_success([
+            'booking_reference' => $ref,
+            'environment'       => $env,
+            'redirect_url'      => $this->confirmation_url($ref),
+            'params'            => [
+                'apiKey'               => $pk,
+                'baseCurrencyCode'     => 'usd',
+                'baseCurrencyAmount'   => $total,
+                'currencyCode'         => 'btc',
+                'walletAddress'        => $wallet,
+                'externalTransactionId' => $ref,
+                'redirectURL'          => $this->confirmation_url($ref),
+            ],
+        ]);
+    }
+
+    /** ── MoonPay Onramp: Sign URL ───────────────────────────────────── */
+    public function hotel_moonpay_onramp_sign()
+    {
+        check_ajax_referer('amadex_nonce', 'nonce');
+        $url_for_signing = sanitize_text_field($_POST['urlForSigning'] ?? '');
+        $ref             = sanitize_text_field($_POST['reference']     ?? '');
+        if (empty($url_for_signing)) {
+            wp_send_json_error(['message' => 'Missing URL.']);
+            return;
+        }
+
+        // Try to get secret from transient (set during prepare)
+        $sk = '';
+        if (! empty($ref)) {
+            $sk = (string) get_transient('ahb_moonpay_onramp_sk_' . $ref);
+        }
+        if (empty($sk)) {
+            $ps  = get_option('amadex_payment_settings', []);
+            $env = (($ps['moonpay_onramp_environment'] ?? '') === 'live') ? 'live' : 'test';
+            $sk  = trim($env === 'live' ? ($ps['moonpay_onramp_secret_key_live'] ?? '') : ($ps['moonpay_onramp_secret_key_test'] ?? ''));
+        }
+        if (empty($sk)) {
+            wp_send_json_error(['message' => 'MoonPay secret key not available.']);
+            return;
+        }
+
+        $parsed   = wp_parse_url($url_for_signing);
+        $query    = $parsed['query'] ?? '';
+        $sig      = hash_hmac('sha256', '?' . $query, $sk, true);
+        $sig_b64  = base64_encode($sig);
+        wp_send_json_success(['signature' => $sig_b64]);
     }
 
     public function render($atts)
@@ -1148,23 +1512,24 @@ class Amadex_Hotel_Booking
                         '</div>' +
                         // PayPal panel
                         '<div class="ahb-payment-panel" id="ahb-panel-paypal">' +
-                        '<div style="text-align:center;padding:20px;">' +
-                        '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png" style="height:40px;margin-bottom:12px;">' +
-                        '<p style="font-size:14px;color:#64748b;">You will be redirected to PayPal to complete payment.</p>' +
+                        '<div style="padding:20px;">' +
+                        '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/200px-PayPal.svg.png" style="height:36px;display:block;margin:0 auto 16px;">' +
+                        '<div id="ahb-paypal-buttons"></div>' +
                         '</div>' +
                         '</div>' +
                         // Crypto panel
                         '<div class="ahb-payment-panel" id="ahb-panel-crypto">' +
                         '<div style="text-align:center;padding:20px;">' +
                         '<div style="font-size:40px;margin-bottom:12px;">₿</div>' +
-                        '<p style="font-size:14px;color:#64748b;">Pay securely with cryptocurrency via Crypto.com.</p>' +
+                        '<p style="font-size:14px;color:#64748b;margin-bottom:16px;">Pay securely with cryptocurrency via Crypto.com.</p>' +
+                        '<div id="ahb-cryptocom-mount"></div>' +
                         '</div>' +
                         '</div>' +
                         // MoonPay panel
                         '<div class="ahb-payment-panel" id="ahb-panel-moonpay">' +
                         '<div style="text-align:center;padding:20px;">' +
                         '<div style="font-size:40px;margin-bottom:12px;">🌙</div>' +
-                        '<p style="font-size:14px;color:#64748b;">Pay with card or crypto via MoonPay.</p>' +
+                        '<p style="font-size:14px;color:#64748b;">Pay with card or crypto via MoonPay. Click Confirm & Book to open the payment widget.</p>' +
                         '</div>' +
                         '</div>' +
                         '<div class="ahb-checkbox-row">' +
@@ -1483,6 +1848,330 @@ class Amadex_Hotel_Booking
                             });
                     }
 
+                    // ── Build hotel payload for payment handlers ──────────────
+                    function ahbBuildPayload() {
+                        var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
+                        var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
+                        var fn0 = document.getElementById('ahb-fn-0') ? document.getElementById('ahb-fn-0').value.trim() : '';
+                        var guests = [];
+                        for (var r = 0; r < roomCount; r++) {
+                            var fnEl = document.getElementById('ahb-fn-' + r);
+                            var lnEl = document.getElementById('ahb-ln-' + r);
+                            guests.push({
+                                room: r + 1,
+                                first_name: fnEl ? fnEl.value : '',
+                                last_name: lnEl ? lnEl.value : ''
+                            });
+                        }
+                        var srEl = document.getElementById('ahb-special-request');
+                        var activeTabEl = document.querySelector('.ahb-payment-tab.active');
+                        var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
+                        var methodLabels = {
+                            'credit_card': 'Credit/Debit Card',
+                            'paypal': 'PayPal',
+                            'crypto_com': 'Crypto.com',
+                            'moonpay_onramp': 'Pay with Card (MoonPay)'
+                        };
+                        return {
+                            contact: {
+                                name: fn0,
+                                email: email,
+                                phone: phone
+                            },
+                            hotel: {
+                                name: hotelData.name || '',
+                                destination: hotelData.address || (hotelData.searchData && hotelData.searchData.destination) || '',
+                                check_in: searchData.checkIn || '',
+                                check_out: searchData.checkOut || '',
+                                rooms: roomCount,
+                                guests: (function() {
+                                    var t = 0;
+                                    rooms.forEach(function(rm) {
+                                        t += (rm.adults || 1) + (rm.children || 0);
+                                    });
+                                    return t;
+                                })(),
+                                room_name: roomName,
+                                base_fare: baseTotal,
+                                tax: taxTotal,
+                                total: grandTotal,
+                                nights: nights,
+                                room_guests: guests
+                            },
+                            special_request: srEl ? srEl.value : '',
+                            payment: {
+                                method: methodLabels[paymentMethod] || paymentMethod,
+                                method_key: paymentMethod,
+                            }
+                        };
+                    }
+
+                    function ahbSetBtn(txt, disabled) {
+                        var btn = document.querySelector('.ahb-confirm-btn');
+                        if (!btn) return;
+                        btn.textContent = txt + (txt === 'Confirm & Book' ? '' : '');
+                        btn.disabled = disabled;
+                    }
+
+                    // ── PayPal ────────────────────────────────────────────────
+                    function ahbInitPayPal() {
+                        var $container = document.getElementById('ahb-paypal-buttons');
+                        if (!$container || $container.dataset.initialized) return;
+                        $container.dataset.initialized = '1';
+
+                        var clientId = (typeof AmadexConfig !== 'undefined' && AmadexConfig.paypalClientId) ? AmadexConfig.paypalClientId : '';
+                        var paypalMode = (typeof AmadexConfig !== 'undefined' && AmadexConfig.paypalMode) ? AmadexConfig.paypalMode : 'sandbox';
+                        var sdkBase = paypalMode === 'live' ? 'https://www.paypal.com/sdk/js' : 'https://www.sandbox.paypal.com/sdk/js';
+                        if (!clientId) {
+                            $container.innerHTML = '<p style="color:#888;font-size:13px;">PayPal not configured.</p>';
+                            return;
+                        }
+
+                        function renderButtons() {
+                            if (typeof paypal === 'undefined') {
+                                $container.innerHTML = '<p style="color:#ef4444;">PayPal failed to load.</p>';
+                                return;
+                            }
+                            paypal.Buttons({
+                                createOrder: function() {
+                                    return fetch(AHB_AJAX, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: new URLSearchParams({
+                                            action: 'amadex_hotel_paypal_create_order',
+                                            nonce: AHB_NONCE,
+                                            hotel_data: JSON.stringify(ahbBuildPayload())
+                                        })
+                                    }).then(function(r) {
+                                        return r.json();
+                                    }).then(function(d) {
+                                        if (d.success && d.data.orderID) return d.data.orderID;
+                                        throw new Error(d.data && d.data.message ? d.data.message : 'Could not create PayPal order.');
+                                    });
+                                },
+                                onApprove: function(data) {
+                                    ahbSetBtn('Processing…', true);
+                                    return fetch(AHB_AJAX, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: new URLSearchParams({
+                                            action: 'amadex_hotel_paypal_capture',
+                                            nonce: AHB_NONCE,
+                                            orderID: data.orderID
+                                        })
+                                    }).then(function(r) {
+                                        return r.json();
+                                    }).then(function(d) {
+                                        if (d.success && d.data.redirectUrl) {
+                                            window.location.href = d.data.redirectUrl;
+                                        } else {
+                                            ahbSetBtn('Confirm & Book', false);
+                                            alert(d.data && d.data.message ? d.data.message : 'PayPal capture failed.');
+                                        }
+                                    });
+                                },
+                                onCancel: function() {
+                                    ahbSetBtn('Confirm & Book', false);
+                                },
+                                onError: function(err) {
+                                    ahbSetBtn('Confirm & Book', false);
+                                    alert('PayPal error. Please try again.');
+                                }
+                            }).render('#ahb-paypal-buttons');
+                        }
+
+                        if (typeof paypal !== 'undefined') {
+                            renderButtons();
+                            return;
+                        }
+                        var s = document.createElement('script');
+                        s.src = sdkBase + '?client-id=' + encodeURIComponent(clientId) + '&currency=USD&intent=capture&components=buttons&locale=en_US';
+                        s.async = true;
+                        s.onload = renderButtons;
+                        s.onerror = function() {
+                            $container.innerHTML = '<p style="color:#ef4444;">Failed to load PayPal.</p>';
+                        };
+                        document.head.appendChild(s);
+                    }
+
+                    // ── Crypto.com ────────────────────────────────────────────
+                    function ahbStartCryptoCom() {
+                        ahbSetBtn('Creating payment…', true);
+                        fetch(AHB_AJAX, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                action: 'amadex_hotel_cryptocom_payment',
+                                nonce: AHB_NONCE,
+                                hotel_data: JSON.stringify(ahbBuildPayload())
+                            })
+                        }).then(function(r) {
+                            return r.json();
+                        }).then(function(d) {
+                            ahbSetBtn('Confirm & Book', false);
+                            if (!d.success) {
+                                alert(d.data && d.data.message ? d.data.message : 'Crypto.com error.');
+                                return;
+                            }
+                            var pk = d.data.publishable_key;
+                            var paymentId = d.data.payment_id;
+                            var confirmUrl = d.data.confirmation_url;
+
+                            function renderCryptoBtn() {
+                                if (!window.cryptopay || !window.cryptopay.Button) {
+                                    alert('Crypto.com Pay could not load. Please refresh.');
+                                    return;
+                                }
+                                var mount = document.getElementById('ahb-cryptocom-mount');
+                                if (!mount) return;
+                                mount.innerHTML = '';
+                                window.cryptopay.Button({
+                                    createPayment: function(actions) {
+                                        return actions.payment.fetch(paymentId);
+                                    },
+                                    onApprove: function() {
+                                        window.location.href = confirmUrl;
+                                    }
+                                }).render('#ahb-cryptocom-mount');
+                            }
+                            if (window.cryptopay && window.cryptopay.Button) {
+                                renderCryptoBtn();
+                                return;
+                            }
+                            var s = document.createElement('script');
+                            s.src = 'https://js.crypto.com/sdk?publishable-key=' + encodeURIComponent(pk);
+                            s.async = true;
+                            s.onload = renderCryptoBtn;
+                            document.body.appendChild(s);
+                        }).catch(function() {
+                            ahbSetBtn('Confirm & Book', false);
+                            alert('Connection error. Please try again.');
+                        });
+                    }
+
+                    // ── MoonPay Commerce ──────────────────────────────────────
+                    function ahbStartMoonPayCommerce() {
+                        ahbSetBtn('Creating payment…', true);
+                        fetch(AHB_AJAX, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                action: 'amadex_hotel_moonpay_paylink',
+                                nonce: AHB_NONCE,
+                                hotel_data: JSON.stringify(ahbBuildPayload())
+                            })
+                        }).then(function(r) {
+                            return r.json();
+                        }).then(function(d) {
+                            ahbSetBtn('Confirm & Book', false);
+                            if (d.success && d.data.payLinkUrl) {
+                                window.location.href = d.data.payLinkUrl;
+                            } else {
+                                alert(d.data && d.data.message ? d.data.message : 'MoonPay error.');
+                            }
+                        }).catch(function() {
+                            ahbSetBtn('Confirm & Book', false);
+                            alert('Connection error. Please try again.');
+                        });
+                    }
+
+                    // ── MoonPay Onramp ────────────────────────────────────────
+                    function ahbStartMoonPayOnramp() {
+                        ahbSetBtn('Preparing payment…', true);
+                        fetch(AHB_AJAX, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                action: 'amadex_hotel_moonpay_onramp',
+                                nonce: AHB_NONCE,
+                                hotel_data: JSON.stringify(ahbBuildPayload())
+                            })
+                        }).then(function(r) {
+                            return r.json();
+                        }).then(function(d) {
+                            ahbSetBtn('Confirm & Book', false);
+                            if (!d.success) {
+                                alert(d.data && d.data.message ? d.data.message : 'MoonPay error.');
+                                return;
+                            }
+                            var ref = d.data.booking_reference;
+
+                            function showWidget() {
+                                var widget = window.MoonPayWebSdk.init({
+                                    flow: 'buy',
+                                    environment: d.data.environment,
+                                    variant: 'overlay',
+                                    params: d.data.params,
+                                    handlers: {
+                                        onTransactionCompleted: function() {
+                                            window.location.href = d.data.redirect_url + '?reference=' + encodeURIComponent(ref);
+                                        },
+                                        onClose: function() {
+                                            ahbSetBtn('Confirm & Book', false);
+                                        }
+                                    }
+                                });
+                                var urlForSigning = typeof widget.generateUrlForSigning === 'function' ? widget.generateUrlForSigning() : null;
+
+                                function doSign(url) {
+                                    fetch(AHB_AJAX, {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/x-www-form-urlencoded'
+                                        },
+                                        body: new URLSearchParams({
+                                            action: 'amadex_hotel_moonpay_onramp_sign',
+                                            nonce: AHB_NONCE,
+                                            urlForSigning: url,
+                                            reference: ref
+                                        })
+                                    }).then(function(r) {
+                                        return r.json();
+                                    }).then(function(s) {
+                                        if (s.success && s.data.signature) {
+                                            if (typeof widget.updateSignature === 'function') widget.updateSignature(s.data.signature);
+                                        }
+                                        if (typeof widget.show === 'function') widget.show();
+                                    });
+                                }
+                                if (urlForSigning && typeof urlForSigning.then === 'function') {
+                                    urlForSigning.then(doSign);
+                                } else {
+                                    doSign(urlForSigning);
+                                }
+                            }
+                            if (window.MoonPayWebSdk && window.MoonPayWebSdk.init) {
+                                showWidget();
+                                return;
+                            }
+                            var s = document.createElement('script');
+                            s.src = 'https://static.moonpay.com/web-sdk/v1/moonpay-web-sdk.min.js';
+                            s.defer = true;
+                            s.onload = showWidget;
+                            document.head.appendChild(s);
+                        }).catch(function() {
+                            ahbSetBtn('Confirm & Book', false);
+                            alert('Connection error. Please try again.');
+                        });
+                    }
+
+                    // ── Tab switch — init PayPal when tab is opened ───────────
+                    var _origAhbSelectTab = window.ahbSelectTab;
+                    window.ahbSelectTab = function(btn, panel) {
+                        _origAhbSelectTab(btn, panel);
+                        if (panel === 'paypal') ahbInitPayPal();
+                    };
+
                     window.ahbConfirm = function() {
                         var email = document.getElementById('ahb-email') ? document.getElementById('ahb-email').value.trim() : '';
                         var phone = document.getElementById('ahb-phone') ? document.getElementById('ahb-phone').value.trim() : '';
@@ -1503,26 +2192,35 @@ class Amadex_Hotel_Booking
                         var activeTabEl = document.querySelector('.ahb-payment-tab.active');
                         var paymentMethod = activeTabEl ? (activeTabEl.getAttribute('data-method') || 'credit_card') : _ahbActiveMethod;
 
-                        // For credit_card: tokenize via Collect.js first, then submit
+                        if (paymentMethod === 'crypto_com') {
+                            ahbStartCryptoCom();
+                            return;
+                        }
+                        if (paymentMethod === 'moonpay') {
+                            ahbStartMoonPayCommerce();
+                            return;
+                        }
+                        if (paymentMethod === 'moonpay_onramp') {
+                            ahbStartMoonPayOnramp();
+                            return;
+                        }
+                        if (paymentMethod === 'paypal') {
+                            return;
+                        } // PayPal uses its own buttons
+
+                        // Credit card — tokenize via Collect.js first
                         if (paymentMethod === 'credit_card' && AHB_GATEWAY === 'nmi' && !AHB_BYPASS) {
-                            var btn = document.querySelector('.ahb-confirm-btn');
-                            if (btn) {
-                                btn.disabled = true;
-                                btn.textContent = 'Securing Card…';
-                            }
+                            ahbSetBtn('Securing Card…', true);
                             if (window.CollectJS) {
                                 CollectJS.startPaymentRequest();
                             } else {
-                                if (btn) {
-                                    btn.disabled = false;
-                                    btn.textContent = 'Confirm & Book';
-                                }
+                                ahbSetBtn('Confirm & Book', false);
                                 alert('Payment system not ready. Please refresh and try again.');
                             }
                             return;
                         }
 
-                        // For all other methods (PayPal, Crypto, MoonPay) or bypass mode — submit directly without token
+                        // Bypass or non-NMI gateway — submit directly
                         ahbSubmitWithToken('');
                     };
 
