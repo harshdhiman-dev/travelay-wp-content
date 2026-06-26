@@ -1049,6 +1049,7 @@
         // This prevents showing error messages on first page load
         const bypassPayment = typeof AmadexConfig !== 'undefined' && AmadexConfig.bypassPayment === true;
         if (bypassPayment) {
+            console.log('[Amadex] Bypass mode active — card fields and 3DS will be skipped on submission.');
             // Ensure button is enabled for bypass mode (step navigation button)
             $('#amadex-step-next').prop('disabled', false);
             // Also update hidden button if it still exists (fallback)
@@ -6049,7 +6050,8 @@ ${passportSection}
             return false;
         }
 
-        if (gateway === 'nmi' && paymentMethod === 'credit_card' && !window.amadex3DSComplete && (typeof AmadexNMI === 'undefined' || AmadexNMI.threeDSEnabled) && !(typeof AmadexNMI !== 'undefined' && AmadexNMI.bypassPayment)) {
+        const bypassActive = typeof AmadexConfig !== 'undefined' && AmadexConfig.bypassPayment === true;
+        if (!bypassActive && gateway === 'nmi' && paymentMethod === 'credit_card' && !window.amadex3DSComplete && (typeof AmadexNMI === 'undefined' || AmadexNMI.threeDSEnabled) && !(typeof AmadexNMI !== 'undefined' && AmadexNMI.bypassPayment)) {
             console.log('[DEBUG] Starting 3DS flow...');
             runGateway3DSAndSubmit(flight);
             return false;
@@ -9867,7 +9869,6 @@ ${passportSection}
 
         for (let i = 0; i < passengers.length; i++) {
             const pax = passengers[i];
-            // Check both camelCase and lowercase property names for compatibility
             const firstName = pax.firstName || pax.firstname || '';
             const lastName = pax.lastName || pax.lastname || '';
 
@@ -9879,21 +9880,26 @@ ${passportSection}
             }
         }
 
-        // Check gateway to determine if we should skip card validation (Stripe has separate payment page)
+        // ── Bypass mode: skip all card + billing validation ──────────
+        const bypassPayment = typeof AmadexConfig !== 'undefined' && AmadexConfig.bypassPayment === true;
+        if (bypassPayment) {
+            console.log('[Amadex] Payment bypass enabled — skipping card/billing validation.');
+            return { valid: true };
+        }
+        // ─────────────────────────────────────────────────────────────
+
+        // Check gateway to determine if we should skip card validation
         const gateway = typeof AmadexConfig !== 'undefined' && AmadexConfig.defaultCardGateway
             ? AmadexConfig.defaultCardGateway
             : 'nmi';
         const skipCardValidation = gateway === 'stripe';
 
-        // Billing information - Card Holder Name (for NMI dashboard)
-        // SKIP for Stripe (card details are on separate payment page)
         if (!skipCardValidation) {
             const cardName = $('#card-name').val().trim();
             if (!cardName) {
                 return { valid: false, message: 'Card Holder Name is required. This name will appear in billing records.' };
             }
 
-            // Validate card name has at least first and last name
             const cardNameParts = cardName.split(/\s+/).filter(part => part.length > 0);
             if (cardNameParts.length < 2) {
                 return { valid: false, message: 'Please enter both first and last name on card (e.g., "John Smith"). This ensures proper billing records in NMI.' };
