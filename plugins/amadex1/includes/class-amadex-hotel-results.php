@@ -1705,7 +1705,7 @@ class Amadex_Hotel_Results
                     if (
                         siteHeader.classList.contains('is-sticky')
                     ) {
-                        ahrWrap.style.marginTop = '78rem';
+                        ahrWrap.style.marginTop = '0rem';
                     } else {
                         ahrWrap.style.marginTop = '';
                     }

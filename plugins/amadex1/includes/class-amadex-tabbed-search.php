@@ -645,6 +645,11 @@ class Amadex_Tabbed_Search
                 .ats-cal-divider {
                     display: none !important;
                 }
+
+                .ats-tab[data-tab="cars"],
+                .ats-tab[data-tab="cruise"] {
+                    display: none !important;
+                }
             }
         </style>
 
