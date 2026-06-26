@@ -146,6 +146,7 @@ class Amadex_Hotel_Booking
             @media (max-width: 768px) {
                 .ahb-layout {
                     grid-template-columns: 1fr;
+                    display: unset;
                 }
             }
 
@@ -1011,7 +1012,7 @@ class Amadex_Hotel_Booking
                         '</div>' +
 
                         // Image + rooms side by side
-                        '<div style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:end;margin-top:12px;background:#F6F6F6;padding: 10px;border-radius: 15px;">' +
+                        '<div class="finalhotel-booking" style="display:grid;grid-template-columns:220px 1fr;gap:16px;align-items:end;margin-top:12px;background:#F6F6F6;padding: 10px;border-radius: 15px;">' +
                         // Slider
                         '<div style="position:relative;height:200px;border-radius:12px;overflow:hidden;background:#f1f5f9;" id="ahb-slider">' +
                         getSliderHtml() +
