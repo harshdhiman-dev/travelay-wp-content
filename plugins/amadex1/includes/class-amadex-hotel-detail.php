@@ -1802,23 +1802,65 @@ class Amadex_Hotel_Detail
                         }
                     }
 
+                    function getHeaderHeight() {
+                        var header = document.querySelector('.site-header');
+                        if (!header) return 70;
+                        return header.offsetHeight;
+                    }
+
                     function onScroll() {
                         if (!tabsTop) recalc();
-                        if (window.scrollY >= tabsTop) {
+                        var headerHeight = getHeaderHeight();
+                        if (window.scrollY >= tabsTop - headerHeight) {
                             tabs.classList.add('is-sticky');
+                            tabs.style.top = headerHeight + 'px';
                             spacer.style.height = tabsHeight + 'px';
                             spacer.classList.add('is-active');
                         } else {
                             tabs.classList.remove('is-sticky');
+                            tabs.style.top = '';
                             spacer.classList.remove('is-active');
                             spacer.style.height = '0';
                         }
                     }
 
+                    // Watch for sticky header class changes and adjust ahr-wrap margin
+                    var ahrWrap = document.querySelector('.ahr-wrap');
+                    var siteHeader = document.querySelector('.site-header');
+
+                    function updateAhrMargin() {
+                        if (!ahrWrap || !siteHeader) return;
+                        if (
+                            siteHeader.classList.contains('is-sticky') &&
+                            siteHeader.classList.contains('scrolling-up')
+                        ) {
+                            ahrWrap.style.marginTop = '16rem';
+                        } else {
+                            ahrWrap.style.marginTop = '';
+                        }
+                    }
+
+                    // Use MutationObserver to detect header class changes
+                    if (siteHeader) {
+                        var headerObserver = new MutationObserver(function(mutations) {
+                            mutations.forEach(function(mutation) {
+                                if (mutation.attributeName === 'class') {
+                                    updateAhrMargin();
+                                    onScroll(); // recalculate tabs top too
+                                }
+                            });
+                        });
+                        headerObserver.observe(siteHeader, { attributes: true });
+                    }
+
                     // Wait for layout to settle then measure
                     setTimeout(recalc, 300);
                     window.addEventListener('scroll', onScroll, { passive: true });
-                    window.addEventListener('resize', recalc);
+                    window.addEventListener('resize', function() {
+                        recalc();
+                        updateAhrMargin();
+                    });
+                    updateAhrMargin();
                 })();
 
                 window.ahdTab = function(btn, section) {
