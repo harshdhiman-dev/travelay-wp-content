@@ -44,6 +44,74 @@ class Amadex_Hotel_Results
                 padding: 20px 16px 60px;
             }
 
+            /* ── Mobile pill bar ── */
+            .ahr-mobile-pill {
+                display: none !important;
+                align-items: center;
+                gap: 12px;
+                background: #f4f4f4;
+                border-radius: 50px;
+                padding: 12px 16px;
+                margin-bottom: 16px;
+            }
+
+            @media (max-width: 768px) {
+                .ahr-mobile-pill {
+                    display: flex !important;
+                }
+
+                .ahr-summary {
+                    display: none !important;
+                }
+            }
+
+            .ahr-pill-back {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                color: #333;
+                flex-shrink: 0;
+            }
+
+            .ahr-pill-info {
+                flex: 1;
+                min-width: 0;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .ahr-pill-dest {
+                font-size: 14px;
+                font-weight: 700;
+                color: #0f172a;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .ahr-pill-meta {
+                font-size: 12px;
+                color: #64748b;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .ahr-pill-edit {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                color: #333;
+                flex-shrink: 0;
+            }
+
+            /* ── Desktop summary bar ── */
             .ahr-summary {
                 background: #fff;
                 border: 1px solid #e2e8f0;
@@ -952,6 +1020,20 @@ class Amadex_Hotel_Results
         </style>
 
         <div class="ahr-wrap">
+            <!-- Mobile pill summary bar -->
+            <div class="ahr-mobile-pill" id="ahr-mobile-pill" style="display:none;">
+                <button class="ahr-pill-back" onclick="history.back()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M5 12l7-7M5 12l7 7"/></svg>
+                </button>
+                <div class="ahr-pill-info">
+                    <span class="ahr-pill-dest" id="ahr-pill-dest">—</span>
+                    <span class="ahr-pill-meta" id="ahr-pill-meta">—</span>
+                </div>
+                <button class="ahr-pill-edit" onclick="ahrToggleDesktopBar()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+            </div>
+
             <!-- Summary bar -->
             <div class="ahr-summary" id="ahr-summary" style="display:none;">
                 <div class="ahr-sf">
@@ -1129,6 +1211,33 @@ class Amadex_Hotel_Results
                 document.getElementById('ahr-checkout').value = searchData.checkOut || '';
                 renderRoomsList();
                 updateGuestsLabel();
+               // Populate mobile pill
+                (function() {
+                    var pillDest = document.getElementById('ahr-pill-dest');
+                    var pillMeta = document.getElementById('ahr-pill-meta');
+                    var pill = document.getElementById('ahr-mobile-pill');
+                    if (!pillDest || !pill) return;
+
+                    var dest = searchData.destination || '—';
+                    var cin = searchData.checkIn || '';
+                    var cout = searchData.checkOut || '';
+                    var rooms = searchData.rooms || 1;
+                    var adults = (searchData.roomData || []).reduce(function(s, r) { return s + (r.adults || 1); }, 0) || searchData.adults || 1;
+
+                    function fmtPill(d) {
+                        if (!d) return '';
+                        var parts = d.split('-');
+                        if (parts.length < 3) return d;
+                        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                        return parseInt(parts[2]) + ' ' + months[parseInt(parts[1]) - 1] + ',\'' + parts[0].slice(2);
+                    }
+
+                    pillDest.textContent = dest;
+                    pillMeta.textContent = fmtPill(cin) + (cout ? ' - ' + fmtPill(cout) : '') + ' / ' + adults + ' Guest' + (adults > 1 ? 's' : '') + ', ' + rooms + ' Room' + (rooms > 1 ? 's' : '');
+                    pill.style.display = '';
+                })();
+
+                // Show summary bar
                 document.getElementById('ahr-summary').style.display = 'flex';
 
                 function renderRoomsList() {
@@ -1265,6 +1374,20 @@ class Amadex_Hotel_Results
                     var field = document.getElementById('ahr-guests-field');
                     if (drop && field && !field.contains(e.target)) drop.classList.remove('open');
                 });
+
+                // ── Mobile pill edit toggle ─────────────────
+                window.ahrToggleDesktopBar = function() {
+                    var summary = document.getElementById('ahr-summary');
+                    var pill = document.getElementById('ahr-mobile-pill');
+                    if (!summary) return;
+                    if (summary.style.display === 'none' || summary.style.display === '') {
+                        summary.style.display = 'flex';
+                        if (pill) pill.style.display = 'none';
+                    } else {
+                        summary.style.display = 'none';
+                        if (pill) pill.style.display = '';
+                    }
+                };
 
                 // ── Modify / re-search ──────────────────────
                 window.ahrDoSearch = function() {
