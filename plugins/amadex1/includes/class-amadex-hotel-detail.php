@@ -2622,36 +2622,58 @@ class Amadex_Hotel_Detail
                         '</div>' +
                         '<div class="ahd-about-desc">Minimum check-in age: 18</div>' +
                         '<div class="ahd-about-desc">Enjoy the comfort you deserve and the convenience you crave as your adventure starts from this hotel. Surrounded by the traditional souks, the hotel and apartments are located in the heart of the city. Whether you are travelling for a business meeting or on a family vacation, find yourself in the ideal place to relax, meet and explore.</div>' +
-                        '<div class="ahd-policies-title">Hotel Policies</div>' +
+                        '<div class="ahd-policies-title">Hotel Policy</div>' +
 
                         '<div class="ahd-policy-block">' +
-                        '<div class="ahd-policy-block-title">Know Before You Go</div>' +
-                        '<div class="ahd-policy-block-text">The property allows pets in specific rooms only and has other pet restrictions (surcharges apply and can be found in the Fees section). Guests can arrange to bring pets by contacting the property directly, using the contact information on the booking confirmation.</div>' +
+                        '<div class="ahd-policy-block-title">Check-in & Check-out</div>' +
+                        '<div class="ahd-policy-block-text">Standard check-in and check-out times are determined by the hotel. Early check-in and late check-out may be available upon request and are subject to availability. Additional fees may apply.</div>' +
                         '</div>' +
 
                         '<div class="ahd-policy-block">' +
-                        '<div class="ahd-policy-block-title">Fees</div>' +
-                        '<div class="ahd-policy-block-text">The following fees and deposits are charged by the property at time of service, check-in, or check-out.<br><br>' +
-                        'Breakfast fee: USD 13 per person (approximately)<br>' +
-                        'Pet fee: USD 50 per accommodation, per stay<br>' +
-                        'The above list may not be comprehensive. Fees and deposits may not include tax and are subject to change.</div>' +
-                        '</div>' +
+                        '<div class="ahd-policy-block-title">Reservation Requirements</div>' +
+                        '<div class="ahd-policy-block-text">Guests are required to present a valid government-issued photo ID and a valid payment method at check-in. The primary guest must meet the hotel'
+                    s minimum age requirement. < /div>' +
+                    '</div>' +
 
-                        '<div class="ahd-policy-block">' +
-                        '<div class="ahd-policy-block-title">Mandatory Fees and Taxes</div>' +
-                        '<div class="ahd-policy-block-text">You\'ll be asked to pay the following charges at the property:<br><br>' +
-                        'Deposit: USD 50 per night<br>' +
-                        'Resort fee: USD 22.60 per accommodation, per night<br><br>' +
-                        'The resort fee includes:<br>' +
-                        'Pool access<br>Fitness center access<br>Business center/computer access<br>Internet access<br>Newspaper<br>Self parking<br>Lending library access<br><br>' +
-                        'We have included all charges provided to us by the property. However, charges can vary, for example, based on length of stay or the room you book.</div>' +
-                        '</div>' +
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Payment & Incidental Charges</div>' +
+                    '<div class="ahd-policy-block-text">Some hotels may require a security deposit or authorization hold during check-in to cover incidental expenses. Any applicable charges or deposits are determined by the hotel and communicated at the property.</div>' +
+                    '</div>' +
 
-                        '<div class="ahd-policy-block">' +
-                        '<div class="ahd-policy-block-title">Business Amenities</div>' +
-                        '<div class="ahd-policy-block-text">Featured amenities include a business center, express check-in, and express check-out. Free self parking is available onsite.</div>' +
-                        '</div>' +
-                        '</div>';
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Additional Fees</div>' +
+                    '<div class="ahd-policy-block-text">Optional services such as parking, breakfast, resort amenities, pets, and other extras may incur additional charges. These fees vary by property and are determined by the hotel.</div>' +
+                    '</div>' +
+
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Pet Policy</div>' +
+                    '<div class="ahd-policy-block-text">Pet-friendly accommodations are available only at select properties. Guests traveling with pets should review the hotels pet policy before arrival, as restrictions and additional charges may apply.</div>' +
+                    '</div>' +
+
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Hotel Amenities</div>' +
+                    '<div class="ahd-policy-block-text">Amenities and services vary by property and may include internet access, fitness facilities, parking, business services, and other guest conveniences. Availability may change due to seasonal or operational conditions.</div>' +
+                    '</div>' +
+
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Special Requests</div>' +
+                    '<div class="ahd-policy-block-text">Special requests such as early check-in, late check-out, room preferences, accessible rooms, or extra bedding are subject to availability and cannot be guaranteed in advance.</div>' +
+                    '</div>' +
+
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Guest Responsibilities</div>' +
+                    '<div class="ahd-policy-block-text">Guests are expected to follow hotel policies, respect the property, and ensure a comfortable environment for other guests. Failure to comply may result in additional charges or refusal of service.</div>' +
+                    '</div>' +
+
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Policy Changes</div>' +
+                    '<div class="ahd-policy-block-text">Hotel policies, fees, and services may change without prior notice. Property-specific terms and conditions always take precedence and should be reviewed before confirming your reservation.</div>' +
+                    '</div>' +
+
+                    '<div class="ahd-policy-block">' +
+                    '<div class="ahd-policy-block-title">Need Assistance?</div>' +
+                    '<div class="ahd-policy-block-text">If you have any questions regarding your reservation or a hotel\'s policies, the Travelay&trade; support team is always available to assist you.</div>' +
+                    '</div>';
 
                     var amenEl = document.querySelector('.ahd-amenities-section');
                     var locationEl = document.querySelector('.ahd-location-section');
