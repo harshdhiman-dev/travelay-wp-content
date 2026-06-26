@@ -6498,6 +6498,9 @@ ${passportSection}
                     // Store booking reference for confirmation page
                     sessionStorage.setItem('amadex_booking_reference', bookingRef);
 
+                    // GA4 purchase: store before clearing booking data
+                    storeAmadexPendingPurchaseEvent(flight, bookingRef);
+
                     // CRITICAL: Clear all booking-specific sessionStorage data BEFORE redirect
                     // This prevents duplicate bookings when user clicks back button
                     // Industry standard: Clear booking data immediately after success
