@@ -2715,7 +2715,6 @@ class Amadex_Hotel_Detail
                         return '<img class="ahd-lightbox-thumb' + (i === lbIndex ? ' active' : '') +
                             '" src="' + p + '" onclick="ahdLightboxGoto(' + i + ')" alt="photo ' + (i + 1) + '">';
                     }).join('');
-                    // Scroll active thumb into view
                     var activeThumb = thumbs.querySelector('.active');
                     if (activeThumb) activeThumb.scrollIntoView({
                         inline: 'center',
