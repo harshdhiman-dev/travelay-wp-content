@@ -96,6 +96,10 @@
 
 	@media (max-width: 480px) {
 
+		&__inner {
+			padding: 0;
+		}
+
 		&__title {
 			font-size: clamp(28px, 9vw, 48px);
 		}
