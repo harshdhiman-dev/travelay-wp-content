@@ -55,6 +55,7 @@ class Amadex_Hotel_Results
                 margin-bottom: 16px;
             }
 
+
             @media (max-width: 768px) {
                 .ahr-mobile-pill {
                     display: flex !important;
@@ -756,6 +757,13 @@ class Amadex_Hotel_Results
                 height: 274px;
             }
 
+            @media (max-width:380px) {
+                .ahr-price-block {
+                    display: flex;
+                    flex-direction: column;
+                }
+            }
+
             @media (max-width:600px) {
                 .ahr-card-img {
                     display: none;
@@ -877,6 +885,7 @@ class Amadex_Hotel_Results
                 font-weight: 700;
                 padding: 2px 8px;
                 border-radius: 20px;
+                width: fit-content;
             }
 
             .ahr-card-price {
