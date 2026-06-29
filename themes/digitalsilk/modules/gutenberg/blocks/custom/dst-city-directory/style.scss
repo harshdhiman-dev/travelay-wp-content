@@ -383,9 +383,10 @@
 		padding: 0;
 		border-radius: 16px;
 		overflow: hidden;
-		border: 1px solid #f0f0f0;
-		background: #fff;
+		border: 1px solid #E6E6E6;
+		background: #e6e6e680;
 		align-items: stretch;
+		    gap: 0;
 
 		&:hover {
 			box-shadow: 0 4px 16px rgba(0, 0, 0, .08);
