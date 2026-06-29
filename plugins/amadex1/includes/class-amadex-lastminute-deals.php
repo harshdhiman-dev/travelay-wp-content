@@ -108,9 +108,18 @@ class Amadex_LastMinute_Deals
             .lmd-airline-filters {
                 display: flex;
                 gap: 10px;
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-wrap: nowrap;
+                justify-content: flex-start;
                 margin-bottom: 32px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                padding-bottom: 4px;
+            }
+
+            .lmd-airline-filters::-webkit-scrollbar {
+                display: none;
             }
 
             .lmd-airline-pill {
@@ -599,17 +608,21 @@ class Amadex_LastMinute_Deals
 
                     Promise.all(requests).then(function(results) {
                         allDeals = [];
-                    results.forEach(function(r) { allDeals = allDeals.concat(r); });
-                    // Sort by price cheapest first
-                    allDeals.sort(function(a,b) { return a.price - b.price; });
-                    // Deduplicate: remove same airline + same route + same price
-                    var seen = {};
-                    allDeals = allDeals.filter(function(d) {
-                        var key = d.airline + '_' + d.origin + '_' + d.dest + '_' + d.price;
-                        if (seen[key]) return false;
-                        seen[key] = true;
-                        return true;
-                    });
+                        results.forEach(function(r) {
+                            allDeals = allDeals.concat(r);
+                        });
+                        // Sort by price cheapest first
+                        allDeals.sort(function(a, b) {
+                            return a.price - b.price;
+                        });
+                        // Deduplicate: remove same airline + same route + same price
+                        var seen = {};
+                        allDeals = allDeals.filter(function(d) {
+                            var key = d.airline + '_' + d.origin + '_' + d.dest + '_' + d.price;
+                            if (seen[key]) return false;
+                            seen[key] = true;
+                            return true;
+                        });
                         renderFilters();
                         renderGrid(null);
                     });
@@ -654,7 +667,7 @@ class Amadex_LastMinute_Deals
 
                     gridEl.innerHTML = deals.map(function(d, idx) {
                         var savings = avg > 0 && d.price < avg * 0.85 ?
-                            '' :'';
+                            '' : '';
                         return '<div class="lmd-card" onclick="lmdBook_' + UID.replace(/-/g, '_') + '(' + idx + ')" style="cursor:pointer;">' +
                             '<div class="lmd-card-top">' +
                             '<div class="lmd-airline-info">' +
@@ -679,7 +692,7 @@ class Amadex_LastMinute_Deals
                             '<div class="lmd-price-row">' +
                             '<span class="lmd-starting-from">Starting from</span>' +
                             '<span class="lmd-price-badge">' + formatPrice(d.price, d.currency) + '</span>' +
-                        '</div>' +
+                            '</div>' +
                             '</div>';
                     }).join('');
                 }
