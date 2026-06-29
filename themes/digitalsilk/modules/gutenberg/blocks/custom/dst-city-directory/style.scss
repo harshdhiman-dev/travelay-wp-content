@@ -22,7 +22,7 @@
 		border-radius: 20px;
 		padding: 28px;
 		box-shadow: 0 1px 14px rgba(0, 0, 0, .28);
-		max-width: 1435px;
+		max-width: 100%;
 	}
 
 	&__toolbar {
@@ -111,12 +111,18 @@
 
 	&__alphabet {
 		display: flex;
-		flex-wrap: wrap;
 		gap: 6px;
 		padding: 16px 0;
 		border-top: 1px solid #f0f0f0;
 		border-bottom: 1px solid #f0f0f0;
 		margin-bottom: 24px;
+		flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        padding-bottom: 12px;
+        width: 100%;
 
 		@media (max-width: 991px) {
 			flex-wrap: nowrap;
