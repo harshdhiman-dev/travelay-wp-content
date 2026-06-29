@@ -347,7 +347,7 @@
 		}
 	}
 
-	@media (max-width: 799px) {
+	@media (min-width: 670px) and (max-width: 991px) {
 		&__grid {
 			grid-template-columns: repeat(2, 1fr);
 			gap: 12px;
