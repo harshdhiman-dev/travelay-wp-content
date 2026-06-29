@@ -46,7 +46,7 @@
 		width: 100% !important;
 		height: 44px !important;
 		min-height: unset !important;
-		padding: 0 44px 0 12px!important;
+		padding: 0 44px 0 12px !important;
 		border-radius: 10px !important;
 		font-size: 14px !important;
 		color: var(--dst--base-text-color, #333) !important;
@@ -323,10 +323,11 @@
 		&__card-description {
 			font-size: 13px;
 			-webkit-line-clamp: 3;
+			margin: 0;
 		}
 
 		&__card-link {
-			font-size: 1.2rem;
+			font-size: 12px;
 		}
 
 		&__letter {
