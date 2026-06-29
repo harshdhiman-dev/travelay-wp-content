@@ -14,7 +14,9 @@ $tag            = $attributes['tag'] ?? '';
 $title          = $attributes['title'] ?? '';
 $subtitle       = $attributes['subtitle'] ?? '';
 $shortcode      = $attributes['shortcode'] ?? '[amadex_search_modern]';
-$title_color    = $attributes['titleColor'] ?? '#ffffff';
+$title_color     = $attributes['titleColor'] ?? '#ffffff';
+$title_font_size = $attributes['titleFontSize'] ?? '';
+$title_align     = $attributes['titleAlign'] ?? 'center';
 $tag_color      = $attributes['tagColor'] ?? '#ffffff';
 $subtitle_color = $attributes['subtitleColor'] ?? '#ffffff';
 $min_height     = $attributes['minHeight'] ?? '520px';
@@ -98,7 +100,7 @@ $unique_id = 'dst-hero-' . substr(md5($title . $font_url), 0, 8);
 			<?php endif; ?>
 
 			<?php if (! empty($title)) : ?>
-				<h1 class="c-hero-banner__title" style="color: <?php echo esc_attr($title_color); ?>;">
+				<h1 class="c-hero-banner__title" style="color: <?php echo esc_attr($title_color); ?>;<?php echo $title_font_size ? ' font-size:' . esc_attr($title_font_size) . ';' : ''; ?> text-align: <?php echo esc_attr($title_align); ?>;">
 					<?php echo wp_kses_post($title); ?>
 				</h1>
 			<?php endif; ?>

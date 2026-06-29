@@ -58,6 +58,14 @@
 		"contentWidth": {
 			"type": "string",
 			"default": "900px"
+		},
+		"titleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"titleAlign": {
+			"type": "string",
+			"default": "center"
 		}
 	},
 	"supports": {
