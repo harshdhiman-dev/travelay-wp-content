@@ -66,6 +66,14 @@
 		"titleAlign": {
 			"type": "string",
 			"default": "center"
+		},
+		"subtitleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"subtitleAlign": {
+			"type": "string",
+			"default": "center"
 		}
 	},
 	"supports": {

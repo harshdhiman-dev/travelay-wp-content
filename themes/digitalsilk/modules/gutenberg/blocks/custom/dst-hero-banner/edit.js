@@ -33,6 +33,8 @@ export const BlockEdit = (props) => {
 		titleFontSize,
 		titleAlign,
 		titleColor,
+		subtitleFontSize,
+		subtitleAlign,
 		tagColor,
 		subtitleColor,
 		minHeight,
@@ -183,9 +185,34 @@ export const BlockEdit = (props) => {
 							onChange={(value) => setAttributes({ titleAlign: value })}
 						/>
 					</PanelRow>
-				</PanelBody>
+				<PanelRow>
+			<TextControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Subtitle Font Size', 'dstheme' ) }
+				value={ subtitleFontSize }
+				placeholder="e.g. 18px or 1.6rem"
+				help={ __( 'Leave empty to use theme default', 'dstheme' ) }
+				onChange={ ( value ) => setAttributes( { subtitleFontSize: value } ) }
+			/>
+		</PanelRow>
+		<PanelRow>
+			<SelectControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Subtitle Alignment', 'dstheme' ) }
+				value={ subtitleAlign }
+				options={ [
+					{ label: __( 'Left', 'dstheme' ),   value: 'left' },
+					{ label: __( 'Center', 'dstheme' ), value: 'center' },
+					{ label: __( 'Right', 'dstheme' ),  value: 'right' },
+				] }
+				onChange={ ( value ) => setAttributes( { subtitleAlign: value } ) }
+			/>
+		</PanelRow>
+	</PanelBody>
 
-				<PanelBody title={__('Title Font', 'dstheme')} initialOpen={false}>
+	<PanelBody title={ __( 'Title Font', 'dstheme' ) } initialOpen={false}>
 					<PanelRow>
 						<TextControl
 							__next40pxDefaultSize
