@@ -176,10 +176,6 @@
 			padding: 0 12px;
 		}
 
-		&__decoration img {
-			max-width: 120px;
-		}
-
 		&__title {
 			font-size: 1.9rem;
 			line-height: 1.35;
@@ -202,7 +198,7 @@
 		}
 
 		&__item {
-			flex: 0 0 140px;
+			flex: 0 0 300px;
 			width: 140px;
 		}
 
@@ -225,7 +221,7 @@
 	@media (max-width: 380px) {
 
 		&__title {
-			font-size: 1.7rem;
+			font-size: 22px;
 		}
 
 		&__item,
