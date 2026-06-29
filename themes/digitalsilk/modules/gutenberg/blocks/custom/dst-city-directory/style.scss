@@ -46,9 +46,9 @@
 		width: 100% !important;
 		height: 44px !important;
 		min-height: unset !important;
-		padding: 0 44px 0 16px !important;
+		padding: 0 44px 0 12px!important;
 		border-radius: 10px !important;
-		font-size: 1.4rem !important;
+		font-size: 14px !important;
 		color: var(--dst--base-text-color, #333) !important;
 		background: #F3F3F3 !important;
 		background-color: #F3F3F3 !important;
@@ -91,6 +91,7 @@
 			height: 35px;
 		}
 	}
+
 	&__search-icon {
 		position: absolute;
 		right: 14px;
@@ -125,6 +126,7 @@
 			-ms-overflow-style: none;
 			padding-bottom: 12px;
 			width: 100%;
+			gap: 10px;
 
 			&::-webkit-scrollbar {
 				display: none;
@@ -274,6 +276,8 @@
 			padding: 16px 12px;
 			border-radius: 12px;
 			overflow: hidden;
+			max-width: 92%;
+			box-shadow: 0 1px 14px rgb(0 0 0 / 28%);
 		}
 
 		&__toolbar {
@@ -298,11 +302,12 @@
 			padding: 12px;
 			gap: 10px;
 			overflow: hidden;
+			box-shadow: 0 2px 12px rgb(0 0 0 / 20%) !important;
 		}
 
 		&__card-image {
 			width: 64px;
-			height: 80px;
+			height: 100%;
 			flex-shrink: 0;
 		}
 
@@ -312,11 +317,11 @@
 		}
 
 		&__card-name {
-			font-size: 1.4rem;
+			font-size: 15px;
 		}
 
 		&__card-description {
-			font-size: 1.2rem;
+			font-size: 13px;
 			-webkit-line-clamp: 3;
 		}
 
@@ -325,10 +330,11 @@
 		}
 
 		&__letter {
-			width: 28px;
-			height: 28px;
-			font-size: 1.1rem;
 			flex-shrink: 0;
+			font-size: 14px;
+			height: 31px;
+			width: 30px;
+			border: 1px solid #8080806b;
 		}
 
 		&__view-more {
