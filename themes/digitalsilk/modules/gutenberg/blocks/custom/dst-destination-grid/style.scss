@@ -186,9 +186,19 @@
 		}
 
 		&__items {
-			grid-template-columns: 1fr;
+			grid-template-columns: unset;
+			display: flex;
+			flex-wrap: nowrap;
 			gap: 14px;
 			padding: 0 12px;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
 		}
 
 		&__item,
