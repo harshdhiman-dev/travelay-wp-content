@@ -15,6 +15,7 @@ import {
 	PanelBody,
 	PanelRow,
 	TextControl,
+	SelectControl,
 } from '@wordpress/components';
 import { plus, trash, upload, image as imageIcon } from '@wordpress/icons';
 import classNames from 'classnames';
@@ -43,7 +44,7 @@ const AIRLINE_SLUGS = [
 
 export const BlockEdit = ( props ) => {
 	const { attributes, setAttributes, wrapperProps } = props;
-	const { heading, cities, itemsPerPage, discoverMoreText, viewMoreText } = attributes;
+	const { heading, cities, itemsPerPage, discoverMoreText, viewMoreText, cardLayout } = attributes;
 	const [ importing, setImporting ] = React.useState( false );
 	const [ importMsg, setImportMsg ] = React.useState( '' );
 	const [ importType, setImportType ] = React.useState( '' );
@@ -151,6 +152,19 @@ export const BlockEdit = ( props ) => {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings', 'dstheme' ) } initialOpen={ true }>
+				<PanelRow>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Card Layout', 'dstheme' ) }
+						value={ cardLayout }
+						options={ [
+							{ label: __( 'Horizontal (image left, text right)', 'dstheme' ), value: 'horizontal' },
+							{ label: __( 'Vertical (image top, name below)', 'dstheme' ), value: 'vertical' },
+						] }
+						onChange={ ( value ) => setAttributes( { cardLayout: value } ) }
+					/>
+				</PanelRow>
 					<PanelRow>
 						<TextControl
 							__next40pxDefaultSize
@@ -354,40 +368,58 @@ export const BlockEdit = ( props ) => {
 						) ) }
 					</div>
 
-					<div className="c-city-directory__grid">
-						{ cities.slice( 0, itemsPerPage ).map( ( city, index ) => (
-							<div className="c-city-directory__card" key={ index }>
-								<div className="c-city-directory__card-image">
-									{ city.media?.url ? (
-										<img src={ city.media.url } alt={ city.media.alt || city.name } />
-									) : (
-										<div className="c-city-directory__image-placeholder" />
-									) }
-								</div>
-								<div className="c-city-directory__card-body">
-									<RichText
-										tagName="h3"
-										className="c-city-directory__card-name"
-										value={ city.name }
-										onChange={ ( value ) => updateCity( index, 'name', value ) }
-										placeholder={ __( 'City name…', 'dstheme' ) }
-										allowedFormats={ [] }
-									/>
-									<RichText
-										tagName="p"
-										className="c-city-directory__card-description"
-										value={ city.description }
-										onChange={ ( value ) => updateCity( index, 'description', value ) }
-										placeholder={ __( 'City description…', 'dstheme' ) }
-										allowedFormats={ [] }
-									/>
-									<span className="c-city-directory__card-link">
-										{ discoverMoreText } &rsaquo;
-									</span>
-								</div>
-							</div>
-						) ) }
-					</div>
+					<div className={ `c-city-directory__grid c-city-directory__grid--${ cardLayout }` }>
+					{ cities.slice( 0, itemsPerPage ).map( ( city, index ) => (
+						<div className={ `c-city-directory__card c-city-directory__card--${ cardLayout }` } key={ index }>
+							{ cardLayout === 'vertical' ? (
+								<>
+									<div className="c-city-directory__card-image c-city-directory__card-image--vertical">
+										{ city.media?.url ? (
+											<img src={ city.media.url } alt={ city.media.alt || city.name } />
+										) : (
+											<div className="c-city-directory__image-placeholder" />
+										) }
+									</div>
+									<div className="c-city-directory__card-footer">
+										<span className="c-city-directory__card-name c-city-directory__card-name--vertical">{ city.name || __( 'City name…', 'dstheme' ) }</span>
+										<span className="c-city-directory__card-arrow">›</span>
+									</div>
+								</>
+							) : (
+								<>
+									<div className="c-city-directory__card-image">
+										{ city.media?.url ? (
+											<img src={ city.media.url } alt={ city.media.alt || city.name } />
+										) : (
+											<div className="c-city-directory__image-placeholder" />
+										) }
+									</div>
+									<div className="c-city-directory__card-body">
+										<RichText
+											tagName="h3"
+											className="c-city-directory__card-name"
+											value={ city.name }
+											onChange={ ( value ) => updateCity( index, 'name', value ) }
+											placeholder={ __( 'City name…', 'dstheme' ) }
+											allowedFormats={ [] }
+										/>
+										<RichText
+											tagName="p"
+											className="c-city-directory__card-description"
+											value={ city.description }
+											onChange={ ( value ) => updateCity( index, 'description', value ) }
+											placeholder={ __( 'City description…', 'dstheme' ) }
+											allowedFormats={ [] }
+										/>
+										<span className="c-city-directory__card-link">
+											{ discoverMoreText } &rsaquo;
+										</span>
+									</div>
+								</>
+							) }
+						</div>
+					) ) }
+				</div>
 
 					{ cities.length > itemsPerPage && (
 						<div className="c-city-directory__view-more-wrap">

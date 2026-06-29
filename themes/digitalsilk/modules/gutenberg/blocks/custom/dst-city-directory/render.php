@@ -13,7 +13,10 @@ $heading           = $attributes['heading'] ?? 'List of All Cities';
 $cities            = ( ! empty( $attributes['cities'] ) && is_array( $attributes['cities'] ) ) ? $attributes['cities'] : [];
 $items_per_page    = (int) ( $attributes['itemsPerPage'] ?? 9 );
 $discover_more_text = $attributes['discoverMoreText'] ?? 'Discover More';
-$view_more_text    = $attributes['viewMoreText'] ?? 'View More';
+$view_more_text     = $attributes['viewMoreText'] ?? 'View More';
+$card_layout        = in_array( $attributes['cardLayout'] ?? 'horizontal', [ 'horizontal', 'vertical' ], true )
+	? $attributes['cardLayout']
+	: 'horizontal';
 
 $anchor      = ! empty( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 $anchor_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
@@ -41,6 +44,7 @@ $cities_json = wp_json_encode(
 	data-cities="<?php echo esc_attr( $cities_json ); ?>"
 	data-items-per-page="<?php echo esc_attr( $items_per_page ); ?>"
 	data-discover-text="<?php echo esc_attr( $discover_more_text ); ?>"
+	data-card-layout="<?php echo esc_attr( $card_layout ); ?>"
 >
 
 	<?php if ( ! empty( $heading ) ) : ?>
@@ -78,7 +82,7 @@ $cities_json = wp_json_encode(
 			<?php endforeach; ?>
 		</div>
 
-		<div class="c-city-directory__grid" role="list">
+		<div class="c-city-directory__grid c-city-directory__grid--<?php echo esc_attr( $card_layout ); ?>" role="list">
 			<?php foreach ( $cities as $index => $city ) : ?>
 				<?php
 				$city_name  = $city['name'] ?? '';
@@ -90,30 +94,52 @@ $cities_json = wp_json_encode(
 				$hidden     = ( $index >= $items_per_page ) ? ' style="display:none"' : '';
 				?>
 				<div
-					class="c-city-directory__card"
+					class="c-city-directory__card c-city-directory__card--<?php echo esc_attr( $card_layout ); ?>"
 					data-city-name="<?php echo esc_attr( $city_name ); ?>"
 					data-letter="<?php echo esc_attr( $first_char ); ?>"
 					role="listitem"
 					<?php echo $hidden; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				>
-					<div class="c-city-directory__card-image">
-						<?php if ( ! empty( $image_url ) ) : ?>
-							<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" />
-						<?php endif; ?>
-					</div>
-					<div class="c-city-directory__card-body">
-						<h3 class="c-city-directory__card-name"><?php echo wp_kses_post( $city_name ); ?></h3>
-						<p class="c-city-directory__card-description"><?php echo wp_kses_post( $city_desc ); ?></p>
-						<?php if ( ! empty( $city_link ) && '#' !== $city_link ) : ?>
-							<a href="<?php echo esc_url( $city_link ); ?>" class="c-city-directory__card-link">
-								<?php echo esc_html( $discover_more_text ); ?> &rsaquo;
-							</a>
-						<?php else : ?>
-							<span class="c-city-directory__card-link">
-								<?php echo esc_html( $discover_more_text ); ?> &rsaquo;
-							</span>
-						<?php endif; ?>
-					</div>
+					<?php if ( 'vertical' === $card_layout ) : ?>
+						<div class="c-city-directory__card-image c-city-directory__card-image--vertical">
+							<?php if ( ! empty( $image_url ) ) : ?>
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" />
+							<?php else : ?>
+								<div class="c-city-directory__image-placeholder"></div>
+							<?php endif; ?>
+						</div>
+						<div class="c-city-directory__card-footer">
+							<?php if ( ! empty( $city_link ) && '#' !== $city_link ) : ?>
+								<a href="<?php echo esc_url( $city_link ); ?>" class="c-city-directory__card-name c-city-directory__card-name--vertical">
+									<?php echo wp_kses_post( $city_name ); ?>
+								</a>
+							<?php else : ?>
+								<span class="c-city-directory__card-name c-city-directory__card-name--vertical">
+									<?php echo wp_kses_post( $city_name ); ?>
+								</span>
+							<?php endif; ?>
+							<span class="c-city-directory__card-arrow">›</span>
+						</div>
+					<?php else : ?>
+						<div class="c-city-directory__card-image">
+							<?php if ( ! empty( $image_url ) ) : ?>
+								<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>" loading="lazy" />
+							<?php endif; ?>
+						</div>
+						<div class="c-city-directory__card-body">
+							<h3 class="c-city-directory__card-name"><?php echo wp_kses_post( $city_name ); ?></h3>
+							<p class="c-city-directory__card-description"><?php echo wp_kses_post( $city_desc ); ?></p>
+							<?php if ( ! empty( $city_link ) && '#' !== $city_link ) : ?>
+								<a href="<?php echo esc_url( $city_link ); ?>" class="c-city-directory__card-link">
+									<?php echo esc_html( $discover_more_text ); ?> &rsaquo;
+								</a>
+							<?php else : ?>
+								<span class="c-city-directory__card-link">
+									<?php echo esc_html( $discover_more_text ); ?> &rsaquo;
+								</span>
+							<?php endif; ?>
+						</div>
+					<?php endif; ?>
 				</div>
 			<?php endforeach; ?>
 		</div>
