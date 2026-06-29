@@ -150,16 +150,19 @@
 		padding: 32px 20px;
 
 		&__track {
-			grid-template-columns: 1fr;
-			gap: 28px;
+			gap: 0;
+			display: flex;
+			flex-direction: column;
 		}
 
 		&__season {
 			padding: 0;
+			max-height: 80%;
 		}
 
 		&__season-image {
 			width: 100% !important;
+			height: auto;
 		}
 
 		&__dot {
