@@ -16055,7 +16055,7 @@ button.amadex-remove-adult-btn {
     padding: 0 24px;
     position: sticky;
     top: 0;
-    z-index: 999;
+    z-index: 9;
 }
 
 /* When WP admin bar is visible, offset by its height */
