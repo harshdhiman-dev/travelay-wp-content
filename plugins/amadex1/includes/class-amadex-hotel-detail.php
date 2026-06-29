@@ -2680,7 +2680,6 @@ class Amadex_Hotel_Detail
                     var insertAfter = amenEl || locationEl || roomsWrap;
                     if (insertAfter) insertAfter.insertAdjacentHTML('afterend', html);
                 }
-                // ── Lightbox ────────────────────────────
                 var lbPhotos = [];
                 var lbIndex = 0;
 
@@ -2716,7 +2715,6 @@ class Amadex_Hotel_Detail
                         return '<img class="ahd-lightbox-thumb' + (i === lbIndex ? ' active' : '') +
                             '" src="' + p + '" onclick="ahdLightboxGoto(' + i + ')" alt="photo ' + (i + 1) + '">';
                     }).join('');
-                    // Scroll active thumb into view
                     var activeThumb = thumbs.querySelector('.active');
                     if (activeThumb) activeThumb.scrollIntoView({
                         inline: 'center',
