@@ -21,7 +21,7 @@
 		background: #fff;
 		border-radius: 20px;
 		padding: 28px;
-		box-shadow: 0 2px 20px rgba(0, 0, 0, .06);
+		box-shadow: 0 1px 14px rgba(0, 0, 0, .28);
 		max-width: 1435px;
 	}
 
@@ -135,20 +135,22 @@
 	}
 
 	&__letter {
-		width: 34px;
-		height: 34px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		border-radius: 50%;
 		border: none;
 		background: transparent;
-		font-size: 1.3rem;
 		font-weight: 500;
 		color: var(--dst--base-text-color, #333);
 		cursor: pointer;
 		transition: background .15s, color .15s;
 		padding: 0;
+		border: 1px solid hsla(0, 0%, 50%, .42);
+		flex-shrink: 0;
+		font-size: 14px;
+		height: 31px;
+		width: 30px;
 
 		&:hover {
 			background: rgba(31, 122, 77, .1);
@@ -174,6 +176,7 @@
 		padding: 16px;
 		border: 1px solid #f0f0f0;
 		border-radius: 14px;
+		box-shadow: 0 2px 12px rgba(0, 0, 0, .2) !important;
 		transition: box-shadow .2s;
 
 		&:hover {
@@ -341,6 +344,13 @@
 		&__view-more {
 			padding: 12px 32px;
 			font-size: 1.4rem;
+		}
+	}
+
+	@media (max-width: 799px) {
+		&__grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px;
 		}
 	}
 }
