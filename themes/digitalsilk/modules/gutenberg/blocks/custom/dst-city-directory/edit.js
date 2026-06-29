@@ -382,7 +382,7 @@ export const BlockEdit = ( props ) => {
 									</div>
 									<div className="c-city-directory__card-footer">
 										<span className="c-city-directory__card-name c-city-directory__card-name--vertical">{ city.name || __( 'City name…', 'dstheme' ) }</span>
-										<span className="c-city-directory__card-arrow">›</span>
+										<span className="c-city-directory__card-arrow" style={ { fontSize: '1.4rem', color: '#555' } }>›</span>
 									</div>
 								</>
 							) : (
