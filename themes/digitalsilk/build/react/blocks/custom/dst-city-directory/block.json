@@ -88,6 +88,10 @@
     "viewMoreText": {
       "type": "string",
       "default": "View More"
+    },
+    "cardLayout": {
+      "type": "string",
+      "default": "horizontal"
     }
   },
   "supports": {
