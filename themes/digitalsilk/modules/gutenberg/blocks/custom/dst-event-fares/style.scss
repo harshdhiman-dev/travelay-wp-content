@@ -262,8 +262,23 @@
 		}
 
 		&__grid {
-			grid-template-columns: 1fr !important;
+			grid-template-columns: unset !important;
+			display: flex;
+			flex-wrap: nowrap;
 			gap: 16px;
+			overflow-x: auto;
+			-webkit-overflow-scrolling: touch;
+			scrollbar-width: none;
+			-ms-overflow-style: none;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+
+		&__card {
+			flex: 0 0 85%;
+			width: 85%;
 		}
 
 		&__heading {
