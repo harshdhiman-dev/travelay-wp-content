@@ -76,7 +76,7 @@ $unique_id = 'dst-event-fares-' . substr( md5( $heading . wp_json_encode( $citie
 				$stadium      = $city['stadium']      ?? '';
 				$matches_text = $city['matchesText']  ?? '';
 				$badge_text   = $city['badgeText']    ?? '';
-				$badge_color  = $city['badgeColor']   ?? '#1f7a4d';
+				$badge_color  = $city['badgeColor']   ?? '#0E7D3F';
 				$flights      = ( ! empty( $city['flights'] ) && is_array( $city['flights'] ) ) ? $city['flights'] : [];
 				$hidden       = ( $index >= $items_per_page ) ? ' style="display:none"' : '';
 			?>
