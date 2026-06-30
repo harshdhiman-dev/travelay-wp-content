@@ -17,6 +17,7 @@
 	flex-direction: column;
 	overflow: hidden;
 	max-width: 1280px;
+	border-radius: 20px;
 
 	&__bg {
 		position: absolute;
@@ -43,7 +44,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
 		flex: 1;
 		padding: 40px 24px;
 		margin: 0 auto;
@@ -59,12 +59,13 @@
 	}
 
 	&__title {
-		font-size: clamp(22px, 2.8vw, 38px);
-		font-weight: 700;
+		font-size: 42px;
+		font-weight: 500;
 		line-height: 1.25;
 		color: #1a5c2a;
 		margin: 0;
 		text-align: center;
+		font-family: 'Gloucester MT';
 	}
 
 	&__subtitle {
