@@ -94,6 +94,7 @@ if ( $subtitle_font_size ) {
 </style>
 <?php endif; ?>
 
+<div class="c-promo-banner__outer">
 <div<?php echo $anchor_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	id="<?php echo esc_attr( $unique_id ); ?>"
 	class="c-promo-banner wp-block-ds-blocks-promo-banner"
@@ -149,4 +150,5 @@ if ( $subtitle_font_size ) {
 
 		</div>
 	</div>
+</div>
 </div>

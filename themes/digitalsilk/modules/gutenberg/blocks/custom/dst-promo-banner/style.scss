@@ -3,6 +3,12 @@
  * and in the editor.
  */
 
+.c-promo-banner__outer {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
 .c-promo-banner {
 	position: relative;
 	width: 100%;

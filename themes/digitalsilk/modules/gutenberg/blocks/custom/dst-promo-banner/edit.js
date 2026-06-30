@@ -403,6 +403,7 @@ export const BlockEdit = ( props ) => {
 
 			</InspectorControls>
 
+			<div className="c-promo-banner__outer">
 			<div { ...blockProps }>
 				{ bgImageUrl && (
 					<img
@@ -463,6 +464,7 @@ export const BlockEdit = ( props ) => {
 
 					</div>
 				</div>
+			</div>
 			</div>
 		</>
 	);
