@@ -1,0 +1,91 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ds-blocks/promo-banner",
+	"title": "DST Promo Banner",
+	"category": "ds-layouts",
+	"icon": "megaphone",
+	"description": "A wide promo banner with background image, overlay, title, subtitle, and a CTA button. Ideal for sports, events, or campaign promotions.",
+	"example": {},
+	"attributes": {
+		"title": {
+			"type": "string",
+			"default": "The World's Biggest Football Moments Deserve A Front-Row Seat"
+		},
+		"subtitle": {
+			"type": "string",
+			"default": "Book Your Journey To The Action And Cheer For Your Favorite Team Live From The Stadium"
+		},
+		"titleColor": {
+			"type": "string",
+			"default": "#1a5c2a"
+		},
+		"subtitleColor": {
+			"type": "string",
+			"default": "#1a5c2a"
+		},
+		"titleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"titleAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"subtitleFontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"subtitleAlign": {
+			"type": "string",
+			"default": "center"
+		},
+		"titleFont": {
+			"type": "object",
+			"default": {
+				"url": "",
+				"family": ""
+			}
+		},
+		"background": {
+			"type": "object",
+			"default": {
+				"image": { "id": "", "url": "", "alt": "" },
+				"bgColor": "#d4edda",
+				"overlayColor": "#000000",
+				"overlayOpacity": 0
+			}
+		},
+		"minHeight": {
+			"type": "string",
+			"default": "220px"
+		},
+		"contentWidth": {
+			"type": "string",
+			"default": "900px"
+		},
+		"button": {
+			"type": "object",
+			"default": {
+				"text": "",
+				"url": "",
+				"bgColor": "#1a5c2a",
+				"textColor": "#ffffff",
+				"borderRadius": "40px",
+				"target": "_self"
+			}
+		},
+		"subtitleBorder": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"textdomain": "dstheme",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
