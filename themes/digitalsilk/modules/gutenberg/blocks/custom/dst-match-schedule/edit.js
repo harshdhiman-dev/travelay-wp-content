@@ -411,14 +411,7 @@ export const BlockEdit = ( props ) => {
 										</div>
 
 										<div className="c-match-schedule__team">
-											<RichText
-												tagName="span"
-												className="c-match-schedule__flag"
-												value={ match.teamAFlag }
-												onChange={ ( value ) => updateMatch( index, 'teamAFlag', value ) }
-												placeholder="🏳️"
-												allowedFormats={ [] }
-											/>
+											<span className={ `c-match-schedule__flag fi fi-${ ( match.teamAFlag || '' ).toLowerCase() }` } />
 											<RichText
 												tagName="span"
 												className="c-match-schedule__team-name"
@@ -430,14 +423,7 @@ export const BlockEdit = ( props ) => {
 										</div>
 										<div className="c-match-schedule__vs">vs</div>
 										<div className="c-match-schedule__team">
-											<RichText
-												tagName="span"
-												className="c-match-schedule__flag"
-												value={ match.teamBFlag }
-												onChange={ ( value ) => updateMatch( index, 'teamBFlag', value ) }
-												placeholder="🏳️"
-												allowedFormats={ [] }
-											/>
+											<span className={ `c-match-schedule__flag fi fi-${ ( match.teamBFlag || '' ).toLowerCase() }` } />
 											<RichText
 												tagName="span"
 												className="c-match-schedule__team-name"
@@ -474,6 +460,24 @@ export const BlockEdit = ( props ) => {
 										</div>
 
 										<div className="c-match-schedule__card-meta">
+											<TextControl
+												__next40pxDefaultSize
+												__nextHasNoMarginBottom
+												label={ __( 'Team A Flag (2-letter code)', 'dstheme' ) }
+												value={ match.teamAFlag }
+												placeholder="us"
+												help={ __( 'ISO country code, e.g. us, gb, fr, jo, at', 'dstheme' ) }
+												onChange={ ( value ) => updateMatch( index, 'teamAFlag', value ) }
+											/>
+											<TextControl
+												__next40pxDefaultSize
+												__nextHasNoMarginBottom
+												label={ __( 'Team B Flag (2-letter code)', 'dstheme' ) }
+												value={ match.teamBFlag }
+												placeholder="py"
+												help={ __( 'ISO country code, e.g. py, mx, ca', 'dstheme' ) }
+												onChange={ ( value ) => updateMatch( index, 'teamBFlag', value ) }
+											/>
 											<SelectControl
 												__next40pxDefaultSize
 												__nextHasNoMarginBottom

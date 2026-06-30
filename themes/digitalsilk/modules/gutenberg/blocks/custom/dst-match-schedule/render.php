@@ -41,6 +41,8 @@ $anchor_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
 $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $matches ) ), 0, 8 );
 ?>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
+
 <div<?php echo $anchor_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	id="<?php echo esc_attr( $unique_id ); ?>"
 	class="c-match-schedule wp-block-ds-blocks-match-schedule"
@@ -149,12 +151,12 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 							</div>
 
 							<div class="c-match-schedule__team">
-								<span class="c-match-schedule__flag"><?php echo esc_html( $team_a_flag ); ?></span>
+								<span class="c-match-schedule__flag fi fi-<?php echo esc_attr( strtolower( $team_a_flag ) ); ?>"></span>
 								<span class="c-match-schedule__team-name"><?php echo esc_html( $team_a_name ); ?></span>
 							</div>
 							<div class="c-match-schedule__vs">vs</div>
 							<div class="c-match-schedule__team">
-								<span class="c-match-schedule__flag"><?php echo esc_html( $team_b_flag ); ?></span>
+								<span class="c-match-schedule__flag fi fi-<?php echo esc_attr( strtolower( $team_b_flag ) ); ?>"></span>
 								<span class="c-match-schedule__team-name"><?php echo esc_html( $team_b_name ); ?></span>
 							</div>
 

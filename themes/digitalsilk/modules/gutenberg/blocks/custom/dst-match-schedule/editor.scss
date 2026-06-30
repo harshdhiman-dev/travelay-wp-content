@@ -1,4 +1,14 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css');
+
 .c-match-schedule {
+
+	&__flag {
+		width: 24px;
+		height: 18px;
+		display: inline-block;
+		border-radius: 3px;
+		background-size: cover;
+	}
 
 	&__panel-item {
 		width: 100%;
