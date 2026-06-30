@@ -124,7 +124,13 @@
 		}
 	}
 
+	&__add-city-card {
+		background: transparent;
+		border: 0;
+	}
+
 	&__add-city-text {
 		font-size: 1.2rem;
 	}
+
 }
