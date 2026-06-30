@@ -1,0 +1,91 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/hero-banner",
+  "title": "DST Hero Banner",
+  "category": "ds-layouts",
+  "icon": "cover-image",
+  "description": "Full-width hero banner with a small tag, decorative calligraphic title (custom font), subtitle, background image with overlay, and an embedded search shortcode.",
+  "example": {},
+  "attributes": {
+    "tag": {
+      "type": "string",
+      "default": "Don't Say Travel, Say Travelay!"
+    },
+    "title": {
+      "type": "string",
+      "default": "India / भारत"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "Fly smarter with Travelay™ offering low fares, secure booking, and round-the-clock help."
+    },
+    "shortcode": {
+      "type": "string",
+      "default": "[amadex_search_modern]"
+    },
+    "background": {
+      "type": "object",
+      "default": {
+        "image": {
+          "id": "",
+          "url": "",
+          "alt": ""
+        },
+        "overlayColor": "#000000",
+        "overlayOpacity": 40
+      }
+    },
+    "titleFont": {
+      "type": "object",
+      "default": {
+        "url": "",
+        "family": "Shivaraja"
+      }
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "tagColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "subtitleColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "minHeight": {
+      "type": "string",
+      "default": "520px"
+    },
+    "contentWidth": {
+      "type": "string",
+      "default": "900px"
+    },
+    "titleFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "titleAlign": {
+      "type": "string",
+      "default": "center"
+    },
+    "subtitleFontSize": {
+      "type": "string",
+      "default": ""
+    },
+    "subtitleAlign": {
+      "type": "string",
+      "default": "center"
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

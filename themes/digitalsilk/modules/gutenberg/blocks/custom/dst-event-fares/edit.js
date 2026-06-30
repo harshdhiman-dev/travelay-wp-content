@@ -551,16 +551,18 @@ export const BlockEdit = (props) => {
 											</div>
 										</div>
 									))}
-									<div className="c-event-fares__add-city-wrap">
-										<button className="c-event-fares__add-city-btn" onClick={addCity}>
-											{__('Add Flight', 'dstheme')}
-										</button>
-										<span className="c-event-fares__add-city-label">Add City</span>
-									</div>
+									<Button
+										variant="secondary"
+										icon={plus}
+										isSmall
+										onClick={() => addFlight(index)}
+										className="c-event-fares__add-flight-btn"
+									>
+										{__('Add Flight', 'dstheme')}
+									</Button>
 								</div>
 							</div>
 						))}
-
 					</div>
 
 					<div className="c-event-fares__add-city-wrap">
@@ -571,22 +573,21 @@ export const BlockEdit = (props) => {
 							title={__('Add City', 'dstheme')}
 						>
 							<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+								<path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
 							</svg>
 						</button>
 						<span className="c-event-fares__add-city-label">{__('Add City', 'dstheme')}</span>
 					</div>
-				</div>
 
-				{cities.length > itemsPerPage && (
-					<div className="c-event-fares__view-more-wrap">
-						<button className="c-event-fares__view-more" disabled>
-							{viewMoreText}
-						</button>
-					</div>
-				)}
+					{cities.length > itemsPerPage && (
+						<div className="c-event-fares__view-more-wrap">
+							<button className="c-event-fares__view-more" disabled>
+								{viewMoreText}
+							</button>
+						</div>
+					)}
+				</div>
 			</div>
-		</div >
 		</>
 	);
 };
