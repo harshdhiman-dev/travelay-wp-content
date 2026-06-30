@@ -80,6 +80,10 @@ if ( $subtitle_font_size ) {
 }
 ?>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" rel="stylesheet">
+
 <?php if ( ! empty( $font_url ) && ! empty( $font_family ) ) : ?>
 <style>
 	@font-face {
