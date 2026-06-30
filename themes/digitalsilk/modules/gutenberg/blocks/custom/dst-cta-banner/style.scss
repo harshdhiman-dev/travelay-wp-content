@@ -1,0 +1,130 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ */
+
+.c-cta-banner {
+	width: 100%;
+	padding: 40px clamp(20px, 5vw, 80px) 56px;
+
+	&__inner {
+		max-width: 1435px;
+		margin: 0 auto;
+	}
+
+	&__heading {
+		font-size: clamp(20px, 2.2vw, 28px);
+		font-weight: 700;
+		color: #fff;
+		text-align: center;
+		margin: 0 0 24px;
+	}
+
+	&__photo {
+		position: relative;
+		min-height: 320px;
+		border-radius: 20px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		box-shadow: 0 8px 30px rgba(0, 0, 0, .2);
+	}
+
+	&__bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		display: block;
+		z-index: 0;
+		margin: 0;
+	}
+
+	&__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	&__content {
+		position: relative;
+		z-index: 2;
+		padding: 32px clamp(20px, 4vw, 48px);
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	&__title {
+		font-size: clamp(20px, 2.2vw, 28px);
+		font-weight: 700;
+		line-height: 1.3;
+		color: #fff;
+		margin: 0;
+	}
+
+	&__subtitle {
+		font-size: clamp(13px, 1vw, 15px);
+		line-height: 1.6;
+		color: #fff;
+		margin: 0 0 8px;
+		max-width: 100%;
+	}
+
+	&__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		width: fit-content;
+		padding: 14px 26px;
+		background: #1f7a4d;
+		color: #fff;
+		border-radius: 40px;
+		font-size: 1.4rem;
+		font-weight: 600;
+		text-decoration: none;
+		transition: opacity .2s;
+
+		&:hover {
+			opacity: .88;
+		}
+	}
+
+	&__cta-icon {
+		display: flex;
+		align-items: center;
+	}
+
+	@media (max-width: 768px) {
+
+		&__photo {
+			min-height: 280px;
+		}
+
+		&__content {
+			padding: 24px 20px;
+		}
+	}
+
+	@media (max-width: 480px) {
+
+		padding: 28px 16px 40px;
+
+		&__photo {
+			min-height: 380px;
+		}
+
+		&__content {
+			max-width: 100% !important;
+			padding: 20px 16px;
+		}
+
+		&__cta {
+			width: 100%;
+			justify-content: center;
+		}
+	}
+}
