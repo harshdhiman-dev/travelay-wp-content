@@ -1,0 +1,281 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ */
+
+.c-event-fares {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	padding: 0;
+
+	&__bg {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center center;
+		display: block;
+		z-index: 0;
+		margin: 0;
+	}
+
+	&__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	&__inner {
+		position: relative;
+		z-index: 2;
+		padding: 56px clamp(20px, 5vw, 80px);
+		max-width: 1435px;
+		margin: 0 auto;
+	}
+
+	&__heading {
+		font-size: clamp(22px, 2.6vw, 34px);
+		font-weight: 700;
+		color: #fff;
+		text-align: center;
+		margin: 0 0 36px;
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	&__card {
+		background: #fff;
+		border-radius: 16px;
+		padding: 22px;
+		box-shadow: 0 4px 18px rgba(0, 0, 0, .12);
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__card-top {
+		margin-bottom: 16px;
+	}
+
+	&__card-titlewrap {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 10px;
+		margin-bottom: 6px;
+	}
+
+	&__city-name {
+		font-size: 1.9rem;
+		font-weight: 700;
+		color: #1a1a1a;
+		margin: 0;
+		line-height: 1.2;
+	}
+
+	&__badge {
+		flex-shrink: 0;
+		font-size: 1.05rem;
+		font-weight: 600;
+		color: #fff;
+		padding: 4px 12px;
+		border-radius: 30px;
+		white-space: nowrap;
+		line-height: 1.4;
+	}
+
+	&__stadium {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 1.3rem;
+		color: #666;
+		margin-bottom: 8px;
+
+		&-icon {
+			display: inline-flex;
+			color: #999;
+			flex-shrink: 0;
+		}
+	}
+
+	&__matches {
+		font-size: 1.1rem;
+		font-weight: 700;
+		letter-spacing: .04em;
+		color: #1a1a1a;
+		margin: 0;
+		text-transform: uppercase;
+	}
+
+	&__flights {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	&__flight {
+		display: block;
+		background: #eaf5ec;
+		border: 1px dashed #8fc79c;
+		border-radius: 12px;
+		padding: 14px 16px;
+		text-decoration: none;
+		transition: box-shadow .15s, transform .15s;
+
+		&:hover {
+			box-shadow: 0 2px 10px rgba(31, 122, 77, .18);
+			transform: translateY(-1px);
+		}
+	}
+
+	&__flight-route {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+		position: relative;
+		margin-bottom: 10px;
+	}
+
+	&__flight-point {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+
+		&--end {
+			align-items: flex-end;
+			text-align: right;
+		}
+	}
+
+	&__flight-code {
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: #1a1a1a;
+		line-height: 1.2;
+	}
+
+	&__flight-city {
+		font-size: 1.1rem;
+		color: #777;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 110px;
+	}
+
+	&__flight-line {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #1a1a1a;
+		min-width: 30px;
+	}
+
+	&__flight-line-mid {
+		flex: 1;
+		text-align: center;
+		color: #1a1a1a;
+		font-size: 1.2rem;
+		letter-spacing: 1px;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	&__flight-arrow {
+		position: absolute;
+		right: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		flex-shrink: 0;
+		display: none;
+	}
+
+	&__flight-bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 8px;
+	}
+
+	&__flight-date {
+		font-size: 1.2rem;
+		color: #1a1a1a;
+		font-weight: 500;
+	}
+
+	&__flight-price {
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: #1f7a4d;
+	}
+
+	&__flight-per {
+		font-size: 1.05rem;
+		font-weight: 400;
+		color: #5a8a68;
+		margin-left: 2px;
+	}
+
+	&__view-more-wrap {
+		display: flex;
+		justify-content: center;
+		margin-top: 32px;
+	}
+
+	&__view-more {
+		padding: 14px 48px;
+		background: #fff;
+		color: #1f7a4d;
+		border: none;
+		border-radius: 40px;
+		font-size: 1.5rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: opacity .2s;
+
+		&:hover {
+			opacity: .85;
+		}
+	}
+
+	@media (max-width: 991px) {
+
+		&__grid {
+			grid-template-columns: repeat(2, 1fr) !important;
+		}
+	}
+
+	@media (max-width: 599px) {
+
+		&__inner {
+			padding: 36px 16px;
+		}
+
+		&__grid {
+			grid-template-columns: 1fr !important;
+			gap: 16px;
+		}
+
+		&__heading {
+			margin-bottom: 24px;
+		}
+
+		&__card {
+			padding: 16px;
+		}
+
+		&__flight-city {
+			max-width: 80px;
+		}
+	}
+}
