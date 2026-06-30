@@ -53,12 +53,14 @@
 	}
 
 	&__sidebar {
-		flex: 0 0 220px;
-		background: #eaf5ec;
-		padding: 24px 16px;
+		flex: 0 0 155px;
+		background: #F0FFDF;
+		padding: 18px 8px;
 		display: flex;
 		flex-direction: column;
 		gap: 4px;
+		margin: 11px;
+		border-radius: 15px;
 	}
 
 	&__sidebar-label {
@@ -87,7 +89,7 @@
 		}
 
 		&.-active {
-			background: #1f7a4d;
+			background: #0E7D3F;
 			color: #fff;
 			font-weight: 600;
 		}
