@@ -65,3 +65,59 @@
 		gap: 8px;
 	}
 }
+
+.c-event-fares {
+
+	&__card-controls {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 4px;
+	}
+
+	&__flight-controls {
+		display: flex;
+		justify-content: flex-end;
+		margin-bottom: 4px;
+	}
+
+	&__add-flight-btn {
+		align-self: flex-start;
+		margin-top: 4px;
+	}
+
+	&__add-city-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		min-height: 200px;
+		border: 2px dashed rgba(255, 255, 255, .5);
+		border-radius: 16px;
+		background: transparent;
+		color: #fff;
+		font-size: 1.4rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: background .15s, border-color .15s;
+
+		&:hover {
+			background: rgba(255, 255, 255, .08);
+			border-color: #fff;
+		}
+	}
+
+	&__add-city-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, .15);
+
+		svg {
+			fill: currentColor;
+		}
+	}
+}

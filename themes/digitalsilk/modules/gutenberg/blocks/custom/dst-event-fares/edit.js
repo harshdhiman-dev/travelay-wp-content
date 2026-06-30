@@ -7,6 +7,7 @@ import {
 	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
+	RichText,
 } from '@wordpress/block-editor';
 import {
 	Button,
@@ -241,7 +242,10 @@ export const BlockEdit = ( props ) => {
 				</PanelBody>
 
 				{ /* ── Cities repeater ─────────────────────────────── */ }
-				<PanelBody title={ __( 'Host Cities', 'dstheme' ) } initialOpen={ false }>
+				<PanelBody title={ __( 'Host Cities (advanced)', 'dstheme' ) } initialOpen={ false }>
+					<p style={ { fontSize: '12px', color: '#757575', marginBottom: '12px' } }>
+						{ __( 'Tip: you can also edit city name, stadium, badge, and flight fields directly on the card in the canvas.', 'dstheme' ) }
+					</p>
 					{ cities.map( ( city, cityIndex ) => (
 						<div className="c-event-fares__repeater-item" key={ cityIndex }>
 							<div className="c-event-fares__repeater-head">
@@ -427,53 +431,147 @@ export const BlockEdit = ( props ) => {
 					>
 						{ cities.slice( 0, itemsPerPage ).map( ( city, index ) => (
 							<div className="c-event-fares__card" key={ index }>
+								<div className="c-event-fares__card-controls">
+									<Button
+										icon={ trash }
+										isDestructive
+										isSmall
+										label={ __( 'Remove city', 'dstheme' ) }
+										onClick={ () => removeCity( index ) }
+									/>
+								</div>
+
 								<div className="c-event-fares__card-top">
 									<div className="c-event-fares__card-titlewrap">
-										<h3 className="c-event-fares__city-name">
-											{ city.cityName || __( 'City Name', 'dstheme' ) }
-										</h3>
-										{ city.badgeText && (
-											<span
-												className="c-event-fares__badge"
-												style={ { backgroundColor: city.badgeColor || '#1f7a4d' } }
-											>
-												{ city.badgeText }
-											</span>
-										) }
+										<RichText
+											tagName="h3"
+											className="c-event-fares__city-name"
+											value={ city.cityName }
+											onChange={ ( value ) => updateCity( index, 'cityName', value ) }
+											placeholder={ __( 'City Name', 'dstheme' ) }
+											allowedFormats={ [] }
+										/>
+										<RichText
+											tagName="span"
+											className="c-event-fares__badge"
+											value={ city.badgeText }
+											onChange={ ( value ) => updateCity( index, 'badgeText', value ) }
+											placeholder={ __( 'Badge', 'dstheme' ) }
+											allowedFormats={ [] }
+											style={ { backgroundColor: city.badgeColor || '#1f7a4d' } }
+										/>
 									</div>
-									{ city.stadium && (
-										<div className="c-event-fares__stadium">{ city.stadium }</div>
-									) }
-									{ city.matchesText && (
-										<p className="c-event-fares__matches">{ city.matchesText }</p>
-									) }
+									<RichText
+										tagName="div"
+										className="c-event-fares__stadium"
+										value={ city.stadium }
+										onChange={ ( value ) => updateCity( index, 'stadium', value ) }
+										placeholder={ __( 'Stadium name…', 'dstheme' ) }
+										allowedFormats={ [] }
+									/>
+									<RichText
+										tagName="p"
+										className="c-event-fares__matches"
+										value={ city.matchesText }
+										onChange={ ( value ) => updateCity( index, 'matchesText', value ) }
+										placeholder={ __( 'HOSTS 8 MATCHES', 'dstheme' ) }
+										allowedFormats={ [] }
+									/>
 								</div>
 
 								<div className="c-event-fares__flights">
 									{ ( city.flights || [] ).map( ( flight, fIndex ) => (
 										<div className="c-event-fares__flight" key={ fIndex }>
+											<div className="c-event-fares__flight-controls">
+												<Button
+													icon={ trash }
+													isDestructive
+													isSmall
+													label={ __( 'Remove flight', 'dstheme' ) }
+													onClick={ () => removeFlight( index, fIndex ) }
+												/>
+											</div>
 											<div className="c-event-fares__flight-route">
 												<div className="c-event-fares__flight-point">
-													<span className="c-event-fares__flight-code">{ flight.fromCode }</span>
-													<span className="c-event-fares__flight-city">{ flight.fromCity }</span>
+													<RichText
+														tagName="span"
+														className="c-event-fares__flight-code"
+														value={ flight.fromCode }
+														onChange={ ( value ) => updateFlight( index, fIndex, 'fromCode', value ) }
+														placeholder="FLL"
+														allowedFormats={ [] }
+													/>
+													<RichText
+														tagName="span"
+														className="c-event-fares__flight-city"
+														value={ flight.fromCity }
+														onChange={ ( value ) => updateFlight( index, fIndex, 'fromCity', value ) }
+														placeholder={ __( 'From city', 'dstheme' ) }
+														allowedFormats={ [] }
+													/>
 												</div>
 												<span className="c-event-fares__flight-line-mid">···········&gt;</span>
 												<div className="c-event-fares__flight-point c-event-fares__flight-point--end">
-													<span className="c-event-fares__flight-code">{ flight.toCode }</span>
-													<span className="c-event-fares__flight-city">{ flight.toCity }</span>
+													<RichText
+														tagName="span"
+														className="c-event-fares__flight-code"
+														value={ flight.toCode }
+														onChange={ ( value ) => updateFlight( index, fIndex, 'toCode', value ) }
+														placeholder="SWF"
+														allowedFormats={ [] }
+													/>
+													<RichText
+														tagName="span"
+														className="c-event-fares__flight-city"
+														value={ flight.toCity }
+														onChange={ ( value ) => updateFlight( index, fIndex, 'toCity', value ) }
+														placeholder={ __( 'To city', 'dstheme' ) }
+														allowedFormats={ [] }
+													/>
 												</div>
 											</div>
 											<div className="c-event-fares__flight-bottom">
-												<span className="c-event-fares__flight-date">{ flight.date }</span>
+												<RichText
+													tagName="span"
+													className="c-event-fares__flight-date"
+													value={ flight.date }
+													onChange={ ( value ) => updateFlight( index, fIndex, 'date', value ) }
+													placeholder={ __( 'Date', 'dstheme' ) }
+													allowedFormats={ [] }
+												/>
 												<span className="c-event-fares__flight-price">
-													${ flight.price }<span className="c-event-fares__flight-per">/per person</span>
+													$<RichText
+														tagName="span"
+														value={ flight.price }
+														onChange={ ( value ) => updateFlight( index, fIndex, 'price', value ) }
+														placeholder="0.00"
+														allowedFormats={ [] }
+													/><span className="c-event-fares__flight-per">/per person</span>
 												</span>
 											</div>
 										</div>
 									) ) }
+									<Button
+										variant="secondary"
+										icon={ plus }
+										isSmall
+										onClick={ () => addFlight( index ) }
+										className="c-event-fares__add-flight-btn"
+									>
+										{ __( 'Add Flight', 'dstheme' ) }
+									</Button>
 								</div>
 							</div>
 						) ) }
+
+						<button
+							type="button"
+							className="c-event-fares__add-city-card"
+							onClick={ addCity }
+						>
+							<span className="c-event-fares__add-city-icon">{ plus }</span>
+							{ __( 'Add City', 'dstheme' ) }
+						</button>
 					</div>
 
 					{ cities.length > itemsPerPage && (
