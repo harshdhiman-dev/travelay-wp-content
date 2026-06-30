@@ -569,8 +569,12 @@ export const BlockEdit = ( props ) => {
 							className="c-event-fares__add-city-card"
 							onClick={ addCity }
 						>
-							<span className="c-event-fares__add-city-icon">{ plus }</span>
-							{ __( 'Add City', 'dstheme' ) }
+							<span className="c-event-fares__add-city-icon">
+								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+								</svg>
+							</span>
+							<span className="c-event-fares__add-city-text">{ __( 'Add City', 'dstheme' ) }</span>
 						</button>
 					</div>
 
