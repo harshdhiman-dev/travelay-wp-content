@@ -576,7 +576,6 @@ export const BlockEdit = (props) => {
 								<path d="M12 5v14M5 12h14" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
 							</svg>
 						</button>
-						<span className="c-event-fares__add-city-label">{__('Add City', 'dstheme')}</span>
 					</div>
 
 					{cities.length > itemsPerPage && (
