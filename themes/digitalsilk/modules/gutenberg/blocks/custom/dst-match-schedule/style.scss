@@ -264,6 +264,9 @@
 	}
 
 	@media (max-width: 991px) {
+		&__sidebar-label {
+			display: none;
+		}
 
 		&__panel {
 			flex-direction: column;
@@ -283,7 +286,7 @@
 	@media (max-width: 599px) {
 
 		&__inner {
-			padding: 32px 16px 48px;
+			padding: 32px 0px 48px;
 		}
 
 		&__sidebar {
@@ -299,6 +302,8 @@
 
 		&__stage-btn {
 			white-space: nowrap;
+			height: fit-content;
+			padding: 8px 10px;
 		}
 
 		&__content {
@@ -310,6 +315,7 @@
 			flex-wrap: nowrap;
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: none;
+			padding: 6px 8px;
 
 			&::-webkit-scrollbar {
 				display: none;

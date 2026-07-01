@@ -93,7 +93,6 @@
 	&__stadium {
 		display: flex;
 		align-items: center;
-		gap: 6px;
 		font-size: 14px;
 		font-weight: 400;
 		color: #707070;
@@ -173,12 +172,9 @@
 	}
 
 	&__flight-line {
-		flex: 1;
 		display: flex;
 		align-items: center;
-		justify-content: center;
 		color: #000;
-		min-width: 30px;
 	}
 
 	&__flight-line-mid {
