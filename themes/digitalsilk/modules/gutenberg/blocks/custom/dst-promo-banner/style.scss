@@ -104,9 +104,17 @@
 	}
 
 	@media (max-width: 768px) {
+		&__bg {
+			display: none;
+		}
 
 		&__inner {
-			padding: 28px 16px;
+			padding: 20px 12px;
+			background: url(https://mediumseagreen-owl-620611.hostingersite.com/wp-content/uploads/2026/06/Group-6164.svg);
+			background-position: bottom;
+			background-size: contain;
+			background-size: 50rem;
+			background-repeat: no-repeat;
 		}
 
 		&__title {
@@ -129,5 +137,12 @@
 			padding: 10px 28px;
 			font-size: 1.4rem;
 		}
+	}
+}
+
+@media (max-width: 789px) {
+	.c-promo-banner {
+		background-color: #f0ffdf !important;
+		min-height: 32rem !important;
 	}
 }
