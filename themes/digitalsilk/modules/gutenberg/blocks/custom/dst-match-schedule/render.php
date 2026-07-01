@@ -138,10 +138,8 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 						>
 							<div class="c-match-schedule__card-top">
 								<span class="c-match-schedule__stadium">
-									<span class="c-match-schedule__stadium-icon" aria-hidden="true">
-										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<path d="M3 18h18M5 18V8a2 2 0 012-2h10a2 2 0 012 2v10M9 18v-4h6v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
+									<span class="c-event-fares__flight-line" aria-hidden="true">
+										<img src="https://www.flytravelay.com/wp-content/uploads/2026/07/Stadium.svg" alt="" width="25" height="14" loading="lazy" />
 									</span>
 									<?php echo esc_html( $stadium ); ?>
 								</span>

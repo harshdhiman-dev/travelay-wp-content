@@ -95,7 +95,7 @@ $unique_id = 'dst-event-fares-' . substr( md5( $heading . wp_json_encode( $citie
 						<?php if ( ! empty( $stadium ) ) : ?>
 							<div class="c-event-fares__stadium">
 								<span class="c-event-fares__flight-line" aria-hidden="true">
-										<img src="https://www.flytravelay.com/wp-content/uploads/2026/07/Stadium.svg" alt="" width="100" height="14" loading="lazy" />
+										<img src="https://www.flytravelay.com/wp-content/uploads/2026/07/Stadium.svg" alt="" width="25" height="14" loading="lazy" />
 									</span>
 								<?php echo esc_html( $stadium ); ?>
 							</div>
