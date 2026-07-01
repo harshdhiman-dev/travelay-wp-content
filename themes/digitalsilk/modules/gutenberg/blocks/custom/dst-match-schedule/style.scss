@@ -242,13 +242,15 @@
 		display: inline-block;
 		background: #1f7a4d;
 		color: #fff;
-		font-size: 1.2rem;
+		font-size: 14px;
 		font-weight: 600;
 		padding: 9px 18px;
 		border-radius: 10px;
 		text-decoration: none;
 		white-space: nowrap;
 		transition: opacity .2s;
+		min-width: 52%;
+		text-align: center;
 
 		&:hover {
 			opacity: .88;
@@ -284,6 +286,14 @@
 	}
 
 	@media (max-width: 599px) {
+		&__group {
+			font-size: 12px;
+		}
+
+		&__stadium {
+			left: -2px;
+			position: relative;
+		}
 
 		&__inner {
 			padding: 32px 0px 48px;
@@ -295,6 +305,7 @@
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: none;
 			padding: 6px 8px;
+			margin-bottom: 0;
 
 			&::-webkit-scrollbar {
 				display: none;
@@ -317,6 +328,7 @@
 			-webkit-overflow-scrolling: touch;
 			scrollbar-width: none;
 			padding: 6px 8px;
+			margin-bottom: 0;
 
 			&::-webkit-scrollbar {
 				display: none;
