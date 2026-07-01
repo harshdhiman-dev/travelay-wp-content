@@ -202,7 +202,7 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 		cards.forEach(function(card) {
 			var stage   = card.getAttribute('data-stage');
 			var country = card.getAttribute('data-country');
-			var stageMatch   = (stage === activeStage);
+			var stageMatch   = (activeStage === 'all-stages' || stage === activeStage);
 			var countryMatch = (activeCountry === 'all-countries' || country === activeCountry);
 			var show = stageMatch && countryMatch;
 			card.style.display = show ? '' : 'none';
@@ -210,12 +210,16 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 		});
 		if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? '' : 'none';
 	}
-
 	stageBtns.forEach(function(btn) {
 		btn.addEventListener('click', function() {
+			var isActive = btn.classList.contains('-active');
 			stageBtns.forEach(function(b) { b.classList.remove('-active'); });
-			btn.classList.add('-active');
-			activeStage = btn.getAttribute('data-stage');
+			if (!isActive) {
+				btn.classList.add('-active');
+				activeStage = btn.getAttribute('data-stage');
+			} else {
+				activeStage = 'all-stages';
+			}
 			applyFilter();
 		});
 	});
