@@ -125,11 +125,7 @@ $unique_id = 'dst-event-fares-' . substr( md5( $heading . wp_json_encode( $citie
 										<span class="c-event-fares__flight-city"><?php echo esc_html( $from_city ); ?></span>
 									</div>
 									<span class="c-event-fares__flight-line" aria-hidden="true">
-										<svg width="60" height="14" viewBox="0 0 60 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-											<circle cx="3" cy="7" r="2.5" fill="currentColor"/>
-											<line x1="8" y1="7" x2="48" y2="7" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 3"/>
-											<path d="M48 2L54 7L48 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-										</svg>
+										<img src="https://travelay.dsstaging1.com/wp-content/uploads/2026/07/Group-242.svg" alt="" width="60" height="14" loading="lazy" />
 									</span>
 									<div class="c-event-fares__flight-point c-event-fares__flight-point--end">
 										<span class="c-event-fares__flight-code"><?php echo esc_html( $to_code ); ?></span>
