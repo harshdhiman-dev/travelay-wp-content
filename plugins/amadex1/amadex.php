@@ -36,53 +36,12 @@ foreach ($autoload_paths as $path) {
 function amadex_enqueue_custom_css() {
     if ( isset($_GET['postId']) || isset($_GET['postType']) ) return;
     if ( isset($_GET['canvas']) ) return;
-    if ( ! amadex_page_needs_assets() ) return;
-
     wp_enqueue_style(
         'amadex-custom-style',
         AMADEX_URL . 'assets/css/amadex-custom.css',
         array(),
         filemtime(AMADEX_PATH . 'assets/css/amadex-custom.css')
     );
-
-    wp_enqueue_style(
-        'amadex-main-style',
-        AMADEX_URL . 'assets/css/amadex-booking.css',
-        array(),
-        filemtime(AMADEX_PATH . 'assets/css/amadex-booking.css')
-    );
-}
-
-/**
- * True only on pages that actually contain an Amadex shortcode,
- * or match known booking/confirmation URL patterns.
- */
-function amadex_page_needs_assets() {
-    if ( is_admin() ) return false;
-
-    global $post;
-    $shortcodes = array(
-        'amadex_flight_search', 'amadex_search_modern', 'amadex_flight_results',
-        'amadex_flight_booking', 'amadex_booking_confirmation', 'amadex_payment',
-        'amadex_test_form', 'amadex_api_test',
-    );
-
-    if ( $post instanceof WP_Post ) {
-        foreach ( $shortcodes as $sc ) {
-            if ( has_shortcode( $post->post_content, $sc ) ) return true;
-        }
-    }
-
-    if ( isset($_SERVER['REQUEST_URI']) ) {
-        $uri = $_SERVER['REQUEST_URI'];
-        foreach ( array('flight-booking', 'flight-results', 'booking-confirmation', 'payment', 'flight-search') as $slug ) {
-            if ( strpos( $uri, $slug ) !== false ) return true;
-        }
-    }
-
-    if ( isset($_GET['reference']) ) return true;
-
-    return false;
 }
 
 add_action('enqueue_block_editor_assets', function() {

@@ -76,20 +76,13 @@ class Amadex_Shortcodes
                 return;
             }
         }
-
-        if ( ! amadex_page_needs_assets() ) {
-            wp_enqueue_style('amadex-regional-settings', AMADEX_URL . 'assets/css/amadex-regional-settings.css', array(), AMADEX_VERSION);
-            wp_enqueue_script('amadex-regional-settings', AMADEX_URL . 'assets/js/amadex-regional-settings.js', array('jquery'), AMADEX_VERSION, true);
-            return;
-        }
-
         // public function enqueue_assets()
         // {
         wp_enqueue_style('amadex-front', AMADEX_URL . 'assets/css/amadex.css', array(), AMADEX_VERSION);
         wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css', array(), '7.0.1');
         wp_enqueue_style('amadex-flight-results', AMADEX_URL . 'assets/css/amadex-flight-results.css', array('amadex-front'), AMADEX_VERSION);
         wp_enqueue_style('amadex-new-layout', AMADEX_URL . 'assets/css/amadex-new-layout.css', array('amadex-front'), AMADEX_VERSION);
-        // wp_enqueue_style('amadex-booking', AMADEX_URL . 'assets/css/amadex-booking.css', array('amadex-front'), AMADEX_VERSION);
+        wp_enqueue_style('amadex-booking', AMADEX_URL . 'assets/css/amadex-booking.css', array('amadex-front'), AMADEX_VERSION);
         wp_enqueue_style('amadex-deals', AMADEX_URL . 'assets/css/amadex-deals.css', array(), AMADEX_VERSION);
         wp_enqueue_style('amadex-seat-map', AMADEX_URL . 'assets/css/amadex-seat-map.css', array('amadex-booking'), AMADEX_VERSION);
 
@@ -109,6 +102,7 @@ class Amadex_Shortcodes
         $confirmation_page_id = isset($general_settings['booking_confirmation_page']) ? intval($general_settings['booking_confirmation_page']) : 0;
         $is_confirmation_page = false;
 
+        // Check if current page is confirmation page
         if ($confirmation_page_id && is_page($confirmation_page_id)) {
             $is_confirmation_page = true;
         } elseif (isset($_GET['reference']) || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'booking-confirmation') !== false)) {
