@@ -1,0 +1,78 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/cta-banner",
+  "title": "DST CTA Banner",
+  "category": "ds-layouts",
+  "icon": "phone",
+  "description": "A heading above a full-width photo banner with overlay title, subtitle, and a phone call CTA button.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Plan your Match Trip"
+    },
+    "headingColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "sectionBgColor": {
+      "type": "string",
+      "default": "#6b9c3f"
+    },
+    "title": {
+      "type": "string",
+      "default": "From Childhood Teammates to Lifelong Travel Mates"
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "subtitle": {
+      "type": "string",
+      "default": "From playground dreams to stadium screams. Gather your crew, relive the joy of childhood friendships, and experience every goal, chant, and celebration together"
+    },
+    "subtitleColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "background": {
+      "type": "object",
+      "default": {
+        "image": {
+          "id": "",
+          "url": "",
+          "alt": ""
+        },
+        "overlayColor": "#000000",
+        "overlayOpacity": 35
+      }
+    },
+    "minHeight": {
+      "type": "string",
+      "default": "320px"
+    },
+    "contentWidth": {
+      "type": "string",
+      "default": "560px"
+    },
+    "button": {
+      "type": "object",
+      "default": {
+        "text": "Call Now: +1 877 721 0410",
+        "phone": "+18777210410",
+        "bgColor": "#1f7a4d",
+        "textColor": "#ffffff",
+        "borderRadius": "40px"
+      }
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

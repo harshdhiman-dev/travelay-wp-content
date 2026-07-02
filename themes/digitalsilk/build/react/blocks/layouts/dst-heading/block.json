@@ -1,0 +1,174 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/c-heading",
+  "version": "1.0.0",
+  "title": "DST Heading",
+  "category": "ds-hybrid",
+  "icon": "heading",
+  "description": "Advanced heading block with support for pre-title, subtitle, alignment, colors, and optional read-more content.",
+  "attributes": {
+    "anchor": {
+      "type": "string",
+      "default": ""
+    },
+    "alignment": {
+      "type": "string",
+      "default": "left"
+    },
+    "alignmentMobile": {
+      "type": "string",
+      "default": "left"
+    },
+    "showReadMore": {
+      "type": "boolean",
+      "default": false
+    },
+    "pretitle": {
+      "type": "string",
+      "default": ""
+    },
+    "backtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "title_styles": {
+      "type": "object",
+      "default": {
+        "tag": "h2",
+        "tag_style": "h2",
+        "color": ""
+      }
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "description": {
+      "type": "string",
+      "default": ""
+    },
+    "description_hidden": {
+      "type": "string",
+      "default": ""
+    },
+    "description_hidden_button": {
+      "type": "string",
+      "default": "Show More"
+    },
+    "description_hidden_button_less": {
+      "type": "string",
+      "default": "Show Less"
+    },
+    "pretitle_color": {
+      "type": "string",
+      "default": ""
+    },
+    "subtitle_color": {
+      "type": "string",
+      "default": ""
+    },
+    "showPretitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "showTitle": {
+      "type": "boolean",
+      "default": true
+    },
+    "showSubtitle": {
+      "type": "boolean",
+      "default": false
+    },
+    "showDescription": {
+      "type": "boolean",
+      "default": true
+    },
+    "moduleVariant": {
+      "type": "string",
+      "default": ""
+    },
+    "headingTheme": {
+      "type": "string",
+      "default": "default"
+    },
+    "disableModuleMargins": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "innerBlocks": true,
+    "anchor": true,
+    "color": {
+      "background": true,
+      "gradients": true,
+      "text": false,
+      "link": false
+    },
+    "dsGapControl": true,
+    "dsContainers": true,
+    "dsEffects": true,
+    "dsClassList": [
+      {
+        "name": "heading-has-something",
+        "label": "Custom class 1"
+      },
+      {
+        "name": "heading-has-something-else",
+        "label": "Custom class 2"
+      }
+    ]
+  },
+  "example": {
+    "attributes": {
+      "pretitle": "Welcome to",
+      "title": "DigitalSilk Heading Block",
+      "title_styles": {
+        "tag": "h1",
+        "tag_style": "h1",
+        "color": "#ffffff"
+      },
+      "alignment": "center",
+      "showDescription": true,
+      "style": {
+        "color": {
+          "gradient": "linear-gradient(-97.8deg, #723fc7 30%, #5192f7 76.87%, #407cd9 100%)",
+          "text": "#ffffff"
+        },
+        "spacing": {
+          "padding": {
+            "top": "2em",
+            "right": "2em",
+            "bottom": "2em",
+            "left": "2em"
+          }
+        }
+      }
+    },
+    "innerBlocks": [
+      {
+        "name": "core/paragraph",
+        "attributes": {
+          "content": "This is the ultimate heading block, now including extra awesomeness!",
+          "align": "center",
+          "style": {
+            "color": {
+              "text": "#ffffff"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

@@ -1,0 +1,162 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/match-schedule",
+  "title": "DST Match Schedule",
+  "category": "ds-layouts",
+  "icon": "calendar-alt",
+  "description": "Match schedule with a stage sidebar filter and country tabs, listing matches with a Find Flights CTA.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Follow Your Team"
+    },
+    "headingColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "background": {
+      "type": "object",
+      "default": {
+        "image": {
+          "id": "",
+          "url": "",
+          "alt": ""
+        },
+        "bgColor": "#6b9c3f",
+        "overlayColor": "#000000",
+        "overlayOpacity": 0
+      }
+    },
+    "stages": {
+      "type": "array",
+      "default": [
+        {
+          "label": "All Stages",
+          "value": "all-stages",
+          "isHeading": true
+        },
+        {
+          "label": "Group Stage",
+          "value": "group-stage",
+          "isHeading": false
+        },
+        {
+          "label": "Round Of 32",
+          "value": "round-of-32",
+          "isHeading": false
+        },
+        {
+          "label": "Round Of 16",
+          "value": "round-of-16",
+          "isHeading": false
+        },
+        {
+          "label": "Quarterfinals",
+          "value": "quarterfinals",
+          "isHeading": false
+        },
+        {
+          "label": "Semifinals",
+          "value": "semifinals",
+          "isHeading": false
+        },
+        {
+          "label": "Finals",
+          "value": "finals",
+          "isHeading": false
+        }
+      ]
+    },
+    "countries": {
+      "type": "array",
+      "default": [
+        {
+          "label": "All Countries",
+          "value": "all-countries"
+        },
+        {
+          "label": "USA",
+          "value": "usa"
+        },
+        {
+          "label": "Mexico",
+          "value": "mexico"
+        },
+        {
+          "label": "Canada",
+          "value": "canada"
+        }
+      ]
+    },
+    "defaultStage": {
+      "type": "string",
+      "default": "group-stage"
+    },
+    "defaultCountry": {
+      "type": "string",
+      "default": "all-countries"
+    },
+    "ctaText": {
+      "type": "string",
+      "default": "Find Flights"
+    },
+    "ctaColor": {
+      "type": "string",
+      "default": "#1f7a4d"
+    },
+    "matches": {
+      "type": "array",
+      "default": [
+        {
+          "stage": "group-stage",
+          "country": "usa",
+          "stadium": "Sofi Stadium, Inglewood",
+          "groupLabel": "GROUP D",
+          "teamAFlag": "🇺🇸",
+          "teamAName": "USA",
+          "teamBFlag": "py",
+          "teamBName": "PARAGUAY",
+          "date": "12 June, Friday",
+          "time": "9:00 PM ET",
+          "link": "#"
+        },
+        {
+          "stage": "group-stage",
+          "country": "usa",
+          "stadium": "Levi's Stadium, Santa Clara",
+          "groupLabel": "GROUP J",
+          "teamAFlag": "🇦🇹",
+          "teamAName": "AUSTRIA",
+          "teamBFlag": "🇯🇴",
+          "teamBName": "JORDAN",
+          "date": "12 June, Friday",
+          "time": "9:00 PM ET",
+          "link": "#"
+        },
+        {
+          "stage": "group-stage",
+          "country": "usa",
+          "stadium": "Levi's Stadium, Santa Clara",
+          "groupLabel": "GROUP J",
+          "teamAFlag": "🇦🇹",
+          "teamAName": "AUSTRIA",
+          "teamBFlag": "🇯🇴",
+          "teamBName": "JORDAN",
+          "date": "12 June, Friday",
+          "time": "9:00 PM ET",
+          "link": "#"
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}
