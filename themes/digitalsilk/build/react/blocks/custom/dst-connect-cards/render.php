@@ -16,7 +16,7 @@ $columns        = (int) ( $attributes['columns'] ?? 4 );
 $cta_icon       = $attributes['ctaIcon']       ?? 'email';
 $cta_bg_color   = $attributes['ctaBgColor']    ?? '#ffffff';
 $cta_text_color = $attributes['ctaTextColor']  ?? '#1a1a1a';
-$cta_border_color = $attributes['ctaBorderColor'] ?? '#dddddd';
+$cta_border_color = $attributes['ctaBorderColor'] ?? '#000000';
 $cards          = ( ! empty( $attributes['cards'] ) && is_array( $attributes['cards'] ) ) ? $attributes['cards'] : [];
 
 $background = wp_parse_args(
