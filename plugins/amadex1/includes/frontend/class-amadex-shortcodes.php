@@ -76,6 +76,13 @@ class Amadex_Shortcodes
                 return;
             }
         }
+
+        if ( ! amadex_page_needs_assets() ) {
+            wp_enqueue_style('amadex-regional-settings', AMADEX_URL . 'assets/css/amadex-regional-settings.css', array(), AMADEX_VERSION);
+            wp_enqueue_script('amadex-regional-settings', AMADEX_URL . 'assets/js/amadex-regional-settings.js', array('jquery'), AMADEX_VERSION, true);
+            return;
+        }
+
         // public function enqueue_assets()
         // {
         wp_enqueue_style('amadex-front', AMADEX_URL . 'assets/css/amadex.css', array(), AMADEX_VERSION);
