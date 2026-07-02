@@ -109,7 +109,6 @@ class Amadex_Shortcodes
         $confirmation_page_id = isset($general_settings['booking_confirmation_page']) ? intval($general_settings['booking_confirmation_page']) : 0;
         $is_confirmation_page = false;
 
-        // Check if current page is confirmation page
         if ($confirmation_page_id && is_page($confirmation_page_id)) {
             $is_confirmation_page = true;
         } elseif (isset($_GET['reference']) || (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], 'booking-confirmation') !== false)) {
