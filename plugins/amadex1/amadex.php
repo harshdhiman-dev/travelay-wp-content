@@ -44,12 +44,12 @@ function amadex_enqueue_custom_css() {
         filemtime(AMADEX_PATH . 'assets/css/amadex-custom.css')
     );
 
-    // wp_enqueue_style(
-    //     'amadex-main-style',
-    //     AMADEX_URL . 'assets/css/amadex-main.css',
-    //     array(),
-    //     filemtime(AMADEX_PATH . 'assets/css/amadex-main.css')
-    // );
+    wp_enqueue_style(
+        'amadex-main-style',
+        AMADEX_URL . 'assets/css/amadex-booking.css',
+        array(),
+        filemtime(AMADEX_PATH . 'assets/css/amadex-booking.css')
+    );
 }
 
 add_action('enqueue_block_editor_assets', function() {
