@@ -253,24 +253,6 @@ $root_style = '--tl-map-height:' . $map_height . 'px;--tl-mobile-map-height:' . 
 		</div>
 	</section>
 
-	<?php // ── Stats ────────────────────────────────────────────────── ?>
-	<?php if ( $show_stats ) : ?>
-		<div class="tl-stats">
-			<div class="tl-stats__item">
-				<span class="tl-stats__num"><?php echo esc_html( (string) count( $locations ) ); ?></span>
-				<span class="tl-stats__label"><?php esc_html_e( 'Locations', 'dstheme' ); ?></span>
-			</div>
-			<div class="tl-stats__item">
-				<span class="tl-stats__num"><?php echo esc_html( (string) count( $countries ) ); ?></span>
-				<span class="tl-stats__label"><?php esc_html_e( 'Countries', 'dstheme' ); ?></span>
-			</div>
-			<div class="tl-stats__item">
-				<span class="tl-stats__num">24/7</span>
-				<span class="tl-stats__label"><?php esc_html_e( 'TravelayGent™', 'dstheme' ); ?></span>
-			</div>
-		</div>
-	<?php endif; ?>
-
 	<?php // ── Explorer (list + map) ──────────────────────────────── ?>
 	<div class="tl-explorer" data-view="<?php echo esc_attr( $mobile_view ); ?>">
 
