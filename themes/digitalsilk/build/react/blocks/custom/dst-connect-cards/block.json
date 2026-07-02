@@ -1,0 +1,118 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "ds-blocks/connect-cards",
+  "title": "DST Connect Cards",
+  "category": "ds-layouts",
+  "icon": "email",
+  "description": "A grid of contact/service cards with image, title, description, and email/phone/link CTA button.",
+  "example": {},
+  "attributes": {
+    "heading": {
+      "type": "string",
+      "default": "Connect With Us"
+    },
+    "headingColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "headingAlign": {
+      "type": "string",
+      "default": "left"
+    },
+    "background": {
+      "type": "object",
+      "default": {
+        "image": {
+          "id": "",
+          "url": "",
+          "alt": ""
+        },
+        "bgColor": "#1f7a4d",
+        "overlayColor": "#000000",
+        "overlayOpacity": 0
+      }
+    },
+    "columns": {
+      "type": "number",
+      "default": 4
+    },
+    "ctaIcon": {
+      "type": "string",
+      "default": "email"
+    },
+    "ctaBgColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "ctaTextColor": {
+      "type": "string",
+      "default": "#1a1a1a"
+    },
+    "ctaBorderColor": {
+      "type": "string",
+      "default": "#dddddd"
+    },
+    "cards": {
+      "type": "array",
+      "default": [
+        {
+          "image": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          },
+          "title": "Holidays Enquiry",
+          "description": "Connect us to get you booked Package Information or Get a Enquiry about upcoming trip.",
+          "ctaType": "email",
+          "ctaLabel": "Email: holidays@travelay.com",
+          "ctaValue": "holidays@travelay.com"
+        },
+        {
+          "image": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          },
+          "title": "Partnership",
+          "description": "Connect us to get you booked Package Information or Get a Enquiry about upcoming trip.",
+          "ctaType": "email",
+          "ctaLabel": "Email: holidays@travelay.com",
+          "ctaValue": "holidays@travelay.com"
+        },
+        {
+          "image": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          },
+          "title": "Booking Status",
+          "description": "Connect us to get you booked Package Information or Get a Enquiry about upcoming trip.",
+          "ctaType": "email",
+          "ctaLabel": "Email: holidays@travelay.com",
+          "ctaValue": "holidays@travelay.com"
+        },
+        {
+          "image": {
+            "id": "",
+            "url": "",
+            "alt": ""
+          },
+          "title": "Customer Care",
+          "description": "Connect us to get you booked Package Information or Get a Enquiry about upcoming trip.",
+          "ctaType": "email",
+          "ctaLabel": "Email: holidays@travelay.com",
+          "ctaValue": "holidays@travelay.com"
+        }
+      ]
+    }
+  },
+  "supports": {
+    "html": false,
+    "anchor": true
+  },
+  "textdomain": "dstheme",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

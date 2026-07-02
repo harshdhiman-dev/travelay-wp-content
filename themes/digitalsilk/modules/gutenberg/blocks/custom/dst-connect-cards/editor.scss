@@ -1,0 +1,108 @@
+.c-connect-cards {
+
+	&__panel-item {
+		width: 100%;
+	}
+
+	&__panel-label {
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		color: #1e1e1e;
+		margin: 0 0 8px;
+	}
+
+	&__panel-controls {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	&__panel-preview {
+		width: 100%;
+		max-height: 80px;
+		object-fit: cover;
+		border-radius: 4px;
+		display: block;
+	}
+
+	&__card-controls {
+		position: absolute;
+		top: 8px;
+		right: 8px;
+		z-index: 2;
+	}
+
+	&__image-replace {
+		margin-top: 6px;
+		align-self: flex-start;
+	}
+
+	&__meta-toggle {
+		border-top: 1px dashed #eee;
+		padding-top: 8px;
+		margin-top: 4px;
+	}
+
+	&__meta-btn {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		background: #f0f7f3;
+		border: 1px solid #c8e6d4;
+		border-radius: 6px;
+		padding: 5px 10px;
+		font-size: 11px;
+		font-weight: 600;
+		color: #1f7a4d;
+		cursor: pointer;
+		width: 100%;
+		justify-content: center;
+		margin-bottom: 8px;
+
+		&:hover {
+			background: #d9f0e4;
+		}
+	}
+
+	&__meta {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		padding: 10px;
+		background: #f9f9f9;
+		border-radius: 6px;
+	}
+
+	&__add-wrap {
+		background: #eaf5ec;
+		width: fit-content;
+		padding: 9px 14px;
+		border-radius: 15px;
+		color: #1f7a4d;
+		font-weight: 600;
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		align-self: start;
+	}
+
+	&__add-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 0;
+		background: transparent;
+		color: #1f7a4d;
+		cursor: pointer;
+
+		svg {
+			display: block;
+		}
+	}
+
+	&__add-label {
+		font-size: 1.3rem;
+		color: #1f7a4d;
+	}
+}
