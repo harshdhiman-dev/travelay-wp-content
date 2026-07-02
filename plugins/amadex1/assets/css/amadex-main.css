@@ -1,0 +1,5505 @@
+/**
+ * Amadex Booking Page Styles - Modern XD Design
+ */
+
+body.amadex-booking-page-wrapper,
+html body .amadex-booking-page-wrapper {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.amadex-premium-services-card {
+    display: none;
+}
+
+.amadex-booking-page {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 32px 32px 64px;
+    background: linear-gradient(180deg, #EEF9F2 0%, #FFFDFB 100%);
+    min-height: auto;
+    font-family: 'Inter', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-booking-container {
+    padding: 25px 20px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 15px #00000029;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-booking-header {
+    padding: 0 0 32px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+a#amadex-back-to-results {
+    color: #fff;
+    width: 18%;
+    display: flex;
+    justify-content: center;
+    background: #0e7d3f;
+    padding: 15px 0;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+.amadex-booking-header a#amadex-back-to-results svg {
+    display: none;
+}
+
+.amadex-back-link {
+    color: #000;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s ease, transform 0.2s ease;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.amadex-back-link:hover {
+    color: #073F20;
+    transform: translateX(-2px);
+}
+
+.amadex-back-link:active {
+    opacity: 0.7;
+}
+
+.amadex-booking-header h2,
+.amadex-booking-header h3 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: #073F20;
+    letter-spacing: 0.3px;
+}
+
+.amadex-flight-detail-card .amadex-flight-card-header {
+    padding: 16px 20px;
+    background: #EEF9F2 0% 0%;
+}
+
+.amadex-booking-progress-modern {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 22px 32px;
+    margin-bottom: 40px;
+    background: #FFFFFF;
+    border-radius: 999px;
+    border: 1px solid #E1E9E0;
+    box-shadow: 0px 35px 60px rgba(11, 60, 29, 0.08);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.booking-step-modern {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 170px;
+    box-sizing: border-box;
+}
+
+.booking-step-modern.is-active,
+.booking-step-modern.is-complete {
+    background: #0e7d3f;
+    color: #fff;
+    box-shadow: 0px 12px 25px rgba(14, 125, 63, 0.35);
+}
+
+.booking-step-modern:not(.is-active) {
+    background: #EFF6F1;
+    color: #4D6758;
+}
+
+.booking-step-icon-modern {
+    font-size: 20px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.booking-step-modern.is-active .booking-step-icon-modern,
+.booking-step-modern.is-complete .booking-step-icon-modern {
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.booking-step-label-modern {
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.1px;
+}
+
+.booking-step-divider-modern {
+    width: 32px;
+    height: 3px;
+    background: #D7E4D4;
+    margin: 0 4px;
+    border-radius: 999px;
+}
+
+.booking-step-modern.is-active+.booking-step-divider-modern,
+.booking-step-modern.is-complete+.booking-step-divider-modern {
+    background: #0e7d3f;
+}
+
+.amadex-booking-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 30px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    align-items: start;
+}
+
+.amadex-booking-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 0px 15px #00000029;
+    border-radius: 20px;
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: visible;
+    overflow-y: visible;
+    contain: none;
+    position: relative;
+}
+
+.amadex-results-page .amadex-search-summary-modern .amadex-search-modern {
+    max-width: 1200px;
+    margin: 0 auto;
+
+}
+
+.amadex-booking-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.amadex-booking-section h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.amadex-section-subtitle {
+    font-size: 14px;
+    color: #000;
+    margin: -10px 0 20px 0;
+}
+
+.amadex-flight-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.amadex-flight-detail-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+    border: 1px solid #DDE7DE;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.amadex-flight-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.amadex-flight-card-summary {
+    flex: 1;
+}
+
+.amadex-flight-summary-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.amadex-flight-route-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0 !important;
+}
+
+.amadex-flight-meta-line {
+    margin: 4px 0 0;
+    font-size: 14px;
+    color: #4A5568;
+    margin-bottom: 0 !important;
+}
+
+.amadex-flight-summary-side {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+#ccexp {
+    border: 1px solid #000;
+    border-radius: 6px;
+}
+
+.amadex-flight-badge {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+    color: #0e7d3f;
+    background: #E5F6EB;
+    border-radius: 999px;
+    padding: 6px 14px;
+}
+
+.amadex-travel-class-pill {
+    background: #073F20;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 6px 18px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 12px 25px rgba(7, 63, 32, 0.25);
+}
+
+.amadex-flight-summary-grid {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+}
+
+.amadex-flight-summary-item {
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px 20px;
+    box-shadow: 0 12px 28px rgba(7, 63, 32, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.amadex-flight-summary-item--center {
+    text-align: center;
+}
+
+.summary-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+}
+
+.summary-sub {
+    font-size: 12px;
+    color: #9AA8A1;
+}
+
+.amadex-flight-summary-item strong {
+    font-size: 20px;
+    color: #073F20;
+}
+
+.amadex-flight-route {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #073F20;
+    flex-wrap: wrap;
+}
+
+.amadex-flight-label {
+    font-weight: 600;
+    color: #000;
+    margin-right: 4px;
+}
+
+.amadex-flight-origin,
+.amadex-flight-destination {
+    font-weight: 600;
+    color: #000;
+}
+
+.amadex-flight-arrow {
+    color: #000;
+    font-size: 18px;
+    margin: 0 4px;
+}
+
+.amadex-flight-card-main .amadex-flight-card-header {
+    padding: 0;
+    border-bottom: none;
+}
+
+.amadex-flight-meta {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 14px;
+    color: #000;
+    flex-wrap: wrap;
+    font-weight: 500;
+}
+
+.amadex-flight-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.amadex-flight-separator {
+    color: #C0CEC5;
+}
+
+.amadex-flight-card-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s;
+}
+
+.amadex-chevron-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+    display: block;
+    flex-shrink: 0;
+}
+
+.amadex-flight-card-content {
+    padding: 15px 10px;
+    margin-top: 0;
+
+}
+
+.amadex-flight-info-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin: 28px 0 10px;
+}
+
+.amadex-flight-info-block {
+    background: #F3FBF4;
+    border-radius: 18px;
+    padding: 18px;
+    border: 1px solid #DCEFE2;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 12px 30px rgba(7, 63, 32, 0.08);
+}
+
+.amadex-flight-info-block strong {
+    font-size: 18px;
+    color: #073F20;
+}
+
+.info-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+}
+
+.amadex-flight-info-block small {
+    font-size: 12px;
+    color: #94A3A8;
+}
+
+.amadex-flight-feature-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.amadex-flight-feature-chip {
+    padding: 7px 20px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #ebebeb;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1F2B25;
+}
+
+.amadex-segment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+}
+
+.amadex-segment-airline {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.amadex-flight-summary-grid {
+    display: none;
+}
+
+.amadex-flight-summary-side {
+    display: none;
+}
+
+.amadex-segment-airline img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.amadex-airline-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.amadex-airline-name {
+    font-weight: 700;
+    color: #1a202c;
+    font-size: 16px;
+}
+
+.amadex-airline-code {
+    font-size: 13px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.amadex-segment-badges {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.amadex-segment-badge {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #eef9f2;
+    color: #000;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+span.amadex-segment-badge.is-outline {
+    display: inline-flex;
+}
+
+.amadex-segment-badge.is-outline {
+    background: transparent;
+    border-color: #0e7d3f;
+    color: #000;
+}
+
+.amadex-segment-route {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 18px 20px;
+    background: #F9FBF8;
+    border-radius: 12px;
+}
+
+.amadex-segment-dep,
+.amadex-segment-arr {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+}
+
+.amadex-segment-time {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.amadex-segment-airport {
+    font-size: 14px;
+    color: #4A5568;
+    font-weight: 500;
+}
+
+.amadex-segment-date {
+    font-size: 12px;
+    color: #A0AEC0;
+}
+
+.amadex-segment-route-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 16px 0;
+}
+
+.amadex-segment-point {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.segment-point-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #7A8C84;
+    letter-spacing: 0.3px;
+}
+
+.segment-point-time {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A202C;
+}
+
+.segment-point-airport {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F2D2A;
+}
+
+.segment-point-date {
+    font-size: 12px;
+    color: #707070;
+}
+
+.amadex-segment-timeline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #4A5568;
+    font-weight: 600;
+}
+
+.timeline-icon {
+    width: 100px;
+    height: 2px;
+    border-radius: 999px;
+    background: #8b8ca4;
+    position: relative;
+}
+
+.amadex-segment-travel-meta {
+    display: none;
+}
+
+.amadex-segment-timeline svg#Group_480 {
+    transform: rotate(90deg);
+    transform-origin: center center;
+}
+
+.timeline-icon::before {
+    top: -5px;
+}
+
+.timeline-icon::after {
+    bottom: -5px;
+}
+
+.timeline-duration {
+    color: #707070;
+}
+
+.amadex-segment-duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0 16px;
+    border-left: 1px solid #E1E9E0;
+    border-right: 1px solid #E1E9E0;
+}
+
+.amadex-duration-icon {
+    font-size: 24px;
+    color: #0e7d3f;
+}
+
+.amadex-duration-text {
+    font-size: 12px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.amadex-segment-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.amadex-segment-meta-block {
+    background: #F9FBF8;
+    border-radius: 16px;
+    border: 1px solid #E4EDE3;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.meta-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+}
+
+.meta-note {
+    font-size: 12px;
+    color: #94A3B8;
+}
+
+.amadex-segment-main {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.amadex-segment-carrier {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.amadex-segment-travel-class {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+}
+
+.amadex-segment-travel-class span {
+    text-transform: uppercase;
+    font-size: 11px;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+}
+
+.amadex-segment-travel-class strong {
+    font-size: 18px;
+    color: #073F20;
+}
+
+.amadex-segment-timeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.amadex-time-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.amadex-time-block.align-right {
+    text-align: right;
+    align-items: flex-end;
+}
+
+.amadex-timeline-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.amadex-timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.amadex-timeline-line {
+    width: 2px;
+    height: 72px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #0e7d3f 0%, #34D399 100%);
+}
+
+.amadex-timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #0e7d3f;
+    border: 2px solid #D8F1E0;
+}
+
+.amadex-duration-pill {
+    padding: 6px 18px;
+    border-radius: 999px;
+    background: #EEF9F2;
+    color: #0e7d3f;
+    font-weight: 600;
+    font-size: 13px;
+    box-shadow: 0 10px 20px rgba(7, 63, 32, 0.12);
+}
+
+.amadex-baggage-table {
+    margin-top: 16px;
+    background: #F7F9F8;
+    border-radius: 18px;
+    border: 1px solid #E4EDE3;
+    padding: 16px 20px;
+}
+
+.amadex-baggage-row {
+    display: grid;
+    grid-template-columns: 140px repeat(2, minmax(150px, 1fr));
+    gap: 20px;
+    align-items: center;
+}
+
+.amadex-baggage-row+.amadex-baggage-row {
+    margin-top: 12px;
+}
+
+.amadex-baggage-row--head span {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #7A8C84;
+    letter-spacing: 0.4px;
+    font-weight: 600;
+}
+
+.baggage-passenger strong {
+    font-size: 15px;
+    color: #1F2D2A;
+}
+
+.amadex-baggage-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1F2D2A;
+}
+
+.amadex-baggage-value.is-unavailable {
+    color: #9AA8A1;
+    font-weight: 500;
+}
+
+.amadex-segment-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 14px;
+}
+
+.amadex-stopover-banner {
+    padding: 10px 0;
+    margin: 30px auto;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    background: #EE9C31 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    width: 80%;
+}
+
+.amadex-passenger-form-card {
+    background: #FFFFFF;
+    border-radius: 26px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 20px 45px rgba(9, 37, 19, 0.08);
+    overflow: visible;
+}
+
+.amadex-passenger-form-card.is-active {
+    border-color: #0e7d3f;
+}
+
+.amadex-passenger-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    margin-bottom: 0;
+    background: #eef9f2;
+    border-radius: 26px 26px 0 0;
+}
+
+.amadex-passenger-form[data-passenger-type="child"],
+.amadex-passenger-form[data-passenger-type="infant"] {
+    background: #FFFFFF;
+    border-radius: 26px;
+    margin-bottom: 24px;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 20px 45px rgba(9, 37, 19, 0.08);
+    overflow: visible;
+}
+
+.amadex-passenger-form[data-passenger-type="child"]:hover,
+.amadex-passenger-form[data-passenger-type="infant"]:hover {
+    box-shadow: 0 30px 70px rgba(14, 125, 63, 0.16);
+}
+
+.amadex-passenger-form[data-passenger-type="child"] .amadex-passenger-form-header,
+.amadex-passenger-form[data-passenger-type="infant"] .amadex-passenger-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    margin-bottom: 0;
+    background: #eef9f2;
+    border-radius: 26px 26px 0 0;
+}
+
+.amadex-passenger-form[data-passenger-type="child"] .amadex-passenger-form-content,
+.amadex-passenger-form[data-passenger-type="infant"] .amadex-passenger-form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background-color: unset;
+    background: unset;
+}
+
+.amadex-passenger-form[data-passenger-type="child"] h5,
+.amadex-passenger-form[data-passenger-type="infant"] h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-form-inline {
+    display: flex;
+    gap: 5px;
+}
+
+.amadex-passenger-form-header h5 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-passenger-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.amadex-passenger-checkmark {
+    width: 24px;
+    height: 24px;
+    background: #0E7D3F 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.amadex-remove-passenger-icon {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid #dc3545;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.amadex-remove-passenger-icon:hover {
+    background: #dc3545;
+    transform: scale(1.05);
+}
+
+.amadex-remove-passenger-icon:hover svg path {
+    stroke: #fff;
+}
+
+.amadex-remove-passenger-icon:active {
+    transform: scale(0.95);
+}
+
+.amadex-remove-passenger-icon svg {
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+}
+
+.amadex-passenger-form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background-color: unset;
+    background: unset;
+}
+
+.amadex-passenger-form-content .amadex-form-row {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 6px;
+}
+
+.amadex-form-row--triple {
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+}
+
+.amadex-form-row--double {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+}
+
+.amadex-form-row--passport {
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+}
+
+.amadex-form-row--full {
+    grid-template-columns: 1fr;
+    margin-top: 8px;
+}
+
+.amadex-radio-group {
+    display: inline-flex;
+    width: 100%;
+    border: 1px solid #DCE7DA;
+    border-radius: 999px;
+    padding: 4px;
+    gap: 6px;
+    background: #fff;
+}
+
+.amadex-radio-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #627568;
+    border-radius: 999px;
+    padding: 2px;
+    position: relative;
+}
+
+.amadex-radio-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.amadex-radio-label span {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.amadex-radio-label input[type="radio"]:checked+span {
+    background: #0E7D3F;
+    color: #fff;
+    border-color: #0E7D3F;
+}
+
+.amadex-passenger-actions-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.amadex-add-adult-btn,
+.amadex-add-passenger-btn,
+.amadex-remove-adult-btn {
+    background: #FFF;
+    color: #0e7d3f;
+    border: 1px solid #0E7D3F;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+    outline: none !important;
+}
+
+.amadex-add-adult-btn:hover,
+.amadex-add-passenger-btn:hover {
+    background: #0E7D3F;
+    color: #FFF;
+    transform: translateY(-1px);
+}
+
+.amadex-remove-adult-btn {
+    background: #FFF;
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.amadex-remove-adult-btn:hover {
+    background: #dc3545;
+    color: #FFF;
+    transform: translateY(-1px);
+}
+
+.amadex-passenger-actions-row .amadex-add-adult-btn:only-child,
+.amadex-passenger-actions-row .amadex-add-passenger-btn:only-child,
+.amadex-passenger-actions-row .amadex-remove-adult-btn:only-child {
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+.amadex-add-passenger-dropdown-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    z-index: 100;
+    overflow: visible;
+}
+
+.amadex-add-passenger-btn {
+    position: relative;
+    z-index: 1;
+}
+
+.amadex-add-passenger-btn .amadex-dropdown-arrow {
+    margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+}
+
+.amadex-add-passenger-btn .amadex-dropdown-arrow .amadex-chevron-icon {
+    width: 16px;
+    height: 16px;
+    display: block;
+    fill: currentColor;
+    transition: transform 0.3s ease;
+}
+
+.amadex-add-passenger-dropdown-wrapper.active .amadex-dropdown-arrow .amadex-chevron-icon,
+.amadex-add-passenger-btn:hover .amadex-dropdown-arrow .amadex-chevron-icon {
+    transform: rotate(180deg);
+}
+
+.amadex-add-passenger-dropdown {
+    top: calc(100% + 8px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E1E9E0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+    z-index: 9999 !important;
+    overflow: hidden;
+    min-width: 180px;
+    max-width: 50%;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-top: 4px;
+}
+
+.amadex-add-passenger-dropdown[style*="display: none"] {
+    display: none !important;
+}
+
+.amadex-add-passenger-option {
+    display: block !important;
+    width: 100%;
+    padding: 12px 20px;
+    background: #FFFFFF;
+    color: #0e7d3f;
+    border: none;
+    border-bottom: 1px solid #F1F5F9;
+    text-align: left;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.amadex-add-passenger-option:last-child {
+    border-bottom: none;
+}
+
+.amadex-add-passenger-option:hover {
+    background: #EEF9F2;
+    color: #073F20;
+    padding-left: 24px;
+}
+
+.amadex-add-passenger-option:active {
+    background: #D8F1E0;
+}
+
+.amadex-passenger-actions-row {
+    overflow: visible !important;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 0;
+}
+
+.amadex-passenger-form-content {
+    overflow: visible !important;
+    position: relative;
+    background-color: unset;
+    background: unset;
+}
+
+.amadex-form-row {
+    overflow: visible !important;
+}
+
+
+.amadex-required-banner {
+    background: #EEF9F2 0% 0% no-repeat padding-box;
+    border-radius: 20px 20px 0px 0px;
+    padding: 12px 18px;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.amadex-contact-fields-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 0;
+    padding: 12px 18px;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+    box-shadow: 0 20px 45px rgba(9, 37, 19, 0.08);
+}
+
+.amadex-segment-baggage-table {
+    display: none;
+}
+
+.amadex-passenger-form-header span {
+    font-size: 12px;
+    color: #000;
+}
+
+.amadex-contact-fields-row .amadex-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.amadex-contact-fields-row .amadex-form-field label {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #000;
+}
+
+.amadex-contact-fields-row .amadex-form-field input,
+.amadex-contact-fields-row .amadex-form-field select {
+    padding: 14px 5px;
+    border: none;
+    border-radius: 16px;
+}
+
+.amadex-field-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+}
+
+.amadex-contact-fields-row .amadex-form-field input,
+.amadex-contact-fields-row .amadex-form-field select {
+    font-size: 15px !important;
+    transition: all 0.2s ease;
+    width: 100%;
+    min-height: 52px;
+}
+
+.amadex-contact-fields-row .amadex-form-field input:focus,
+.amadex-contact-fields-row .amadex-form-field select:focus {
+    outline: none;
+    border-color: #0e7d3f !important;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.18) !important;
+}
+
+
+.amadex-booking-section .amadex-form-row {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr;
+    gap: 16px;
+    margin-bottom: 10px;
+}
+
+.amadex-form-row.amadex-form-row--triple {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.amadex-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+}
+
+.amadex-form-field.full-width {
+    grid-column: 1 / -1;
+}
+
+.amadex-form-field label {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #000;
+}
+
+.amadex-form-field input,
+.amadex-form-field select {
+    padding: 14px 16px;
+    border: none;
+
+    font-size: 15px;
+    transition: all 0.2s ease;
+
+    min-height: 52px;
+    border-radius: 15px !important;
+    border: 1px solid #E6E6E6 !important;
+}
+
+.amadex-form-field input:focus,
+.amadex-form-field select:focus {
+    outline: none;
+    border-color: #0e7d3f;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.18);
+}
+
+.amadex-form-field input.error,
+.amadex-form-field select.error,
+.amadex-form-field textarea.error {
+    border: 1px solid #dc3545 !important;
+    border-color: #dc3545 !important;
+    background-color: #fff5f5 !important;
+}
+
+.amadex-form-field input.error:focus,
+.amadex-form-field select.error:focus,
+.amadex-form-field textarea.error:focus {
+    outline: none !important;
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+.amadex-error-message {
+    display: block;
+    color: #dc3545;
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+.amadex-form-field input.error~.amadex-error-message,
+.amadex-form-field select.error~.amadex-error-message,
+.amadex-form-field textarea.error~.amadex-error-message,
+.amadex-form-field .amadex-error-message:not(:empty) {
+    display: block;
+}
+
+.amadex-form-field input:not(.error)~.amadex-error-message:empty,
+.amadex-form-field select:not(.error)~.amadex-error-message:empty {
+    display: none;
+}
+
+.amadex-form-row .amadex-form-field .amadex-error-message {
+    margin-top: 4px;
+}
+
+.amadex-form-field .blank-error {
+    display: none;
+    color: #dc3545;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+.amadex-form-field input.error~.blank-error,
+.amadex-form-field select.error~.blank-error {
+    display: inline;
+}
+
+.required {
+    color: #000;
+}
+
+.amadex-payment-container {
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 0;
+    background: #F8F8F8 0% 0% no-repeat padding-box;
+}
+
+input#modern-origin {
+    border: none !important;
+}
+
+input#modern-destination {
+    border: none !important
+}
+
+.amadex-payment-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 12px;
+    display: none;
+}
+
+.amadex-payment-capsule {
+    border-radius: 14px;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.amadex-payment-accordion-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: stretch;
+}
+
+.amadex-payment-accordion-item {
+    display: contents;
+}
+
+.amadex-payment-accordion-list .amadex-payment-tab.amadex-payment-sub {
+    order: 1;
+}
+
+.amadex-payment-accordion-list .amadex-payment-accordion-panel,
+.amadex-payment-accordion-list #amadex-card-form-stripe {
+    order: 2;
+    width: 100%;
+    flex: 1 1 100%;
+}
+
+.amadex-payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: stretch;
+}
+
+.amadex-payment-tab.amadex-payment-sub {
+    flex: 1 1 0;
+    min-width: 0;
+    border: none;
+    padding: 12px 10px 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-align: center;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+    border-bottom: 3px solid transparent;
+}
+
+.amadex-payment-tab.amadex-payment-sub:hover {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.amadex-payment-tab.amadex-payment-sub.is-active {
+    border-bottom: 3px solid #0E7D3F;
+    background: transparent;
+}
+
+.amadex-payment-tab-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+}
+
+.amadex-payment-tab-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amadex-payment-logo-img {
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.amadex-payment-logo-mobile {
+    display: none;
+}
+
+.amadex-payment-logo-desktop {
+    display: block;
+}
+
+.amadex-payment-tab-content .amadex-payment-tab-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1a202c;
+    line-height: 1.2;
+}
+
+.amadex-payment-tab.is-active .amadex-payment-tab-content .amadex-payment-tab-label {
+    color: #0E7D3F;
+}
+
+.amadex-payment-tab-hidden {
+    display: none !important;
+}
+
+.amadex-payment-tab-chevron {
+    display: none;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    transition: transform 0.3s ease;
+}
+
+.amadex-payment-tab-chevron svg {
+    width: 20px;
+    height: 20px;
+}
+
+.amadex-payment-methods.amadex-payment-methods-stripe-only .amadex-payment-sub,
+.amadex-payment-accordion-list.amadex-payment-methods-stripe-only .amadex-payment-tab.amadex-payment-sub {
+    flex: 1 1 100%;
+}
+
+
+.amadex-payment-form-wrapper#amadex-credit-card-form {
+    margin-top: 0;
+}
+
+.amadex-payment-form-wrapper {
+    margin-top: 15px !IMPORTANT;
+}
+
+.amadex-card-form-compact .amadex-card-fields-only {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 100%;
+}
+
+.amadex-card-form-compact .amadex-form-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 12px;
+}
+
+.amadex-card-form-compact .amadex-form-row.amadex-collect-inline {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.amadex-card-form-compact .amadex-form-field {
+    flex: 1 1 100%;
+    min-width: 0;
+}
+
+.amadex-card-form-compact .amadex-form-field.full-width {
+    flex: 1 1 100%;
+}
+
+.amadex-card-form-compact label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.amadex-card-form-compact input[type="text"],
+.amadex-card-form-compact .amadex-collect-field input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+
+.amadex-stripe-payment-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    border: 1px solid #86efac;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #166534;
+    line-height: 1.45;
+}
+
+.amadex-stripe-message-icon {
+    flex-shrink: 0;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+}
+
+.amadex-stripe-message-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: #166534;
+}
+
+.amadex-stripe-message-text {
+    font-weight: 500;
+}
+
+#amadex-card-form-stripe {
+    margin-top: 16px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #0e7d3f;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+#amadex-card-form-stripe .amadex-stripe-card-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 14px 0;
+    color: #111827;
+}
+
+#amadex-card-form-stripe .amadex-form-row {
+    margin-bottom: 12px;
+}
+
+#amadex-card-form-stripe .amadex-form-field label {
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 6px;
+    display: block;
+}
+
+#amadex-card-form-stripe .amadex-form-field input.amadex-stripe-card-name {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #bae6fd;
+    padding: 12px 15px;
+    min-height: 48px;
+    box-sizing: border-box;
+    background-color: #f0f9ff;
+    font-size: 16px;
+    color: #111827;
+}
+
+#amadex-card-form-stripe .amadex-form-field input.amadex-stripe-card-name::placeholder {
+    color: #9ca3af;
+}
+
+#amadex-card-form-stripe .amadex-form-field input.amadex-stripe-card-name:focus {
+    outline: none;
+    border-color: #0e7d3f;
+    background-color: #ffffff;
+}
+
+#amadex-stripe-card-element {
+    min-height: 48px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    background-color: rgb(250, 255, 189);
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-sizing: border-box;
+    display: block;
+}
+
+#amadex-stripe-card-element .__PrivateStripeElement,
+#amadex-stripe-card-element iframe {
+    min-height: 36px !important;
+}
+
+#amadex-stripe-card-element .Input {
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+#amadex-stripe-card-errors {
+    min-height: 20px;
+    font-size: 13px;
+    margin-top: 8px;
+    color: #d63638;
+}
+
+#amadex-stripe-pay-securely {
+    margin-top: 16px;
+}
+
+.amadex-form-field input {
+    border-radius: 15px !important;
+}
+
+.amadex-payment-form p {
+    margin: 0;
+    font-size: 15px;
+    color: #000;
+}
+
+.amadex-payment-form-wrapper {
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 15px;
+    margin-top: 15px ! IMPORTANT;
+    box-shadow: 0px 0px 5px #00000029;
+}
+
+.amadex-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.amadex-card-form-container {
+    display: block;
+}
+
+.amadex-card-form-left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.amadex-card-visual {
+    display: none !important;
+}
+
+.amadex-card-front {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    padding: 20px;
+    color: #fff;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.amadex-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.amadex-card-bank {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.amadex-card-icons {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.amadex-card-chip {
+    font-size: 32px;
+}
+
+.amadex-card-contactless {
+    font-size: 20px;
+}
+
+.amadex-card-number-display {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+}
+
+.amadex-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.amadex-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.amadex-card-world {
+    font-size: 24px;
+}
+
+.amadex-card-name {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.amadex-card-visual img {
+    width: 100%;
+    height: 220px;
+}
+
+.amadex-stripe-card-form {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper {
+    background: linear-gradient(135deg, #ffffff 0%, #fef9f5 50%, #ffffff 100%);
+    border: 2px solid #fef3e7;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 4px 20px rgba(249, 115, 22, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f97316 0%, #fb923c 50%, #f97316 100%);
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:nth-child(2) {
+    order: 1;
+    margin-bottom: 32px;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:nth-child(2) .amadex-form-field {
+    width: 100%;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    position: relative;
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field .__PrivateStripeElement,
+.amadex-stripe-card-form #amadex-card-exp-field .__PrivateStripeElement,
+.amadex-stripe-card-form #amadex-card-cvv-field .__PrivateStripeElement {
+    width: 100% !important;
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field,
+.amadex-stripe-card-form #amadex-card-exp-field,
+.amadex-stripe-card-form #amadex-card-cvv-field {
+    position: relative;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field[role="group"],
+.amadex-stripe-card-form #amadex-card-exp-field[role="group"],
+.amadex-stripe-card-form #amadex-card-cvv-field[role="group"] {}
+
+.amadex-stripe-card-form input.__PrivateStripeElement-input[aria-hidden="true"] {
+    pointer-events: none !important;
+    position: absolute !important;
+    opacity: 0 !important;
+    width: 1px !important;
+    height: 1px !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    clip: rect(0, 0, 0, 0) !important;
+    overflow: hidden !important;
+    tabindex: -1 !important;
+}
+
+.amadex-stripe-card-form input.__PrivateStripeElement-input[aria-hidden="true"]:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field input,
+.amadex-stripe-card-form #amadex-card-exp-field input,
+.amadex-stripe-card-form #amadex-card-cvv-field input {
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field label {
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field .Input {
+    font-size: 18px !important;
+    letter-spacing: 2px !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+    height: 48px !important;
+    padding: 12px 20px !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    border: 2px solid #e5e7eb !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
+.amadex-stripe-card-form #amadex-card-number-field .Input--focus {
+    border-color: #f97316 !important;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1) !important;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:first-child {
+    order: 3;
+    margin-top: auto;
+    margin-bottom: 0;
+    display: flex;
+    width: 55%;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:first-child .amadex-form-field {
+    width: 100%;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:first-child input#card-name {
+    height: 48px;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:first-child input#card-name:focus {
+    border-color: #f97316;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1);
+    outline: none;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:first-child label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row:first-child .amadex-field-hint {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 4px;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row.amadex-collect-inline {
+    order: 3;
+    margin-top: auto;
+    margin-bottom: 0;
+    display: flex;
+    gap: 12px;
+    width: 45%;
+    margin-left: auto;
+    grid-template-columns: 1fr 1fr !important;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row.amadex-collect-inline .amadex-form-field {
+    flex: 1;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper>.amadex-form-row.amadex-collect-inline .amadex-form-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amadex-stripe-card-form #amadex-card-exp-field,
+.amadex-stripe-card-form #amadex-card-cvv-field {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+}
+
+.amadex-stripe-card-form #amadex-card-exp-field .Input,
+.amadex-stripe-card-form #amadex-card-cvv-field .Input {
+    font-size: 15px !important;
+    height: 48px !important;
+    padding: 12px 16px !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    border: 2px solid #e5e7eb !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04) !important;
+}
+
+.amadex-stripe-card-form #amadex-card-exp-field .Input--focus,
+.amadex-stripe-card-form #amadex-card-cvv-field .Input--focus {
+    border-color: #f97316 !important;
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.1) !important;
+}
+
+.amadex-stripe-card-form .amadex-stripe-card-fields-wrapper {
+    position: relative;
+}
+
+.amadex-stripe-card-form+.amadex-security-message,
+.amadex-stripe-card-form .amadex-security-message {
+    margin-top: 20px;
+    padding: 12px 16px;
+    background: #fef9f5;
+    border: 1px solid #fef3e7;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.amadex-stripe-card-form .amadex-security-message .amadex-security-checkmark {
+    color: #f97316;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.amadex-paypal-option {
+    width: 30%;
+}
+
+p.amadex-refund-policy {
+    font-size: 12px;
+}
+
+.amadex-paypal-radio {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 25px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+label.amadex-checkbox-label {
+    font-weight: 500;
+}
+
+.amadex-paypal-radio:hover {
+    border-color: #0e7d3f;
+    background: #F0F7F4;
+}
+
+.amadex-paypal-radio input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-color: #0a7d3f !important;
+    background-color: #0a7d3f !important;
+}
+
+.amadex-paypal-logo {
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    color: #003087;
+    justify-content: center;
+}
+
+.amadex-paypal-paylater-message {
+    margin-bottom: 12px;
+    min-height: 24px;
+}
+
+.amadex-crypto-info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.amadex-crypto-header p {
+    margin: 0;
+    font-size: 15px;
+    color: #1f2933;
+}
+
+.amadex-crypto-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background-color: #0d7340;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.amadex-crypto-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.amadex-crypto-steps li {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+    padding: 14px 16px;
+    align-items: center;
+    padding: 0;
+}
+
+.amadex-crypto-com-card {
+    background: #EEF9F2 0% 0% no-repeat padding-box;
+    border-radius: 15px 15px 0px 0px;
+    padding: 10px;
+}
+
+ul.amadex-crypto-steps {
+    margin: 0;
+    padding: 0;
+}
+
+.amadex-crypto-steps .step-title {
+    min-width: 64px;
+    height: 32px;
+    border-radius: 999px;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.amadex-crypto-steps p {
+    margin: 0;
+    color: #1f2933;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.amadex-security-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #0e7d3f;
+    font-weight: 500;
+}
+
+.amadex-security-checkmark {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #0e7d3f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.amadex-collect-field {
+    min-height: 45px;
+    width: 100%;
+    transition: all 0.2s ease;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    display: block;
+    position: relative;
+}
+
+.amadex-collect-field:empty::before {
+    content: 'Loading payment fields...';
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.amadex-collect-field:has(iframe)::before {
+    display: none;
+}
+
+div#amadex-crypto-com-form {
+    padding-bottom: 15px;
+}
+
+.amadex-crypto-com-hint {
+    margin: 0 0 1rem;
+    font-size: 14px;
+    color: #4a5568;
+}
+
+.amadex-collect-field iframe {
+    width: 100% !important;
+    min-height: 45px !important;
+    border: none !important;
+    border-radius: 8px;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.amadex-collect-field:focus-within {
+    border-color: #0e7d3f;
+    box-shadow: 0 0 0 2px rgb(14 125 63);
+}
+
+.amadex-form-row.amadex-collect-inline {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.amadex-collect-inline .amadex-form-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.amadex-collect-inline .amadex-collect-field {
+    width: 100%;
+}
+
+.amadex-payment-steps {
+    background: #F9FAFB;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 0;
+}
+
+.amadex-payment-steps p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #4A5568;
+}
+
+.amadex-refund-policy {
+    font-size: 13px;
+    color: #000;
+    margin-top: 16px;
+}
+
+.amadex-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #4A5568;
+    line-height: 1.6;
+}
+
+.amadex-checkbox-label input[type="checkbox"] {
+    margin-top: 0;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+div#amadex-agreement-section .amadex-form-row {
+    margin-bottom: 0 !important;
+}
+
+input#ccnumber {
+    border-radius: 15px !important;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important;
+    padding: 15px 14px !important;
+}
+
+input#ccexp {
+    border-radius: 15px !important;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important;
+    padding: 15px 14px !important;
+}
+
+input#cvv {
+    border-radius: 15px;
+    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05) !important;
+    padding: 15px 14px !important;
+}
+
+.amadex-card-visual img {
+    width: 100%;
+}
+
+label.amadex-checkbox-label input#amadex-updates-consent {
+    min-height: 0;
+}
+
+label.amadex-checkbox-label span {
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.amadex-legal-text {
+    font-size: 13px;
+    color: #757575;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.amadex-booking-action {
+    text-align: left;
+    padding: 24px 0;
+    position: relative;
+}
+
+.amadex-confirm-book-btn,
+.amadex-payment-submit-btn.amadex-stripe-cta {
+    color: #fff;
+    border: none;
+    padding: 14px 64px;
+    background: #0E7D3F 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none !important;
+    margin-bottom: 12px;
+}
+
+.amadex-payment-submit-btn.amadex-stripe-cta:hover:not(:disabled) {
+    background: #0a6332;
+}
+
+.amadex-payment-submit-btn.amadex-stripe-cta:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #6b8f7a;
+}
+
+.amadex-payment-submit-btn.amadex-stripe-cta.loading {
+    position: relative;
+    color: transparent;
+}
+
+.amadex-payment-submit-btn.amadex-stripe-cta.loading::after {
+    content: 'Redirecting to payment...';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+}
+
+#amadex-payment-submit.amadex-stripe-cta {
+    display: block !important;
+    visibility: visible !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 16px 0;
+}
+
+label.amadex-paypal-radio {
+    display: flex !important;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.amadex-timer-expiration-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.amadex-timer-expiration-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.amadex-timer-expiration-modal {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 40px 32px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.amadex-timer-expiration-overlay.show .amadex-timer-expiration-modal {
+    transform: scale(1);
+}
+
+.amadex-timer-expiration-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+
+.amadex-timer-expiration-modal h3 {
+    margin: 0 0 12px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #dc3545;
+}
+
+.amadex-timer-expiration-modal p {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.amadex-timer-refresh-note {
+    margin-top: 16px !important;
+    font-size: 14px !important;
+    color: #666 !important;
+    font-style: italic;
+}
+
+.amadex-timer-warning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.amadex-timer-warning-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.amadex-timer-warning-modal {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 32px 40px;
+    max-width: 480px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.amadex-timer-warning-overlay.show .amadex-timer-warning-modal {
+    transform: scale(1);
+}
+
+.amadex-timer-warning-modal .amadex-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.amadex-timer-warning-modal .amadex-modal-close:hover {
+    background: #f0f0f0;
+    color: #000;
+}
+
+.amadex-timer-warning-modal h3 {
+    margin: 0 0 16px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-timer-warning-modal p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.amadex-timer-warning-modal .timer-display {
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    font-size: 24px;
+    color: #0E7D3F;
+    letter-spacing: 1px;
+}
+
+.amadex-booking-processing-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.amadex-booking-processing-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.amadex-booking-processing-modal {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.amadex-booking-processing-overlay.show .amadex-booking-processing-modal {
+    transform: scale(1);
+}
+
+.amadex-processing-spinner-container {
+    margin-bottom: 24px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amadex-processing-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #0E7D3F;
+    border-radius: 50%;
+    animation: amadex-spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+.amadex-success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+}
+
+.amadex-success-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.amadex-error-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto;
+}
+
+.amadex-error-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.amadex-processing-content {
+    width: 100%;
+}
+
+.amadex-processing-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 12px 0;
+    line-height: 1.3;
+}
+
+.amadex-processing-message {
+    font-size: 16px;
+    color: #666666;
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+}
+
+.amadex-processing-submessage {
+    font-size: 14px;
+    color: #999999;
+    margin: 0 0 24px 0;
+    line-height: 1.4;
+}
+
+.amadex-processing-warning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    color: #856404;
+    font-size: 14px;
+    margin-top: 24px;
+    line-height: 1.4;
+}
+
+.amadex-warning-icon {
+    fill: #856404;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.amadex-booking-processing-modal .amadex-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.amadex-booking-processing-modal .amadex-modal-close:hover {
+    background: #f0f0f0;
+    color: #000;
+}
+
+.amadex-processing-progress {
+    margin-top: 24px;
+    width: 100%;
+    height: 4px;
+    background: #f3f3f3;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.amadex-progress-bar {
+    height: 100%;
+    background: #0E7D3F;
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.sr-only {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.amadex-timer-container {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 16px;
+    position: relative;
+    border: 1px solid #E5E5E5 !important;
+    padding: 12px 16px !important;
+    border-radius: 16px !important;
+    background: #fff;
+}
+
+h3.amadex-timer-title {
+    color: #000 !important;
+    font-weight: 600 !important;
+    font-size: 19px;
+}
+
+.amadex-timer-card,
+#amadex-booking-timer-badge.amadex-timer-card,
+#amadex-booking-timer-badge,
+.amadex-booking-sidebar .amadex-timer-card,
+.amadex-booking-sidebar #amadex-booking-timer-badge {
+    background: transparent !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+    position: relative !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    border: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    transition: all 0.3s ease;
+}
+
+.amadex-timer-card:hover {
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-2px);
+}
+
+.amadex-timer-card.timer-expired,
+#amadex-booking-timer-badge.amadex-timer-card.timer-expired,
+#amadex-booking-timer-badge.timer-expired {
+    border-color: #085D2C !important;
+    transition: all 0.3s ease;
+    animation: timerRefreshPulse 2s ease-in-out infinite;
+}
+
+#amadex-booking-timer-badge.amadex-timer-card,
+#amadex-booking-timer-badge {
+    display: block !important;
+    align-items: unset !important;
+    gap: 0 !important;
+    padding: 0 !important;
+    font-size: inherit !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    font-weight: inherit !important;
+    margin-left: 0 !important;
+    color: inherit !important;
+    box-shadow: none !important;
+    margin-bottom: 0 !important;
+}
+
+.amadex-timer-line1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 12px;
+}
+
+.amadex-timer-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1.4;
+    text-align: left;
+    flex: 1;
+}
+
+.amadex-timer-display-inline {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.timer-display {
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    font-size: 20px;
+    color: #0E7D3F;
+    letter-spacing: 1px;
+    line-height: 1;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.amadex-timer-icon {
+    font-size: 18px;
+    color: #0E7D3F;
+    opacity: 0.8;
+    line-height: 1;
+}
+
+.amadex-timer-subtitle {
+    margin: 0;
+    font-size: 11px;
+    color: #666666;
+    line-height: 1.4;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+    text-align: left;
+}
+
+.amadex-timer-card.timer-expired .timer-display {
+    color: #085D2C;
+}
+
+.amadex-timer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    background: #FFF0F0 0% 0% no-repeat padding-box;
+    border: 1px solid #C70000;
+    border-radius: 11px;
+    font-weight: 600;
+    margin-left: 16px;
+    color: #C70000;
+    visibility: visible;
+    opacity: 1;
+}
+
+.amadex-timer-badge.timer-expired {
+    background: #FFE0E0 0% 0% no-repeat padding-box;
+    border-color: #A00000;
+    color: #A00000;
+}
+
+.amadex-confirmation-text {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #718096;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.amadex-envelope-icon {
+    font-size: 16px;
+}
+
+p.amadex-confirmation-text {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E6E6E6;
+    border-radius: 20px;
+    padding: 10px 0;
+    color: #000;
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+input#ccnumber {
+    border-radius: 15px !important;
+    border: 1px solid #E6E6E6 !important;
+}
+
+.amadex-form-inline select {
+    padding: 0 !important;
+}
+
+.booking-step.is-active span.booking-step-label {
+    color: #0e7d3f;
+}
+
+.booking-step {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.booking-step:hover {
+    opacity: 0.8;
+}
+
+.booking-step.is-active {
+    cursor: default;
+}
+
+.amadex-form-inline select {
+    padding: 15px 14px !important;
+}
+
+.amadex-form-field input {
+    border-radius: 15px !important;
+    border: 1px solid #E6E6E6 !important;
+    padding: 15px 14px !important;
+}
+
+.amadex-booking-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    top: auto;
+    align-self: flex-start;
+    max-height: none;
+    overflow-y: visible;
+    overflow-x: visible;
+    z-index: 10;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.amadex-booking-sidebar .amadex-timer-container {
+    order: -1;
+    margin-bottom: 15px;
+}
+
+.amadex-booking-main {
+    padding: 28px 20px;
+}
+
+.amadex-booking-sidebar .amadex-timer-container {
+    border-radius: 16px;
+}
+
+#amadex-agreement-section {
+    padding: 20px;
+    margin-top: 0;
+}
+
+#amadex-agreement-section .amadex-form-row {
+    margin-bottom: 16px;
+}
+
+#amadex-agreement-section .amadex-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#amadex-agreement-section .amadex-checkbox-label input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+#amadex-agreement-section .amadex-checkbox-label span {
+    text-align: left;
+}
+
+.amadex-booking-action-compact {
+    padding: 12px 0;
+    margin-top: 0;
+}
+
+.amadex-booking-action-compact .amadex-form-row {
+    margin: 0;
+}
+
+.amadex-email-confirmation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 13px;
+}
+
+.amadex-email-confirmation svg {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.amadex-booking-section {
+    margin-bottom: 0;
+}
+
+.amadex-booking-section h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.amadex-booking-section .amadex-section-subtitle {
+    margin-bottom: 20px;
+}
+
+.amadex-price-summary-card {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 15px #00000029;
+    border-radius: 28px;
+    padding: 28px 20px 32px;
+    margin-bottom: 15px;
+}
+
+.amadex-price-summary-card h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-price-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 18px;
+    background: #FDFEFE;
+    border: 1px solid #E5F1E8;
+    border-radius: 24px;
+    padding: 20px 16px;
+}
+
+.amadex-price-row:last-child {
+    border-bottom: none;
+}
+
+.amadex-price-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.amadex-price-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+}
+
+.amadex-price-subtext {
+    font-size: 13px;
+    color: #7A8B81;
+}
+
+.amadex-price-value {
+    font-weight: 700;
+    font-size: 16px;
+    color: #000;
+}
+
+.amadex-price-row.discount .amadex-price-value {
+    color: #0E7D3F;
+}
+
+input#ccnumber {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 15px !important;
+}
+
+input#ccexp {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 15px !important;
+}
+
+input#cvv {
+    border: 1px solid #E6E6E6 !important;
+    border-radius: 15px !important;
+}
+
+.amadex-price-row.total {
+    padding: 8px 20px;
+    margin-top: 4px;
+    border-bottom: none;
+    background: #F2F2F2 0% 0% no-repeat padding-box;
+    border-radius: 15px;
+}
+
+.amadex-price-row.total .amadex-price-info span.amadex-price-label {
+    font-weight: 500 !important;
+}
+
+.amadex-price-value--highlight {
+    font-size: 18px;
+    background: #F3F6F4;
+    border-radius: 14px;
+    padding: 8px 0;
+    color: #000;
+}
+
+.amadex-premium-services-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 28px 20px 32px;
+    box-shadow: 0px 0px 15px #00000029;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #E5E5E5 !important;
+}
+
+.amadex-premium-services-header {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.amadex-premium-services-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #FFC107;
+    color: #000;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transform: rotate(5deg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.amadex-premium-services-title-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0e7d3f;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.amadex-premium-services-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.amadex-premium-services-btn {
+    background: #0e7d3f;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.amadex-premium-services-btn:hover {
+    background: #fff;
+    color: #0e7d3f;
+    transform: translateY(-1px);
+}
+
+.amadex-premium-services-btn.premium-service-added {
+    background: #dc3545;
+    border-color: #dc3545;
+}
+
+.amadex-premium-services-btn.premium-service-added:hover {
+    background: #c82333;
+    border-color: #c82333;
+    color: #fff;
+}
+
+.amadex-premium-services-content {
+    color: #000;
+}
+
+.amadex-premium-services-logo {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amadex-premium-services-logo-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.amadex-premium-services-logo strong {
+    display: block;
+    color: #0e7d3f;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.amadex-premium-services-tagline {
+    display: block;
+    color: #666;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.amadex-premium-services-read-more {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.amadex-read-more-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+}
+
+.amadex-read-more-btn:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.amadex-read-more-btn .read-more-text {
+    font-family: sans-serif;
+}
+
+.amadex-read-more-btn .read-more-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #000;
+}
+
+.amadex-read-more-btn .read-more-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.amadex-premium-services-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amadex-premium-services-features li {
+    margin-bottom: 15px;
+    padding-left: 20px;
+    position: relative;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.amadex-premium-services-features li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #0e7d3f;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.amadex-premium-services-features li strong {
+    color: #0e7d3f;
+    font-weight: 600;
+}
+
+.amadex-pay-later-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 28px 20px 32px;
+    box-shadow: 0px 0px 15px #00000029;
+    color: #fff;
+    position: relative;
+    margin-bottom: 0;
+    border-bottom: 10px solid #0e7d3f;
+    border-left: 10px solid #0e7d3f;
+    border-right: 10px solid #0e7d3f;
+}
+
+.amadex-pay-later-header {
+    background: #0e7d3f;
+    margin: -28px -20px 20px -20px;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    width: 100%;
+    opacity: 1;
+    justify-content: center;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.amadex-pay-later-header img {
+    margin-top: -62px;
+    opacity: 2;
+    min-height: 62px;
+}
+
+.amadex-pay-later-header h4 {
+    margin-top: -54px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+    margin-left: 35px;
+}
+
+div#amadex-booking-page {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.amadex-pay-later-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    margin-top: 2rem;
+}
+
+.amadex-pay-later-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: #000;
+    background: transparent linear-gradient(90deg, #EEF9F2 0%, #EEF9F200 100%) 0% 0% no-repeat padding-box;
+    border-radius: 14px;
+    padding: 5px 15px;
+    font-weight: 600;
+}
+
+.amadex-feature-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.amadex-pay-later-phone-btn,
+.amadex-pay-later-whatsapp-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-bottom: 12px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.amadex-pay-later-phone-btn {
+    background: #0E7D3F;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.amadex-pay-later-phone-btn:hover {
+    background: rgb(14 125 63);
+    transform: translateY(-1px);
+}
+
+.amadex-pay-later-whatsapp-btn {
+    background: #EE9C31;
+    color: #fff;
+}
+
+.amadex-pay-later-card a {
+    text-decoration: none !important;
+}
+
+.amadex-pay-later-whatsapp-btn:hover {
+    background: #20BA5A;
+    transform: translateY(-1px);
+}
+
+.amadex-phone-icon,
+.amadex-whatsapp-icon {
+    font-size: 18px;
+}
+
+.amadex-whatsapp-compact-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-radius: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    background: #EE9C31;
+    color: #fff;
+    margin-top: 0;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.amadex-whatsapp-compact-btn:hover {
+    background: #d68a28;
+    transform: translateY(-1px);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.amadex-whatsapp-compact-btn .amadex-whatsapp-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.amadex-whatsapp-compact-btn .amadex-whatsapp-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+.amadex-call-now-banner.amadex-call-now-floating.amadex-call-now-pulse {
+    animation: amadexGreenPulse 2s infinite;
+}
+
+.amadex-confirmation-page {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px 60px;
+}
+
+.amadex-confirmation-hero {
+    background: linear-gradient(135deg, #0e7d3f, #0aa870);
+    color: #fff;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 25px 45px rgba(14, 125, 63, 0.25);
+    margin-bottom: 30px;
+}
+
+.amadex-confirmation-hero h1 {
+    margin: 12px 0 10px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.amadex-confirmation-hero p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 760px;
+}
+
+.amadex-confirmation-status .status-pill {
+    display: inline-flex;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.status-pill.status-pending {
+    background: rgba(255, 184, 0, 0.28);
+    border-color: rgba(255, 184, 0, 0.6);
+}
+
+.amadex-reference-pill {
+    display: inline-flex;
+    flex-direction: column;
+    margin-top: 18px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.amadex-confirmation-grid {
+    display: grid;
+    grid-template-columns: 1.7fr 0.9fr;
+    gap: 24px;
+}
+
+.amadex-card {
+    background: #fffdfb;
+    border-radius: 18px;
+    padding: 24px;
+}
+
+.amadex-card h2 {
+    margin-top: 0;
+    font-size: 20px;
+    color: #0f172a;
+}
+
+.amadex-overview-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amadex-overview-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 15px;
+    color: #475569;
+}
+
+.amadex-overview-list li strong {
+    color: #0f172a;
+}
+
+.amadex-passenger-list,
+.amadex-segment-list,
+.amadex-next-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amadex-passenger-list li {
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    background: #f8fafc;
+}
+
+.amadex-passenger-list span {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.amadex-segment-list li {
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+}
+
+.amadex-segment-route {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    color: #0f172a;
+}
+
+.amadex-segment-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.amadex-next-steps {
+    counter-reset: amadex-steps;
+}
+
+.amadex-next-steps li {
+    counter-increment: amadex-steps;
+    position: relative;
+    padding-left: 38px;
+    margin-bottom: 16px;
+    color: #334155;
+}
+
+.amadex-next-steps li::before {
+    content: counter(amadex-steps);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #0e7d3f;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.amadex-support-card .amadex-support-link {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+}
+
+.amadex-price-breakdown.price-updating {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    position: relative;
+}
+
+.amadex-price-breakdown.price-updating::before {
+    content: 'Updating price...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #0E7D3F;
+    font-weight: 600;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.amadex-price-breakdown.price-updating .amadex-price-value {
+    position: relative;
+}
+
+.amadex-price-breakdown.price-updating .amadex-price-value::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(14, 125, 63, 0.1), transparent);
+    animation: priceShimmer 1.5s infinite;
+}
+
+
+.amadex-price-value.updating {
+    color: #0e7d3f;
+    font-weight: 700;
+    animation: pricePulse 1s ease-in-out infinite;
+}
+
+
+.amadex-confirmation-empty {
+    text-align: center;
+}
+
+.amadex-empty-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.amadex-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: #0e7d3f;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.amadex-button-outline {
+    background: transparent;
+    border: 2px solid #0e7d3f;
+    color: #0e7d3f;
+}
+
+.amadex-airline-promotions-left {
+    flex: 0 0 280px;
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.amadex-airline-promotions-right {
+    flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.amadex-airline-promotion-card {
+    background: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    width: 100%;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 280px;
+    z-index: 1;
+    margin-bottom: 0;
+}
+
+.amadex-airline-promotion-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.amadex-airline-promotion-image {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+    background: none;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-left: -24px;
+}
+
+.amadex-airline-promotion-plane {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.amadex-airline-promotion-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.amadex-airline-promotion-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.amadex-airline-promotion-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.amadex-promotion-btn {
+    background: #FF6B35;
+    color: #FFFFFF;
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.amadex-airline-promotion-card:hover .amadex-promotion-btn {
+    background: #E55A2B;
+}
+
+.amadex-airline-promotion-logo {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #E4EDE3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amadex-airline-logo-img {
+    max-width: 120px;
+    max-height: 40px;
+    object-fit: contain;
+}
+
+.amadex-sticky-promotion {
+    position: relative;
+}
+
+.amadex-airline-promotions-left .amadex-airline-promotion-card,
+.amadex-airline-promotions-right .amadex-airline-promotion-card {
+    position: relative;
+}
+
+.amadex-results-content .amadex-filters-sidebar {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 20px;
+    order: 2;
+}
+
+.amadex-results-content .amadex-results-main {
+    flex: 1;
+    min-width: 0;
+    order: 3;
+}
+
+.amadex-results-content>.amadex-airline-promotions-right {
+    order: 3;
+}
+
+.amadex-airline-promotions-left {
+    margin-top: 0;
+}
+
+#amadex-seat-selection-section {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 24px 20px;
+    background-color: unset;
+    background: unset;
+    border-radius: 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-width: 0px;
+    border-style: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-image: none;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    position: relative;
+    isolation: isolate;
+    contain: none !important;
+    min-width: 0;
+    min-height: 400px;
+    height: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+#amadex-seat-selection-section h3 {
+    margin: 8px 0 8px 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0e7d3f;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#amadex-seat-selection-section .amadex-section-subtitle {
+    margin: 0 0 24px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.amadex-seat-map-loading {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.amadex-seat-map-loading p {
+    margin: 16px 0 0 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.amadex-loading-spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #0e7d3f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+.amadex-seat-map-unavailable {
+    padding: 20px;
+}
+
+.amadex-notice {
+    padding: 16px;
+    border-radius: 8px;
+    margin: 0;
+}
+
+.amadex-notice-info {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    color: #1976d2;
+}
+
+.amadex-notice-info p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+#amadex-seat-maps-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    position: relative;
+    isolation: isolate;
+    contain: none !important;
+    min-width: 0;
+    text-align: left;
+    vertical-align: middle;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
+    background: unset;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    padding: 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+#amadex-seat-maps-container>*:not(.amadex-seat-map-scrollable-container):not(.amadex-seat-map-content) {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+#amadex-seat-maps-container .amadex-flight-details-card {
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+    border-radius: 20px;
+    overflow: visible !important;
+    padding: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative;
+    isolation: isolate;
+    contain: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: rgba(222, 232, 227, 1);
+}
+
+#amadex-seat-maps-container .amadex-flight-details-card h4 {
+    margin: 0 0 20px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    flex-shrink: 0;
+    text-align: left;
+    vertical-align: top;
+}
+
+.amadex-seat-map-scrollable-container {
+    max-height: 700px;
+    min-height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 12px;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #0E7D3F #f0f0f0;
+    overflow-x: auto;
+    overflow-y: auto;
+    touch-action: pan-x pan-y pinch-zoom;
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    scrollbar-gutter: stable;
+}
+
+.amadex-seat-map-scrollable-container:active {
+    cursor: grabbing;
+}
+
+.amadex-seat-map-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+    width: auto;
+    min-width: fit-content;
+    box-sizing: border-box;
+}
+
+.amadex-seat-map-scrollable-container .amadex-seat-map-content {
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+    min-width: fit-content;
+    width: auto;
+    will-change: transform;
+    margin: 0 auto;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar:horizontal {
+    height: 12px;
+    bottom: 0;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar:vertical {
+    width: 12px;
+    right: 0;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-track:horizontal {
+    background: #f0f0f0;
+    border-radius: 10px;
+    bottom: 0;
+    position: absolute;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-track:vertical {
+    background: #f0f0f0;
+    border-radius: 10px;
+    right: 0;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb {
+    background: #0E7D3F;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    transition: background 0.2s ease;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:horizontal {
+    background: #0E7D3F;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    transition: background 0.2s ease, transform 0.1s ease;
+    cursor: pointer;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:vertical {
+    background: #0E7D3F;
+    border-radius: 10px;
+    border: 2px solid #f0f0f0;
+    transition: background 0.2s ease;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:hover {
+    background: #085D2C;
+}
+
+.amadex-seat-map-scrollable-container::-webkit-scrollbar-thumb:horizontal:hover {
+    background: #085D2C;
+    transform: scaleY(1.1);
+}
+
+.amadex-seat-map-scrollable-container .amadex-seat-map-content {
+    width: auto;
+    min-width: fit-content;
+    max-width: none;
+    box-sizing: border-box;
+    position: relative;
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+    will-change: transform;
+    margin: 0 auto;
+    padding: 8px;
+}
+
+.amadex-seat-map-segment {
+    margin: 24px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-seat-map-segment h4 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.amadex-seat-map-wrapper {
+    overflow-x: visible !important;
+    overflow-y: visible;
+    padding: 8px;
+    background: #fff;
+    border-radius: 8px;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    min-width: 0;
+    contain: none !important;
+    position: relative;
+    isolation: isolate;
+}
+
+.amadex-seat-map-itinerary-group {
+    margin: 32px 0 16px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+.amadex-seat-map-itinerary-group:first-child {
+    margin-top: 0;
+}
+
+.amadex-itinerary-heading {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0e7d3f;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #0e7d3f;
+}
+
+.amadex-seat-map-orientation {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 16px 0;
+    background: transparent;
+    vertical-align: middle;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.amadex-cockpit-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.amadex-seat-map-column-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 8px 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    min-width: 0;
+}
+
+.amadex-seat-column-label {
+    width: 48px;
+    min-width: 48px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+    padding: 4px 0;
+}
+
+.amadex-row-number-header {
+    width: 40px;
+    min-width: 40px;
+}
+
+.amadex-seat-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 6px 0;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-width: 0;
+    vertical-align: middle;
+}
+
+.amadex-row-number {
+    width: 40px;
+    min-width: 40px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    padding: 6px 8px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    border: 1px solid #E0E0E0;
+}
+
+.amadex-seat-gap {
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    background: transparent;
+}
+
+.amadex-aisle-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #E8F5E9 0%, #F1F8F4 50%, #E8F5E9 100%);
+    border-left: 2px dashed #81C784;
+    border-right: 2px dashed #81C784;
+    position: relative;
+    min-width: 24px;
+    width: 24px;
+}
+
+.amadex-aisle-indicator.amadex-aisle-vertical {
+    height: 64px;
+    min-height: 64px;
+    background: repeating-linear-gradient(90deg,
+            #E8F5E9 0px,
+            #E8F5E9 2px,
+            #F1F8F4 2px,
+            #F1F8F4 4px);
+    border-left: 2px solid #81C784;
+    border-right: 2px solid #81C784;
+    border-radius: 0;
+}
+
+.amadex-aisle-indicator.amadex-aisle-header {
+    height: 32px;
+    min-height: 32px;
+    background: repeating-linear-gradient(90deg,
+            #E8F5E9 0px,
+            #E8F5E9 2px,
+            #F1F8F4 2px,
+            #F1F8F4 4px);
+    border-left: 2px solid #81C784;
+    border-right: 2px solid #81C784;
+    border-radius: 0;
+}
+
+.amadex-aisle-indicator::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 4px,
+            rgba(129, 199, 132, 0.3) 4px,
+            rgba(129, 199, 132, 0.3) 6px);
+    pointer-events: none;
+}
+
+.amadex-aisle-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(90deg,
+            #E8F5E9 0px,
+            #E8F5E9 8px,
+            #C8E6C9 8px,
+            #C8E6C9 16px);
+    border-left: 2px dashed #81C784;
+    border-right: 2px dashed #81C784;
+    position: relative;
+}
+
+.amadex-aisle-indicator.amadex-aisle-vertical {
+    width: 32px;
+    min-width: 32px;
+    height: 64px;
+    margin: 0 4px;
+    border-radius: 4px;
+}
+
+.amadex-aisle-indicator.amadex-aisle-header {
+    width: 32px;
+    min-width: 32px;
+    height: 40px;
+    margin: 0 4px;
+    border-radius: 4px;
+    border-left: 2px dashed #81C784;
+    border-right: 2px dashed #81C784;
+    border-top: none;
+    border-bottom: none;
+}
+
+.amadex-aisle-indicator::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 2 L10 18 M2 10 L18 10' stroke='%2381C784' stroke-width='1.5' stroke-dasharray='2,2'/%3E%3C/svg%3E");
+    background-repeat: repeat-y;
+    background-position: center;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.amadex-aisle-indicator.amadex-aisle-header::after {
+    background-repeat: repeat-x;
+    background-position: center;
+}
+
+.amadex-seat-map-tabs-container {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-bottom: 0;
+    padding: 0;
+    position: relative;
+    isolation: isolate;
+    background-color: unset;
+    background: unset;
+}
+
+.amadex-seat-map-tabs-list {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 0;
+    border: none;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: visible;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.amadex-seat-map-tabs-list::-webkit-scrollbar {
+    height: 4px;
+}
+
+.amadex-seat-map-tabs-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.amadex-seat-map-tabs-list::-webkit-scrollbar-thumb {
+    background: #0E7D3F;
+    border-radius: 2px;
+}
+
+.amadex-seat-map-tab {
+    background: #FFF !important;
+    border: 1px solid #0E7D3F !important;
+    padding: 12px 10px;
+    font-size: 14px;
+    font-weight: 500 !important;
+    color: #0e7d3f !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    border-radius: 10px !important;
+    transition: all 0.3s !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    outline: none !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    margin: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.amadex-seat-map-tab:hover {
+    background: rgba(14, 125, 63, 1) !important;
+    color: #FFF !important;
+    transform: translateY(-1px);
+    border-color: rgba(14, 125, 63, 1) !important;
+}
+
+.amadex-seat-map-tab.active,
+.amadex-seat-map-tab.active:hover {
+    background: rgba(14, 125, 63, 1) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(14, 125, 63, 1) !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 12px rgba(14, 125, 63, 0.3) !important;
+}
+
+.amadex-seat-map-tabs-content {
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    clear: both;
+    min-width: 0;
+    contain: layout style;
+}
+
+.amadex-seat-map-tab-panel {
+    display: none;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    overflow-y: visible;
+    clear: both;
+    position: relative;
+    min-width: 0;
+    contain: layout style;
+}
+
+.amadex-seat-map-tab-panel.active {
+    display: block;
+}
+
+.amadex-seat-map-tab-panel .amadex-flight-details-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: visible !important;
+    overflow-y: visible;
+    min-width: auto;
+    contain: layout style;
+}
+
+.amadex-seat-map-tab-panel .amadex-seat-map-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow-x: visible !important;
+    overflow-y: visible;
+    min-width: auto;
+    contain: layout style;
+}
+
+.amadex-passenger-selector-wrapper {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.amadex-passenger-selector-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.amadex-passenger-selector-btn {
+    background: #F5F5F5;
+    border: 2px solid #E0E0E0;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.amadex-passenger-selector-btn:hover {
+    background: #EEEEEE;
+    border-color: #BDBDBD;
+}
+
+.amadex-passenger-selector-btn.active {
+    background: rgba(14, 125, 63, 1);
+    border-color: rgba(14, 125, 63, 1);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.amadex-passenger-selector:focus {
+    outline: none;
+    border-color: #0e7d3f;
+    box-shadow: 0 0 0 3px rgba(14, 125, 63, 0.1);
+}
+
+.amadex-seat-number {
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.amadex-seat-summary-route .amadex-seat-price {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.amadex-seat-price.is-free {
+    color: #666;
+    font-weight: 600;
+}
+
+.amadex-seat-selected-indicator {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 18px;
+    height: 18px;
+    background: #2E7D32;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.amadex-seat:hover:not(.unavailable):not(.selected) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.amadex-seat-legend {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+    flex: 1;
+    min-width: 0;
+}
+
+.amadex-seat-legend h5 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+}
+
+.amadex-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #666;
+}
+
+.amadex-legend-item .amadex-seat {
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    cursor: default;
+    font-size: 10px;
+    border-radius: 3px;
+}
+
+.amadex-legend-item .amadex-seat:hover {
+    transform: none;
+}
+
+.amadex-legend-item .amadex-seat.available {
+    border-color: #EE9C31;
+}
+
+.amadex-legend-item .amadex-seat.selected {
+    background: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.amadex-legend-item .amadex-seat.unavailable {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+}
+
+.amadex-legend-item .amadex-seat.window {
+    background: #FFFFFF;
+    border: 1px solid #81C784;
+}
+
+.amadex-legend-item .amadex-seat.aisle {
+    background: #FFFFFF;
+    border: 1px solid #81C784;
+}
+
+.amadex-selected-seats-summary h4 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0e7d3f;
+}
+
+#amadex-selected-seats-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.amadex-seat-summary-passenger {
+    margin-bottom: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+}
+
+.amadex-seat-summary-passenger:last-child {
+    margin-bottom: 0;
+}
+
+.amadex-seat-summary-passenger-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e8f5e9;
+    flex-wrap: wrap;
+}
+
+.amadex-passenger-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #073F20;
+    flex: 1;
+    min-width: 150px;
+}
+
+.amadex-passenger-type {
+    padding: 4px 10px;
+    background: #0e7d3f;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.amadex-passenger-subtotal {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0e7d3f;
+    margin-left: auto;
+}
+
+.amadex-seat-summary-routes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.amadex-seat-summary-route {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    background: #f9faf9;
+    border-radius: 6px;
+    border-left: 3px solid #0e7d3f;
+    transition: background-color 0.2s ease;
+}
+
+.amadex-seat-summary-route:last-child {
+    margin-bottom: 0;
+}
+
+.amadex-seat-summary-route:hover {
+    background: #f0f9f3;
+}
+
+.amadex-route-info {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    min-width: 200px;
+}
+
+button#amadex-mobile-edit-search {
+    background: #fff;
+}
+
+button#amadex-mobile-edit-search svg {
+    color: #615f5f;
+}
+
+.amadex-seat-info {
+    padding: 4px 10px;
+    background: #0e7d3f;
+    color: #ffffff;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.amadex-seat.available .amadex-seat-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    white-space: nowrap;
+    min-width: auto;
+}
+
+.amadex-seat-total-price {
+    margin: 16px 0 0 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #0e7d3f;
+    text-align: right;
+}
+
+.amadex-seat-selection-actions {
+    margin-top: 24px;
+    text-align: right;
+}
+
+.amadex-seat-selection-actions .amadex-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.amadex-btn-secondary {
+    background: #FFFFFF;
+    color: #0E7D3F;
+    border: 1px solid #0E7D3F;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.amadex-btn-secondary:hover {
+    background: #0E7D3F;
+    color: #FFFFFF;
+}
+
+#amadex-skip-seat-selection {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.amadex-no-seatmap {
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+div#amadex-mobile-price-bar {
+    border-radius: 20px 20px 0 0 !important;
+    border: 1px solid #0E7D3F;
+}
+
+.amadex-seat.selected-by-current-passenger {
+    box-shadow: 0 0 0 3px #0e7d3f;
+    border: 2px solid #0e7d3f !important;
+}
+
+.amadex-pagination-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    margin-top: 32px;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
+}
+
+.amadex-step-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 0;
+    margin-top: 32px;
+}
+
+.amadex-step-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.amadex-step-back {
+    background: #FFFFFF;
+    color: #333;
+    border: 1px solid #E4EDE3;
+}
+
+.amadex-step-back:hover {
+    background: #F8F9FA;
+    border-color: #0E7D3F;
+    color: #0E7D3F;
+}
+
+.amadex-step-next {
+    background: #0E7D3F;
+    color: #FFFFFF;
+    flex: 1;
+    justify-content: center;
+}
+
+.amadex-step-next:hover {
+    background: #073F20;
+}
+
+.amadex-step-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+}
+
+.booking-step {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.booking-step:hover {
+    opacity: 0.8;
+}
+
+.booking-step.is-complete {
+    opacity: 1;
+}
+
+.amadex-mobile-price-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    border-top: 1px solid #E4EDE3;
+    padding-bottom: 0;
+    border-radius: 20px 20px 0 0;
+}
+
+.amadex-price-bar-compact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.amadex-price-bar-total {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.amadex-price-bar-label {
+    font-size: 13px;
+    color: #000;
+    font-weight: 500;
+    display: flex;
+}
+
+.amadex-price-bar-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-price-bar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0E7D3F;
+    transition: transform 0.3s ease;
+    margin-left: 1rem;
+}
+
+.amadex-price-bar-toggle svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+}
+
+.amadex-price-bar-step-next-wrap {
+    flex-shrink: 0;
+    margin-left: 12px;
+}
+
+#amadex-mobile-price-bar #amadex-step-next.amadex-step-next-in-price-bar,
+.amadex-price-bar-step-next-wrap #amadex-step-next {
+    min-width: 120px;
+    padding: 12px 20px;
+    font-weight: 700;
+    border-radius: 12px;
+    background: #0E7D3F !important;
+    color: #fff !important;
+    border: none;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.amadex-price-bar-step-next-wrap #amadex-step-next:hover:not(:disabled) {
+    background: #0b6a34 !important;
+}
+
+.amadex-price-bar-expanded {
+    border-top: 1px solid #E4EDE3;
+    background: #FFFFFF;
+    max-height: 60vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.amadex-price-bar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #E4EDE3;
+}
+
+.amadex-price-bar-header h4 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+}
+
+.amadex-price-bar-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.amadex-price-bar-close:hover {
+    color: #0E7D3F;
+}
+
+.amadex-price-bar-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.amadex-price-bar-breakdown {
+    padding: 20px;
+}
+
+.amadex-price-bar-breakdown .amadex-price-breakdown {
+    background: #FDFEFE;
+    border: 1px solid #E5F1E8;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.amadex-price-bar-breakdown .amadex-price-row {
+    padding: 10px 0;
+    border-bottom: 1px dashed #E8ECE9;
+}
+
+.amadex-price-bar-breakdown .amadex-price-row:last-child {
+    border-bottom: none;
+}
+
+.amadex-addons-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.amadex-addon-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 20px;
+    border: 2px solid #E4EDE3;
+    border-radius: 16px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.amadex-addon-card:hover {
+    border-color: #0E7D3F;
+    box-shadow: 0 2px 8px rgba(14, 125, 63, 0.1);
+}
+
+.amadex-addon-card.is-selected {
+    border-color: #0E7D3F;
+    background: #F0F9F4;
+}
+
+.amadex-addon-checkbox {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.amadex-addon-checkbox input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #0E7D3F;
+}
+
+.amadex-addon-content {
+    flex: 1;
+}
+
+.amadex-addon-title {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+}
+
+.amadex-addon-description {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.amadex-addon-price {
+    flex-shrink: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0E7D3F;
+}
+
+.amadex-addons-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.amadex-review-section {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.amadex-review-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.amadex-review-section>h4 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #000;
+    display: inline-block;
+    padding-right: 60px;
+}
+
+.amadex-review-section>div[id*="-content"] {
+    margin-top: 0;
+}
+
+.amadex-review-section>div[id*="-content"] p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.amadex-review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.amadex-review-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #E8ECE9;
+}
+
+.amadex-review-list li:last-child {
+    border-bottom: none;
+}
+
+.amadex-review-list li strong {
+    font-weight: 600;
+    color: #000;
+    font-size: 14px;
+}
+
+.amadex-review-list li span {
+    color: #666;
+    font-size: 14px;
+}
+
+.amadex-review-edit-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.amadex-review-edit-link a {
+    color: #0E7D3F;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+.amadex-review-edit-link a:hover {
+    color: #073F20;
+    text-decoration: underline;
+}
+
+.amadex-step-link {
+    color: #0E7D3F;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.amadex-step-link:hover {
+    color: #073F20;
+    text-decoration: underline;
+}
+
+button#amadex-price-bar-toggle-expanded {
+    display: none;
+}
+
+.amadex-payment-logo-mobile {
+    display: none;
+}
+
+li.amadex-review-passenger-item {
+    padding: 0;
+    gap: 10px !important;
+    display: block;
+}
+
+div#amadex-review-passengers-content {
+    border: 1px solid #E4EDE3;
+    border-radius: 15px;
+    padding: 10px 15px;
+    background: #eef9f2;
+}
+
+.amadex-review-passenger-details {
+    font-size: 14px;
+}
+
+.amadex-se-hero,
+.amadex-se-protected,
+.amadex-se-teaser,
+p.amadex-se-skip-ok,
+.amadex-se-badge,
+.amadex-se-route-mini,
+.amadex-se-popular,
+.amadex-se-finding,
+.amadex-se-select-strip {
+    display: none !important;
+}
+
+.close_amadex_form {
+    display: none;
+}
+
+@supports (padding: max(0px)) {
+    .amadex-mobile-price-bar {
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .amadex-price-bar-compact {
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+
+@supports not (backdrop-filter: blur(4px)) {
+    .amadex-booking-processing-overlay {
+        background: rgba(0, 0, 0, 0.9);
+    }
+}
+
+@keyframes amadex-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes timerRefreshPulse {
+
+    0%,
+    100% {
+        box-shadow: 0px 0px 15px #00000029;
+    }
+
+    50% {
+        box-shadow: 0px 0px 20px rgba(14, 125, 63, 0.3);
+    }
+}
+
+
+@keyframes amadexGreenPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(14, 125, 63, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 20px 20px rgba(14, 125, 63, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(14, 125, 63, 0);
+    }
+}
+
+
+@keyframes priceShimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+@keyframes pricePulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.02);
+    }
+}
