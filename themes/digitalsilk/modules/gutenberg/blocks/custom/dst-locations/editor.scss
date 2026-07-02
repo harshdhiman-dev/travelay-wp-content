@@ -1,0 +1,65 @@
+/* Block editor — live preview polish */
+
+.block-editor-block-list__block .tl-locations--preview {
+	pointer-events: auto;
+}
+
+.block-editor-block-list__block .tl-locations--preview .tl-detail {
+	position: relative;
+	transform: none;
+	max-height: none;
+	margin-top: 1rem;
+	box-shadow: var(--tl-shadow);
+	border-radius: var(--tl-radius);
+}
+
+.block-editor-block-list__block .tl-locations--preview .tl-detail[hidden] {
+	display: none !important;
+}
+
+.block-editor-block-list__block .tl-locations--preview .tl-hero__tools--sticky {
+	position: relative;
+}
+
+.acf-block-preview .tl-locations {
+	min-height: 120px;
+}
+
+.acf-block-preview .tl-map {
+	min-height: 240px !important;
+	height: 240px !important;
+}
+
+/* Mirror desktop scrollable list in editor preview */
+@media (min-width: 768px) {
+	.acf-block-preview .tl-explorer__mobile-bar {
+		display: none;
+	}
+
+	.acf-block-preview .tl-panel__header {
+		display: block;
+	}
+
+	.acf-block-preview .tl-panel {
+		max-height: var(--tl-map-height, 560px);
+	}
+
+	.acf-block-preview .tl-panel__list {
+		max-height: none;
+		overflow-y: auto;
+	}
+}
+
+.acf-block-body .tl-locations--preview::before {
+	content: 'Travelay Locations — live preview';
+	display: block;
+	margin-bottom: 0.75rem;
+	padding: 0.4rem 0.75rem;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #0e7d3f;
+	background: #f3f8f5;
+	border-radius: 4px;
+}

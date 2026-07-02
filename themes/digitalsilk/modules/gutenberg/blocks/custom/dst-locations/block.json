@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ds-blocks/locations",
+	"title": "DST Locations Explorer",
+	"category": "ds-layouts",
+	"icon": "location-alt",
+	"description": "Interactive airport location finder with map, search, country & service filters, and terminal details.",
+	"example": {},
+	"attributes": {
+		"heading": {
+			"type": "string",
+			"default": "Find a Travelay™ Counter Near You"
+		},
+		"showDepartureBoard": { "type": "boolean", "default": true },
+		"showGlobe":          { "type": "boolean", "default": true },
+		"showSearch":         { "type": "boolean", "default": true },
+		"showFilters":        { "type": "boolean", "default": true },
+		"showServiceFilters": { "type": "boolean", "default": true },
+		"showMapDirections":  { "type": "boolean", "default": true },
+		"showWhatsapp":       { "type": "boolean", "default": true },
+		"whatsappNumber":     { "type": "string",  "default": "18885262920" },
+		"showStats":          { "type": "boolean", "default": true },
+		"showMap":            { "type": "boolean", "default": true },
+		"showCta":            { "type": "boolean", "default": true },
+		"defaultPhone":       { "type": "string",  "default": "+1 877 721 0410" },
+		"ctaUrl":             { "type": "string",  "default": "/" },
+		"ctaTitle":           { "type": "string",  "default": "Can't find a counter nearby?" },
+		"ctaText":            { "type": "string",  "default": "Our TravelayGents™ answer in two rings — book by phone, chat, or online from anywhere." },
+		"mobileDefaultView":  { "type": "string",  "default": "list" },
+		"mobileMapHeight":    { "type": "number",  "default": 55 },
+		"stickySearch":       { "type": "boolean", "default": true },
+		"cardDensity":        { "type": "string",  "default": "comfortable" },
+		"mapHeightDesktop":   { "type": "number",  "default": 560 },
+		"heroImage": {
+			"type": "object",
+			"default": { "id": "", "url": "", "alt": "" }
+		}
+	},
+	"supports": {
+		"html": false,
+		"anchor": true
+	},
+	"textdomain": "dstheme",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}
