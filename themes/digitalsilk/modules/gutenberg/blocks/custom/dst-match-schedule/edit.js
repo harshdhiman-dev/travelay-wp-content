@@ -54,8 +54,9 @@ export const BlockEdit = (props) => {
 		defaultOriginName,
 	} = attributes;
 
-	const [activeStage, setActiveStage] = useState(defaultStage);
-	const [activeCountry, setActiveCountry] = useState(defaultCountry);
+	const [activeStage, setActiveStage]       = useState(defaultStage);
+	const [activeCountry, setActiveCountry]   = useState(defaultCountry);
+	const [openCardMeta, setOpenCardMeta]     = useState({});
 
 	const bgImageUrl = background?.image?.url || '';
 	const bgColor = background?.bgColor || '#6b9c3f';
@@ -493,7 +494,18 @@ export const BlockEdit = (props) => {
 											</span>
 										</div>
 
-										<div className="c-match-schedule__card-meta">
+										<div className="c-match-schedule__card-meta-toggle">
+											<button
+												type="button"
+												className="c-match-schedule__card-meta-btn"
+												onClick={ () => setOpenCardMeta( prev => ({ ...prev, [index]: !prev[index] }) ) }
+												title={ __( 'Match settings', 'dstheme' ) }
+											>
+												<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" strokeWidth="1.8"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" stroke="currentColor" strokeWidth="1.8"/></svg>
+												{ openCardMeta[index] ? __( 'Hide settings', 'dstheme' ) : __( 'Edit settings', 'dstheme' ) }
+											</button>
+											{ openCardMeta[index] && (
+												<div className="c-match-schedule__card-meta">
 											<TextControl
 												__next40pxDefaultSize
 												__nextHasNoMarginBottom
@@ -569,6 +581,8 @@ export const BlockEdit = (props) => {
 												placeholder="https://"
 												onChange={(value) => updateMatch(index, 'link', value)}
 											/>
+												</div>
+											) }
 										</div>
 									</div>
 								))}
