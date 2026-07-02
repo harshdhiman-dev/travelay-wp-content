@@ -116,11 +116,11 @@
 		align-items: center;
 		gap: 8px;
 		padding: 2px 16px;
-		border: 2px solid #000000;
+		border: 2px solid #000000 !important;
 		border-radius: 8px;
 		font-size: 1.25rem;
 		font-weight: 500;
-		color: #1a1a1a;
+		color: #000000 !important;
 		text-decoration: none;
 		background: #fff;
 		transition: opacity .2s;
@@ -153,8 +153,24 @@
 		}
 
 		&__grid {
-			grid-template-columns: 1fr !important;
+			display: flex;
+			flex-wrap: nowrap;
 			gap: 16px;
+			overflow-x: auto;
+			overflow-y: hidden;
+			-webkit-overflow-scrolling: touch;
+			scroll-snap-type: x mandatory;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+
+			scrollbar-width: none;
+
+			>* {
+				flex: 0 0 280px; // or 85%, 90%, etc.
+				scroll-snap-align: start;
+			}
 		}
 	}
 }
