@@ -22,7 +22,7 @@ if ( ! defined( 'DS_THEME_BLOCK_DIST_DIR' ) ) {
  * Main theme functionality
  */
 require_once 'core/theme-setup.php';
-require_once get_template_directory() . '/core/travelay-location-cpt.php';
+
 /**
  * Project Customizations
  */
@@ -35,10 +35,3 @@ require_once 'extend/custom-setup.php';
 if ( class_exists( 'woocommerce' ) ) {
 	include_once 'core/woocommerce/woocommerce-setup.php';
 }
-
-add_action( 'wp_footer', function() {
-    if ( has_block( 'ds-blocks/locations' ) ) {
-        wp_enqueue_script( 'maplibre-gl', 'https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js', [], '4.7.1', true );
-        wp_enqueue_script( 'dst-locations-view', get_template_directory_uri() . '/build/react/blocks/custom/dst-locations/view.js', ['maplibre-gl'], '1.0', true );
-    }
-});
