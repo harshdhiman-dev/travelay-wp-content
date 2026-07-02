@@ -41,7 +41,7 @@ $overlay_opacity = (float) ( $background['overlayOpacity'] ?? 0 ) / 100;
 $anchor      = ! empty( $attributes['anchor'] ) ? $attributes['anchor'] : '';
 $anchor_attr = ! empty( $anchor ) ? ' id="' . esc_attr( $anchor ) . '"' : '';
 
-$unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $matches ) ), 0, 8 );
+$unique_id = 'dst-match-schedule-' . substr( md5( $heading ), 0, 8 );
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icons/7.2.3/css/flag-icons.min.css">
@@ -54,6 +54,8 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 	data-flight-results-page="<?php echo esc_attr( $flight_results_page ); ?>"
 	data-default-origin-iata="<?php echo esc_attr( $default_origin_iata ); ?>"
 	data-default-origin-name="<?php echo esc_attr( $default_origin_name ); ?>"
+	data-default-stage="<?php echo esc_attr( $default_stage ); ?>"
+	data-default-country="<?php echo esc_js( $default_country ); ?>"
 >
 	<?php if ( ! empty( $bg_image_url ) ) : ?>
 		<img
@@ -209,8 +211,8 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 	var defaultOriginIata = root.getAttribute('data-default-origin-iata') || '';
 	var defaultOriginName = root.getAttribute('data-default-origin-name') || '';
 
-	var activeStage   = '<?php echo esc_js( $default_stage ); ?>';
-	var activeCountry = '<?php echo esc_js( $default_country ); ?>';
+	var activeStage   = root.getAttribute('data-default-stage')   || 'group-stage';
+	var activeCountry = root.getAttribute('data-default-country') || 'all-countries';
 
 	// ── Filter logic ─────────────────────────────────────────────────
 	function applyFilter() {
