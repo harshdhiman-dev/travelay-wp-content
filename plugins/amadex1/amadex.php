@@ -44,6 +44,17 @@ function amadex_enqueue_custom_css() {
     );
 }
 
+// function amadex_enqueue_custom_css() {
+//     if ( isset($_GET['postId']) || isset($_GET['postType']) ) return;
+//     if ( isset($_GET['canvas']) ) return;
+//     wp_enqueue_style(
+//         'amadex-custom-style',
+//         AMADEX_URL . 'assets/css/amadex-custom.css',
+//         array(),
+//         filemtime(AMADEX_PATH . 'assets/css/amadex-custom.css')
+//     );
+// }
+
 add_action('enqueue_block_editor_assets', function() {
     define('AMADEX_BLOCK_EDITOR_ACTIVE', true);
 }, 1);
