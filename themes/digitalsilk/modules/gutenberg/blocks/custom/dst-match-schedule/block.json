@@ -62,6 +62,18 @@
 			"type": "string",
 			"default": "#1f7a4d"
 		},
+		"flightResultsPage": {
+			"type": "string",
+			"default": "/flight-results/"
+		},
+		"defaultOriginIata": {
+			"type": "string",
+			"default": ""
+		},
+		"defaultOriginName": {
+			"type": "string",
+			"default": ""
+		},
 		"matches": {
 			"type": "array",
 			"default": [
@@ -70,39 +82,51 @@
 					"country": "usa",
 					"stadium": "Sofi Stadium, Inglewood",
 					"groupLabel": "GROUP D",
-					"teamAFlag": "🇺🇸",
+					"teamAFlag": "us",
 					"teamAName": "USA",
 					"teamBFlag": "py",
 					"teamBName": "PARAGUAY",
 					"date": "12 June, Friday",
 					"time": "9:00 PM ET",
-					"link": "#"
+					"link": "#",
+					"destinationIata": "LAX",
+					"destinationName": "Los Angeles",
+					"originIata": "",
+					"originName": ""
 				},
 				{
 					"stage": "group-stage",
 					"country": "usa",
 					"stadium": "Levi's Stadium, Santa Clara",
 					"groupLabel": "GROUP J",
-					"teamAFlag": "🇦🇹",
+					"teamAFlag": "at",
 					"teamAName": "AUSTRIA",
-					"teamBFlag": "🇯🇴",
+					"teamBFlag": "jo",
 					"teamBName": "JORDAN",
 					"date": "12 June, Friday",
 					"time": "9:00 PM ET",
-					"link": "#"
+					"link": "#",
+					"destinationIata": "SJC",
+					"destinationName": "San Jose",
+					"originIata": "",
+					"originName": ""
 				},
 				{
 					"stage": "group-stage",
 					"country": "usa",
 					"stadium": "Levi's Stadium, Santa Clara",
 					"groupLabel": "GROUP J",
-					"teamAFlag": "🇦🇹",
+					"teamAFlag": "at",
 					"teamAName": "AUSTRIA",
-					"teamBFlag": "🇯🇴",
+					"teamBFlag": "jo",
 					"teamBName": "JORDAN",
 					"date": "12 June, Friday",
 					"time": "9:00 PM ET",
-					"link": "#"
+					"link": "#",
+					"destinationIata": "SJC",
+					"destinationName": "San Jose",
+					"originIata": "",
+					"originName": ""
 				}
 			]
 		}

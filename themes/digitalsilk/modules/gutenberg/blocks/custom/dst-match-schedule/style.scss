@@ -243,18 +243,23 @@
 		display: inline-block;
 		background: #1f7a4d;
 		color: #fff;
-		font-size: 14px;
+		font-size: 1.2rem;
 		font-weight: 600;
 		padding: 9px 18px;
-		border-radius: 10px;
+		border-radius: 30px;
 		text-decoration: none;
 		white-space: nowrap;
+		border: none;
+		cursor: pointer;
 		transition: opacity .2s;
-		min-width: 52%;
-		text-align: center;
 
 		&:hover {
 			opacity: .88;
+		}
+
+		&:disabled {
+			opacity: .6;
+			cursor: wait;
 		}
 	}
 

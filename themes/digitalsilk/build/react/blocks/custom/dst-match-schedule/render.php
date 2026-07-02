@@ -15,8 +15,11 @@ $stages          = ( ! empty( $attributes['stages'] )    && is_array( $attribute
 $countries       = ( ! empty( $attributes['countries'] ) && is_array( $attributes['countries'] ) ) ? $attributes['countries'] : [];
 $default_stage   = $attributes['defaultStage']   ?? 'group-stage';
 $default_country = $attributes['defaultCountry'] ?? 'all-countries';
-$cta_text        = $attributes['ctaText']  ?? 'Find Flights';
-$cta_color       = $attributes['ctaColor'] ?? '#1f7a4d';
+$cta_text             = $attributes['ctaText']           ?? 'Find Flights';
+$cta_color            = $attributes['ctaColor']          ?? '#1f7a4d';
+$flight_results_page  = $attributes['flightResultsPage'] ?? '/flight-results/';
+$default_origin_iata  = $attributes['defaultOriginIata'] ?? '';
+$default_origin_name  = $attributes['defaultOriginName'] ?? '';
 $matches         = ( ! empty( $attributes['matches'] ) && is_array( $attributes['matches'] ) ) ? $attributes['matches'] : [];
 
 $background = wp_parse_args(
@@ -47,6 +50,10 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 	id="<?php echo esc_attr( $unique_id ); ?>"
 	class="c-match-schedule wp-block-ds-blocks-match-schedule"
 	style="background-color:<?php echo esc_attr( $bg_color ); ?>;"
+	data-items-per-page="<?php echo esc_attr( $items_per_page ); ?>"
+	data-flight-results-page="<?php echo esc_attr( $flight_results_page ); ?>"
+	data-default-origin-iata="<?php echo esc_attr( $default_origin_iata ); ?>"
+	data-default-origin-name="<?php echo esc_attr( $default_origin_name ); ?>"
 >
 	<?php if ( ! empty( $bg_image_url ) ) : ?>
 		<img
@@ -163,13 +170,18 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 									<span class="c-match-schedule__date"><?php echo esc_html( $date ); ?></span>
 									<span class="c-match-schedule__time">Time: <?php echo esc_html( $time ); ?></span>
 								</div>
-								<a
-									href="<?php echo esc_url( $link ); ?>"
-									class="c-match-schedule__cta"
+								<button
+									type="button"
+									class="c-match-schedule__cta c-match-schedule__find-flights"
 									style="background-color:<?php echo esc_attr( $cta_color ); ?>;"
+									data-destination-iata="<?php echo esc_attr( $match['destinationIata'] ?? '' ); ?>"
+									data-destination-name="<?php echo esc_attr( $match['destinationName'] ?? '' ); ?>"
+									data-origin-iata="<?php echo esc_attr( $match['originIata'] ?? '' ); ?>"
+									data-origin-name="<?php echo esc_attr( $match['originName'] ?? '' ); ?>"
+									data-date="<?php echo esc_attr( $date ); ?>"
 								>
 									<?php echo esc_html( $cta_text ); ?>
-								</a>
+								</button>
 							</div>
 						</div>
 					<?php endforeach; ?>
@@ -189,14 +201,18 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 	var root = document.getElementById('<?php echo esc_js( $unique_id ); ?>');
 	if (!root) return;
 
-	var stageBtns   = root.querySelectorAll('.c-match-schedule__stage-btn');
-	var countryTabs = root.querySelectorAll('.c-match-schedule__tab');
-	var cards       = root.querySelectorAll('.c-match-schedule__card');
-	var emptyMsg    = root.querySelector('.c-match-schedule__empty');
+	var stageBtns        = root.querySelectorAll('.c-match-schedule__stage-btn');
+	var countryTabs      = root.querySelectorAll('.c-match-schedule__tab');
+	var cards            = root.querySelectorAll('.c-match-schedule__card');
+	var emptyMsg         = root.querySelector('.c-match-schedule__empty');
+	var flightResultsPage = root.getAttribute('data-flight-results-page') || '/flight-results/';
+	var defaultOriginIata = root.getAttribute('data-default-origin-iata') || '';
+	var defaultOriginName = root.getAttribute('data-default-origin-name') || '';
 
 	var activeStage   = '<?php echo esc_js( $default_stage ); ?>';
 	var activeCountry = '<?php echo esc_js( $default_country ); ?>';
 
+	// ── Filter logic ─────────────────────────────────────────────────
 	function applyFilter() {
 		var visibleCount = 0;
 		cards.forEach(function(card) {
@@ -210,6 +226,7 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 		});
 		if (emptyMsg) emptyMsg.style.display = visibleCount === 0 ? '' : 'none';
 	}
+
 	stageBtns.forEach(function(btn) {
 		btn.addEventListener('click', function() {
 			var isActive = btn.classList.contains('-active');
@@ -234,5 +251,133 @@ $unique_id = 'dst-match-schedule-' . substr( md5( $heading . wp_json_encode( $ma
 	});
 
 	applyFilter();
+
+	// ── Find Flights logic ────────────────────────────────────────────
+	function parseMatchDate(dateStr) {
+		// e.g. "12 June, Friday" → "2026-06-12"
+		if (!dateStr) return '';
+		var months = { january:'01',february:'02',march:'03',april:'04',may:'05',june:'06',july:'07',august:'08',september:'09',october:'10',november:'11',december:'12' };
+		var clean = dateStr.replace(/,.*$/, '').trim(); // remove ", Friday" part
+		var parts = clean.split(' ');
+		if (parts.length < 2) return '';
+		var day   = parts[0].padStart(2, '0');
+		var month = months[(parts[1] || '').toLowerCase()] || '01';
+		var year  = new Date().getFullYear();
+		return year + '-' + month + '-' + day;
+	}
+
+	function buildFlightUrl(originIata, originName, destinationIata, destinationName, dateStr) {
+		var date = parseMatchDate(dateStr);
+		var params = new URLSearchParams({
+			origin_iata:        originIata,
+			origin_name:        originName || originIata,
+			destination_iata:   destinationIata,
+			destination_name:   destinationName || destinationIata,
+			depart_date:        date,
+			return_date:        '',
+			one_way:            'true',
+			adults:             '1',
+			children:           '0',
+			infants:            '0',
+			trip_type:          'oneway',
+			cabin:              'ECONOMY',
+			language:           'en',
+			lang:               'en',
+		});
+		return flightResultsPage + '?' + params.toString();
+	}
+
+	function getNearestAirport(lat, lng, callback) {
+		// Use api.aviationstack.com free tier or fallback to simple fetch
+		// Using a free no-key endpoint — aviowiki / airportdb
+		var url = 'https://airportdb.io/api/v1/nearest?lat=' + lat + '&lng=' + lng + '&limit=1';
+		fetch(url)
+			.then(function(r) { return r.json(); })
+			.then(function(data) {
+				var airport = (data && data.airports && data.airports[0]) || null;
+				if (airport && airport.iata_code) {
+					callback(airport.iata_code, airport.name || airport.iata_code);
+				} else {
+					callback(null, null);
+				}
+			})
+			.catch(function() { callback(null, null); });
+	}
+
+	function redirectToFlights(btn, originIata, originName) {
+		var destIata  = btn.getAttribute('data-destination-iata') || '';
+		var destName  = btn.getAttribute('data-destination-name') || '';
+		var dateStr   = btn.getAttribute('data-date') || '';
+		if (!destIata) { alert('Destination airport not configured for this match.'); return; }
+		var url = buildFlightUrl(originIata, originName, destIata, destName, dateStr);
+		window.location.href = url;
+	}
+
+	function handleFindFlights(btn) {
+		var originIata = btn.getAttribute('data-origin-iata') || '';
+		var originName = btn.getAttribute('data-origin-name') || '';
+
+		// 1. Match has a specific origin set — use it directly
+		if (originIata) {
+			redirectToFlights(btn, originIata, originName);
+			return;
+		}
+
+		// 2. Try cached geolocation airport from localStorage
+		var cached = localStorage.getItem('amadex_user_airport_iata');
+		if (cached) {
+			redirectToFlights(btn, cached, localStorage.getItem('amadex_user_airport_name') || cached);
+			return;
+		}
+
+		// 3. Try browser geolocation → nearest airport
+		if (navigator.geolocation) {
+			var origText = btn.textContent;
+			btn.textContent = 'Locating…';
+			btn.disabled = true;
+			navigator.geolocation.getCurrentPosition(
+				function(pos) {
+					getNearestAirport(pos.coords.latitude, pos.coords.longitude, function(iata, name) {
+						btn.textContent = origText;
+						btn.disabled = false;
+						if (iata) {
+							localStorage.setItem('amadex_user_airport_iata', iata);
+							localStorage.setItem('amadex_user_airport_name', name);
+							redirectToFlights(btn, iata, name);
+						} else if (defaultOriginIata) {
+							redirectToFlights(btn, defaultOriginIata, defaultOriginName);
+						} else {
+							var manual = prompt('Could not detect your airport. Please enter your origin airport code (e.g. DXB, JFK):');
+							if (manual) redirectToFlights(btn, manual.toUpperCase(), manual.toUpperCase());
+						}
+					});
+				},
+				function() {
+					// Geolocation denied
+					btn.textContent = origText;
+					btn.disabled = false;
+					if (defaultOriginIata) {
+						redirectToFlights(btn, defaultOriginIata, defaultOriginName);
+					} else {
+						var manual = prompt('Please enter your origin airport code (e.g. DXB, JFK):');
+						if (manual) redirectToFlights(btn, manual.toUpperCase(), manual.toUpperCase());
+					}
+				},
+				{ timeout: 6000 }
+			);
+		} else if (defaultOriginIata) {
+			redirectToFlights(btn, defaultOriginIata, defaultOriginName);
+		} else {
+			var manual = prompt('Please enter your origin airport code (e.g. DXB, JFK):');
+			if (manual) redirectToFlights(btn, manual.toUpperCase(), manual.toUpperCase());
+		}
+	}
+
+	root.querySelectorAll('.c-match-schedule__find-flights').forEach(function(btn) {
+		btn.addEventListener('click', function() {
+			handleFindFlights(btn);
+		});
+	});
+
 })();
 </script>
