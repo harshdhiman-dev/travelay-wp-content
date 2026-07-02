@@ -82,7 +82,7 @@ class Amadex_Shortcodes
         wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css', array(), '7.0.1');
         wp_enqueue_style('amadex-flight-results', AMADEX_URL . 'assets/css/amadex-flight-results.css', array('amadex-front'), AMADEX_VERSION);
         wp_enqueue_style('amadex-new-layout', AMADEX_URL . 'assets/css/amadex-new-layout.css', array('amadex-front'), AMADEX_VERSION);
-        // wp_enqueue_style('amadex-booking', AMADEX_URL . 'assets/css/amadex-booking.css', array('amadex-front'), AMADEX_VERSION);
+        wp_enqueue_style('amadex-booking', AMADEX_URL . 'assets/css/amadex-booking.css', array('amadex-front'), AMADEX_VERSION);
         wp_enqueue_style('amadex-deals', AMADEX_URL . 'assets/css/amadex-deals.css', array(), AMADEX_VERSION);
         wp_enqueue_style('amadex-seat-map', AMADEX_URL . 'assets/css/amadex-seat-map.css', array('amadex-booking'), AMADEX_VERSION);
 
